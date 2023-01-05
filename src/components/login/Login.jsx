@@ -2,7 +2,7 @@ import React, { useState } from "react";
 // import { IMAGES } from "../../constants";
 import styled from "styled-components";
 import { api } from "../../core/api";
-import { useCookies } from "react-cookie";
+// import { useCookies } from "react-cookie";
 
 const Login = () => {
   const [loginInfo, setLoginInfo] = useState({
@@ -25,36 +25,21 @@ const Login = () => {
     // setLoginInfo({ ...loginInfo, [name]: value });
     // console.log(loginInfo);
   };
-  console.log(loginInfo);
+
   const submitHandler = async (e) => {
     if (loginInfo.email === "" || loginInfo.password === "") {
       alert("이메일과 비밀번호를 모두 입력해주세요!");
     } else {
-      // try{
-      //   const {headers,data} = await api.postLoginApi(loginInfo)
-      //   console.log(headers)
-      //   if(headers.code === 200){
-      //     return (
-      //     )
-      //   }
-      // }
+      try {
+        const { headers, data } = await api.postLoginApi(loginInfo);
+        console.log(headers, data);
+        if (headers.code === 200) {
+          return localStorage.setItem("authorization", headers.authorization);
+        }
+      } catch (error) {
+        alert(error.response.data.msg);
+      }
     }
-
-    // if (loginInfo.email && loginInfo.password) {
-    //   try {
-    //     const { headers, data } = await instance.post(`/auth/login`, loginInfo);
-    //     if (data.code === 200) {
-    //       return (
-    //         localStorage.setItem("authorization", headers.authorization),
-    //         navigate("/main")
-    //       );
-    //     }
-    //   } catch (error) {
-    //     alert(error.response.data.msg);
-    //   }
-    // } else {
-    //   alert("아이디, 비밀번호를 모두 입력해주세요!");
-    // }
   };
 
   return (
@@ -71,13 +56,14 @@ const Login = () => {
       <StInputForm>
         <label>비밀번호</label>
         <input
+          maxlength="13"
           name="password"
           type="password"
           value={loginInfo.password}
           onChange={changeHandler}
         />
       </StInputForm>
-      <button>로그인</button>
+      <button onClick={submitHandler}>로그인</button>
     </StContainer>
   );
 };
@@ -90,11 +76,28 @@ const StContainer = styled.div`
   align-items: center;
   flex-direction: column;
 
-  gap: 3rem;
-  height: 50rem;
+  gap: 2rem;
+  height: 30rem;
+  max-width: 600px;
+  margin: 50px auto 0;
+  background: #fff;
+  border: 4px solid #d8d9de;
+  border-radius: 10px;
+
+  button {
+    width: 100px;
+    height: 30px;
+    border-radius: 10px;
+    background-color: #fff;
+  }
 `;
 
 const StInputForm = styled.div`
   display: flex;
   flex-direction: column;
+  input {
+    width: 400px;
+    height: 30px;
+    border-radius: 10px;
+  }
 `;
