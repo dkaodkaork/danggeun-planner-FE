@@ -1,6 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+
+//api import
+import { __getCalendar } from "../../redux/modules/calendarSlice.js";
+
+//컴포넌트 Import
 import Header from "../header/Header";
+import TodayBtn from "./style/TodayBtn";
 
 //캘린더 라이브러리 관련 import
 import Calendar from "react-calendar";
@@ -13,12 +20,32 @@ import { ReactComponent as PreviousArrow } from "../../assets/images/calendar/pr
 import { ReactComponent as NextArrow } from "../../assets/images/calendar/next_month.svg";
 
 const CalendarGet = () => {
-  const [value, onChange] = useState(new Date());
+  const dispatch = useDispatch();
+  const GetCalendarData = useSelector((state) => state.calendarSlice.data);
 
-  const mark1 = ["11-01-2023", "01-01-2023", "01-02-2023"];
-  const mark2 = ["2023-01-12", "2023-01-15", "2023-01-19"];
-  const mark3 = ["2022-01-22", "2022-01-25", "2022-01-29"];
-  const mark4 = ["2022-01-04", "2022-01-14", "2022-01-24"];
+  const [value, setValue] = useState(new Date());
+
+  const todayYear = moment().format("YYYY");
+  const todayMonth = moment().format("MM");
+
+  console.log(GetCalendarData);
+  console.log(GetCalendarData?.stage1);
+
+  useEffect(() => {
+    dispatch(__getCalendar({ todayYear, todayMonth }));
+  }, []);
+
+  const mark1 = GetCalendarData.state1;
+  const mark2 = ["2022-01-04", "2022-01-14", "2022-01-24"];
+  const mark3 = GetCalendarData.state3;
+  //const mark4 = ["2022-01-04", "2022-01-14", "2022-01-24"];
+
+  console.log("value", value);
+
+  const onClickToday = () => {
+    setValue(new Date());
+    //setValue(new Date());
+  };
 
   return (
     <>
@@ -27,32 +54,50 @@ const CalendarGet = () => {
         <ProfileLayout>
           <Profile />
         </ProfileLayout>
-        <NickName>닉네임</NickName>
+        <NickName>{GetCalendarData.username}</NickName>
         <MonthlyGet>
-          닉네임님의 이번주 평균 수확량은 <strong>7</strong>
+          {GetCalendarData.username}님의 이번주 평균 수확량은
+          <strong>{GetCalendarData.monthlyAverageCarrot}</strong>
           개입니다
         </MonthlyGet>
-        <Calendar
-          onChange={onChange}
-          value={value}
-          calendarType="US" //요일을 일요일부터 시작하게
-          formatDay={(locale, date) =>
-            date.toLocaleString("en", { day: "numeric" })
-          } //'일'글자 제거
-          formatShortWeekday={(locale, date) =>
-            ["S", "M", "T", "W", "T", "F", "S"][date.getDay()]
-          } //요일 표시 수정
-          nextLabel={<NextArrow />}
-          prevLabel={<PreviousArrow />}
-          next2Label={null} //년 이동 삭제
-          prev2Label={null} //년 이동 삭제
-          //해당 잔디 색깔 표시하기
-          tileClassName={({ date, view }) => {
-            if (mark2.find((x) => x === moment(date).format("YYYY-MM-DD"))) {
-              return "state2";
+        <CalendarLayout>
+          <TodayBtn />
+          <button onClick={onClickToday}>하이</button>
+          <Calendar
+            onChange={setValue}
+            value={value}
+            nextLabel={<NextArrow />}
+            prevLabel={<PreviousArrow />}
+            next2Label={null} //년 이동 삭제
+            prev2Label={null} //년 이동 삭제
+            calendarType="US" //요일을 일요일부터 시작하게
+            formatDay={(locale, date) =>
+              date.toLocaleString("en", { day: "numeric" })
+            } //'일'글자 제거
+            formatShortWeekday={(locale, date) =>
+              ["S", "M", "T", "W", "T", "F", "S"][date.getDay()]
+            } //요일 표시 수정
+            // 년도를 클릭해서 월로 바로 이동할 때 호출되는 함수
+            onViewChange={({ action, activeStartDate, value, view }) =>
+              console.log("New activeStartDate is: ", activeStartDate)
             }
-          }}
-        />
+            // 이전,다음 버튼 사용할 때 호출되는 함수
+            onActiveStartDateChange={({
+              action,
+              activeStartDate,
+              value,
+              view,
+            }) => console.log("Changed view to: ", value)}
+            //하루를 클릭할 때 호출되는 함수
+            onClickDay={(value, event) => console.log("이동 가능?")}
+            //해당 잔디 색깔 표시하기
+            tileClassName={({ date, view }) => {
+              if (mark1?.find((x) => x === moment(date).format("YYYY-MM-DD"))) {
+                return "state2";
+              }
+            }}
+          />
+        </CalendarLayout>
       </CalendarStyle>
     </>
   );
@@ -65,6 +110,7 @@ export const CalendarStyle = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 758px; //812px에서 헤더 54px을 뺀 값을 줘야 스크롤이 안생김
 `;
 
 export const ProfileLayout = styled.div`
@@ -90,4 +136,12 @@ export const MonthlyGet = styled.p`
     color: #f27808;
     padding: 0 2px 0 2px;
   }
+`;
+
+export const CalendarLayout = styled.div`
+  margin-top: 33px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
 `;
