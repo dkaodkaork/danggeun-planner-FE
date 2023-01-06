@@ -1,33 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { isValidEmail, isValidPassword } from ".";
+import { isValidEmail, isValidPassword, messages } from ".";
 import { api } from "../../core/api";
 
 const SignUp = () => {
   const navigate = useNavigate();
+
   const [signUpInfo, setSignUpInfo] = useState({
     email: "",
     password: "",
-    passwordCheck: "",
+    checkPassword: "",
   });
 
   const [emailError, setEmailError] = useState(false);
   const [pwdError, setPwdError] = useState(false);
-  const [pwdCheckError, setPwdCheckError] = useState(false);
-  // const [formCheckError, setFormCheckError] = useState(true);
+  const [checkPwdError, setCheckPwdError] = useState(false);
 
   useEffect(() => {
-    console.log("aaaaaa");
-    setPwdCheckError(!(signUpInfo.password === signUpInfo.passwordCheck));
-    // setFormCheckError()
-  }, [signUpInfo.passwordCheck]);
+    setCheckPwdError(!(signUpInfo.password === signUpInfo.checkPassword));
+  }, [signUpInfo.password, signUpInfo.checkPassword, signUpInfo.email]);
 
   const changeEmailHandler = (e) => {
     const { name, value } = e.target;
     setSignUpInfo({ ...signUpInfo, [name]: value });
-    if (value === "" || isValidEmail(value)) {
-      // input 값이 공백이거나  이메일 형식이 false이면 emailError가 false , input 값이 공백이 아니거나 isvalid
+    if (isValidEmail(value)) {
       setEmailError(false);
     } else {
       setEmailError(true);
@@ -37,25 +34,20 @@ const SignUp = () => {
   const changePwdHandler = (e) => {
     const { name, value } = e.target;
     setSignUpInfo({ ...signUpInfo, [name]: value });
-
-    if (value === "" || isValidPassword(value)) {
+    if (isValidPassword(value)) {
       setPwdError(false);
     } else {
       setPwdError(true);
     }
   };
 
-  const changePwdCheckHandler = (e) => {
+  const changecheckPwdHandler = (e) => {
     const { name, value } = e.target;
     setSignUpInfo({ ...signUpInfo, [name]: value });
-
-    if (value === "") {
-      setPwdCheckError(false);
-    }
   };
 
   const submitHandler = async (e) => {
-    if (signUpInfo.email && signUpInfo.password && signUpInfo.passwordCheck) {
+    if (signUpInfo.email && signUpInfo.password && signUpInfo.checkPassword) {
       try {
         const { headers, data } = await api.postSignUpApi({
           email: signUpInfo.email,
@@ -85,36 +77,41 @@ const SignUp = () => {
           value={signUpInfo.email}
           onChange={changeEmailHandler}
         />
-        {emailError && <span>올바른 이메일 형식으로 작성해주세요.</span>}
+        {emailError && signUpInfo.email !== "" && messages.emailInvalidMsg}
       </StInputForm>
       <StInputForm>
         <label>비밀번호</label>
         <input
-          maxlength="13"
+          maxLength="13"
           name="password"
           type="password"
           value={signUpInfo.password}
           onChange={changePwdHandler}
         />
-        {pwdError && (
-          <span>
-            영문, 숫자, 특수문자가 모두 포함된 8~13자리로 작성해주세요.
-          </span>
-        )}
+        {pwdError && signUpInfo.password !== "" && messages.pwdInvalidMsg}
       </StInputForm>
       <StInputForm>
         <label>비밀번호 확인</label>
         <input
-          maxlength="13"
-          name="passwordCheck"
+          maxLength="13"
+          name="checkPassword"
           type="password"
-          value={signUpInfo.passwordCheck}
-          onChange={changePwdCheckHandler}
+          value={signUpInfo.checkPassword}
+          onChange={changecheckPwdHandler}
         />
-        {pwdCheckError && <span>비밀번호가 일치하지 않습니다.</span>}
+        {checkPwdError &&
+          signUpInfo.checkPassword !== "" &&
+          messages.checkPwdInvalidMsg}
       </StInputForm>
       <button
-        disabled={emailError && pwdError && pwdCheckError}
+        disabled={
+          signUpInfo.email === "" ||
+          signUpInfo.password === "" ||
+          signUpInfo.checkPassword === "" ||
+          emailError ||
+          pwdError ||
+          checkPwdError
+        }
         onClick={submitHandler}
       >
         회원가입
@@ -150,7 +147,7 @@ const StInputForm = styled.div`
   display: flex;
   flex-direction: column;
   input {
-    width: 400px;
+    width: 375px;
     height: 30px;
     border-radius: 10px;
   }

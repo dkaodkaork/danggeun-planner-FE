@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-// import { IMAGES } from "../../constants";
 import styled from "styled-components";
 import { api } from "../../core/api";
-// import { useCookies } from "react-cookie";
+import { setCookies } from "../../core/cookieControler";
 
 const Login = () => {
   const [loginInfo, setLoginInfo] = useState({
@@ -22,8 +21,6 @@ const Login = () => {
       default:
         return;
     }
-    // setLoginInfo({ ...loginInfo, [name]: value });
-    // console.log(loginInfo);
   };
 
   const submitHandler = async (e) => {
@@ -34,7 +31,11 @@ const Login = () => {
         const { headers, data } = await api.postLoginApi(loginInfo);
         console.log(headers, data);
         if (headers.code === 200) {
-          return localStorage.setItem("authorization", headers.authorization);
+          // return localStorage.setItem("authorization", headers.authorization);
+          return setCookies("authorization", headers.authorization, {
+            path: "/",
+            maxAge: 36000,
+          });
         }
       } catch (error) {
         alert(error.response.data.msg);
