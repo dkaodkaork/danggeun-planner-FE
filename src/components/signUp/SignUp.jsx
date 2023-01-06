@@ -130,7 +130,7 @@ const StContainer = styled.div`
 
   gap: 2rem;
   height: 30rem;
-  max-width: 600px;
+  max-width: 350px;
   margin: 50px auto 0;
   background: #fff;
   border: 4px solid #d8d9de;
@@ -141,6 +141,7 @@ const StContainer = styled.div`
     height: 30px;
     border-radius: 10px;
     background-color: #fff;
+    border: 1px solid black;
   }
 `;
 
@@ -148,8 +149,9 @@ const StInputForm = styled.div`
   display: flex;
   flex-direction: column;
   input {
-    width: 375px;
+    width: 345px;
     height: 30px;
     border-radius: 10px;
+    border: 1px solid black;
   }
 `;
