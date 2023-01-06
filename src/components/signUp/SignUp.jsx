@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { isValidEmail, isValidPassword, messages } from ".";
+import { isValidEmail, isValidPassword } from "./func";
 import { api } from "../../core/api";
+import { MSG } from "../../constants/messages";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -63,7 +64,7 @@ const SignUp = () => {
         alert("11");
       }
     } else {
-      alert("이메일과, 비밀번호를 모두 입력해주세요!");
+      alert(MSG.formInvalidMsg);
     }
   };
 
@@ -77,7 +78,7 @@ const SignUp = () => {
           value={signUpInfo.email}
           onChange={changeEmailHandler}
         />
-        {emailError && signUpInfo.email !== "" && messages.emailInvalidMsg}
+        {emailError && signUpInfo.email !== "" && MSG.emailInvalidMsg}
       </StInputForm>
       <StInputForm>
         <label>비밀번호</label>
@@ -88,7 +89,7 @@ const SignUp = () => {
           value={signUpInfo.password}
           onChange={changePwdHandler}
         />
-        {pwdError && signUpInfo.password !== "" && messages.pwdInvalidMsg}
+        {pwdError && signUpInfo.password !== "" && MSG.pwdInvalidMsg}
       </StInputForm>
       <StInputForm>
         <label>비밀번호 확인</label>
@@ -101,7 +102,7 @@ const SignUp = () => {
         />
         {checkPwdError &&
           signUpInfo.checkPassword !== "" &&
-          messages.checkPwdInvalidMsg}
+          MSG.checkPwdInvalidMsg}
       </StInputForm>
       <button
         disabled={

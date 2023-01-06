@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { api } from "../../core/api";
 import { setCookies } from "../../core/cookieControler";
+import { MSG } from "../../constants/messages";
 
 const Login = () => {
   const [loginInfo, setLoginInfo] = useState({
@@ -25,7 +26,7 @@ const Login = () => {
 
   const submitHandler = async (e) => {
     if (loginInfo.email === "" || loginInfo.password === "") {
-      alert("이메일과 비밀번호를 모두 입력해주세요!");
+      alert(MSG.formInvalidMsg);
     } else {
       try {
         const { headers, data } = await api.postLoginApi(loginInfo);
