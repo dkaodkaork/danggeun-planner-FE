@@ -20,6 +20,10 @@ import { ReactComponent as PreviousArrow } from "../../assets/images/calendar/pr
 import { ReactComponent as NextArrow } from "../../assets/images/calendar/next_month.svg";
 
 const CalendarGet = () => {
+  useEffect(() => {
+    dispatch(__getCalendar({ todayYear, todayMonth }));
+  }, []);
+
   const dispatch = useDispatch();
   const GetCalendarData = useSelector((state) => state.calendarSlice.data);
 
@@ -28,23 +32,20 @@ const CalendarGet = () => {
   const todayYear = moment().format("YYYY");
   const todayMonth = moment().format("MM");
 
-  console.log(GetCalendarData);
-  console.log(GetCalendarData?.stage1);
-
-  useEffect(() => {
-    dispatch(__getCalendar({ todayYear, todayMonth }));
-  }, []);
-
-  const mark1 = GetCalendarData.state1;
-  const mark2 = ["2022-01-04", "2022-01-14", "2022-01-24"];
-  const mark3 = GetCalendarData.state3;
-  //const mark4 = ["2022-01-04", "2022-01-14", "2022-01-24"];
-
-  console.log("value", value);
+  const mark1 = GetCalendarData?.stage1;
+  const mark2 = GetCalendarData?.stage2;
+  const mark3 = GetCalendarData?.stage3;
+  const mark4 = GetCalendarData?.stage4;
 
   const onClickToday = () => {
-    setValue(new Date());
-    //setValue(new Date());
+    setValue(new Date(2023, 11));
+  };
+
+  const onClickArrowHandler = ({ action, activeStartDate, value, view }) => {
+    const todayYear = moment(activeStartDate).format("YYYY");
+    const todayMonth = moment(activeStartDate).format("MM");
+    console.log(view);
+    dispatch(__getCalendar({ todayYear, todayMonth }));
   };
 
   return (
@@ -53,16 +54,17 @@ const CalendarGet = () => {
       <CalendarStyle>
         <ProfileLayout>
           <Profile />
+          {/* <img src={GetCalendarData?.profileImage} /> */}
         </ProfileLayout>
-        <NickName>{GetCalendarData.username}</NickName>
+        <NickName>{GetCalendarData?.username}</NickName>
         <MonthlyGet>
-          {GetCalendarData.username}님의 이번주 평균 수확량은
-          <strong>{GetCalendarData.monthlyAverageCarrot}</strong>
+          {GetCalendarData?.username}님의 이번주 평균 수확량은
+          <strong>{GetCalendarData?.monthlyAverageCarrot}</strong>
           개입니다
         </MonthlyGet>
         <CalendarLayout>
           <TodayBtn />
-          <button onClick={onClickToday}>하이</button>
+          <button onClick={onClickToday}>이번달 이동</button>
           <Calendar
             onChange={setValue}
             value={value}
@@ -82,18 +84,22 @@ const CalendarGet = () => {
               console.log("New activeStartDate is: ", activeStartDate)
             }
             // 이전,다음 버튼 사용할 때 호출되는 함수
-            onActiveStartDateChange={({
-              action,
-              activeStartDate,
-              value,
-              view,
-            }) => console.log("Changed view to: ", value)}
+            onActiveStartDateChange={onClickArrowHandler}
             //하루를 클릭할 때 호출되는 함수
             onClickDay={(value, event) => console.log("이동 가능?")}
             //해당 잔디 색깔 표시하기
             tileClassName={({ date, view }) => {
               if (mark1?.find((x) => x === moment(date).format("YYYY-MM-DD"))) {
+                return "state1";
+              }
+              if (mark2?.find((x) => x === moment(date).format("YYYY-MM-DD"))) {
                 return "state2";
+              }
+              if (mark3?.find((x) => x === moment(date).format("YYYY-MM-DD"))) {
+                return "state3";
+              }
+              if (mark4?.find((x) => x === moment(date).format("YYYY-MM-DD"))) {
+                return "state4";
               }
             }}
           />
