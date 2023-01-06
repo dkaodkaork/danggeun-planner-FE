@@ -8,10 +8,26 @@ const GlobalStyles = createGlobalStyle`
   * {
     box-sizing: border-box;
     margin: 0;
+    @font-face {
+    font-family: 'MaplestoryOTFBold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFBold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    }
+    @font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    }
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
     ::-webkit-scrollbar {
-  display: none;
-}
+      display: none;
+    }
+    
   }
+
+ 
 
   body, div, span, h1, h2, h3, h4, h5, h6,
   p, i, ol, ul, li, form, label, header, nav, 
@@ -22,10 +38,6 @@ const GlobalStyles = createGlobalStyle`
     font-weight: normal;
     font-family: 'AppleSDGothicNeo', 'Noto Sans KR', sans-serif;
 
-  }
-
-  body {
-    background-color: #FFF4ED;
   }
 
   a {

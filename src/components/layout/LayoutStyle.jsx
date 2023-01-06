@@ -27,7 +27,8 @@ export const BannerLayout = styled.div`
 
 export const DivLayout = styled.div`
   width: 375px;
-  min-height: 100vh;
+  min-height: 812px;
+  /* min-height: 100vh; */
   height: auto;
 
   position: static;
@@ -38,7 +39,8 @@ export const DivLayout = styled.div`
 `;
 export const DivLayout2 = styled.div`
   width: 375px;
-  min-height: 100vh;
+  min-height: 812px;
+  /* min-height: 100vh; */
   height: auto;
   position: static;
   margin-left: 470px;
@@ -46,15 +48,4 @@ export const DivLayout2 = styled.div`
   display: flex;
   flex-direction: column;
   margin: auto;
-`;
-
-export const Version = styled.div`
-  position: fixed;
-  margin-right: 858px;
-  bottom: 392px;
-  font-size: 12px;
-  font-weight: 300;
-  letter-spacing: 1px;
-
-  color: white;
 `;
