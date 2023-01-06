@@ -5,9 +5,14 @@
   border-radius: 12px;
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.125em;
+  padding: 29px 27px 29px 27px;
 }
 .react-calendar--doubleView {
   width: 700px;
+}
+/* 캘린더 요일 및 일 나오는 전체 부분 위치 잡기 */
+.react-calendar__viewContainer {
+  padding-top: 11px;
 }
 .react-calendar--doubleView .react-calendar__viewContainer {
   display: flex;
@@ -37,8 +42,8 @@
 /* 캘린더 월 및 이동 표시 */
 .react-calendar__navigation {
   display: flex;
-  height: 62px;
   border-bottom: 1px solid #dedede;
+  padding-bottom: 15px;
 }
 
 /* 캘린더 위 년 월 표시 제목 */
@@ -73,10 +78,11 @@
 
 /* 캘린더 요일 텍스트 변경 */
 .react-calendar__month-view__weekdays > div > abbr {
-  font-family: "MaplestoryOTFBold";
+  font-family: "Poppins";
   font-size: 12px;
   font-weight: 500;
   color: #595550;
+  text-decoration: none;
 }
 .react-calendar__month-view__weekdays__weekday {
   padding: 0.5em;
@@ -88,6 +94,14 @@
   font-size: 0.75em;
   font-weight: bold;
 }
+
+/* 캘린더 일 텍스트 변경 */
+.react-calendar__month-view__days__day > abbr {
+  font-family: "Roboto";
+  font-weight: 400;
+  font-size: 12px;
+}
+
 /* 주말에 일 빨간색으로 표시 */
 /* .react-calendar__month-view__days__day--weekend {
   color: #d10000;
@@ -133,9 +147,12 @@
 .react-calendar__tile--now:enabled:focus {
   background: #ffffa9;
 }
-.react-calendar__tile--hasActive {
+
+/* 월 선택하면 나오는 월 선택 창에서 현재 월 표시 */
+/* .react-calendar__tile--hasActive {
   background: #76baff;
-}
+} */
+
 .react-calendar__tile--hasActive:enabled:hover,
 .react-calendar__tile--hasActive:enabled:focus {
   background: #a9d4ff;
