@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 //api import
@@ -15,7 +16,6 @@ import moment from "moment";
 import "../calendar/style/Calendar.css"; // css import
 
 //svg Import
-import { ReactComponent as Profile } from "../../assets/images/calendar/profile_pic.svg";
 import { ReactComponent as PreviousArrow } from "../../assets/images/calendar/previous_month.svg";
 import { ReactComponent as NextArrow } from "../../assets/images/calendar/next_month.svg";
 
@@ -23,6 +23,7 @@ const CalendarGet = () => {
   //dispatch와 useselector 사용
   const dispatch = useDispatch();
   const GetCalendarData = useSelector((state) => state.calendarSlice.data);
+  const navigate = useNavigate();
 
   //이번달로 이동하기 위한 useRef 사용
   const calendarRef = useRef();
@@ -50,10 +51,15 @@ const CalendarGet = () => {
   };
 
   //다른 월로 이동했을 때 그 월에 맞는 데이터를 불러오는 핸들러
-  const onClickArrowHandler = ({ action, activeStartDate, value, view }) => {
+  const ClickArrowHandler = ({ action, activeStartDate, value, view }) => {
     const todayYear = moment(activeStartDate).format("YYYY");
     const todayMonth = moment(activeStartDate).format("MM");
     dispatch(__getCalendar({ todayYear, todayMonth }));
+  };
+
+  //버튼을 눌렀을 때 플래너로 이동하는 핸들러
+  const ClickDayHandler = (value, event) => {
+    navigate("/login"); //임시
   };
 
   const [value, setValue] = useState(new Date());
@@ -63,8 +69,9 @@ const CalendarGet = () => {
       <Header menuName="Calendar" />
       <CalendarStyle>
         <ProfileLayout>
-          <Profile />
+          {/* <Profile /> */}
           {/* <img src={GetCalendarData?.profileImage} /> */}
+          <img src="https://velog.velcdn.com/images/posinity/post/5a8adab6-f8de-41e5-a915-2b7592b35960/image.png" />
         </ProfileLayout>
         <NickName>{GetCalendarData?.username}</NickName>
         <MonthlyGet>
@@ -74,7 +81,6 @@ const CalendarGet = () => {
         </MonthlyGet>
         <CalendarLayout>
           <TodayBtn onClickToday={ClickTodayHandler} />
-          <button onClick={ClickTodayHandler}>이번달 이동</button>
           <Calendar
             ref={calendarRef}
             onChange={setValue}
@@ -95,9 +101,9 @@ const CalendarGet = () => {
               console.log("New activeStartDate is: ", activeStartDate)
             }
             // 이전,다음 버튼 사용할 때 호출되는 함수
-            onActiveStartDateChange={onClickArrowHandler}
+            onActiveStartDateChange={ClickArrowHandler}
             //하루를 클릭할 때 호출되는 함수
-            onClickDay={(value, event) => console.log("이동 가능?")}
+            onClickDay={ClickDayHandler}
             //해당 잔디 색깔 표시하기
             tileClassName={({ date, view }) => {
               if (mark1?.find((x) => x === moment(date).format("YYYY-MM-DD"))) {
