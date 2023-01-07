@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
@@ -20,6 +20,8 @@ import { ReactComponent as PreviousArrow } from "../../assets/images/calendar/pr
 import { ReactComponent as NextArrow } from "../../assets/images/calendar/next_month.svg";
 
 const CalendarGet = () => {
+  const calendarRef = useRef();
+
   useEffect(() => {
     dispatch(__getCalendar({ todayYear, todayMonth }));
   }, []);
@@ -127,18 +129,18 @@ export const NickName = styled.h2`
   margin-top: 43px;
   font-family: "MaplestoryOTFBold";
   font-weight: 700;
-  font-size: 24px;
+  font-size: 2.4rem;
 `;
 
 export const MonthlyGet = styled.p`
   margin-top: 43px;
   font-family: "Pretendard-Regular";
   font-weight: 500;
-  font-size: 14px;
+  font-size: 1.4rem;
   color: #403b36;
   strong {
     font-weight: 700;
-    font-size: 18px;
+    font-size: 1.8rem;
     color: #f27808;
     padding: 0 2px 0 2px;
   }

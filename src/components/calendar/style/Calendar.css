@@ -50,7 +50,7 @@
 .react-calendar__navigation__label > span {
   font-family: "MaplestoryOTFBold";
   font-weight: 700;
-  font-size: 14px;
+  font-size: 1.4rem;
   color: #595550;
 }
 
@@ -79,7 +79,7 @@
 /* 캘린더 요일 텍스트 변경 */
 .react-calendar__month-view__weekdays > div > abbr {
   font-family: "Poppins";
-  font-size: 12px;
+  font-size: 1.2rem;
   font-weight: 500;
   color: #595550;
   text-decoration: none;
@@ -99,7 +99,7 @@
 .react-calendar__month-view__days__day > abbr {
   font-family: "Roboto";
   font-weight: 400;
-  font-size: 12px;
+  font-size: 1.2rem;
 }
 
 /* 주말에 일 빨간색으로 표시 */
