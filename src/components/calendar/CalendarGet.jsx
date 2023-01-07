@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
@@ -7,7 +7,7 @@ import { __getCalendar } from "../../redux/modules/calendarSlice.js";
 
 //컴포넌트 Import
 import Header from "../header/Header";
-import TodayBtn from "./style/TodayBtn";
+import TodayBtn from "./TodayBtn";
 
 //캘린더 라이브러리 관련 import
 import Calendar from "react-calendar";
@@ -20,33 +20,43 @@ import { ReactComponent as PreviousArrow } from "../../assets/images/calendar/pr
 import { ReactComponent as NextArrow } from "../../assets/images/calendar/next_month.svg";
 
 const CalendarGet = () => {
+  //dispatch와 useselector 사용
+  const dispatch = useDispatch();
+  const GetCalendarData = useSelector((state) => state.calendarSlice.data);
+
+  //이번달로 이동하기 위한 useRef 사용
+  const calendarRef = useRef();
+
+  //현재 날짜 불러와서 데이터 get하기
+  const todayYear = moment().format("YYYY");
+  const todayMonth = moment().format("MM");
+
+  //현재 날짜에 맞는 월 데이터 불러오기
   useEffect(() => {
     dispatch(__getCalendar({ todayYear, todayMonth }));
   }, []);
 
-  const dispatch = useDispatch();
-  const GetCalendarData = useSelector((state) => state.calendarSlice.data);
-
-  const [value, setValue] = useState(new Date());
-
-  const todayYear = moment().format("YYYY");
-  const todayMonth = moment().format("MM");
-
+  //data에서 단계별로 분류하기
   const mark1 = GetCalendarData?.stage1;
   const mark2 = GetCalendarData?.stage2;
   const mark3 = GetCalendarData?.stage3;
   const mark4 = GetCalendarData?.stage4;
 
-  const onClickToday = () => {
-    setValue(new Date(2023, 11));
+  //이번달로 이동하는 핸들러
+  const ClickTodayHandler = () => {
+    const calendar = calendarRef.current;
+    const firstDayOfTodaysMonth = moment().date(1).toDate();
+    calendar.setActiveStartDate(firstDayOfTodaysMonth);
   };
 
+  //다른 월로 이동했을 때 그 월에 맞는 데이터를 불러오는 핸들러
   const onClickArrowHandler = ({ action, activeStartDate, value, view }) => {
     const todayYear = moment(activeStartDate).format("YYYY");
     const todayMonth = moment(activeStartDate).format("MM");
-    console.log(view);
     dispatch(__getCalendar({ todayYear, todayMonth }));
   };
+
+  const [value, setValue] = useState(new Date());
 
   return (
     <>
@@ -63,9 +73,10 @@ const CalendarGet = () => {
           개입니다
         </MonthlyGet>
         <CalendarLayout>
-          <TodayBtn />
-          <button onClick={onClickToday}>이번달 이동</button>
+          <TodayBtn onClickToday={ClickTodayHandler} />
+          <button onClick={ClickTodayHandler}>이번달 이동</button>
           <Calendar
+            ref={calendarRef}
             onChange={setValue}
             value={value}
             nextLabel={<NextArrow />}
@@ -127,18 +138,18 @@ export const NickName = styled.h2`
   margin-top: 43px;
   font-family: "MaplestoryOTFBold";
   font-weight: 700;
-  font-size: 24px;
+  font-size: 2.4rem;
 `;
 
 export const MonthlyGet = styled.p`
   margin-top: 43px;
   font-family: "Pretendard-Regular";
   font-weight: 500;
-  font-size: 14px;
+  font-size: 1.4rem;
   color: #403b36;
   strong {
     font-weight: 700;
-    font-size: 18px;
+    font-size: 1.8rem;
     color: #f27808;
     padding: 0 2px 0 2px;
   }
