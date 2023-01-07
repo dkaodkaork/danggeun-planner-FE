@@ -7,6 +7,7 @@ import SignUpPage from "../pages/SignUpPage";
 import SignUpAgree from "../components/signUpAgree/SignUpAgree";
 import CalendarPage from "../pages/CalendarPage";
 import NciknameFormPage from "../pages/NicknameFormPage";
+import TimerPage from "../pages/TimerPage";
 
 const Router = () => {
   return (
@@ -20,6 +21,7 @@ const Router = () => {
           <Route path="/signupagree" element={<SignUpAgree />} />
           <Route path="/calendar" element={<CalendarPage />} />
           <Route path="/nickname" element={<NciknameFormPage />} />
+          <Route path="/timer" element={<TimerPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
