@@ -1,11 +1,16 @@
 import Router from "./shared/Router";
-import GlobalStyle from "./shared/GlobalStyle";
+import GlobalStyle from "./shared/globalStyle";
+import Layout from "./layout/Layout";
+import HelmetComponent from "./shared/HelmetComponent";
 
 function App() {
   return (
     <>
-      {/* <GlobalStyle /> */}
-      <Router />
+      <HelmetComponent />
+      <GlobalStyle />
+      <Layout>
+        <Router />
+      </Layout>
     </>
   );
 }

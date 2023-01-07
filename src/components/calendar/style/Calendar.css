@@ -1,0 +1,204 @@
+.react-calendar {
+  width: 328px;
+  max-width: 100%;
+  background: #fffdfa;
+  border-radius: 12px;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.125em;
+  padding: 29px 27px 29px 27px;
+}
+.react-calendar--doubleView {
+  width: 700px;
+}
+/* 캘린더 요일 및 일 나오는 전체 부분 위치 잡기 */
+.react-calendar__viewContainer {
+  padding-top: 11px;
+}
+.react-calendar--doubleView .react-calendar__viewContainer {
+  display: flex;
+  margin: -0.5em;
+}
+.react-calendar--doubleView .react-calendar__viewContainer > * {
+  width: 50%;
+  margin: 0.5em;
+}
+.react-calendar,
+.react-calendar *,
+.react-calendar *:before,
+.react-calendar *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.react-calendar button {
+  margin: 0;
+  border: 0;
+  outline: none;
+}
+.react-calendar button:enabled:hover {
+  cursor: pointer;
+}
+
+/* 캘린더 월 및 이동 표시 */
+.react-calendar__navigation {
+  display: flex;
+  border-bottom: 1px solid #dedede;
+  padding-bottom: 15px;
+}
+
+/* 캘린더 위 년 월 표시 제목 */
+.react-calendar__navigation__label > span {
+  font-family: "MaplestoryOTFBold";
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: #595550;
+}
+
+.react-calendar__navigation button {
+  min-width: 44px;
+  background: none;
+}
+.react-calendar__navigation button:disabled {
+  background-color: #f0f0f0;
+}
+
+/* 캘린더 월 이동 버튼 클릭할 때 회색으로 칠해지는 부분 */
+/* .react-calendar__navigation button:enabled:hover,
+.react-calendar__navigation button:enabled:focus {
+  background-color: #e6e6e6;
+} */
+
+/* 캘린더 요일 부분 변경 */
+.react-calendar__month-view__weekdays {
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 0.75em;
+}
+
+/* 캘린더 요일 텍스트 변경 */
+.react-calendar__month-view__weekdays > div > abbr {
+  font-family: "Poppins";
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #595550;
+  text-decoration: none;
+}
+.react-calendar__month-view__weekdays__weekday {
+  padding: 0.5em;
+}
+.react-calendar__month-view__weekNumbers .react-calendar__tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75em;
+  font-weight: bold;
+}
+
+/* 캘린더 일 텍스트 변경 */
+.react-calendar__month-view__days__day > abbr {
+  font-family: "Roboto";
+  font-weight: 400;
+  font-size: 1.2rem;
+}
+
+/* 주말에 일 빨간색으로 표시 */
+/* .react-calendar__month-view__days__day--weekend {
+  color: #d10000;
+} */
+.react-calendar__month-view__days__day--neighboringMonth {
+  color: #757575;
+}
+.react-calendar__year-view .react-calendar__tile,
+.react-calendar__decade-view .react-calendar__tile,
+.react-calendar__century-view .react-calendar__tile {
+  padding: 2em 0.5em;
+}
+.react-calendar__tile {
+  max-width: 100%;
+  padding: 10px 6.6667px;
+  background: none;
+  text-align: center;
+  line-height: 16px;
+}
+.react-calendar__tile:disabled {
+  background-color: #f0f0f0;
+}
+/* 일 선택 시 호버 */
+.react-calendar__tile:enabled:hover {
+  background-color: #e6e6e6;
+}
+
+/* 일 선택 시 포커스  */
+/* .react-calendar__tile:enabled:focus {
+  background-color: #e6e6e6;
+} */
+
+/* 오늘 날짜 표시 */
+.react-calendar__tile--now {
+  /* background: #2e52d7; */
+  background-image: url("data:image/svg+xml,%3Csvg width='30' height='36' viewBox='0 0 30 36' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M22.8401 4.03216C21.7432 3.10877 20.2142 3.24893 19.0305 3.82317C18.9598 1.82819 17.3794 -0.104158 15.1194 0.00436602C13.6155 0.0949061 12.6137 1.30852 12.2164 2.56553C12.1444 2.79747 12.0871 3.03932 12.046 3.28737C10.7845 2.6722 9.24074 2.65483 8.03068 3.60302C6.87334 4.53323 6.80904 6.08357 7.25912 7.32385C7.83714 8.89528 9.27546 10.4667 11.0102 10.5814C12.4273 10.7346 18.9167 11.3882 20.5151 10.6689C21.0636 10.5554 21.5715 10.3439 22.0197 10.0568C24.0855 8.80102 24.8153 5.73754 22.8401 4.03216Z' fill='%234A8A51'/%3E%3Cpath d='M14.9478 35.5C19.0034 35.5 22.6214 33.1162 25.2045 29.8072C27.7891 26.496 29.3955 22.1898 29.3955 18.2C29.3955 14.1799 27.7625 11.227 25.1042 9.29597C22.4671 7.38039 18.8648 6.5 14.9478 6.5C11.0308 6.5 7.4284 7.38039 4.79135 9.29597C2.13306 11.227 0.5 14.1799 0.5 18.2C0.5 22.1898 2.10641 26.496 4.69107 29.8072C7.2741 33.1162 10.8922 35.5 14.9478 35.5Z' fill='%23FFFDFA' stroke='%234A8A51'/%3E%3C/svg%3E%0A");
+  background-position: center;
+  background-size: auto;
+  background-repeat: no-repeat;
+}
+
+.react-calendar__tile--now:enabled:hover,
+.react-calendar__tile--now:enabled:focus {
+  background: #ffffa9;
+}
+
+/* 월 선택하면 나오는 월 선택 창에서 현재 월 표시 */
+/* .react-calendar__tile--hasActive {
+  background: #76baff;
+} */
+
+.react-calendar__tile--hasActive:enabled:hover,
+.react-calendar__tile--hasActive:enabled:focus {
+  background: #a9d4ff;
+}
+/* .react-calendar__tile--active {
+  background: #006edc;
+  color: white;
+} */
+
+/* 일 선택 시 파란색으로 표시되는 부분 */
+/* .react-calendar__tile--active:enabled:hover,
+.react-calendar__tile--active:enabled:focus {
+  background: #1087ff;
+} */
+
+/*단계 표시 백그라운드 이미지 시작*/
+.state1 {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='29' height='28' viewBox='0 0 29 28' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M28.4478 11.2C28.4478 18.932 22.2031 28 14.5 28C6.79687 28 0.552246 18.932 0.552246 11.2C0.552246 3.46801 6.79687 0 14.5 0C22.2031 0 28.4478 3.46801 28.4478 11.2Z' fill='%23FAEDE1'/%3E%3C/svg%3E");
+  background-position: center;
+  background-size: auto;
+  background-repeat: no-repeat;
+}
+
+.state2 {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='29' height='28' viewBox='0 0 29 28' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M28.4478 11.2C28.4478 18.932 22.2031 28 14.5 28C6.79687 28 0.552246 18.932 0.552246 11.2C0.552246 3.46801 6.79687 0 14.5 0C22.2031 0 28.4478 3.46801 28.4478 11.2Z' fill='%23F5CDA8'/%3E%3C/svg%3E");
+  background-position: center;
+  background-size: auto;
+  background-repeat: no-repeat;
+}
+
+.state3 {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='29' height='28' viewBox='0 0 29 28' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M28.4478 11.2C28.4478 18.932 22.2031 28 14.5 28C6.79687 28 0.552246 18.932 0.552246 11.2C0.552246 3.46801 6.79687 0 14.5 0C22.2031 0 28.4478 3.46801 28.4478 11.2Z' fill='%23F5AD6A'/%3E%3C/svg%3E");
+  background-position: center;
+  background-size: auto;
+  background-repeat: no-repeat;
+}
+
+.state4 {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='29' height='28' viewBox='0 0 29 28' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M28.4478 11.2C28.4478 18.932 22.2031 28 14.5 28C6.79687 28 0.552246 18.932 0.552246 11.2C0.552246 3.46801 6.79687 0 14.5 0C22.2031 0 28.4478 3.46801 28.4478 11.2Z' fill='%23F27808'/%3E%3C/svg%3E");
+  background-position: center;
+  background-size: auto;
+  background-repeat: no-repeat;
+}
+/*단계 표시 백그라운드 이미지 끝*/
+
+/* 날짜 칸 호버 시 색상 변화 */
+/* .react-calendar--selectRange .react-calendar__tile--hover {
+  background-color: #e6e6e6;
+} */
