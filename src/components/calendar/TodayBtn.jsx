@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import { ReactComponent as TodayBtnIcon } from "../../../assets/images/calendar/todayBtnIcon.svg";
+import { ReactComponent as TodayBtnIcon } from "../../assets/images/calendar/todayBtnIcon.svg";
 
-const TodayBtn = () => {
+const TodayBtn = (props) => {
   return (
-    <BtnLayout>
+    <BtnLayout onClick={props.onClickToday}>
       <TodayBtnIcon />
       <BtnText>Today</BtnText>
     </BtnLayout>

@@ -9,6 +9,8 @@ import TermsConditionsPage from "../pages/TermsConditionsPage";
 import LoginOptionPage from "../pages/LoginOptionPage";
 import MyPage from "../pages/MyPage";
 import ProfilePage from "../pages/ProfilePage";
+import TimerPage from "../pages/TimerPage";
+
 
 const Router = () => {
   return (
@@ -24,6 +26,7 @@ const Router = () => {
           <Route path="/nickname" element={<NciknameFormPage />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/timer" element={<TimerPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
