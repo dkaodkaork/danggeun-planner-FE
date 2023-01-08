@@ -1,8 +1,8 @@
 import React from "react";
-import LoginOption from "../components/LoginOption/LoginOption";
+import LoginOption from "../components/loginOption/LoginOption";
 
-const LoginSelectPage = () => {
-  return <LoginOption></LoginOption>;
+const LoginOptionPage = () => {
+  return <LoginOption />;
 };
 
-export default LoginSelectPage;
+export default LoginOptionPage;

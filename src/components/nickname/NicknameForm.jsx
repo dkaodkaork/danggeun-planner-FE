@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { IMAGES } from "../../constants/images";
-import { __addNickname } from "../../redux/modules/mypageSlice";
+import { __putNickname } from "../../redux/modules/mypageSlice";
 
 const NicknameForm = () => {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ const NicknameForm = () => {
     if (userInfo.username === "") {
       alert("닉네임을 입력해주세요");
     } else {
-      dispatch(__addNickname(userInfo));
+      dispatch(__putNickname(userInfo));
     }
   };
 
