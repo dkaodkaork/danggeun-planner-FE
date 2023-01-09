@@ -25,11 +25,12 @@ const useTimer = (callback, delay) => {
   );
 
   useEffect(() => {
-    // currenttime이 0이되면 즉 타이머가 (0초) 끝나면, 컴포넌트에서 인자로 받은 콜백함수를 실행해라 => 즉 타이머가 끝났을때 실행할 로직을 받아야 겠지?
+    // currenttime이 0이되면 즉 타이머가 (0초) 끝나면, 컴포넌트에서 인자로 받은 콜백함수를 실행해라 => 즉 타이머가 끝났을때 실행할 로직을 받아야 겠지요?
     if (currentTime === 0) {
       callback();
+      setIsClear(true);
     }
-  }, [currentTime, callback]);
+  }, [currentTime]);
 
   useEffect(() => {
     const formatted = moment.utc(currentTime).format("mm:ss"); // 타이머 시간 파싱 하는것 moment 라이브러리 이용
@@ -44,7 +45,7 @@ const useTimer = (callback, delay) => {
 
   const startTimer = (time) => {
     // setTimer(time); // 몇분짜리 타이머인지 update
-    // setCurrentTime(time); // 이건 없어도 되려나?
+    setCurrentTime(time); //
     setIsClear(false); // useInterval hook 실행
   };
 
