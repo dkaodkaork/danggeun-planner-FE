@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Header from "../header/Header";
-import moment from "moment";
 import { removeCookies } from "../../core/cookieControler";
-import { IMAGES } from "../../constants/images";
+import { IMAGES, PATH } from "../../constants/index";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { __getUserInfo } from "../../redux/modules/mypageSlice";
@@ -14,7 +13,7 @@ const MypageForm = () => {
   //
 
   // eslint-disable-next-line
-  const [time, setTime] = useState(25 * 1000 * 60); // 25분
+  const [time, setTime] = useState(25 * 1000 * 60); // 25분  => 현재 25분으로 고정되어있는상황 이것을 동적으로  버튼 클릭햇을때 time의 상태를 바꿔줘야 함
   const { clearTimer, startTimer, currentTime, isClear, parsedTime } = useTimer(
     () => {
       alert("finish");
@@ -28,16 +27,6 @@ const MypageForm = () => {
 
   const userInfo = useSelector((state) => state.mypage.data);
 
-  const a = moment("2500", "s").format("mm:ss");
-  moment("123", "hmm").format("HH:mm");
-  // console.log(a);
-
-  // useEffect(() => {
-  //   var formatted = moment.utc(currentTime * 1000).format("mm:ss");
-  //   setParsedTime(formatted);
-  // }, [currentTime]);
-  // console.log(parsedTime);
-
   useEffect(() => {
     // dispatch(__getUserInfo());
   }, [dispatch]);
@@ -45,7 +34,7 @@ const MypageForm = () => {
   const logoutHandler = () => {
     if (window.confirm("로그아웃 하시겠습니까?")) {
       removeCookies("AccessToken");
-      navigate("/login");
+      navigate(PATH.login);
     }
   };
 
@@ -58,7 +47,7 @@ const MypageForm = () => {
           <StInfoBox>
             <span>{userInfo.username}</span>
             <span>{userInfo.email}</span>
-            <Link to="/profile">
+            <Link to={PATH.profile}>
               <button>프로필수정</button>
             </Link>
           </StInfoBox>
