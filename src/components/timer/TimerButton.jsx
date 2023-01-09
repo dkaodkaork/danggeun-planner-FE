@@ -12,6 +12,7 @@ const Button = (props) => {
       type={props.type || "button"}
       onClick={props.onClick}
       fontSize={props.fontSize}
+      fontWeight={props.fontWeight}
       margin={props.margin}
       width={props.width}
       fontFamily={props.fontFamily}
@@ -23,6 +24,9 @@ const Button = (props) => {
       gap={props.gap}
       filter={props.filter}
       disabled={props.disabled}
+      textDecoration={props.textDecoration}
+      fontStyle={props.fontStyle}
+      underlinePosition={props.underlinePosition}
     >
       {props.children}
     </StButton>
@@ -38,11 +42,14 @@ const StButton = styled.button`
   background-color: ${({ backgroundColor }) => backgroundColor || "#F27808"};
   color: ${({ color }) => color || "#F9F3EA"};
   border: ${({ border }) => border};
-  font-size: ${({ fontSize }) => fontSize || "2.0rem"};
+  font-size: ${({ fontSize }) => fontSize || "2.4rem"};
   font-weight: ${({ fontWeight }) => fontWeight || "700"};
   font-family: ${({ fontFamily }) => fontFamily || "MaplestoryOTFBold"};
+  font-style: ${({ fontStyle }) => fontStyle};
   width: ${({ width }) => width || "260px"};
   height: ${({ height }) => height || "75px"};
+  text-decoration: ${({ textDecoration }) => textDecoration};
+  text-underline-position: ${({ underlinePosition }) => underlinePosition};
   filter: ${({ filter }) =>
     filter || "drop-shadow(0px 4px 0px rgba(0, 0, 0, 0.25))"};
   /* &:disabled {
