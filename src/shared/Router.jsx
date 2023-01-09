@@ -11,7 +11,6 @@ import MyPage from "../pages/MyPage";
 import ProfilePage from "../pages/ProfilePage";
 import TimerPage from "../pages/TimerPage";
 
-
 const Router = () => {
   return (
     <BrowserRouter>
