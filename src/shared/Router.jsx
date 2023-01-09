@@ -10,6 +10,7 @@ import LoginOptionPage from "../pages/LoginOptionPage";
 import MyPage from "../pages/MyPage";
 import ProfilePage from "../pages/ProfilePage";
 import TimerPage from "../pages/TimerPage";
+import GetCarrotPage from "../pages/GetCarrotPage";
 
 const Router = () => {
   return (
@@ -26,6 +27,7 @@ const Router = () => {
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/timer" element={<TimerPage />} />
+          <Route path="/getcarrot" element={<GetCarrotPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

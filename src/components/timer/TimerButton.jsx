@@ -26,6 +26,7 @@ const Button = (props) => {
       disabled={props.disabled}
       textDecoration={props.textDecoration}
       fontStyle={props.fontStyle}
+      animation={props.animation}
       underlinePosition={props.underlinePosition}
     >
       {props.children}
@@ -50,6 +51,7 @@ const StButton = styled.button`
   height: ${({ height }) => height || "75px"};
   text-decoration: ${({ textDecoration }) => textDecoration};
   text-underline-position: ${({ underlinePosition }) => underlinePosition};
+  animation: ${({ animation }) => animation};
   filter: ${({ filter }) =>
     filter || "drop-shadow(0px 4px 0px rgba(0, 0, 0, 0.25))"};
   /* &:disabled {
