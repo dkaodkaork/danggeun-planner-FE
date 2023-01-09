@@ -1,8 +1,8 @@
-import { ReactComponent as Profile } from "../assets/images/calendar/profile_pic.svg";
+import { ReactComponent as Menu } from "../assets/images/menuicon.svg";
+import { ReactComponent as Home } from "../assets/images/home.svg";
 
 export const IMAGES = {
-  logo: require("../assets/images/calendar/today.svg"),
-  plusIcon: "/img/todo_plus.webp",
   test: require("../assets/images/ee.jpeg"),
-  test1: <Profile />,
+  menu: <Menu />,
+  home: <Home />,
 };
