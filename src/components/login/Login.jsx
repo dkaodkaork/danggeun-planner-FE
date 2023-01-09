@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { api } from "../../core/api";
 import { setCookies } from "../../core/cookieControler";
-import { MSG } from "../../constants/messages";
+import { IMAGES, PATH, MSG } from "../../constants/index";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const [loginInfo, setLoginInfo] = useState({
     email: "",
     password: "",
@@ -33,13 +36,17 @@ const Login = () => {
 
         if (data.message === "로그인 성공") {
           // return localStorage.setItem("AccessToken", headers.accesstoken);
-          return setCookies("AccessToken", headers.accesstoken, {
-            path: "/",
-            maxAge: 36000,
-          });
+          return (
+            setCookies("AccessToken", headers.accesstoken, {
+              path: "/",
+              maxAge: 36000,
+            }),
+            navigate(PATH.main)
+          );
         }
       } catch (error) {
-        alert(error.response.data.msg);
+        // alert(error.response.data.msg);
+        console.log(error);
       }
     }
   };
