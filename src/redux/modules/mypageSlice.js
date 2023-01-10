@@ -3,10 +3,10 @@ import { api } from "../../core/api";
 
 const initialState = {
   data: {
-    email: "test@naver.com",
-    username: "테스트 닉네임",
+    email: "",
+    username: "",
     profileImage: "",
-    totalCarrot: "99",
+    totalCarrot: "",
   },
   isLoading: false,
   error: null,
@@ -15,13 +15,14 @@ const initialState = {
 export const __putNickname = createAsyncThunk(
   "nickname/add",
   async (payload, thunkAPI) => {
-    console.log(payload);
     try {
-      const { data } = await api.putNicknameApi(payload);
-      console.log(data);
+      const { data, status } = await api.putNicknameApi(payload);
+      console.log(data, status);
       return thunkAPI.fulfillWithValue(data);
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+      console.log(error);
+      alert(error.response.data.message);
+      return thunkAPI.rejectWithValue();
     }
   }
 );
@@ -31,9 +32,10 @@ export const __getUserInfo = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const { data } = await api.getUserInfoApi();
-      return thunkAPI.fulfillWithValue();
+      return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
-      // return thunkAPI.rejectWithValue(error);
+      console.log(error);
+      return thunkAPI.rejectWithValue(error);
     }
   }
 );
@@ -41,10 +43,13 @@ export const __getUserInfo = createAsyncThunk(
 export const __putProfileImg = createAsyncThunk(
   "profileImg/put",
   async (payload, thunkAPI) => {
+    console.log(payload);
     try {
-      const data = await api.putProfileImgApi(payload);
-      return thunkAPI.fulfillWithValue(data.data);
+      const response = await api.putProfileImgApi(payload);
+      console.log(response);
+      return thunkAPI.fulfillWithValue();
     } catch (error) {
+      console.log(error);
       return thunkAPI.rejectWithValue(error);
     }
   }
@@ -63,12 +68,11 @@ export const mypageSlice = createSlice({
       })
       .addCase(__putNickname.fulfilled, (state, action) => {
         state.isLoading = false;
-        console.log(action);
-        // state.data =
+        console.log(action.payload.data.username);
+        // state.data = { ...state.data, username: action.payload.data.username };
       })
       .addCase(__putNickname.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.payload;
       })
 
       // 마이페이지 유저정보 가져오기
@@ -77,8 +81,7 @@ export const mypageSlice = createSlice({
       })
       .addCase(__getUserInfo.fulfilled, (state, action) => {
         state.isLoading = false;
-        console.log(action);
-        // state.data =
+        state.data = { ...action.payload };
       })
       .addCase(__getUserInfo.rejected, (state, action) => {
         state.isLoading = false;
