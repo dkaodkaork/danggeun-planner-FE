@@ -3,6 +3,11 @@ import { ReactComponent as Home } from "../assets/images/home.svg";
 
 export const IMAGES = {
   test: require("../assets/images/ee.jpeg"),
+  test1: require("../assets/images/timer.png"),
+  carrotLv0: require("../assets/images/carrotLv0.svg"),
+  carrotLv1: require("../assets/images/carrotLv1.svg"),
+  carrotLv2: require("../assets/images/carrotLv2.svg"),
+  carrotLv3: require("../assets/images/carrotLv3.svg"),
   menu: <Menu />,
   home: <Home />,
 };
