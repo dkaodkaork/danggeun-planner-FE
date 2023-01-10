@@ -2,8 +2,9 @@ import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 
 import GetCarrotModal from "./GetCarrotModal";
+import Button from "./TimerButton";
 
-const GetCarrot = () => {
+const GetCarrot = ({ onClick }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const openModalHandler = () => {
@@ -12,11 +13,11 @@ const GetCarrot = () => {
 
   return (
     <>
+      <Button onClick={openModalHandler}>당근 수확하기</Button>
       <ModalContainer>
-        <ModalBtn onClick={openModalHandler}>당근 수확하기</ModalBtn>
         {isOpen ? (
           <ModalBackdrop>
-            <GetCarrotModal onOpenModal={openModalHandler} />
+            <GetCarrotModal onOpenModal={openModalHandler} onClick={onClick} />
           </ModalBackdrop>
         ) : null}
       </ModalContainer>
@@ -27,20 +28,20 @@ const GetCarrot = () => {
 export default GetCarrot;
 
 export const ModalContainer = styled.div`
-  height: 100vh;
+  /* height: 100vh; */
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
-export const ModalBtn = styled.button`
-  background-color: #4000c7;
-  border: none;
-  padding: 20px;
-  color: white;
-  border-radius: 30px;
-  cursor: grab;
-`;
+// export const ModalBtn = styled.button`
+//   background-color: #4000c7;
+//   border: none;
+//   padding: 20px;
+//   color: white;
+//   border-radius: 30px;
+//   cursor: grab;
+// `;
 
 export const ModalBackdrop = styled.div`
   width: 100%;
