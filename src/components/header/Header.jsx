@@ -12,10 +12,12 @@ const Header = ({
 }) => {
   const navigate = useNavigate();
   return (
-    <HeaderStyle justifyContent={justifyContent}>
-      <Link to={leftLink}>{left}</Link>
+    <HeaderStyle>
+      <TopIcon justifyContent={justifyContent}>
+        <Link to={leftLink}>{left}</Link>
+        <Link to={rightLink}>{right}</Link>
+      </TopIcon>
       <MenuName>{menuName}</MenuName>
-      <Link to={rightLink}>{right}</Link>
     </HeaderStyle>
   );
 };
@@ -23,13 +25,19 @@ const Header = ({
 export default Header;
 
 export const HeaderStyle = styled.div`
-  height: 54px;
+  height: 90px;
+  /* display: flex;
+  justify-content: ${({ justifyContent }) => justifyContent || "space-between"};
+  align-items: center; */
+  background-color: #f9f3ea;
+  padding: 27px 28px 0 27px;
+`;
+
+export const TopIcon = styled.div`
   display: flex;
   justify-content: ${({ justifyContent }) => justifyContent || "space-between"};
-
   align-items: center;
-  background-color: #f9f3ea;
-  padding: 0 36px 0 36px;
+  /* padding: 0 36px 0 36px; */
 `;
 
 export const HomeNav = styled.div`
@@ -37,7 +45,10 @@ export const HomeNav = styled.div`
 `;
 
 export const MenuName = styled.h1`
+  margin-top: 10px;
+  text-align: center;
   font-family: "MaplestoryOTFBold";
   font-weight: 700;
   font-size: 1.6rem;
+  color: #595550;
 `;
