@@ -50,18 +50,18 @@ const SignUp = () => {
   const submitHandler = async (e) => {
     if (signUpInfo.email && signUpInfo.password && signUpInfo.checkPassword) {
       try {
-        const { headers, data } = await api.postSignUpApi({
+        const { data, status } = await api.postSignUpApi({
           email: signUpInfo.email,
           password: signUpInfo.password,
         });
-        console.log(headers, data, "111");
-        if (headers.code === 200) {
+
+        if (status === 201) {
           navigate("/login");
         } else {
-          alert(data.msg);
+          alert(data.message);
         }
       } catch (error) {
-        alert("11");
+        alert(error.response.data.message);
       }
     } else {
       alert(MSG.formInvalidMsg);
