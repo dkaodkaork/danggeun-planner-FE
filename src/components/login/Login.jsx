@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { api } from "../../core/api";
 import { setCookies } from "../../core/cookieControler";
-import { IMAGES, PATH, MSG } from "../../constants/index";
+import { PATH, MSG } from "../../constants/index";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -32,21 +32,22 @@ const Login = () => {
       alert(MSG.formInvalidMsg);
     } else {
       try {
-        const { headers, data } = await api.postLoginApi(loginInfo);
-
-        if (data.message === "로그인 성공") {
-          // return localStorage.setItem("AccessToken", headers.accesstoken);
-          return (
-            setCookies("AccessToken", headers.accesstoken, {
-              path: "/",
-              maxAge: 36000,
-            }),
-            navigate(PATH.main)
-          );
+        const { headers, data, status } = await api.postLoginApi(loginInfo);
+        console.log(data);
+        if (status === 200) {
+          setCookies("AccessToken", headers.accesstoken, {
+            path: "/",
+            maxAge: 36000,
+          });
+          console.log(data.data);
+          if (data.data.isExistUsername) {
+            navigate(PATH.main);
+          } else {
+            navigate(PATH.nickname);
+          }
         }
       } catch (error) {
-        // alert(error.response.data.msg);
-        console.log(error);
+        alert(error.response.data.message);
       }
     }
   };

@@ -50,7 +50,7 @@ const GetCarrotModal = (props) => {
         <CarrotImg ref={carrotRef}>{IMAGES.completeCarrot}</CarrotImg>
       </CarrotLayout>
       <GetMsg>당근 1개를 수확했습니다!</GetMsg>
-      <TimerButton width="108px" height="44px">
+      <TimerButton width="108px" height="44px" onClick={props.onClick}>
         확인
       </TimerButton>
     </ModalBox>

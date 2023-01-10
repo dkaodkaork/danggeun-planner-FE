@@ -1,34 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import Header from "../header/Header";
 import { removeCookies } from "../../core/cookieControler";
-import { IMAGES, PATH } from "../../constants/index";
+import { PATH } from "../../constants/index";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { __getUserInfo } from "../../redux/modules/mypageSlice";
-//
-import useTimer from "../../hooks/useTimer";
 
 const MypageForm = () => {
-  //
-
-  // eslint-disable-next-line
-  const [time, setTime] = useState(25 * 1000 * 60); // 25분  => 현재 25분으로 고정되어있는상황 이것을 동적으로  버튼 클릭햇을때 time의 상태를 바꿔줘야 함
-  const { clearTimer, startTimer, currentTime, isClear, parsedTime } = useTimer(
-    () => {
-      alert("finish");
-    }, // call back
-    time
-  );
-
-  //
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const userInfo = useSelector((state) => state.mypage.data);
+  console.log(userInfo);
 
   useEffect(() => {
-    // dispatch(__getUserInfo());
+    dispatch(__getUserInfo());
   }, [dispatch]);
 
   const logoutHandler = () => {
@@ -43,7 +30,7 @@ const MypageForm = () => {
       <Header menuName="My"></Header>
       <StProfileContainer>
         <StProfileBox>
-          <StImg src={IMAGES.test}></StImg>
+          <StImg src={userInfo.profileImage}></StImg>
           <StInfoBox>
             <span>{userInfo.username}</span>
             <span>{userInfo.email}</span>
@@ -79,16 +66,6 @@ const MypageForm = () => {
         </button>
         <button onClick={logoutHandler}>로그아웃</button>
       </StButtonContainer>
-      {/* 뽀모도로 타이머  */}
-      <StTimer>
-        {/* <input value={inputValue} onChange={onChange} /> */}
-        <div>{parsedTime || "00:00"}</div>
-        {isClear ? (
-          <button onClick={() => startTimer(time)}>뽀모도로 시작</button>
-        ) : (
-          <button onClick={clearTimer}>휴식</button>
-        )}
-      </StTimer>
     </div>
   );
 };
@@ -153,32 +130,5 @@ const StButtonContainer = styled.div`
   button {
     border: 1px solid black;
     height: 30px;
-  }
-`;
-
-const StTimer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-
-  button {
-    border: 1px solid black;
-    width: 300px;
-    height: 50px;
-    border-radius: 20px;
-    font-size: 1.5rem;
-  }
-
-  div {
-    border: 1px solid black;
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    font-size: 2.7rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
 `;

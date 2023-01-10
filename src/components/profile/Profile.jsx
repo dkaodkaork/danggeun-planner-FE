@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -8,7 +8,7 @@ import {
   __putNickname,
   __putProfileImg,
 } from "../../redux/modules/mypageSlice";
-import { IMAGES } from "../../constants/images";
+import { PATH } from "../../constants/index";
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -16,13 +16,14 @@ const Profile = () => {
   const profileImgInput = useRef();
 
   useEffect(() => {
-    // dispatch(__getUserInfo());
+    dispatch(__getUserInfo());
   }, [dispatch]);
 
   const userInfo = useSelector((state) => state.mypage.data);
+  console.log(userInfo);
 
   const [editUsername, setEditUsername] = useState({
-    username: userInfo.username,
+    username: "",
   });
 
   const changeUsernameHandler = (e) => {
@@ -31,12 +32,14 @@ const Profile = () => {
     });
   };
   console.log(editUsername);
+  console.log(userInfo.username);
 
   const submitHandler = () => {
-    if (editUsername.username === "") alert("닉네임을 입력해주세요!");
-    else {
-      // dispatch(__putNickname(editUsername));
-      navigate("/mypage");
+    if (editUsername.username !== userInfo.username) {
+      dispatch(__putNickname(editUsername));
+      navigate(-1);
+    } else {
+      navigate(-1);
     }
   };
 
@@ -51,8 +54,8 @@ const Profile = () => {
 
   const changeImgHandler = (e) => {
     const formData = new FormData();
-    formData.append("multipartFile", e.target.files[0]);
-    // dispatch(__putProfileImg(formData));
+    formData.append("image", e.target.files[0]);
+    dispatch(__putProfileImg(formData));
   };
 
   return (
@@ -61,7 +64,10 @@ const Profile = () => {
 
       <StImgContainer>
         <StTitle>프로필</StTitle>
-        <StImg onClick={profileImgClickHandler} src={IMAGES.test}></StImg>
+        <StImg
+          onClick={profileImgClickHandler}
+          src={userInfo.profileImage}
+        ></StImg>
 
         <input
           style={{ display: "none" }}
@@ -76,7 +82,11 @@ const Profile = () => {
           <label>닉네임</label>
           <StInput
             name="username"
-            defaultValue={editUsername.username}
+            defaultValue={
+              editUsername.username === ""
+                ? userInfo.username
+                : editUsername.username
+            }
             onChange={changeUsernameHandler}
             autoFocus
           />
