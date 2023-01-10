@@ -1,9 +1,18 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 // 타이머를 화면에 표시하기 위해 사용할 hook
 
 const useInterval = (callback, delay, isClear) => {
+  // const savedCallback = useRef();
+
+  // useEffect(() => {
+  //   savedCallback.current = callback;
+  // }, [callback]);
+
   useEffect(() => {
+    // function tick() {
+    //   savedCallback.current();
+    // }
     if (!isClear) {
       // 1) isClear가 false일때, delay 마다 callback 함수를 실행하겠다.
       const timerId = setInterval(callback, delay);
@@ -12,6 +21,6 @@ const useInterval = (callback, delay, isClear) => {
       return () => clearInterval(timerId);
       // 실행중인 setInterval 을 취소하기위해서 clearInterval을 사용해야한다. 전달하는 id 는 setInterval을 실행할 때 반환된 값
     }
-  }, [delay, isClear]);
+  }, [delay, isClear, callback]);
 };
 export default useInterval;

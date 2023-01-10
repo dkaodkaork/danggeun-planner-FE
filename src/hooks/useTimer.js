@@ -27,16 +27,16 @@ const useTimer = (callback, delay) => {
       callback();
       setIsClear(true);
     }
-  }, [currentTime]);
+  }, [currentTime, callback]);
 
   useEffect(() => {
     const formatted = moment.utc(currentTime).format("mm:ss"); // 타이머 시간 파싱 하는것 moment 라이브러리 이용
     setParsedTime(formatted);
   }, [currentTime]);
 
-  const clearTimer = () => {
+  const clearTimer = (time) => {
     // 클리어타임
-    setCurrentTime(timer); // 타이머를멈췄을때 다시 사용자가 지정한 타이머 시간으로 초기화
+    setCurrentTime(time); // 타이머를멈췄을때 다시 사용자가 지정한 타이머 시간으로 초기화
     setIsClear(true); // setIsClear를 true로 만들어서 useInterval 훅이 실행되지 않도록
   };
 
@@ -54,6 +54,7 @@ const useTimer = (callback, delay) => {
     currentTime,
     isClear,
     parsedTime,
+    setCurrentTime,
   };
 };
 export default useTimer;
