@@ -1,15 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 
-const Input = (props) => {
+const Textarea = (props) => {
   return (
-    <StInput
+    <StTextarea
       backgroundColor={props.backgroundColor}
       background={props.background}
       color={props.color}
       hoverBacground={props.hoverBacground}
       hoverColor={props.hoverColor}
-      type={props.type || "input"}
+      type={props.type || "textarea"}
       onClick={props.onClick}
       fontSize={props.fontSize}
       margin={props.margin}
@@ -21,14 +21,14 @@ const Input = (props) => {
       placeholder={props.placeholder}
     >
       {props.children}
-    </StInput>
+    </StTextarea>
   );
 };
 
-export default Input;
-const StInput = styled.input`
+export default Textarea;
+const StTextarea = styled.textarea`
   border-radius: 12px;
-  padding: ${({ padding }) => padding || "19px 16px 19px 16px"};
+  padding: ${({ padding }) => padding || "6px 16px 6px 16px"};
   //cursor: pointer;
   margin: ${({ margin }) => margin || "8px 0px 8px 0px"};
   background-color: ${({ backgroundColor }) => backgroundColor || "#FFFDFA"};
@@ -36,9 +36,10 @@ const StInput = styled.input`
   border: ${({ border }) => border || "1px solid #dcdcdc"};
   font-size: ${({ fontSize }) => fontSize || "1.6rem"};
   font-weight: ${({ fontWeight }) => fontWeight || "700"};
+  line-height: ${({ lineHeight }) => lineHeight || "160%"};
   font-family: ${({ fontFamily }) => fontFamily || "Pretendard-Regular"};
   width: ${({ width }) => width || "319px"};
-  height: ${({ height }) => height || "59px"};
+  height: ${({ height }) => height || "100px"};
   border: ${({ border }) => border || "1px solid #F1E5D2"};
   color: ${({ color }) => color || "#595550"};
 `;

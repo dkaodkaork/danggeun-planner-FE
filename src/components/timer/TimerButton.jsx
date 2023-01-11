@@ -14,6 +14,7 @@ const Button = (props) => {
       fontSize={props.fontSize}
       fontWeight={props.fontWeight}
       margin={props.margin}
+      marginTop={props.marginTop}
       width={props.width}
       fontFamily={props.fontFamily}
       padding={props.padding}
@@ -36,6 +37,7 @@ const Button = (props) => {
 
 export default Button;
 const StButton = styled.button`
+  margin-top: ${({ marginTop }) => marginTop};
   border-radius: 12px;
   padding: ${({ padding }) => padding || "10px 23px 10px 23px"};
   cursor: pointer;

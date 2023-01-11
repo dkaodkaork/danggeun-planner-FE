@@ -10,5 +10,6 @@ export const PATH = {
   mypage: "/mypage",
   profile: "/profile",
   timer: "/timer",
-  getcarrot: "/getcarrot",
+  carrot: "/carrot",
+  grouplist: "/grouplist",
 };

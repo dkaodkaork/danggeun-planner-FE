@@ -16,14 +16,16 @@ import moment from "moment";
 import "../calendar/style/Calendar.css"; // css import
 
 //svg Import
-import { ReactComponent as PreviousArrow } from "../../assets/images/calendar/previous_month.svg";
-import { ReactComponent as NextArrow } from "../../assets/images/calendar/next_month.svg";
+import { IMAGES } from "../../constants/images.js";
 
 const CalendarGet = () => {
-  //dispatch와 useselector 사용
   const dispatch = useDispatch();
-  const GetCalendarData = useSelector((state) => state.calendarSlice.data);
+  const GetCalendarData = useSelector((state) => state.calendarSlice);
   const navigate = useNavigate();
+
+  const getColorStages = useSelector(
+    (state) => state.calendarSlice.colorStages
+  );
 
   //이번달로 이동하기 위한 useRef 사용
   const calendarRef = useRef();
@@ -32,16 +34,17 @@ const CalendarGet = () => {
   const todayYear = moment().format("YYYY");
   const todayMonth = moment().format("MM");
 
+  const username = "테스트";
   //현재 날짜에 맞는 월 데이터 불러오기
   useEffect(() => {
-    dispatch(__getCalendar({ todayYear, todayMonth }));
+    dispatch(__getCalendar({ todayYear, todayMonth, username }));
   }, []);
 
   //data에서 단계별로 분류하기
-  const mark1 = GetCalendarData?.stage1;
-  const mark2 = GetCalendarData?.stage2;
-  const mark3 = GetCalendarData?.stage3;
-  const mark4 = GetCalendarData?.stage4;
+  const mark1 = getColorStages[0]?.colorStage1;
+  const mark2 = getColorStages[0]?.colorStage2;
+  const mark3 = getColorStages[0]?.colorStage3;
+  const mark4 = getColorStages[0]?.colorStage4;
 
   //이번달로 이동하는 핸들러
   const ClickTodayHandler = () => {
@@ -54,7 +57,7 @@ const CalendarGet = () => {
   const ClickArrowHandler = ({ action, activeStartDate, value, view }) => {
     const todayYear = moment(activeStartDate).format("YYYY");
     const todayMonth = moment(activeStartDate).format("MM");
-    dispatch(__getCalendar({ todayYear, todayMonth }));
+    dispatch(__getCalendar({ todayYear, todayMonth, username }));
   };
 
   //버튼을 눌렀을 때 플래너로 이동하는 핸들러
@@ -66,36 +69,39 @@ const CalendarGet = () => {
 
   return (
     <>
-      <Header menuName="Calendar" />
+      <Header
+        menuName="Calendar"
+        right={IMAGES.menu}
+        left={IMAGES.home}
+      ></Header>
       <CalendarStyle>
         <ProfileLayout>
           {/* <Profile /> */}
-          {/* <img src={GetCalendarData?.profileImage} /> */}
-          <img src="https://velog.velcdn.com/images/posinity/post/5a8adab6-f8de-41e5-a915-2b7592b35960/image.png" />
+          <img src={GetCalendarData?.profileImage} />
+          {/* <img src="https://velog.velcdn.com/images/posinity/post/5a8adab6-f8de-41e5-a915-2b7592b35960/image.png" /> */}
         </ProfileLayout>
         <NickName>{GetCalendarData?.username}</NickName>
         <MonthlyGet>
-          {GetCalendarData?.username}님의 이번주 평균 수확량은
-          <strong>{GetCalendarData?.monthlyAverageCarrot}</strong>
+          {GetCalendarData?.username}님의 이번달 총 수확량은
+          <strong>{GetCalendarData?.carrot}</strong>
           개입니다
         </MonthlyGet>
         <CalendarLayout>
-          <TodayBtn onClickToday={ClickTodayHandler} />
           <Calendar
             ref={calendarRef}
             onChange={setValue}
             value={value}
-            nextLabel={<NextArrow />}
-            prevLabel={<PreviousArrow />}
+            nextLabel={IMAGES.nextArrow}
+            prevLabel={IMAGES.previousArrow}
             next2Label={null} //년 이동 삭제
             prev2Label={null} //년 이동 삭제
             calendarType="US" //요일을 일요일부터 시작하게
             formatDay={(locale, date) =>
               date.toLocaleString("en", { day: "numeric" })
             } //'일'글자 제거
-            formatShortWeekday={(locale, date) =>
-              ["S", "M", "T", "W", "T", "F", "S"][date.getDay()]
-            } //요일 표시 수정
+            // formatShortWeekday={(locale, date) =>
+            //   ["S", "M", "T", "W", "T", "F", "S"][date.getDay()]
+            // } //요일 표시 수정
             // 년도를 클릭해서 월로 바로 이동할 때 호출되는 함수
             onViewChange={({ action, activeStartDate, value, view }) =>
               console.log("New activeStartDate is: ", activeStartDate)
@@ -120,6 +126,7 @@ const CalendarGet = () => {
               }
             }}
           />
+          <TodayBtn onClickToday={ClickTodayHandler} />
         </CalendarLayout>
       </CalendarStyle>
     </>
@@ -133,7 +140,7 @@ export const CalendarStyle = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 758px; //812px에서 헤더 54px을 뺀 값을 줘야 스크롤이 안생김
+  min-height: 722px; //812px에서 헤더 90px을 뺀 값을 줘야 스크롤이 안생김
 `;
 
 export const ProfileLayout = styled.div`
@@ -165,6 +172,6 @@ export const CalendarLayout = styled.div`
   margin-top: 33px;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
   gap: 12px;
 `;
