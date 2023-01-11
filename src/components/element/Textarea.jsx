@@ -18,6 +18,8 @@ const Textarea = (props) => {
       padding={props.padding}
       height={props.height}
       onChange={props.onChange}
+      maxLength={props.maxLength}
+      contentEditable={props.contentEditable}
       placeholder={props.placeholder}
     >
       {props.children}
@@ -28,7 +30,7 @@ const Textarea = (props) => {
 export default Textarea;
 const StTextarea = styled.textarea`
   border-radius: 12px;
-  padding: ${({ padding }) => padding || "6px 16px 6px 16px"};
+  padding: ${({ padding }) => padding || "9px 16px 9px 16px"};
   //cursor: pointer;
   margin: ${({ margin }) => margin || "8px 0px 8px 0px"};
   background-color: ${({ backgroundColor }) => backgroundColor || "#FFFDFA"};
@@ -42,4 +44,5 @@ const StTextarea = styled.textarea`
   height: ${({ height }) => height || "100px"};
   border: ${({ border }) => border || "1px solid #F1E5D2"};
   color: ${({ color }) => color || "#595550"};
+  maxlength: ${({ maxLength }) => maxLength || "100"};
 `;

@@ -18,6 +18,7 @@ const Input = (props) => {
       padding={props.padding}
       height={props.height}
       onChange={props.onChange}
+      maxLength={props.maxLength}
       placeholder={props.placeholder}
     >
       {props.children}
