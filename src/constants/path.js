@@ -11,5 +11,9 @@ export const PATH = {
   profile: "/profile",
   timer: "/timer",
   carrot: "/carrot",
+
+  //그룹 페이지
   grouplist: "/grouplist",
+  groupadd: "/groupadd",
+  groupdetail: "/groupdetail",
 };
