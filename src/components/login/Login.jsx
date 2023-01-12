@@ -33,12 +33,13 @@ const Login = () => {
     } else {
       try {
         const { headers, data, status } = await api.postLoginApi(loginInfo);
-        console.log(data);
+        console.log(headers);
         if (status === 200) {
-          setCookies("AccessToken", headers.accesstoken, {
-            path: "/",
-            maxAge: 36000,
-          });
+          localStorage.setItem("AccessToken", headers.accesstoken);
+          // setCookies("AccessToken", headers.accesstoken, {
+          //   path: "/",
+          //   maxAge: 36000,
+          // });
           console.log(data.data);
           if (data.data.isExistUsername) {
             navigate(PATH.main);
