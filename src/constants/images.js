@@ -6,6 +6,8 @@ import { ReactComponent as GroupAdd } from "../assets/images/group/groupAdd.svg"
 import { ReactComponent as GroupListPeople } from "../assets/images/group/groupListPeople.svg";
 import { ReactComponent as NextArrow } from "../assets/images/calendar/next_month.svg";
 import { ReactComponent as PreviousArrow } from "../assets/images/calendar/previous_month.svg";
+import { ReactComponent as DownArrow } from "../assets/images/group/down-arrow.svg";
+import { ReactComponent as InviteIcon } from "../assets/images/group/inviteIcon.svg";
 
 export const IMAGES = {
   carrotLv0: require("../assets/images/carrotLv0.svg"),
@@ -20,4 +22,6 @@ export const IMAGES = {
   nextArrow: <NextArrow />,
   previousArrow: <PreviousArrow />,
   groupListPeople: <GroupListPeople />,
+  downArrow: <DownArrow />,
+  inviteIcon: <InviteIcon />,
 };

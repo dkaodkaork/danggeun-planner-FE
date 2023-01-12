@@ -27,11 +27,32 @@ const GlobalStyles = createGlobalStyle`
     font-style: normal;
     }
     @font-face {
-    font-family: 'Pretendard-Regular';
-    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-    font-weight: 700;
+    font-family: 'Pretendard-Bold';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff') format('woff');
+    font-weight: normal;
     font-style: normal;
     }
+
+    //로컬폰트 임포트(에러메세지 떠서 주석처리함)
+    /* @font-face {
+    font-family: "Pretendard";
+    font-weight: 700;
+    src: 
+      url("../assets/font/Pretendard-Bold.woff2") format('woff2'),
+      url("../assets/font/Pretendard-Bold.woff") format('woff');
+    }
+    @font-face {
+    font-family: "Maplestory";
+    font-weight: 700;
+    src: url("../assets/font/Maplestory-Bold.woff") format('woff');
+    }
+    @font-face {
+    font-family: "Maplestory";
+    font-weight: 300;
+    src: local("Maplestory-Light"),
+      url("../assets/font/Maplestory-Light.woff") format('woff');
+    } */
+
     ::-webkit-scrollbar {
       display: none;
     } 
