@@ -8,7 +8,6 @@ import {
   __putNickname,
   __putProfileImg,
 } from "../../redux/modules/mypageSlice";
-import { PATH } from "../../constants/index";
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -20,7 +19,7 @@ const Profile = () => {
   }, [dispatch]);
 
   const userInfo = useSelector((state) => state.mypage.data);
-  console.log(userInfo);
+  // console.log(userInfo);
 
   const [editUsername, setEditUsername] = useState({
     username: "",
@@ -31,14 +30,12 @@ const Profile = () => {
       [e.target.name]: e.target.value,
     });
   };
-  console.log(editUsername);
-  console.log(userInfo.username);
 
   const submitHandler = () => {
-    if (editUsername.username !== userInfo.username) {
-      dispatch(__putNickname(editUsername));
+    if (editUsername.username === "") {
       navigate(-1);
     } else {
+      dispatch(__putNickname(editUsername));
       navigate(-1);
     }
   };
