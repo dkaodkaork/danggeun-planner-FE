@@ -10,8 +10,9 @@ export const PATH = {
   mypage: "/mypage",
   profile: "/profile",
   timer: "/timer",
+  getcarrot: "/getcarrot",
+  planner: "/planner/:username/:date",
   carrot: "/carrot",
-
   //그룹 페이지
   grouplist: "/grouplist",
   groupadd: "/groupadd",

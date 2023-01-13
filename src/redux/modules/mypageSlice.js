@@ -17,7 +17,8 @@ export const __putNickname = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const { data } = await api.putNicknameApi(payload);
-      return thunkAPI.fulfillWithValue(data.data);
+      console.log(data);
+      return thunkAPI.fulfillWithValue(data);
     } catch (error) {
       console.log(error);
       alert(error.response.data.message);
@@ -68,7 +69,8 @@ export const mypageSlice = createSlice({
       })
       .addCase(__putNickname.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.data = { ...state.data, username: action.payload.username };
+        console.log(action);
+        state.data = { ...state.data, username: action.payload.data.username };
       })
       .addCase(__putNickname.rejected, (state, action) => {
         state.isLoading = false;
