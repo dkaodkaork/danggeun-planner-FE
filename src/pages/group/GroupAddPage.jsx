@@ -1,8 +1,8 @@
 import React from "react";
-import GroupAdd from "../../components/group/GroupAdd";
+import GroupWriteTemplete from "../../components/group/GroupWriteTemplete";
 
 const GroupAddPage = () => {
-  return <GroupAdd></GroupAdd>;
+  return <GroupWriteTemplete subject="만들기"></GroupWriteTemplete>;
 };
 
 export default GroupAddPage;

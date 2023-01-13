@@ -2,6 +2,8 @@ import React from "react";
 import Header from "../header/Header";
 import styled from "styled-components";
 import { IMAGES } from "../../constants/images.js";
+import { PATH } from "../../constants/path.js";
+import { Link } from "react-router-dom";
 
 const GroupList = () => {
   return (
@@ -9,7 +11,9 @@ const GroupList = () => {
       <Header menuName="Group" right={IMAGES.menu} left={IMAGES.home}></Header>
       <GroupLayout>
         <CardLayout>
-          <CardBoxAdd>{IMAGES.groupAdd}</CardBoxAdd>
+          <Link to={PATH.groupadd}>
+            <CardBoxAdd>{IMAGES.groupAdd}</CardBoxAdd>
+          </Link>
           <CardBox>
             <TopInfo>
               <GroupName>화이팅</GroupName>
