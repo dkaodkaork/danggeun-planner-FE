@@ -8,10 +8,16 @@ import { ReactComponent as NextArrow } from "../assets/images/calendar/next_mont
 import { ReactComponent as PreviousArrow } from "../assets/images/calendar/previous_month.svg";
 
 export const IMAGES = {
-  carrotLv0: require("../assets/images/carrotLv0.svg"),
-  carrotLv1: require("../assets/images/carrotLv1.svg"),
-  carrotLv2: require("../assets/images/carrotLv2.svg"),
-  carrotLv3: require("../assets/images/carrotLv3.svg"),
+  // 타이머 이미지
+  defalut: require("../assets/images/timer/default.png"),
+  step1: require("../assets/images/timer/step1.png"),
+  step2: require("../assets/images/timer/step2.png"),
+  step3: require("../assets/images/timer/step3.png"),
+  step4: require("../assets/images/timer/step4.png"),
+  step5: require("../assets/images/timer/step5.png"),
+  step6: require("../assets/images/timer/step6.png"),
+  rest: require("../assets/images/timer/rest.png"),
+  //
   menu: <Menu />,
   home: <Home />,
   completeCarrot: <CompleteCarrot />,

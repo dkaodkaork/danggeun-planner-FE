@@ -28,23 +28,13 @@ const GetCarrot = ({ onClick }) => {
 export default GetCarrot;
 
 export const ModalContainer = styled.div`
-  /* height: 100vh; */
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
-// export const ModalBtn = styled.button`
-//   background-color: #4000c7;
-//   border: none;
-//   padding: 20px;
-//   color: white;
-//   border-radius: 30px;
-//   cursor: grab;
-// `;
-
 export const ModalBackdrop = styled.div`
-  width: 100%;
+  width: 375px;
   height: 100%;
   position: fixed;
   display: flex;

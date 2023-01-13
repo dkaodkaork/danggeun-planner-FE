@@ -16,9 +16,8 @@ export const __putNickname = createAsyncThunk(
   "nickname/add",
   async (payload, thunkAPI) => {
     try {
-      const { data, status } = await api.putNicknameApi(payload);
-      console.log(data, status);
-      return thunkAPI.fulfillWithValue(data);
+      const { data } = await api.putNicknameApi(payload);
+      return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       console.log(error);
       alert(error.response.data.message);
@@ -31,8 +30,9 @@ export const __getUserInfo = createAsyncThunk(
   "userinfo/get",
   async (_, thunkAPI) => {
     try {
-      const { data } = await api.getUserInfoApi();
-      return thunkAPI.fulfillWithValue(data.data);
+      const response = await api.getUserInfoApi();
+      console.log(response);
+      return thunkAPI.fulfillWithValue();
     } catch (error) {
       console.log(error);
       return thunkAPI.rejectWithValue(error);
@@ -45,9 +45,9 @@ export const __putProfileImg = createAsyncThunk(
   async (payload, thunkAPI) => {
     console.log(payload);
     try {
-      const response = await api.putProfileImgApi(payload);
-      console.log(response);
-      return thunkAPI.fulfillWithValue();
+      const { data } = await api.putProfileImgApi(payload);
+      console.log("사진등록", data.data);
+      return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       console.log(error);
       return thunkAPI.rejectWithValue(error);
@@ -68,8 +68,7 @@ export const mypageSlice = createSlice({
       })
       .addCase(__putNickname.fulfilled, (state, action) => {
         state.isLoading = false;
-        console.log(action.payload.data.username);
-        // state.data = { ...state.data, username: action.payload.data.username };
+        state.data = { ...state.data, username: action.payload.username };
       })
       .addCase(__putNickname.rejected, (state, action) => {
         state.isLoading = false;
@@ -94,8 +93,10 @@ export const mypageSlice = createSlice({
       })
       .addCase(__putProfileImg.fulfilled, (state, action) => {
         state.isLoading = false;
-        console.log(action);
-        // state.data =
+        state.data = {
+          ...state.data,
+          profileImage: action.payload.profileImage,
+        };
       })
       .addCase(__putProfileImg.rejected, (state, action) => {
         state.isLoading = false;
