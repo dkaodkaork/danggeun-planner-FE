@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
-const Button = (props) => {
+const ButtonS = (props) => {
   return (
     <StButton
+      className={props.className}
       backgroundColor={props.backgroundColor}
       background={props.background}
       color={props.color}
@@ -35,35 +36,40 @@ const Button = (props) => {
   );
 };
 
-export default Button;
+export default ButtonS;
 const StButton = styled.button`
   margin-top: ${({ marginTop }) => marginTop};
   border-radius: 12px;
-  padding: ${({ padding }) => padding || "10px 23px 10px 23px"};
+  padding: ${({ padding }) => padding || "10px"};
   cursor: pointer;
   //margin: ${({ margin }) => margin || "0 5px 0 0"};
   background-color: ${({ backgroundColor }) => backgroundColor || "#F27808"};
   color: ${({ color }) => color || "#F9F3EA"};
   border: ${({ border }) => border};
-  font-size: ${({ fontSize }) => fontSize || "2.4rem"};
+  font-size: ${({ fontSize }) => fontSize || "1.6rem"};
   font-weight: ${({ fontWeight }) => fontWeight || "700"};
   font-family: ${({ fontFamily }) => fontFamily || "MaplestoryOTFBold"};
   font-style: ${({ fontStyle }) => fontStyle};
-  width: ${({ width }) => width || "260px"};
-  height: ${({ height }) => height || "75px"};
+  width: ${({ width }) => width || "101px"};
+  height: ${({ height }) => height || "43px"};
   text-decoration: ${({ textDecoration }) => textDecoration};
   text-underline-position: ${({ underlinePosition }) => underlinePosition};
   animation: ${({ animation }) => animation};
   filter: ${({ filter }) =>
     filter || "drop-shadow(0px 4px 0px rgba(0, 0, 0, 0.25))"};
-  /* &:disabled {
+  /* &.disabled {
     background-color: ${({ backgroundColor }) =>
     backgroundColor || "rgba(88, 132, 224, 0.7)"};
     color: ${({ color }) => color || "#fff"};
   }
-  &:active {
+  &.active {
     background-color: ${({ backgroundColor }) =>
     backgroundColor || "var(--color-point-blue)"};
     color: ${({ color }) => color || "#fff"};
   } */
+  &.reverse {
+    background-color: ${({ backgroundColor }) => backgroundColor || "#FFFDFA"};
+    color: ${({ color }) => color || "#F27808"};
+    border: ${({ border }) => border || "1px solid #F27808"};
+  }
 `;

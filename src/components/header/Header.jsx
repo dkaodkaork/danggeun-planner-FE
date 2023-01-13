@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import GroupMenu from "../group/GroupMenu";
 
 const Header = ({
   menuName,
@@ -9,16 +10,20 @@ const Header = ({
   right,
   leftLink,
   rightLink,
+  clickMenuHandler,
 }) => {
-  const navigate = useNavigate();
   return (
-    <HeaderStyle>
-      <TopIcon justifyContent={justifyContent}>
-        <Link to={leftLink}>{left}</Link>
-        <Link to={rightLink}>{right}</Link>
-      </TopIcon>
-      <MenuName>{menuName}</MenuName>
-    </HeaderStyle>
+    <>
+      <HeaderStyle>
+        <TopIcon justifyContent={justifyContent}>
+          <Link to={leftLink}>{left}</Link>
+          {/* <Link to={rightLink}>{right}</Link> */}
+          <MenuIcon onClick={clickMenuHandler}>{right}</MenuIcon>
+        </TopIcon>
+        <MenuName>{menuName}</MenuName>
+      </HeaderStyle>
+      <GroupMenu />
+    </>
   );
 };
 
@@ -52,3 +57,5 @@ export const MenuName = styled.h1`
   font-size: 1.6rem;
   color: #595550;
 `;
+
+const MenuIcon = styled.div``;

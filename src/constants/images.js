@@ -2,6 +2,12 @@ import { ReactComponent as Menu } from "../assets/images/menuicon.svg";
 import { ReactComponent as Home } from "../assets/images/home.svg";
 import { ReactComponent as CompleteCarrot } from "../assets/images/timer/completeCarrot.svg";
 import { ReactComponent as BlingCarrot } from "../assets/images/timer/blingCarrot.svg";
+import { ReactComponent as GroupAdd } from "../assets/images/group/groupAdd.svg";
+import { ReactComponent as GroupListPeople } from "../assets/images/group/groupListPeople.svg";
+import { ReactComponent as NextArrow } from "../assets/images/calendar/next_month.svg";
+import { ReactComponent as PreviousArrow } from "../assets/images/calendar/previous_month.svg";
+import { ReactComponent as DownArrow } from "../assets/images/group/down-arrow.svg";
+import { ReactComponent as InviteIcon } from "../assets/images/group/inviteIcon.svg";
 
 export const IMAGES = {
   // 타이머 이미지
@@ -18,4 +24,10 @@ export const IMAGES = {
   home: <Home />,
   completeCarrot: <CompleteCarrot />,
   blingCarrot: <BlingCarrot />,
+  groupAdd: <GroupAdd />,
+  nextArrow: <NextArrow />,
+  previousArrow: <PreviousArrow />,
+  groupListPeople: <GroupListPeople />,
+  downArrow: <DownArrow />,
+  inviteIcon: <InviteIcon />,
 };

@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import TimerButton from "./TimerButton";
-import { IMAGES, PATH } from "../../constants/index";
+import { IMAGES } from "../../constants/index";
+
 //Gsap라이브러리 Import
 import { gsap } from "gsap";
 //import getCarrotModal from "./style/getCarrotModal.css";
@@ -10,6 +11,7 @@ const GetCarrotModal = (props) => {
   const carrotRef = useRef();
   const blingRef = useRef();
 
+  //당근 애니메이션
   useEffect(() => {
     let tl = gsap.timeline();
     tl.from(carrotRef.current, {
@@ -32,13 +34,13 @@ const GetCarrotModal = (props) => {
     });
   }, []);
 
+  //반짝이 애니메이션
   useEffect(() => {
     let tl = gsap.timeline();
 
     tl.to(blingRef.current, {
       delay: 1.4,
       rotation: 360,
-      // repeat: -1,
       yoyo: true,
     });
   }, []);
