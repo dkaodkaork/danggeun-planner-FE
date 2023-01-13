@@ -11,6 +11,7 @@ import MyPage from "../pages/MyPage";
 import ProfilePage from "../pages/ProfilePage";
 import TimerPage from "../pages/TimerPage";
 import GetCarrotPage from "../pages/GetCarrotPage";
+import PlannerPage from "../pages/PlannerPage";
 
 const Router = () => {
   return (
@@ -28,6 +29,7 @@ const Router = () => {
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/timer" element={<TimerPage />} />
           <Route path="/getcarrot" element={<GetCarrotPage />} />
+          <Route path="/planner/:username/:date" element={<PlannerPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
