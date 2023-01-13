@@ -11,4 +11,5 @@ export const PATH = {
   profile: "/profile",
   timer: "/timer",
   getcarrot: "/getcarrot",
+  planner: "/planner/:username/:date",
 };
