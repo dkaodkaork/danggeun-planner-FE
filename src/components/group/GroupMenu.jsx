@@ -1,20 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { IMAGES } from "../../constants/images.js";
 
-import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
+import {
+  groupMenuOpenStatus,
+  detailMenuOpenStatus,
+} from "../../redux/modules/modalSlice";
+
+import GroupModal from "./GroupModal.jsx";
 
 const GroupMenu = () => {
-  const groupMenuOpen = useSelector((state) => state.modalSlice.groupMenuOpen);
   const dispatch = useDispatch();
+
+  const groupMenuOpen = useSelector((state) => state.modalSlice.groupMenuOpen);
+
+  //그룹 탈퇴, 수정, 삭제 토글 관리
+  const detailMenuOpen = useSelector(
+    (state) => state.modalSlice.detailMenuOpen
+  );
 
   const [isMatster, setIsMaster] = useState(false);
 
   const clickGroupMenuHandler = () => {
     dispatch(groupMenuOpenStatus(!groupMenuOpen));
+  };
+
+  const [quitModal, setQuitModal] = useState(false);
+  const [updateModal, setUpdateModal] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
+
+  const clickQuitHandler = () => {
+    setQuitModal(true);
+    dispatch(detailMenuOpenStatus(!detailMenuOpen));
   };
 
   return (
@@ -210,14 +230,29 @@ const GroupMenu = () => {
         <GroupButton>
           {isMatster ? (
             <>
-              <button>그룹수정</button>
-              <button>그룹삭제</button>
+              <button
+                onClick={() => {
+                  setUpdateModal(true);
+                }}
+              >
+                그룹수정
+              </button>
+              <button
+                onClick={() => {
+                  setDeleteModal(true);
+                }}
+              >
+                그룹삭제
+              </button>
             </>
           ) : (
-            <button>그룹탈퇴</button>
+            <button onClick={clickQuitHandler}>그룹탈퇴</button>
           )}
         </GroupButton>
       </MenuLayout>
+      {updateModal ? <GroupModal subject="수정" /> : null}
+      {deleteModal ? <GroupModal subject="삭제" /> : null}
+      {quitModal ? <GroupModal subject="탈퇴" /> : null}
     </ModalBackdrop>
   );
 };

@@ -14,6 +14,7 @@ import GetCarrotPage from "../pages/GetCarrotPage";
 import GroupListPage from "../pages/group/GroupListPage";
 import GroupAddPage from "../pages/group/GroupAddPage";
 import GroupDetailPage from "../pages/group/GroupDetailPage";
+import GroupUpdatePage from "../pages/group/GroupUpdatePage";
 
 const Router = () => {
   return (
@@ -34,6 +35,7 @@ const Router = () => {
           <Route path="/grouplist" element={<GroupListPage />} />
           <Route path="/groupadd" element={<GroupAddPage />} />
           <Route path="/groupdetail" element={<GroupDetailPage />} />
+          <Route path="/groupupdate" element={<GroupUpdatePage />} />
         </Route>
       </Routes>
     </BrowserRouter>
