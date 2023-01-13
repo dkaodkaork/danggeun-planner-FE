@@ -7,18 +7,13 @@ import Input from "../element/Input";
 import Textarea from "../element/Textarea";
 import TimerButton from "../timer/TimerButton";
 
-const GroupAdd = () => {
+const GroupWriteTemplete = (props) => {
   let [textareaCount, setTextareaCount] = useState(0);
   let [inputCount, setInputCount] = useState(0);
   let [value, setValue] = useState("");
 
   const onTextareaHandler = (e) => {
     setTextareaCount(e.target.value.length);
-
-    //정규식으로 byte 변환하는 법
-    // setCount(
-    //   e.target.value.replace(/[\0-\x7f]|([0-\u07ff]|(.))/g, "$&$1$2").length
-    // );
   };
 
   const onInputHandler = (e) => {
@@ -30,12 +25,12 @@ const GroupAdd = () => {
       <Header menuName="Group" right={IMAGES.menu} left={IMAGES.home}></Header>
       <GroupLayout>
         <AddInfo>
-          <h1>그룹 만들기</h1>
-          <p>
+          <h1>그룹 {props.subject}</h1>
+          {/* <p>
             가족, 친구들과 집중 상황을 공유하세요.
             <br />
             누가 더 많은 당근을 수확하는지 겨루고 격려하세요!
-          </p>
+          </p> */}
         </AddInfo>
         <AddName>
           <h3>그룹 이름</h3>
@@ -56,13 +51,15 @@ const GroupAdd = () => {
         <TimerButton marginTop="80px" width="319px">
           완 료
         </TimerButton>
-        <PageMsg>그룹 이름과 소개는 언제든 수정할 수 있습니다.</PageMsg>
+        {!props.isUpdate ? (
+          <PageMsg>그룹 이름과 소개는 언제든 수정할 수 있습니다.</PageMsg>
+        ) : null}
       </GroupLayout>
     </>
   );
 };
 
-export default GroupAdd;
+export default GroupWriteTemplete;
 
 const GroupLayout = styled.div`
   background-color: #f9f3ea;
