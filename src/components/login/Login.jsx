@@ -35,8 +35,9 @@ const Login = () => {
         const { headers, data, status } = await api.postLoginApi(loginInfo);
         console.log(headers);
         if (status === 200) {
-          localStorage.setItem("AccessToken", headers.accesstoken);
-          // setCookies("AccessToken", headers.accesstoken, {
+          localStorage.setItem("accessToken", headers.accesstoken);
+          localStorage.setItem("refreshToken", headers.refreshtoken);
+          // setCookies("accessToken", headers.accessToken, {
           //   path: "/",
           //   maxAge: 36000,
           // });
