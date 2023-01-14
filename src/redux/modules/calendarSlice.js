@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { instance } from "../../core/apiConfig.js";
+import { instance, baseURL } from "../../core/apiConfig.js";
 //import { api } from "../../core/api";
 
 //초기값 선언
@@ -17,13 +17,13 @@ const initialState = {
   ],
 };
 
-// 댓글 조회
+// 캘린더 조회
 export const __getCalendar = createAsyncThunk(
   "__getCalendar",
   async (payload, thunkAPI) => {
     const { todayMonth, todayYear, username } = payload;
     try {
-      const { data } = await instance.get(
+      const { data } = await baseURL.get(
         `/calendar/${username}/${todayYear}-${todayMonth}`
       );
       return thunkAPI.fulfillWithValue(data.data);

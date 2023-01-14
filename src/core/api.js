@@ -4,10 +4,12 @@ export const api = {
   // 회원가입/로그인
   postLoginApi: (loginInfo) => instance.post(`auth/login`, loginInfo),
   postSignUpApi: (signUpInfo) => instance.post(`auth/signup`, signUpInfo),
+
   // 유저정보
   putNicknameApi: (userInfo) => baseURL.put(`member/username`, userInfo),
   getUserInfoApi: () => baseURL.get(`member/mypage`),
   putProfileImgApi: (formData) => baseURL.put(`member/image`, formData),
+
   // 캘린더
   getCalendarApi: (todayYear, todayMonth) =>
     instance.get(`/calendar/${todayYear}-${todayMonth}`),
@@ -18,6 +20,10 @@ export const api = {
 
   //그룹
   getGroupListApi: () => baseURL.get(`/group`),
+  postGroupAddApi: (payload) => baseURL.post(`/group`, payload),
+  getGroupDetailApi: (groupId) => baseURL.get(`/group/${groupId}`),
+  deleteGroupApi: (groupId) => baseURL.delete(`/group/${groupId}`),
+  putGroupUpdateApi: (payload) => baseURL.put(`/group`, payload),
 
   // 플래너
   getPlannerApi: (username, date) => baseURL.get(`planner/${username}/${date}`),

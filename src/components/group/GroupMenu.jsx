@@ -1,19 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { IMAGES } from "../../constants/images.js";
+import { PATH } from "../../constants/index";
 
 import {
   groupMenuOpenStatus,
   detailMenuOpenStatus,
 } from "../../redux/modules/modalSlice";
 
+import { __deleteGroup } from "../../redux/modules/groupSlice.js";
+
 import GroupModal from "./GroupModal.jsx";
 
 const GroupMenu = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const groupDetailData = useSelector((state) => state.group.groupDetail);
+
+  const groupId = groupDetailData?.groupId;
 
   const groupMenuOpen = useSelector((state) => state.modalSlice.groupMenuOpen);
 
@@ -21,21 +28,49 @@ const GroupMenu = () => {
   const detailMenuOpen = useSelector(
     (state) => state.modalSlice.detailMenuOpen
   );
-
-  const [isMatster, setIsMaster] = useState(false);
+  const [quitModal, setQuitModal] = useState(false);
+  const [updateModal, setUpdateModal] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
 
   const clickGroupMenuHandler = () => {
     dispatch(groupMenuOpenStatus(!groupMenuOpen));
   };
 
-  const [quitModal, setQuitModal] = useState(false);
-  const [updateModal, setUpdateModal] = useState(false);
-  const [deleteModal, setDeleteModal] = useState(false);
-
+  //클릭 핸들러
   const clickQuitHandler = () => {
     setQuitModal(true);
     dispatch(detailMenuOpenStatus(!detailMenuOpen));
   };
+
+  const clickDeleteHandler = () => {
+    setDeleteModal(true);
+    dispatch(detailMenuOpenStatus(!detailMenuOpen));
+  };
+
+  const clickUpdateHandler = () => {
+    setUpdateModal(true);
+    dispatch(detailMenuOpenStatus(!detailMenuOpen));
+  };
+
+  //모달에 전달해주는 확인 기능
+  //그룹 삭제
+  const clickDeleteConfirm = () => {
+    dispatch(__deleteGroup(groupId)).then(() => {
+      navigate(PATH.grouplist);
+      dispatch(groupMenuOpenStatus(!groupMenuOpen));
+      //window.location.reload();
+    });
+  };
+
+  //그룹 수정
+  const clickUpdateConfirm = () => {
+    navigate(PATH.groupupdate(groupId));
+    dispatch(groupMenuOpenStatus(!groupMenuOpen));
+    // window.location.reload();
+  };
+
+  //그룹장인지 아닌지 확인
+  const [isMatster, setIsMaster] = useState(true);
 
   return (
     <ModalBackdrop toggle={groupMenuOpen}>
@@ -230,28 +265,20 @@ const GroupMenu = () => {
         <GroupButton>
           {isMatster ? (
             <>
-              <button
-                onClick={() => {
-                  setUpdateModal(true);
-                }}
-              >
-                그룹수정
-              </button>
-              <button
-                onClick={() => {
-                  setDeleteModal(true);
-                }}
-              >
-                그룹삭제
-              </button>
+              <button onClick={clickUpdateHandler}>그룹수정</button>
+              <button onClick={clickDeleteHandler}>그룹삭제</button>
             </>
           ) : (
             <button onClick={clickQuitHandler}>그룹탈퇴</button>
           )}
         </GroupButton>
       </MenuLayout>
-      {updateModal ? <GroupModal subject="수정" /> : null}
-      {deleteModal ? <GroupModal subject="삭제" /> : null}
+      {updateModal ? (
+        <GroupModal subject="수정" onClickConfirm={clickUpdateConfirm} />
+      ) : null}
+      {deleteModal ? (
+        <GroupModal subject="삭제" onClickConfirm={clickDeleteConfirm} />
+      ) : null}
       {quitModal ? <GroupModal subject="탈퇴" /> : null}
     </ModalBackdrop>
   );

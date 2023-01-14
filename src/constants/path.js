@@ -13,8 +13,10 @@ export const PATH = {
   getcarrot: "/getcarrot",
   planner: "/planner/:username/:date",
   carrot: "/carrot",
+
   //그룹 페이지
-  grouplist: "/grouplist",
-  groupadd: "/groupadd",
-  groupdetail: "/groupdetail",
+  grouplist: "/group",
+  groupadd: "/group/add",
+  groupdetail: (groupId) => `/group/${groupId}`,
+  groupupdate: (groupId) => `/group/${groupId}/update`,
 };
