@@ -1,18 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link, useParams } from "react-router-dom";
 import Header from "../header/Header";
 import styled from "styled-components";
 import { IMAGES } from "../../constants/images.js";
+import { __getGroupDetail } from "../../redux/modules/groupSlice";
 
 import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
 
 const GroupDetail = () => {
   const dispatch = useDispatch();
   const groupMenuOpen = useSelector((state) => state.modalSlice.groupMenuOpen);
+  const groupDetailData = useSelector((state) => state.group.groupDetail);
+
+  const param = useParams();
+  const groupId = param.groupId;
 
   const clickGroupMenuHandler = () => {
     dispatch(groupMenuOpenStatus(!groupMenuOpen));
   };
+
+  useEffect(() => {
+    dispatch(__getGroupDetail(groupId));
+  }, []);
+
+  console.log(groupDetailData?.ranking);
 
   return (
     <>
@@ -24,41 +36,52 @@ const GroupDetail = () => {
       ></Header>
       <GroupLayout>
         <GroupImg src="https://velog.velcdn.com/images/posinity/post/d98edda0-adc8-45ae-a97f-8e9316d70199/image.png" />
-        <GroupName>당그니즈</GroupName>
-        <GroupInfo>
-          아이엠그룹 아이엠그룹 아이엠그룹 아이엠그룹 아이엠그룹 아이엠그룹
-          아이엠그룹 아이엠그룹 아이엠그룹 아이엠그룹
-        </GroupInfo>
+        <GroupName>{groupDetailData.groupName}</GroupName>
+        <GroupInfo>{groupDetailData.description}</GroupInfo>
         <RankBox>
           <RankName>2023년 1월 랭킹</RankName>
-          <Gold>
-            <span>1위</span>
-            <User>
-              <img src="https://velog.velcdn.com/images/posinity/post/d98edda0-adc8-45ae-a97f-8e9316d70199/image.png" />
-              <span>짱멋진토깽이</span>
-            </User>
-            <CarrotNumber>🥕 10</CarrotNumber>
-          </Gold>
-          <Silver>
-            <span>1위</span>
-            <SliverUser>
-              <img src="https://velog.velcdn.com/images/posinity/post/d98edda0-adc8-45ae-a97f-8e9316d70199/image.png" />
-              <span>짱멋진토깽이</span>
-            </SliverUser>
-            <SilverCarrotNumber>🥕 10</SilverCarrotNumber>
-          </Silver>
-          <Silver>
-            <span>1위</span>
-            <SliverUser>
-              <img src="https://velog.velcdn.com/images/posinity/post/d98edda0-adc8-45ae-a97f-8e9316d70199/image.png" />
-              <span>짱멋진토깽이</span>
-            </SliverUser>
-            <SilverCarrotNumber>🥕 10</SilverCarrotNumber>
-          </Silver>
+          {groupDetailData?.ranking?.length !== 0 &&
+          groupDetailData?.ranking?.length !== undefined ? (
+            <>
+              <Gold>
+                <span>{groupDetailData?.ranking[0]?.rank}위</span>
+                <User>
+                  <img src="https://velog.velcdn.com/images/posinity/post/d98edda0-adc8-45ae-a97f-8e9316d70199/image.png" />
+                  <span>{groupDetailData?.ranking[0]?.username}</span>
+                </User>
+                <CarrotNumber>
+                  🥕 {groupDetailData?.ranking[0]?.carrot}
+                </CarrotNumber>
+              </Gold>
+              <Silver>
+                <span>{groupDetailData?.ranking[1]?.rank}위</span>
+                <SliverUser>
+                  <img src="https://velog.velcdn.com/images/posinity/post/d98edda0-adc8-45ae-a97f-8e9316d70199/image.png" />
+                  <span>{groupDetailData?.ranking[1]?.username}</span>
+                </SliverUser>
+                <SilverCarrotNumber>
+                  🥕 {groupDetailData?.ranking[1]?.carrot}
+                </SilverCarrotNumber>
+              </Silver>
+              <Silver>
+                <span>{groupDetailData?.ranking[2]?.rank}위</span>
+                <SliverUser>
+                  <img src="https://velog.velcdn.com/images/posinity/post/d98edda0-adc8-45ae-a97f-8e9316d70199/image.png" />
+                  <span>{groupDetailData?.ranking[2]?.username}</span>
+                </SliverUser>
+                <SilverCarrotNumber>
+                  🥕 {groupDetailData?.ranking[2]?.carrot}
+                </SilverCarrotNumber>
+              </Silver>
+            </>
+          ) : (
+            <RankName>아직 당근을 수확한 사람이 없어요🥲</RankName>
+          )}
         </RankBox>
         <MonthlyCarrot>
           우리 그룹에서 이번달에
-          <br /> 총 <strong>50개</strong> 당근을 수확했어요!
+          <br /> 총 <strong>{groupDetailData?.groupCarrot}개</strong> 당근을
+          수확했어요!
         </MonthlyCarrot>
       </GroupLayout>
     </>
