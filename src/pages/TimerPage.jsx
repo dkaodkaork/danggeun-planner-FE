@@ -1,9 +1,8 @@
 import React from "react";
-// import GetCarrot from "../components/timer/GetCarrot";
-import Timer from "../components/timer/Timer";
+import CarrotTimer from "../components/timer/CarrotTimer";
 
 const TimerPage = () => {
-  return <Timer></Timer>;
+  return <CarrotTimer></CarrotTimer>;
 };
 
 export default TimerPage;
