@@ -22,6 +22,8 @@ export const api = {
   getGroupListApi: () => baseURL.get(`/group`),
   postGroupAddApi: (payload) => baseURL.post(`/group`, payload),
   getGroupDetailApi: (groupId) => baseURL.get(`/group/${groupId}`),
+  deleteGroupApi: (groupId) => baseURL.delete(`/group/${groupId}`),
+  putGroupUpdateApi: (payload) => baseURL.put(`/group`, payload),
 
   // 플래너
   getPlannerApi: (username, date) => baseURL.get(`planner/${username}/${date}`),

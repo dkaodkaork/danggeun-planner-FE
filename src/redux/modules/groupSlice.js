@@ -50,6 +50,32 @@ export const __postGroupAdd = createAsyncThunk(
   }
 );
 
+// 그룹 삭제
+export const __deleteGroup = createAsyncThunk(
+  "__deleteGroup",
+  async (payload, thunkAPI) => {
+    try {
+      const { data } = await api.deleteGroupApi(payload);
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+// 그룹 수정
+export const __putGroupUpdate = createAsyncThunk(
+  "__putGroupUpdate",
+  async (payload, thunkAPI) => {
+    try {
+      const { data } = await api.putGroupUpdateApi(payload);
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 // reducer
 export const groupSlice = createSlice({
   name: "group",
@@ -82,6 +108,24 @@ export const groupSlice = createSlice({
       state.groupAdd = action.payload;
     });
     builder.addCase(__postGroupAdd.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    });
+
+    //그룹 삭제
+    builder.addCase(__deleteGroup.fulfilled, (state, action) => {
+      state.isLoading = false;
+    });
+    builder.addCase(__deleteGroup.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    });
+
+    //그룹 수정
+    builder.addCase(__putGroupUpdate.fulfilled, (state, action) => {
+      state.isLoading = false;
+    });
+    builder.addCase(__putGroupUpdate.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     });

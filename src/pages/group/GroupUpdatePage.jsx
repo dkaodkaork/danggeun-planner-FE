@@ -1,10 +1,8 @@
 import React from "react";
-import GroupWriteTemplete from "../../components/group/GroupWriteTemplete";
+import GroupUpdate from "../../components/group/GroupUpdate";
 
 const GroupUpdatePage = () => {
-  return (
-    <GroupWriteTemplete subject="수정하기" isUpdate={true}></GroupWriteTemplete>
-  );
+  return <GroupUpdate></GroupUpdate>;
 };
 
 export default GroupUpdatePage;

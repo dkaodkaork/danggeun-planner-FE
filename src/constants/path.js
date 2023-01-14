@@ -18,4 +18,5 @@ export const PATH = {
   grouplist: "/group",
   groupadd: "/group/add",
   groupdetail: (groupId) => `/group/${groupId}`,
+  groupupdate: (groupId) => `/group/${groupId}/update`,
 };

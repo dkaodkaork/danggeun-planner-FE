@@ -37,7 +37,7 @@ const Router = () => {
           <Route path="/group" element={<GroupListPage />} />
           <Route path="/group/add" element={<GroupAddPage />} />
           <Route path="/group/:groupId" element={<GroupDetailPage />} />
-          <Route path="/groupupdate" element={<GroupUpdatePage />} />
+          <Route path="/group/:groupId/update" element={<GroupUpdatePage />} />
         </Route>
       </Routes>
     </BrowserRouter>
