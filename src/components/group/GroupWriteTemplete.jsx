@@ -42,7 +42,7 @@ const GroupWriteTemplete = (props) => {
         </AddName>
         <Addcontents>
           <h3>그룹 소개</h3>
-          <Textarea onChange={onTextareaHandler} value={value} maxLength="60" />
+          <Textarea onChange={onTextareaHandler} maxLength="60" />
           <p>
             <span>{textareaCount}</span>
             <span>/60 자</span>

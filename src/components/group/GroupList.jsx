@@ -1,11 +1,21 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Header from "../header/Header";
 import styled from "styled-components";
 import { IMAGES } from "../../constants/images.js";
 import { PATH } from "../../constants/path.js";
 import { Link } from "react-router-dom";
 
+import { __getGroupList } from "../../redux/modules/groupSlice";
+
 const GroupList = () => {
+  const dispatch = useDispatch();
+  const groupData = useSelector((state) => state.group.groupList);
+
+  useEffect(() => {
+    dispatch(__getGroupList());
+  }, []);
+
   return (
     <>
       <Header menuName="Group" right={IMAGES.menu} left={IMAGES.home}></Header>
@@ -14,28 +24,19 @@ const GroupList = () => {
           <Link to={PATH.groupadd}>
             <CardBoxAdd>{IMAGES.groupAdd}</CardBoxAdd>
           </Link>
-          <CardBox>
-            <TopInfo>
-              <GroupName>화이팅</GroupName>
-              <People>
-                {IMAGES.groupListPeople}
-                <span>7</span>
-              </People>
-            </TopInfo>
-            <GroupImg src="https://velog.velcdn.com/images/posinity/post/d98edda0-adc8-45ae-a97f-8e9316d70199/image.png" />
-            <p>소개</p>
-          </CardBox>
-          <CardBox>
-            <TopInfo>
-              <GroupName>화이팅</GroupName>
-              <People>
-                {IMAGES.groupListPeople}
-                <span>7</span>
-              </People>
-            </TopInfo>
-            <GroupImg src="https://velog.velcdn.com/images/posinity/post/d98edda0-adc8-45ae-a97f-8e9316d70199/image.png" />
-            <p>소개</p>
-          </CardBox>
+          {groupData?.map((group) => (
+            <CardBox key={group.groupId}>
+              <TopInfo>
+                <GroupName>{group.groupName}</GroupName>
+                <People>
+                  {IMAGES.groupListPeople}
+                  <span>{group.participants}</span>
+                </People>
+              </TopInfo>
+              <GroupImg src="https://velog.velcdn.com/images/posinity/post/d98edda0-adc8-45ae-a97f-8e9316d70199/image.png" />
+              <p>소개</p>
+            </CardBox>
+          ))}
         </CardLayout>
       </GroupLayout>
     </>

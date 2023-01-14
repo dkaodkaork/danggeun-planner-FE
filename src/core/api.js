@@ -13,8 +13,11 @@ export const api = {
     instance.get(`/calendar/${todayYear}-${todayMonth}`),
 
   // 타이머
-  postTimerApi: () => baseURL.post(`timer`),
-  putTimerApi: (timerId) => baseURL.put(`timer/${timerId}`),
+  postTimerApi: () => baseURL.post(`/timer`),
+  putTimerApi: (timerId) => baseURL.put(`/timer/${timerId}`),
+
+  //그룹
+  getGroupListApi: () => baseURL.get(`/group`),
 
   // 플래너
   getPlannerApi: (username, date) => baseURL.get(`planner/${username}/${date}`),
