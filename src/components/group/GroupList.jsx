@@ -11,6 +11,8 @@ import { __getGroupList } from "../../redux/modules/groupSlice";
 const GroupList = () => {
   const dispatch = useDispatch();
   const groupData = useSelector((state) => state.group.groupList);
+  //const data = useSelector((state) => state.group);
+  //console.log(data);
 
   useEffect(() => {
     dispatch(__getGroupList());

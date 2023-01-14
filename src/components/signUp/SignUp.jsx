@@ -61,7 +61,7 @@ const SignUp = () => {
           alert(data.message);
         }
       } catch (error) {
-        alert(error.response.data.message);
+        // alert(error.response.data.message);
       }
     } else {
       alert(MSG.formInvalidMsg);

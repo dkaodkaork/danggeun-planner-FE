@@ -17,7 +17,6 @@ import GroupAddPage from "../pages/group/GroupAddPage";
 import GroupDetailPage from "../pages/group/GroupDetailPage";
 import GroupUpdatePage from "../pages/group/GroupUpdatePage";
 
-
 const Router = () => {
   return (
     <BrowserRouter>
@@ -35,9 +34,9 @@ const Router = () => {
           <Route path="/timer" element={<TimerPage />} />
           <Route path="/planner/:username/:date" element={<PlannerPage />} />
           <Route path="/carrot" element={<GetCarrotPage />} />
-          <Route path="/grouplist" element={<GroupListPage />} />
-          <Route path="/groupadd" element={<GroupAddPage />} />
-          <Route path="/groupdetail" element={<GroupDetailPage />} />
+          <Route path="/group" element={<GroupListPage />} />
+          <Route path="/group/add" element={<GroupAddPage />} />
+          <Route path="/group/:groupId" element={<GroupDetailPage />} />
           <Route path="/groupupdate" element={<GroupUpdatePage />} />
         </Route>
       </Routes>
