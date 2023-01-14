@@ -15,4 +15,7 @@ export const api = {
   // 타이머
   postTimerApi: () => baseURL.post(`/timer`),
   putTimerApi: (timerId) => baseURL.put(`/timer/${timerId}`),
+
+  //그룹
+  getGroupListApi: () => baseURL.get(`/group`),
 };

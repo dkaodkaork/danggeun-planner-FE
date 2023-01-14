@@ -17,8 +17,6 @@ const GroupModal = (props) => {
     dispatch(detailMenuOpenStatus(!detailMenuOpen));
   };
 
-  const [open, setOpen] = useState(true);
-
   return (
     <>
       {detailMenuOpen ? (
