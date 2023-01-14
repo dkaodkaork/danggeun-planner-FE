@@ -16,8 +16,6 @@ import { __postGroupAdd } from "../../redux/modules/groupSlice";
 const GroupAdd = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const groupData = useSelector((state) => state.group.groupAdd);
-  //console.log(groupData);
 
   //글자수 카운터
   let [textareaCount, setTextareaCount] = useState(0);

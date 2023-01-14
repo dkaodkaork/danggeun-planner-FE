@@ -11,8 +11,6 @@ import { __getGroupList } from "../../redux/modules/groupSlice";
 const GroupList = () => {
   const dispatch = useDispatch();
   const groupData = useSelector((state) => state.group.groupList);
-  //const data = useSelector((state) => state.group);
-  //console.log(data);
 
   useEffect(() => {
     dispatch(__getGroupList());
@@ -26,18 +24,31 @@ const GroupList = () => {
           <Link to={PATH.groupadd}>
             <CardBoxAdd>{IMAGES.groupAdd}</CardBoxAdd>
           </Link>
-          {groupData?.map((group) => (
-            <CardBox key={group.groupId}>
-              <TopInfo>
-                <GroupName>{group.groupName}</GroupName>
-                <People>
-                  {IMAGES.groupListPeople}
-                  <span>{group.participants}</span>
-                </People>
-              </TopInfo>
-              <GroupImg src="https://velog.velcdn.com/images/posinity/post/d98edda0-adc8-45ae-a97f-8e9316d70199/image.png" />
-              <p>소개</p>
-            </CardBox>
+          {[...groupData].reverse()?.map((group) => (
+            // {groupData?.map((group) => (
+            <div key={group.groupId}>
+              <Link to={PATH.groupdetail(group.groupId)}>
+                <CardBox>
+                  <TopInfo>
+                    <GroupName>
+                      {group.groupName.length < 7
+                        ? group.groupName
+                        : group.groupName.slice(0, 6) + "..."}
+                    </GroupName>
+                    <People>
+                      {IMAGES.groupListPeople}
+                      <span>{group.participants}</span>
+                    </People>
+                  </TopInfo>
+                  <GroupImg src="https://velog.velcdn.com/images/posinity/post/d98edda0-adc8-45ae-a97f-8e9316d70199/image.png" />
+                  <p>
+                    {group.description.length < 9
+                      ? group.description
+                      : group.description.slice(0, 8) + "..."}
+                  </p>
+                </CardBox>
+              </Link>
+            </div>
           ))}
         </CardLayout>
       </GroupLayout>
