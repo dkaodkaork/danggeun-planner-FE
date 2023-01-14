@@ -21,6 +21,6 @@ const useInterval = (callback, delay, isClear) => {
       return () => clearInterval(timerId);
       // 실행중인 setInterval 을 취소하기위해서 clearInterval을 사용해야한다. 전달하는 id 는 setInterval을 실행할 때 반환된 값
     }
-  }, [delay, isClear, callback]);
+  }, [delay, isClear]);
 };
 export default useInterval;

@@ -16,12 +16,12 @@ export const __startTimer = createAsyncThunk(
   "timer/start",
   async (_, thunkAPI) => {
     try {
-      console.log("타이머 시작 통신 ");
+      // console.log("타이머 시작 통신 ");
       const { data } = await api.postTimerApi();
       console.log(data.data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
-      console.log(error.response.status);
+      // console.log(error.response.status);
       return thunkAPI.rejectWithValue();
     }
   }
@@ -30,13 +30,13 @@ export const __startTimer = createAsyncThunk(
 export const __finsihTimer = createAsyncThunk(
   "timer/finish",
   async (payload, thunkAPI) => {
-    console.log(payload);
+    // console.log(payload);
     try {
       const response = await api.putTimerApi(payload.timerId);
       console.log(response);
       return thunkAPI.fulfillWithValue();
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       return thunkAPI.rejectWithValue();
     }
   }

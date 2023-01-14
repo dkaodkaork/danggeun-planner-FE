@@ -60,24 +60,24 @@ baseURL.interceptors.response.use(
       config,
       response: { status },
     } = err;
-    console.log(config, status);
+    // console.log(config, status);
     const originalRequest = config;
 
     if (status === 401 && loop < 1) {
       loop++;
       if (!isRefreshing) {
         isRefreshing = true;
-        console.log("1", loop);
+        // console.log("1", loop);
 
         const refreshToken = await localStorage.getItem("refreshToken");
-        console.log(refreshToken);
+        // console.log(refreshToken);
         // token refresh 요청
-        const response = await baseURL.post(
-          `/auth/token`,
-          {},
-          { headers: { refreshToken: `${refreshToken}` } }
-        );
-        console.log(response);
+        // const response = await baseURL.post(
+        //   `/auth/token`,
+        //   {},
+        //   { headers: { refreshToken: `${refreshToken}` } }
+        // );
+        // console.log(response);
         // const { accessToken: newAccessToken, refreshToken: newRefreshToken } = {
         //   response,
         // };
