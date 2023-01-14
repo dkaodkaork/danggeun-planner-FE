@@ -24,8 +24,6 @@ const GroupDetail = () => {
     dispatch(__getGroupDetail(groupId));
   }, []);
 
-  console.log(groupDetailData?.ranking);
-
   return (
     <>
       <Header

@@ -25,7 +25,7 @@ const GroupModal = (props) => {
           <GroupName>당그니즈</GroupName>
           <GetMsg>위 그룹을 정말 {props.subject}하시겠습니까?</GetMsg>
           <BtnLayout>
-            <ButtonS>네</ButtonS>
+            <ButtonS onClick={props.onClickConfirm}>네</ButtonS>
             <ButtonS className="reverse" onClick={clickGroupMenuHandler}>
               아니요
             </ButtonS>

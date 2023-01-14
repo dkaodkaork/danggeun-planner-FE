@@ -1,16 +1,18 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link, useParams } from "react-router-dom";
 import Header from "../header/Header";
 import styled from "styled-components";
 import { IMAGES } from "../../constants/images.js";
 import { PATH } from "../../constants/path.js";
-import { Link } from "react-router-dom";
 
 import { __getGroupList } from "../../redux/modules/groupSlice";
 
 const GroupList = () => {
   const dispatch = useDispatch();
   const groupData = useSelector((state) => state.group.groupList);
+
+  const param = useParams();
 
   useEffect(() => {
     dispatch(__getGroupList());
