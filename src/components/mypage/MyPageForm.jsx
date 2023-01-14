@@ -20,7 +20,7 @@ const MypageForm = () => {
 
   const logoutHandler = () => {
     if (window.confirm("로그아웃 하시겠습니까?")) {
-      removeCookies("AccessToken");
+      removeCookies("accessToken");
       navigate(PATH.login);
     }
   };

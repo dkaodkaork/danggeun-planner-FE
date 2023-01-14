@@ -2,8 +2,8 @@ import { instance, baseURL } from "./apiConfig";
 
 export const api = {
   // 회원가입/로그인
-  postLoginApi: (loginInfo) => instance.post(`member/login`, loginInfo),
-  postSignUpApi: (signUpInfo) => instance.post(`member/signup`, signUpInfo),
+  postLoginApi: (loginInfo) => instance.post(`auth/login`, loginInfo),
+  postSignUpApi: (signUpInfo) => instance.post(`auth/signup`, signUpInfo),
   // 유저정보
   putNicknameApi: (userInfo) => baseURL.put(`member/username`, userInfo),
   getUserInfoApi: () => baseURL.get(`member/mypage`),
@@ -18,4 +18,10 @@ export const api = {
 
   //그룹
   getGroupListApi: () => baseURL.get(`/group`),
+
+  // 플래너
+  getPlannerApi: (username, date) => baseURL.get(`planner/${username}/${date}`),
+  postPlanApi: (planInfo) => baseURL.post(`plan`, planInfo),
+  putPlanApi: (planId, planInfo) => baseURL.put(`plan/${planId}`, planInfo),
+  deletePlanApi: (planId) => baseURL.delete(`plan/${planId}`),
 };
