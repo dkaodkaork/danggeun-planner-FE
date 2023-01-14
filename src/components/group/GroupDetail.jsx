@@ -53,29 +53,35 @@ const GroupDetail = () => {
                   🥕 {groupDetailData?.ranking[0]?.carrot}
                 </CarrotNumber>
               </Gold>
-              <Silver>
-                <span>{groupDetailData?.ranking[1]?.rank}위</span>
-                <SliverUser>
-                  <img src="https://velog.velcdn.com/images/posinity/post/d98edda0-adc8-45ae-a97f-8e9316d70199/image.png" />
-                  <span>{groupDetailData?.ranking[1]?.username}</span>
-                </SliverUser>
-                <SilverCarrotNumber>
-                  🥕 {groupDetailData?.ranking[1]?.carrot}
-                </SilverCarrotNumber>
-              </Silver>
-              <Silver>
-                <span>{groupDetailData?.ranking[2]?.rank}위</span>
-                <SliverUser>
-                  <img src="https://velog.velcdn.com/images/posinity/post/d98edda0-adc8-45ae-a97f-8e9316d70199/image.png" />
-                  <span>{groupDetailData?.ranking[2]?.username}</span>
-                </SliverUser>
-                <SilverCarrotNumber>
-                  🥕 {groupDetailData?.ranking[2]?.carrot}
-                </SilverCarrotNumber>
-              </Silver>
+              {groupDetailData?.ranking?.length === 1 ? null : (
+                <>
+                  <Silver>
+                    <span>{groupDetailData?.ranking[1]?.rank}위</span>
+                    <SliverUser>
+                      <img src="https://velog.velcdn.com/images/posinity/post/d98edda0-adc8-45ae-a97f-8e9316d70199/image.png" />
+                      <span>{groupDetailData?.ranking[1]?.username}</span>
+                    </SliverUser>
+                    <SilverCarrotNumber>
+                      🥕 {groupDetailData?.ranking[1]?.carrot}
+                    </SilverCarrotNumber>
+                  </Silver>
+                  {groupDetailData?.ranking?.length === 2 ? null : (
+                    <Silver>
+                      <span>{groupDetailData?.ranking[2]?.rank}위</span>
+                      <SliverUser>
+                        <img src="https://velog.velcdn.com/images/posinity/post/d98edda0-adc8-45ae-a97f-8e9316d70199/image.png" />
+                        <span>{groupDetailData?.ranking[2]?.username}</span>
+                      </SliverUser>
+                      <SilverCarrotNumber>
+                        🥕 {groupDetailData?.ranking[2]?.carrot}
+                      </SilverCarrotNumber>
+                    </Silver>
+                  )}
+                </>
+              )}
             </>
           ) : (
-            <RankName>아직 당근을 수확한 사람이 없어요🥲</RankName>
+            <NoGetMsg>아직 당근을 수확한 사람이 없어요🥲</NoGetMsg>
           )}
         </RankBox>
         <MonthlyCarrot>
@@ -131,12 +137,24 @@ const RankBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-bottom: 24px;
 `;
 
 const RankName = styled.div`
   height: 55px;
   width: 272px;
   border-bottom: 1px solid #dedede;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "MaplestoryOTFBold";
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: #614925;
+`;
+
+const NoGetMsg = styled.div`
+  padding-top: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -168,9 +186,9 @@ const Gold = styled.div`
 const Silver = styled(Gold)`
   height: 30px;
   gap: 17px;
-  &:last-child {
+  /* &:last-child {
     margin-bottom: 24px;
-  }
+  } */
   span {
     font-size: 1.6rem;
     color: #595550;
