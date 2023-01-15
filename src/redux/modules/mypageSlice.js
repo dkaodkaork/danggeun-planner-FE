@@ -17,11 +17,9 @@ export const __putNickname = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const { data } = await api.putNicknameApi(payload);
-      console.log(data);
       return thunkAPI.fulfillWithValue(data);
     } catch (error) {
-      console.log(error);
-      alert(error.response.data.message);
+      // alert(error.response.data.message);
       return thunkAPI.rejectWithValue();
     }
   }
@@ -31,12 +29,10 @@ export const __getUserInfo = createAsyncThunk(
   "userinfo/get",
   async (_, thunkAPI) => {
     try {
-      const response = await api.getUserInfoApi();
-      console.log(response);
-      return thunkAPI.fulfillWithValue();
+      const { data } = await api.getUserInfoApi();
+      return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
-      console.log(error);
-      return thunkAPI.rejectWithValue(error);
+      return thunkAPI.rejectWithValue();
     }
   }
 );
@@ -44,14 +40,12 @@ export const __getUserInfo = createAsyncThunk(
 export const __putProfileImg = createAsyncThunk(
   "profileImg/put",
   async (payload, thunkAPI) => {
-    console.log(payload);
     try {
       const { data } = await api.putProfileImgApi(payload);
-      console.log("사진등록", data.data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       console.log(error);
-      return thunkAPI.rejectWithValue(error);
+      return thunkAPI.rejectWithValue();
     }
   }
 );
@@ -69,7 +63,6 @@ export const mypageSlice = createSlice({
       })
       .addCase(__putNickname.fulfilled, (state, action) => {
         state.isLoading = false;
-        console.log(action);
         state.data = { ...state.data, username: action.payload.data.username };
       })
       .addCase(__putNickname.rejected, (state, action) => {
@@ -86,7 +79,6 @@ export const mypageSlice = createSlice({
       })
       .addCase(__getUserInfo.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.payload;
       })
 
       // 프로필이미지 변경하기
@@ -102,7 +94,6 @@ export const mypageSlice = createSlice({
       })
       .addCase(__putProfileImg.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.payload;
       });
   },
 });

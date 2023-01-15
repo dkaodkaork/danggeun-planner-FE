@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import Header from "../header/Header";
-import { removeCookies } from "../../core/cookieControler";
 import { PATH } from "../../constants/index";
+
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+
 import { __getUserInfo } from "../../redux/modules/mypageSlice";
 
 const MypageForm = () => {
@@ -12,7 +13,6 @@ const MypageForm = () => {
   const navigate = useNavigate();
 
   const userInfo = useSelector((state) => state.mypage.data);
-  console.log(userInfo);
 
   useEffect(() => {
     dispatch(__getUserInfo());
@@ -20,7 +20,7 @@ const MypageForm = () => {
 
   const logoutHandler = () => {
     if (window.confirm("로그아웃 하시겠습니까?")) {
-      removeCookies("accessToken");
+      localStorage.clear();
       navigate(PATH.login);
     }
   };

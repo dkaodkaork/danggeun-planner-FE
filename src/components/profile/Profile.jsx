@@ -19,7 +19,6 @@ const Profile = () => {
   }, [dispatch]);
 
   const userInfo = useSelector((state) => state.mypage.data);
-  // console.log(userInfo);
 
   const [editUsername, setEditUsername] = useState({
     username: "",

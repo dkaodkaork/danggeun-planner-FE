@@ -1,19 +1,8 @@
 import axios from "axios";
+import { api } from "./api";
 
 const serverUrl = process.env.REACT_APP_TEST_SERVER + "/api";
 
-// request.interceptors.request.use(
-//   (config) => {
-//     // Get token and add it to header "Authorization"
-//     const token = authAPI.getaccessToken();
-//     if (token) {
-//       config.headers.Authorization = token;
-//     }
-
-//     return config;
-//   },
-//   (error) => Promise.reject(error)
-// );
 // 헤더 없이 사용하는 경우
 export const instance = axios.create({
   baseURL: serverUrl,
@@ -36,10 +25,10 @@ baseURL.interceptors.request.use((config) => {
   if (config.headers === undefined) return;
   const token = localStorage.getItem("accessToken");
   config.headers["accessToken"] = `${token}`;
-  // const token = getCookies("accessToken");
-  // config.headers["accessToken"] = `${token}`;
   return config;
 });
+
+// 다중 요청에 대응할 코드
 
 let loop = 0;
 let isRefreshing = false;
@@ -55,48 +44,48 @@ function onRrefreshed(token) {
 
 baseURL.interceptors.response.use(
   (res) => res,
-  async (err) => {
+  (err) => {
     const {
       config,
       response: { status },
     } = err;
-    // console.log(config, status);
     const originalRequest = config;
+    // console.log(config, status);
 
     if (status === 401 && loop < 1) {
       loop++;
+      // console.log(originalRequest.headers);
       if (!isRefreshing) {
         isRefreshing = true;
-        // console.log("1", loop);
 
-        const refreshToken = await localStorage.getItem("refreshToken");
-        // console.log(refreshToken);
+        const refreshToken = localStorage.getItem("refreshToken");
+
         // token refresh 요청
-        // const response = await baseURL.post(
-        //   `/auth/token`,
-        //   {},
-        //   { headers: { refreshToken: `${refreshToken}` } }
-        // );
-        // console.log(response);
-        // const { accessToken: newAccessToken, refreshToken: newRefreshToken } = {
-        //   response,
-        // };
-        // await localStorage.multiSet([
-        //   ["accessToken", newAccessToken],
-        //   ["refreshToken", newRefreshToken],
-        // ]);
-        // isRefreshing = false;
-        // onRrefreshed(newAccessToken);
-        // subscribers = [];
+        api.postRefreshApi(refreshToken).then(({ headers }) => {
+          const { accesstoken: newAccessToken, refreshtoken: newRefreshToken } =
+            headers;
+
+          isRefreshing = false;
+
+          onRrefreshed(headers.accesstoken);
+
+          localStorage.setItem("accessToken", newAccessToken);
+          localStorage.setItem("refreshToken", newRefreshToken);
+
+          subscribers = [];
+        });
       }
 
       return new Promise((resolve) => {
         subscribeTokenRefresh((token) => {
+          // console.log(token);
           originalRequest.headers.accessToken = `${token}`;
+          // console.log(originalRequest.headers.accessToken);
           resolve(axios(originalRequest));
         });
       });
     }
+
     return Promise.reject(err);
   }
 );
