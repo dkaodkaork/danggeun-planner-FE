@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import useInterval from "./useInterval";
 import moment from "moment";
 
-const useTimer = (callback, delay) => {
-  const [timer, setTimer] = useState(delay); // 몇분짜리 타이머 시간인지 상태로 저장
-  const [currentTime, setCurrentTime] = useState(delay); // 남은 타이머 시간
+const useTimer = (callback, time) => {
+  const [timer, setTimer] = useState(time); // 몇분짜리 타이머 시간인지 상태로 저장
+  const [currentTime, setCurrentTime] = useState(time); // 남은 타이머 시간
   const [isClear, setIsClear] = useState(true); //
   const [parsedTime, setParsedTime] = useState(""); // 타이머 시간 파싱 mm:ss
 
@@ -34,22 +34,24 @@ const useTimer = (callback, delay) => {
     setParsedTime(formatted);
   }, [currentTime]);
 
-  const clearTimer = (time) => {
-    setCurrentTime(time); // 타이머를멈췄을때 다시 사용자가 지정한 타이머 시간으로 초기화
-    setIsClear(true); // setIsClear를 true로 만들어서 useInterval 훅이 실행되지 않음
+  const toggleTimer = (time) => {
+    //포기할때
+    if (time) {
+      setTimerTime(time);
+    }
+    setIsClear(!isClear); // setIsClear를 true로 만들어서 useInterval 훅이 실행되지 않음
   };
 
-  const startTimer = (time) => {
-    // setTimer(time); // 몇분짜리 타이머인지 update
-    setCurrentTime(time); //
-    setIsClear(false); // useInterval hook 실행
+  const setTimerTime = (time) => {
+    setTimer(time); // 몇분짜리
+    setCurrentTime(time); // 현재돌아가는 시간
   };
 
   return {
+    setTimerTime,
+    toggleTimer,
     setTimer,
     timer,
-    clearTimer,
-    startTimer,
     currentTime,
     isClear,
     parsedTime,
