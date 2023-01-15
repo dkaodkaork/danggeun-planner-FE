@@ -1,55 +1,28 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import styled from "styled-components";
-import Header from "../header/Header";
 import useTimer from "../../hooks/useTimer";
-import { IMAGES } from "../../constants/index";
 import Button from "./TimerButton";
-import GetCarrot from "./GetCarrot";
 import { useDispatch, useSelector } from "react-redux";
 import { __startTimer, __finsihTimer } from "../../redux/modules/timerSlice";
-import Timer from "./Timer";
 import TimerBackground from "./TimerBackground";
 
 const CarrotTimer = () => {
   const [stack, setStack] = useState("");
   const [mode, setMode] = useState("focusMode");
   const [count, setCount] = useState(0);
-  const [restCount, setRestCount] = useState(true);
-  // const [isPlaying, setIsPlaying] = useState(false);
 
   const dispatch = useDispatch();
+
   const data = useSelector((state) => state.timer.data);
 
-  // eslint-disable-next-line
-  //0.25 * 1000 * 60
   const startTime = 1000 * 4;
   const restTime = 1000 * 2;
   const longRestTime = 1000 * 3;
-  const [time, setTime] = useState(startTime);
 
-  const {
-    clearTimer,
-    startTimer,
-    isClear,
-    parsedTime,
-    currentTime,
-    setCurrentTime,
-  } = useTimer(
-    () => {
-      // console.log("종료");
-      if (restCount) {
-        dispatch(__finsihTimer({ timerId: data.timerId }));
-      }
-    }, // call back
-    startTime
-  );
-
-  const date = new Date();
-  const date1 = Date.now();
-  // .toTimeString();
-  // .split(" ")[0];
-  console.log(date);
-  console.log(date1);
+  const { isClear, parsedTime, currentTime, timer, toggleTimer, setTimerTime } =
+    useTimer(() => {
+      callback();
+    }, startTime);
 
   useLayoutEffect(() => {
     if (mode === "focusMode") {
@@ -69,111 +42,86 @@ const CarrotTimer = () => {
     }
   }, [currentTime, mode]);
 
-  useEffect(() => {
-    if (!currentTime) {
-      setCurrentTime(time);
-      clearTimer(time);
+  const callback = () => {
+    if (!currentTime && mode === "focusMode") {
+      focusModeDoneHandler();
+    } else if (!currentTime && mode === "restMode") {
+      restModeDoneHandler();
     }
-    if (count !== 2 && !currentTime) {
-      setMode("focusMode");
-    }
-  }, [currentTime]);
-
-  const startClickHandler = () => {
-    startTimer(startTime);
-    dispatch(__startTimer());
-    setTime(0);
-    setRestCount(true);
   };
 
-  const quitClickHandler = () => {
-    setCount(0);
-    clearTimer(startTime);
+  const focusModeDoneHandler = () => {
+    toggleTimer(0);
+    dispatch(__finsihTimer({ timerId: data.timerId }));
   };
 
-  const changeRestModeHandler = () => {
-    setCurrentTime(restTime);
-    setMode("restMode");
-  };
-  console.log(restCount);
-
-  const startRestHandler = () => {
+  const restModeDoneHandler = () => {
     if (count === 2) {
-      startTimer(longRestTime);
+      toggleTimer(longRestTime);
       setCount(0);
-      setTime(startTime);
-    } else if (count === 1) {
-      startTimer(restTime);
-      setTime(longRestTime);
-      setCount(count + 1);
-      setRestCount(!restCount);
-    } else if (count === 0) {
-      startTimer(restTime);
-      setTime(startTime);
-      setCount(count + 1);
-      setRestCount(!restCount);
-    }
-  };
-
-  const skipRestClickHandler = () => {
-    if (count === 2) {
-      clearTimer(time);
     } else {
-      clearTimer(time);
+      toggleTimer(startTime);
       setMode("focusMode");
     }
   };
+
+  const startTimerHandler = () => {
+    toggleTimer();
+    if (timer === startTime) {
+      dispatch(__startTimer());
+      console.log("타이머 시작통신");
+    }
+  };
+
+  const focusGiveUpHandler = () => {
+    toggleTimer(startTime);
+    setCount(0);
+  };
+
+  const getCarrotHandler = () => {
+    setTimerTime(restTime);
+    setCount(count + 1);
+    setMode("restMode");
+    // 모달만 다시 해결해보자  모달안에 스타트 타이머 넣어서 적용해보자
+  };
+
+  // const 휴식startTimerHandler = () => {
+  //   toggleTimer(restTime);
+  // };
 
   const focusMode = {
-    start:
-      currentTime === 0 || currentTime === restTime ? (
-        <GetCarrot onClick={changeRestModeHandler} />
-      ) : (
-        <Button onClick={startClickHandler}>{"집중 시작하기"}</Button>
-      ),
-    rest: (
-      <Button
-        onClick={quitClickHandler}
-        color="#614925"
-        backgroundColor="transparent"
-        fontSize="2.2rem"
-        textDecoration="underline"
-        underlinePosition="under"
-        filter="none"
-        fontWeight="400"
-        fontFamily="MaplestoryOTFLight"
-      >
-        포기하기?
-      </Button>
+    start: currentTime ? (
+      <Button onClick={startTimerHandler}>집중시작하기</Button>
+    ) : (
+      <Button onClick={getCarrotHandler}>수확하기</Button>
     ),
+    rest: <Button onClick={focusGiveUpHandler}>포기하기</Button>,
   };
 
   const restMode = {
-    start: (
-      <Button onClick={startRestHandler}>
-        {count === 2 ? "긴 휴식하기" : "휴식하기"}
-      </Button>
-    ),
-    rest: (
-      <Button
-        onClick={skipRestClickHandler}
-        color="#614925"
-        backgroundColor="transparent"
-        fontSize="2.2rem"
-        textDecoration="underline"
-        underlinePosition="under"
-        filter="none"
-        fontWeight="400"
-        fontFamily="MaplestoryOTFLight"
-      >
-        휴식 건너뛰기
-      </Button>
-    ),
+    start:
+      currentTime === restTime ? (
+        <Button onClick={startTimerHandler}>휴식하기</Button>
+      ) : (
+        <Button onClick={startTimerHandler}>긴휴식하기</Button>
+      ),
+    rest: <Button onClick={restModeDoneHandler}>넘어가기</Button>,
   };
 
   const perBtnByMode = {
     focusMode: focusMode,
     restMode: restMode,
+  };
+
+  const circumference = 260 * Math.PI;
+  const updateDashoffset =
+    (currentTime / timer) * circumference - circumference;
+
+  const strokeDashoffset = () => {
+    if (!currentTime || currentTime === timer) {
+      return 0;
+    }
+    return updateDashoffset;
   };
 
   return (
@@ -184,18 +132,9 @@ const CarrotTimer = () => {
         perBtnByMode={perBtnByMode}
         mode={mode}
         stack={stack}
+        strokeDashoffset={strokeDashoffset}
+        circumference={circumference}
       ></TimerBackground>
-      {/* <StBackground url={perImageByStack[stack]} delay={perDelayByStack[stack]}>
-        <Header justifyContent="right" right={IMAGES.menu}></Header>
-        <Timer
-          parsedTime={parsedTime}
-          isClear={isClear}
-          perBtnByMode={perBtnByMode}
-          mode={mode}
-          perMsgByStack={perMsgByStack}
-          stack={stack}
-        ></Timer>
-      </StBackground> */}
     </StContainer>
   );
 };

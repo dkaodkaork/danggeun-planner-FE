@@ -11,6 +11,8 @@ const TimerBackground = ({
   isClear,
   perBtnByMode,
   mode,
+  strokeDashoffset,
+  circumference,
 }) => {
   const perImageByStack = {
     default: IMAGES.defalut,
@@ -43,9 +45,8 @@ const TimerBackground = ({
         <Timer
           parsedTime={parsedTime}
           isClear={isClear}
-          perBtnByMode={perBtnByMode}
-          mode={mode}
-          stack={stack}
+          strokeDashoffset={strokeDashoffset()}
+          circumference={circumference}
         ></Timer>
         <StButtonBox>
           {isClear ? perBtnByMode[mode].start : perBtnByMode[mode].rest}
@@ -67,10 +68,6 @@ const StBackground = styled.div`
   background-size: auto;
   background-repeat: no-repeat;
   height: 812px;
-  /* display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column; */
 `;
 
 const StButtonBox = styled.div`
