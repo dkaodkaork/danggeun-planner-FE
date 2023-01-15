@@ -4,6 +4,12 @@ export const api = {
   // 회원가입/로그인
   postLoginApi: (loginInfo) => instance.post(`auth/login`, loginInfo),
   postSignUpApi: (signUpInfo) => instance.post(`auth/signup`, signUpInfo),
+  postRefreshApi: (refreshToken) =>
+    instance.post(
+      `auth/token`,
+      {},
+      { headers: { refreshToken: `${refreshToken}` } }
+    ),
 
   // 유저정보
   putNicknameApi: (userInfo) => baseURL.put(`member/username`, userInfo),
