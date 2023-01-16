@@ -16,17 +16,32 @@ const initialState = {
         count: 3,
       },
       {
-        planId: 1,
-        startTime: "10:23",
-        endTime: "11:25",
-        content: "수학공부!",
+        timerId: 3,
+        startTime: "15:38",
+        endTime: "16:25",
+        content: "당근수확!",
+        count: 7,
       },
+      {
+        timerId: 3,
+        startTime: "15:35",
+        endTime: "16:25",
+        content: "당근수확!",
+        count: 0,
+      },
+
       {
         timerId: 2,
         startTime: "11:52",
         endTime: "12:25",
         content: "당근수확!",
         count: 2,
+      },
+      {
+        planId: 1,
+        startTime: "10:23",
+        endTime: "11:25",
+        content: "수학공부!",
       },
       {
         planId: 2,
@@ -55,13 +70,7 @@ const initialState = {
         content: "당근수확!",
         count: 4,
       },
-      {
-        timerId: 3,
-        startTime: "15:35",
-        endTime: "16:25",
-        content: "당근수확!",
-        count: 0,
-      },
+
       {
         timerId: 3,
         startTime: "15:36",
@@ -76,13 +85,7 @@ const initialState = {
         content: "당근수확!",
         count: 2,
       },
-      {
-        timerId: 3,
-        startTime: "15:38",
-        endTime: "16:25",
-        content: "당근수확!",
-        count: 7,
-      },
+
       {
         timerId: 3,
         startTime: "15:39",
