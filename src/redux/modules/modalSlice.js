@@ -4,6 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   groupMenuOpen: false,
   detailMenuOpen: false,
+  groupMemberOpen: false,
 };
 
 // reducer
@@ -17,8 +18,15 @@ export const modalSlice = createSlice({
     detailMenuOpenStatus: (state, action) => {
       state.detailMenuOpen = action.payload;
     },
+    groupMemberOpenStatus: (state, action) => {
+      state.groupMemberOpen = action.payload;
+    },
   },
 });
 
-export const { groupMenuOpenStatus, detailMenuOpenStatus } = modalSlice.actions;
+export const {
+  groupMenuOpenStatus,
+  detailMenuOpenStatus,
+  groupMemberOpenStatus,
+} = modalSlice.actions;
 export default modalSlice.reducer;
