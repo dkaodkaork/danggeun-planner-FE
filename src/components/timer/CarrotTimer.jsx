@@ -5,6 +5,7 @@ import Button from "./TimerButton";
 import { useDispatch, useSelector } from "react-redux";
 import { __startTimer, __finsihTimer } from "../../redux/modules/timerSlice";
 import TimerBackground from "./TimerBackground";
+import { timeStamp } from "../planner/time";
 
 const CarrotTimer = () => {
   const [stack, setStack] = useState("");
@@ -14,6 +15,7 @@ const CarrotTimer = () => {
   const dispatch = useDispatch();
 
   const data = useSelector((state) => state.timer.data);
+  // console.log(data);
 
   const startTime = 1000 * 4;
   const restTime = 1000 * 2;
@@ -27,15 +29,15 @@ const CarrotTimer = () => {
   useLayoutEffect(() => {
     if (mode === "focusMode") {
       if (currentTime <= 4000 && currentTime > 3000) {
-        setStack("step1");
-      } else if (currentTime <= 3000 && currentTime > 2000) {
-        setStack("step2");
-      } else if (currentTime <= 2000 && currentTime > 1000) {
-        setStack("step3");
-      } else if (currentTime <= 1000 && currentTime > 0) {
-        setStack("step4");
-      } else {
         setStack("default");
+      } else if (currentTime <= 3000 && currentTime > 2000) {
+        setStack("step1");
+      } else if (currentTime <= 2000 && currentTime > 1000) {
+        setStack("step2");
+      } else if (currentTime <= 1000 && currentTime > 0) {
+        setStack("step3");
+      } else {
+        setStack("step6");
       }
     } else if (mode === "restMode") {
       setStack("rest");
@@ -52,7 +54,16 @@ const CarrotTimer = () => {
 
   const focusModeDoneHandler = () => {
     toggleTimer(0);
-    dispatch(__finsihTimer({ timerId: data.timerId }));
+    setCount(count + 1);
+
+    dispatch(
+      __finsihTimer({
+        timerId: data.timerId,
+        endTime: timeStamp(),
+        count: count,
+      })
+    );
+    // console.log(timeStamp());
   };
 
   const restModeDoneHandler = () => {
@@ -68,8 +79,9 @@ const CarrotTimer = () => {
   const startTimerHandler = () => {
     toggleTimer();
     if (timer === startTime) {
-      dispatch(__startTimer());
+      dispatch(__startTimer({ startTime: timeStamp(), count: count }));
       console.log("타이머 시작통신");
+      // console.log(timeStamp());
     }
   };
 
@@ -80,7 +92,7 @@ const CarrotTimer = () => {
 
   const getCarrotHandler = () => {
     setTimerTime(restTime);
-    setCount(count + 1);
+    // setCount(count + 1);
     setMode("restMode");
     // 모달만 다시 해결해보자  모달안에 스타트 타이머 넣어서 적용해보자
   };
@@ -93,9 +105,23 @@ const CarrotTimer = () => {
     start: currentTime ? (
       <Button onClick={startTimerHandler}>집중시작하기</Button>
     ) : (
-      <Button onClick={getCarrotHandler}>수확하기</Button>
+      <Button onClick={getCarrotHandler}>당근 수확하기</Button>
     ),
-    rest: <Button onClick={focusGiveUpHandler}>포기하기</Button>,
+    rest: (
+      <Button
+        onClick={focusGiveUpHandler}
+        color="#614925"
+        backgroundColor="transparent"
+        fontSize="2.2rem"
+        textDecoration="underline"
+        underlinePosition="under"
+        filter="none"
+        fontWeight="400"
+        fontFamily="MaplestoryOTFLight"
+      >
+        포기하기
+      </Button>
+    ),
   };
 
   const restMode = {
@@ -105,7 +131,21 @@ const CarrotTimer = () => {
       ) : (
         <Button onClick={startTimerHandler}>긴휴식하기</Button>
       ),
-    rest: <Button onClick={restModeDoneHandler}>넘어가기</Button>,
+    rest: (
+      <Button
+        onClick={restModeDoneHandler}
+        color="#614925"
+        backgroundColor="transparent"
+        fontSize="2.2rem"
+        textDecoration="underline"
+        underlinePosition="under"
+        filter="none"
+        fontWeight="400"
+        fontFamily="MaplestoryOTFLight"
+      >
+        넘어가기
+      </Button>
+    ),
   };
 
   const perBtnByMode = {
