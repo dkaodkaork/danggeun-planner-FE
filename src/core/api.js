@@ -33,6 +33,9 @@ export const api = {
     baseURL.put(`/group/${groupId}`, groupInfo),
   //그룹원 조회
   getGroupMemberApi: (payload) => baseURL.get(`/group/${payload}/participant`),
+  //그룹 초대 회원 검색
+  getGroupMemberInviteApi: (groupId, username) =>
+    baseURL.get(`/group/invitation/search/${groupId}/${username}`),
 
   // 플래너
   getPlannerApi: (username, date) => baseURL.get(`planner/${username}/${date}`),

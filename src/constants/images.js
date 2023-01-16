@@ -14,6 +14,9 @@ import { ReactComponent as AddBtn } from "../assets/images/planner/plan_add.svg"
 import { ReactComponent as RangeBtn } from "../assets/images/planner/range_button.svg";
 import { ReactComponent as MemberCarrot } from "../assets/images/group/member-carrot.svg";
 import { ReactComponent as Search } from "../assets/images/group/search.svg";
+import { ReactComponent as BlockCircle } from "../assets/images/group/block_circle.svg";
+import { ReactComponent as CheckCircle } from "../assets/images/group/check_circle.svg";
+import { ReactComponent as EmptyCircle } from "../assets/images/group/empty_circle.svg";
 
 export const IMAGES = {
   // 타이머 이미지
@@ -47,4 +50,7 @@ export const IMAGES = {
   inviteIcon: <InviteIcon />,
   memberCarrot: <MemberCarrot />,
   search: <Search />,
+  checkCircle: <CheckCircle />,
+  blockCircle: <BlockCircle />,
+  emptyCircle: <EmptyCircle />,
 };
