@@ -11,6 +11,7 @@ import { ReactComponent as InviteIcon } from "../assets/images/group/inviteIcon.
 import { ReactComponent as CalendarIcon } from "../assets/images/planner/calendarIcon.svg";
 import { ReactComponent as AddBtn } from "../assets/images/planner/plan_add.svg";
 import { ReactComponent as RangeBtn } from "../assets/images/planner/range_button.svg";
+import { ReactComponent as CarrotSticker } from "../assets/images/planner/carrot.svg";
 
 export const IMAGES = {
   // 타이머 이미지
@@ -29,7 +30,7 @@ export const IMAGES = {
   calendarIcon: <CalendarIcon />,
   addBtn: <AddBtn />,
   rangeBtn: <RangeBtn />,
-
+  carrotSticker: <CarrotSticker />,
   //
   menu: <Menu />,
   home: <Home />,
