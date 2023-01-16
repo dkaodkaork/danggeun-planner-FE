@@ -16,24 +16,14 @@ const Planner = () => {
     <StContainer>
       <Header
         menuName="Planner"
-        rightIcon={IMAGES.menu}
-        leftIcon={IMAGES.home}
+        right={IMAGES.menu}
+        left={IMAGES.home}
         leftLink={PATH.timer}
       ></Header>
-      <Header
-        // justifyContent="space-around"
-        height={"56px"}
-        padding="17px 28px 12px 27px"
-        leftIcon={<NicknameCard />}
-        leftIconLink={PATH.profile}
-        rightIcon={IMAGES.calendarIcon}
-        rightLink={PATH.timer}
-        paddingRight="4px"
-      ></Header>
-      {/* <StDiv>
+      <StDiv>
         <NicknameCard></NicknameCard>
         <Link to={PATH.calendar}>{IMAGES.calendarIcon}</Link>
-      </StDiv> */}
+      </StDiv>
       <StDiv>
         <StDateBox>{today()}</StDateBox>
         <StTodayCarrot>
