@@ -8,6 +8,9 @@ import { ReactComponent as NextArrow } from "../assets/images/calendar/next_mont
 import { ReactComponent as PreviousArrow } from "../assets/images/calendar/previous_month.svg";
 import { ReactComponent as DownArrow } from "../assets/images/group/down-arrow.svg";
 import { ReactComponent as InviteIcon } from "../assets/images/group/inviteIcon.svg";
+import { ReactComponent as CalendarIcon } from "../assets/images/planner/calendarIcon.svg";
+import { ReactComponent as AddBtn } from "../assets/images/planner/plan_add.svg";
+import { ReactComponent as RangeBtn } from "../assets/images/planner/range_button.svg";
 
 export const IMAGES = {
   // 타이머 이미지
@@ -19,6 +22,14 @@ export const IMAGES = {
   step5: require("../assets/images/timer/step5.png"),
   step6: require("../assets/images/timer/step6.png"),
   rest: require("../assets/images/timer/rest.png"),
+  // 테스트용 이미지 추후 삭제
+  test: require("../assets/images/rabbit_icon.png"),
+
+  // 플래너
+  calendarIcon: <CalendarIcon />,
+  addBtn: <AddBtn />,
+  rangeBtn: <RangeBtn />,
+
   //
   menu: <Menu />,
   home: <Home />,
