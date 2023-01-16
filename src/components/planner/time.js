@@ -13,9 +13,5 @@ export const today = () => {
 export const timeStamp = () => {
   let today = new Date(); //
   today.setHours(today.getHours() + 9);
-  return today
-    .toISOString()
-    .replace("T", " ")
-    .replaceAll("-", ":")
-    .substring(0, 19);
+  return today.toISOString().substring(0, 19);
 };
