@@ -1,9 +1,9 @@
 .react-calendar {
   width: 328px;
-  max-width: 100%;
+  /* max-width: 100%; */
   background: #fffdfa;
   border-radius: 12px;
-  font-family: Arial, Helvetica, sans-serif;
+  /* font-family: Arial, Helvetica, sans-serif; */
   line-height: 1.125em;
   padding: 29px 27px 29px 27px;
 }

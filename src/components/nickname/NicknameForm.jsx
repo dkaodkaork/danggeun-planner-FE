@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { IMAGES } from "../../constants/images";
-import { __addNickname } from "../../redux/modules/mypageSlice";
+import { PATH } from "../../constants/index";
+import { __putNickname } from "../../redux/modules/mypageSlice";
 
 const NicknameForm = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [userInfo, setUserInfo] = useState({
     username: "",
@@ -17,20 +19,20 @@ const NicknameForm = () => {
 
   const submitNicknameHandler = () => {
     if (userInfo.username === "") {
-      alert("닉네임을 입력해주세요");
+      alert("닉네임을 입력해주세요!");
     } else {
-      dispatch(__addNickname(userInfo));
+      return dispatch(__putNickname(userInfo)).then((res) => {
+        console.log(res.payload);
+        if (res?.payload?.message === "닉네임 변경 성공") {
+          navigate(PATH.main);
+        }
+      });
     }
   };
 
   return (
     <div>
       <StAddNicknameForm>
-        {IMAGES.test1}
-        {/* <img
-          style={{ width: "100px", height: "100px" }}
-          src={IMAGES.test}
-        ></img> */}
         <input
           onChange={changeNicknameHandler}
           type="text"

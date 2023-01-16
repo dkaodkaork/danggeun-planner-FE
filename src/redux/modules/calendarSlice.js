@@ -1,19 +1,30 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { instance } from "../../core/apiConfig.js";
+import { instance, baseURL } from "../../core/apiConfig.js";
 //import { api } from "../../core/api";
 
 //초기값 선언
 const initialState = {
-  data: {},
+  username: "",
+  profileImage: "",
+  carrot: 0,
+  colorStages: [
+    {
+      colorStage1: [],
+      colorStage2: [],
+      colorStage3: [],
+      colorStage4: [],
+    },
+  ],
 };
-// 댓글 조회
+
+// 캘린더 조회
 export const __getCalendar = createAsyncThunk(
   "__getCalendar",
   async (payload, thunkAPI) => {
-    const { todayMonth, todayYear } = payload;
+    const { todayMonth, todayYear, username } = payload;
     try {
-      const { data } = await instance.get(
-        `/calendar/${todayYear}-${todayMonth}`
+      const { data } = await baseURL.get(
+        `/calendar/${username}/${todayYear}-${todayMonth}`
       );
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
@@ -30,7 +41,10 @@ export const calendarSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(__getCalendar.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.data = action.payload;
+      state.username = action.payload.username;
+      state.profileImage = action.payload.profileImage;
+      state.carrot = action.payload.carrot;
+      state.colorStages = action.payload.colorStages;
     });
     builder.addCase(__getCalendar.rejected, (state, action) => {
       state.isLoading = false;

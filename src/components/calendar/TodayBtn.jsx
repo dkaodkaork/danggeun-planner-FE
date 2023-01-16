@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import { ReactComponent as TodayBtnIcon } from "../../../assets/images/calendar/todayBtnIcon.svg";
+import { ReactComponent as TodayBtnIcon } from "../../assets/images/calendar/todayBtnIcon.svg";
 
-const TodayBtn = () => {
+const TodayBtn = (props) => {
   return (
-    <BtnLayout>
+    <BtnLayout onClick={props.onClickToday}>
       <TodayBtnIcon />
       <BtnText>Today</BtnText>
     </BtnLayout>
@@ -23,6 +23,7 @@ const BtnLayout = styled.div`
   justify-content: center;
   background: #fffdfa;
   gap: 2px;
+  box-shadow: 0px 4px 0px rgba(0, 0, 0, 0.15);
 `;
 
 const BtnText = styled.div`

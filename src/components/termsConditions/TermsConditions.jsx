@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-const SignUpAgree = () => {
+const TermsConditions = () => {
   const navigate = useNavigate();
 
   const clickHandler = () => {
@@ -74,7 +74,7 @@ const SignUpAgree = () => {
     </StContainer>
   );
 };
-export default SignUpAgree;
+export default TermsConditions;
 
 const StContainer = styled.div`
   display: flex;

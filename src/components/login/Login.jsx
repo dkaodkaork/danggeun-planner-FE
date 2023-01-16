@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { api } from "../../core/api";
 import { setCookies } from "../../core/cookieControler";
-import { MSG } from "../../constants/messages";
+import { PATH, MSG } from "../../constants/index";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const [loginInfo, setLoginInfo] = useState({
     email: "",
     password: "",
@@ -29,17 +32,24 @@ const Login = () => {
       alert(MSG.formInvalidMsg);
     } else {
       try {
-        const { headers, data } = await api.postLoginApi(loginInfo);
-
-        if (data.message === "로그인 성공") {
-          // return localStorage.setItem("AccessToken", headers.accesstoken);
-          return setCookies("AccessToken", headers.accesstoken, {
-            path: "/",
-            maxAge: 36000,
-          });
+        const { headers, data, status } = await api.postLoginApi(loginInfo);
+        console.log(headers);
+        if (status === 200) {
+          localStorage.setItem("accessToken", headers.accesstoken);
+          localStorage.setItem("refreshToken", headers.refreshtoken);
+          // setCookies("accessToken", headers.accessToken, {
+          //   path: "/",
+          //   maxAge: 36000,
+          // });
+          console.log(data.data);
+          if (data.data.isExistUsername) {
+            navigate(PATH.main);
+          } else {
+            navigate(PATH.nickname);
+          }
         }
       } catch (error) {
-        alert(error.response.data.msg);
+        alert(error.response.data.message);
       }
     }
   };

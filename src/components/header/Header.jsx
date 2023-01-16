@@ -1,28 +1,44 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { ReactComponent as Menu } from "../../assets/images/menuicon.svg";
+import GroupMenu from "../group/GroupMenu";
 
-const Header = (props) => {
-  const navigate = useNavigate();
+const Header = ({
+  menuName,
+  justifyContent,
+  left,
+  right,
+  leftLink,
+  clickMenuHandler,
+}) => {
   return (
-    <HeaderStyle>
-      <HomeNav>홈</HomeNav>
-      <MenuName>{props.menuName}</MenuName>
-      <Menu />
-    </HeaderStyle>
+    <>
+      <HeaderStyle>
+        <TopIcon justifyContent={justifyContent}>
+          <Link to={leftLink}>{left}</Link>
+          {/* <Link to={rightLink}>{right}</Link> */}
+          <MenuName>{menuName}</MenuName>
+          <MenuIcon onClick={clickMenuHandler}>{right}</MenuIcon>
+        </TopIcon>
+      </HeaderStyle>
+      <GroupMenu />
+    </>
   );
 };
 
 export default Header;
 
 export const HeaderStyle = styled.div`
-  height: 54px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  height: "72px";
   background-color: #f9f3ea;
-  padding: 0 36px 0 36px;
+  padding: 28px 28px 12px 27px;
+`;
+
+export const TopIcon = styled.div`
+  display: flex;
+  justify-content: ${({ justifyContent }) => justifyContent || "space-between"};
+  align-items: center;
+  /* padding: 0 36px 0 36px; */
 `;
 
 export const HomeNav = styled.div`
@@ -30,7 +46,11 @@ export const HomeNav = styled.div`
 `;
 
 export const MenuName = styled.h1`
+  text-align: center;
   font-family: "MaplestoryOTFBold";
   font-weight: 700;
   font-size: 1.6rem;
+  color: #595550;
 `;
+
+const MenuIcon = styled.div``;
