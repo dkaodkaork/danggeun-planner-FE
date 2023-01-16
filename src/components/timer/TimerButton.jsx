@@ -4,6 +4,7 @@ import styled from "styled-components";
 const Button = (props) => {
   return (
     <StButton
+      border={props.border}
       backgroundColor={props.backgroundColor}
       background={props.background}
       color={props.color}
@@ -37,8 +38,13 @@ const Button = (props) => {
 
 export default Button;
 const StButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: ${({ gap }) => gap};
   margin-top: ${({ marginTop }) => marginTop};
   border-radius: 12px;
+  border: ${({ border }) => border};
   padding: ${({ padding }) => padding || "10px 23px 10px 23px"};
   cursor: pointer;
   //margin: ${({ margin }) => margin || "0 5px 0 0"};
