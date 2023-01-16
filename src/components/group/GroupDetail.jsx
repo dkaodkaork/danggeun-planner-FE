@@ -5,7 +5,6 @@ import Header from "../header/Header";
 import styled from "styled-components";
 import { IMAGES } from "../../constants/images.js";
 import { __getGroupDetail } from "../../redux/modules/groupSlice";
-
 import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
 
 const GroupDetail = () => {
