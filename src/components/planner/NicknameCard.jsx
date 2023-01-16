@@ -2,15 +2,16 @@ import React from "react";
 import styled from "styled-components";
 import { IMAGES } from "../../constants/index";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
-const NicknameCard = () => {
+const NicknameCard = ({ nickname, profileImage, link }) => {
   const userInfo = useSelector((state) => state.mypage.data);
 
   return (
     <>
-      <StContainer>
+      <StContainer to={link}>
         <StImg src={IMAGES.test}></StImg>
-        <StNicknameBox>여섯글자닉넴</StNicknameBox>
+        <StNicknameBox>{nickname}</StNicknameBox>
       </StContainer>
     </>
   );
@@ -18,13 +19,11 @@ const NicknameCard = () => {
 
 export default NicknameCard;
 
-const StContainer = styled.div`
+const StContainer = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  /* width: 73px;
-  height: 17px; */
 `;
 
 const StImg = styled.img`
