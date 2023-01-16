@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import Header from "../header/Header";
 import styled from "styled-components";
 import { IMAGES } from "../../constants/images.js";
+
+//모듈 import
 import { __getGroupDetail } from "../../redux/modules/groupSlice";
 import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
+
+//컴포넌트 import
+import Header from "../header/Header";
+import GroupMember from "./GroupMember.jsx";
 
 const GroupDetail = () => {
   const dispatch = useDispatch();
@@ -87,6 +92,7 @@ const GroupDetail = () => {
           수확했어요!
         </MonthlyCarrot>
       </GroupLayout>
+      <GroupMember />
     </>
   );
 };
