@@ -2,10 +2,10 @@ import React from "react";
 import { IMAGES } from "../../constants/index";
 import styled from "styled-components";
 
-const BottomBtns = () => {
+const BottomBtns = ({ onClick }) => {
   return (
     <StContainer>
-      <StButton>{IMAGES.addBtn}</StButton>
+      <StButton onClick={onClick}>{IMAGES.addBtn}</StButton>
     </StContainer>
   );
 };

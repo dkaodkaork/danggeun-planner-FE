@@ -5,6 +5,7 @@ const initialState = {
   groupMenuOpen: false,
   detailMenuOpen: false,
   groupMemberOpen: false,
+  addPlanModalOpen: false,
 };
 
 // reducer
@@ -21,6 +22,9 @@ export const modalSlice = createSlice({
     groupMemberOpenStatus: (state, action) => {
       state.groupMemberOpen = action.payload;
     },
+    addPlanModalOpenStatus: (state, action) => {
+      state.addPlanModalOpen = action.payload;
+    },
   },
 });
 
@@ -28,5 +32,6 @@ export const {
   groupMenuOpenStatus,
   detailMenuOpenStatus,
   groupMemberOpenStatus,
+  addPlanModalOpenStatus,
 } = modalSlice.actions;
 export default modalSlice.reducer;

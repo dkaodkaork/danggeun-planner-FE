@@ -7,7 +7,6 @@ const PlanCard = ({ color, content, startTime, endTime, count }) => {
     if (count) {
       const carrots = [];
       for (let i = 0; i < count; i++) {
-        console.log(count);
         carrots.push(<div key={i}>{IMAGES.carrotSticker}</div>);
       }
 

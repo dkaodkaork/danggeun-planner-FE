@@ -18,8 +18,23 @@ import { ReactComponent as BlockCircle } from "../assets/images/group/block_circ
 import { ReactComponent as CheckCircle } from "../assets/images/group/check_circle.svg";
 import { ReactComponent as EmptyCircle } from "../assets/images/group/empty_circle.svg";
 import { ReactComponent as CarrotSticker } from "../assets/images/planner/carrot.svg";
+import { ReactComponent as CheckBtn } from "../assets/images/planner/check.svg";
+import { ReactComponent as Kakao } from "../assets/images/login/kakao.svg";
+import { ReactComponent as Naver } from "../assets/images/login/naver_logo.svg";
+import { ReactComponent as Google } from "../assets/images/login/google.svg";
+import { ReactComponent as Fold } from "../assets/images/mypage/fold_icon.svg";
+import { ReactComponent as Edit } from "../assets/images/mypage/fold_icon.svg";
 
 export const IMAGES = {
+  // 로그인
+  kakao: <Kakao />,
+  naver: <Naver />,
+  google: <Google />,
+
+  // 마이페이지
+  fold: <Fold />,
+  edit: <Edit />,
+
   // 타이머 이미지
   defalut: require("../assets/images/timer/default.png"),
   step1: require("../assets/images/timer/step1.png"),
@@ -37,6 +52,7 @@ export const IMAGES = {
   addBtn: <AddBtn />,
   rangeBtn: <RangeBtn />,
   carrotSticker: <CarrotSticker />,
+  checkBtn: <CheckBtn />,
   //
   menu: <Menu />,
   home: <Home />,
