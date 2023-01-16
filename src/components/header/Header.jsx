@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import GroupMenu from "../group/GroupMenu";
 
@@ -9,7 +9,6 @@ const Header = ({
   left,
   right,
   leftLink,
-  rightLink,
   clickMenuHandler,
 }) => {
   return (
@@ -18,9 +17,9 @@ const Header = ({
         <TopIcon justifyContent={justifyContent}>
           <Link to={leftLink}>{left}</Link>
           {/* <Link to={rightLink}>{right}</Link> */}
+          <MenuName>{menuName}</MenuName>
           <MenuIcon onClick={clickMenuHandler}>{right}</MenuIcon>
         </TopIcon>
-        <MenuName>{menuName}</MenuName>
       </HeaderStyle>
       <GroupMenu />
     </>
@@ -30,12 +29,9 @@ const Header = ({
 export default Header;
 
 export const HeaderStyle = styled.div`
-  height: 90px;
-  /* display: flex;
-  justify-content: ${({ justifyContent }) => justifyContent || "space-between"};
-  align-items: center; */
+  height: "72px";
   background-color: #f9f3ea;
-  padding: 27px 28px 0 27px;
+  padding: 28px 28px 12px 27px;
 `;
 
 export const TopIcon = styled.div`
@@ -50,7 +46,6 @@ export const HomeNav = styled.div`
 `;
 
 export const MenuName = styled.h1`
-  margin-top: 10px;
   text-align: center;
   font-family: "MaplestoryOTFBold";
   font-weight: 700;
