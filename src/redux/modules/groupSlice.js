@@ -7,6 +7,7 @@ const initialState = {
   groupList: [],
   groupAdd: {},
   groupDetail: {},
+  groupMemberGet: {},
   isLoading: false,
   error: null,
 };
@@ -17,6 +18,19 @@ export const __getGroupList = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const { data } = await api.getGroupListApi();
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+// 그룹원 조회
+export const __getGroupMember = createAsyncThunk(
+  "__getGroupMember",
+  async (payload, thunkAPI) => {
+    try {
+      const { data } = await api.getGroupMemberApi(payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -67,8 +81,11 @@ export const __deleteGroup = createAsyncThunk(
 export const __putGroupUpdate = createAsyncThunk(
   "__putGroupUpdate",
   async (payload, thunkAPI) => {
+    //구조분해할당
+    const { groupInfo, groupId } = payload;
     try {
-      const { data } = await api.putGroupUpdateApi(payload);
+      const { data } = await api.putGroupUpdateApi(groupInfo, groupId);
+      console.log(data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -98,6 +115,16 @@ export const groupSlice = createSlice({
       state.groupDetail = action.payload;
     });
     builder.addCase(__getGroupDetail.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    });
+
+    //그룹원 조회
+    builder.addCase(__getGroupMember.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.groupMemberGet = action.payload;
+    });
+    builder.addCase(__getGroupMember.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     });

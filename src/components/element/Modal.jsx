@@ -12,7 +12,7 @@ const Modal = (props) => {
 export default Modal;
 
 export const ModalBackdrop = styled.div`
-  width: 100%;
+  width: 375px;
   height: 100%;
   position: fixed;
   display: flex;

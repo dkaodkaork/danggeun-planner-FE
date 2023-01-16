@@ -7,10 +7,13 @@ import { ReactComponent as GroupListPeople } from "../assets/images/group/groupL
 import { ReactComponent as NextArrow } from "../assets/images/calendar/next_month.svg";
 import { ReactComponent as PreviousArrow } from "../assets/images/calendar/previous_month.svg";
 import { ReactComponent as DownArrow } from "../assets/images/group/down-arrow.svg";
+import { ReactComponent as UpArrow } from "../assets/images/group/up-arrow.svg";
 import { ReactComponent as InviteIcon } from "../assets/images/group/inviteIcon.svg";
 import { ReactComponent as CalendarIcon } from "../assets/images/planner/calendarIcon.svg";
 import { ReactComponent as AddBtn } from "../assets/images/planner/plan_add.svg";
 import { ReactComponent as RangeBtn } from "../assets/images/planner/range_button.svg";
+import { ReactComponent as MemberCarrot } from "../assets/images/group/member-carrot.svg";
+import { ReactComponent as Search } from "../assets/images/group/search.svg";
 
 export const IMAGES = {
   // 타이머 이미지
@@ -40,5 +43,8 @@ export const IMAGES = {
   previousArrow: <PreviousArrow />,
   groupListPeople: <GroupListPeople />,
   downArrow: <DownArrow />,
+  upArrow: <UpArrow />,
   inviteIcon: <InviteIcon />,
+  memberCarrot: <MemberCarrot />,
+  search: <Search />,
 };

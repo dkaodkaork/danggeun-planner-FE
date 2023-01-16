@@ -18,7 +18,8 @@ const GroupUpdate = () => {
   const navigate = useNavigate();
 
   const groupDetailData = useSelector((state) => state.group.groupDetail);
-  //console.log(groupDetailData);
+
+  const groupId = groupDetailData?.groupId;
 
   //글자수 카운터
   let [textareaCount, setTextareaCount] = useState(0);
@@ -39,18 +40,18 @@ const GroupUpdate = () => {
   };
 
   const onClickGroupUpdate = () => {
+    //하나의 객체로 묶어서 보내야 함!
+    const groupInfo = { groupName, description };
     if (inputCount === 0) {
       alert("그룹 제목을 입력해주세요");
     } else if (textareaCount === 0) {
       alert("그룹 내용을 입력해주세요");
     } else {
-      return dispatch(__putGroupUpdate({ groupName, description })).then(
-        (res) => {
-          const groupId = res.payload.groupId;
-          navigate(PATH.groupdetail(groupId));
-          // navigate(`/group/${groupId}`);
-        }
-      );
+      return dispatch(__putGroupUpdate({ groupInfo, groupId })).then((res) => {
+        const groupId = res.payload.groupId;
+        navigate(PATH.groupdetail(groupId));
+        // navigate(`/group/${groupId}`);
+      });
     }
   };
 

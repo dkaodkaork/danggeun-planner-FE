@@ -3,9 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { IMAGES } from "../../constants/images.js";
+import moment from "moment";
 
 //모듈 import
-import { __getGroupDetail } from "../../redux/modules/groupSlice";
+import {
+  __getGroupDetail,
+  __getGroupMember,
+} from "../../redux/modules/groupSlice";
 import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
 
 //컴포넌트 import
@@ -25,8 +29,14 @@ const GroupDetail = () => {
   };
 
   useEffect(() => {
-    dispatch(__getGroupDetail(groupId));
+    dispatch(__getGroupDetail(groupId)).then(() => {
+      dispatch(__getGroupMember(groupId));
+    });
   }, []);
+
+  //현재 년일 불러오기
+  const todayYear = moment().format("YYYY");
+  const todayMonth = moment().format("M");
 
   return (
     <>
@@ -41,7 +51,9 @@ const GroupDetail = () => {
         <GroupName>{groupDetailData.groupName}</GroupName>
         <GroupInfo>{groupDetailData.description}</GroupInfo>
         <RankBox>
-          <RankName>2023년 1월 랭킹</RankName>
+          <RankName>
+            {todayYear}년 {todayMonth}월 랭킹
+          </RankName>
           {groupDetailData?.ranking?.length !== 0 &&
           groupDetailData?.ranking?.length !== undefined ? (
             <>
