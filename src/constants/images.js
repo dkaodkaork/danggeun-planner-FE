@@ -17,6 +17,7 @@ import { ReactComponent as Search } from "../assets/images/group/search.svg";
 import { ReactComponent as BlockCircle } from "../assets/images/group/block_circle.svg";
 import { ReactComponent as CheckCircle } from "../assets/images/group/check_circle.svg";
 import { ReactComponent as EmptyCircle } from "../assets/images/group/empty_circle.svg";
+import { ReactComponent as CarrotSticker } from "../assets/images/planner/carrot.svg";
 
 export const IMAGES = {
   // 타이머 이미지
@@ -35,7 +36,7 @@ export const IMAGES = {
   calendarIcon: <CalendarIcon />,
   addBtn: <AddBtn />,
   rangeBtn: <RangeBtn />,
-
+  carrotSticker: <CarrotSticker />,
   //
   menu: <Menu />,
   home: <Home />,

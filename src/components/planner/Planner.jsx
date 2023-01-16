@@ -10,7 +10,16 @@ import BottomBtns from "./BottomBtns";
 import PlanCard from "./PlanCard";
 
 const Planner = () => {
-  const planInfo = useSelector((state) => state.planner.data);
+  const planInfo = useSelector((state) => state?.planner?.data);
+
+  let color = "";
+  const a = planInfo.contents.map((val, i) => {
+    if (Object.keys(val)[0] === "timerId") {
+      color = "#F27808";
+    } else {
+      color = "#67986C";
+    }
+  });
 
   return (
     <StContainer>
@@ -21,7 +30,11 @@ const Planner = () => {
         leftLink={PATH.timer}
       ></Header>
       <StDiv>
-        <NicknameCard></NicknameCard>
+        <NicknameCard
+          link={PATH.profile}
+          nickname={planInfo.username}
+          profileImage={planInfo.porfileImage}
+        ></NicknameCard>
         <Link to={PATH.calendar}>{IMAGES.calendarIcon}</Link>
       </StDiv>
       <StDiv>
@@ -30,21 +43,28 @@ const Planner = () => {
           오늘 수확량 <span>{planInfo.carrot}</span>
         </StTodayCarrot>
       </StDiv>
-      <BottomBtns />
       <StBodyDiv>
-        <PlanCard color={"#67986C"}></PlanCard>
-        <PlanCard color={"#F27808"}></PlanCard>
-        <PlanCard color={"#67986C"}></PlanCard>
-        <PlanCard color={"#F27808"}></PlanCard>
-        <PlanCard color={"#F27808"}></PlanCard>
-        <PlanCard color={"#F27808"}></PlanCard>
-        <PlanCard color={"#F27808"}></PlanCard>
-        <PlanCard color={"#F27808"}></PlanCard>
-        <PlanCard color={"#F27808"}></PlanCard>
-        <PlanCard color={"#F27808"}></PlanCard>
-        <PlanCard color={"#F27808"}></PlanCard>
-        <PlanCard color={"#F27808"}></PlanCard>
+        {planInfo.contents.map((val) => {
+          let color = "";
+          if (Object.keys(val)[0] === "timerId") {
+            color = "#F27808";
+          } else {
+            color = "#67986C";
+          }
+          return (
+            <div key={val.startTime}>
+              <PlanCard
+                color={color}
+                content={val.content}
+                startTime={val.startTime}
+                endTime={val.endTime}
+                count={val?.count}
+              ></PlanCard>
+            </div>
+          );
+        })}
       </StBodyDiv>
+      <BottomBtns />
     </StContainer>
   );
 };
@@ -123,6 +143,11 @@ const StBodyDiv = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  height: 500px;
+  height: 550px;
   overflow: scroll;
+  margin-bottom: 15px;
+`;
+
+const Sta = styled.div`
+  background-color: red;
 `;
