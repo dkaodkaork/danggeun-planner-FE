@@ -288,7 +288,7 @@ export default GroupMenu;
 
 const ModalBackdrop = styled.div`
   visibility: ${(props) => (props.toggle ? "visible" : "hidden")};
-  width: 100%;
+  width: 375px;
   height: 100%;
   position: fixed;
   display: flex;
@@ -301,8 +301,8 @@ const ModalBackdrop = styled.div`
 const MenuLayout = styled.div`
   width: 298px;
   background-color: #fffdfa;
-  position: fixed;
-  right: ${(props) => (props.toggle ? "0" : "-300px")};
+  position: absolute;
+  right: ${(props) => (props.toggle ? "0" : "-298px")};
   height: 100%;
   transition: all 0.5s ease-in;
   padding: 39px 27px 25px 27px;

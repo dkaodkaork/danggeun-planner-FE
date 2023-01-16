@@ -7,10 +7,16 @@ import { ReactComponent as GroupListPeople } from "../assets/images/group/groupL
 import { ReactComponent as NextArrow } from "../assets/images/calendar/next_month.svg";
 import { ReactComponent as PreviousArrow } from "../assets/images/calendar/previous_month.svg";
 import { ReactComponent as DownArrow } from "../assets/images/group/down-arrow.svg";
+import { ReactComponent as UpArrow } from "../assets/images/group/up-arrow.svg";
 import { ReactComponent as InviteIcon } from "../assets/images/group/inviteIcon.svg";
 import { ReactComponent as CalendarIcon } from "../assets/images/planner/calendarIcon.svg";
 import { ReactComponent as AddBtn } from "../assets/images/planner/plan_add.svg";
 import { ReactComponent as RangeBtn } from "../assets/images/planner/range_button.svg";
+import { ReactComponent as MemberCarrot } from "../assets/images/group/member-carrot.svg";
+import { ReactComponent as Search } from "../assets/images/group/search.svg";
+import { ReactComponent as BlockCircle } from "../assets/images/group/block_circle.svg";
+import { ReactComponent as CheckCircle } from "../assets/images/group/check_circle.svg";
+import { ReactComponent as EmptyCircle } from "../assets/images/group/empty_circle.svg";
 import { ReactComponent as CarrotSticker } from "../assets/images/planner/carrot.svg";
 
 export const IMAGES = {
@@ -41,5 +47,11 @@ export const IMAGES = {
   previousArrow: <PreviousArrow />,
   groupListPeople: <GroupListPeople />,
   downArrow: <DownArrow />,
+  upArrow: <UpArrow />,
   inviteIcon: <InviteIcon />,
+  memberCarrot: <MemberCarrot />,
+  search: <Search />,
+  checkCircle: <CheckCircle />,
+  blockCircle: <BlockCircle />,
+  emptyCircle: <EmptyCircle />,
 };

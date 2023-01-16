@@ -20,6 +20,7 @@ const Input = (props) => {
       onChange={props.onChange}
       maxLength={props.maxLength}
       placeholder={props.placeholder}
+      marginTop={props.marginTop}
     >
       {props.children}
     </StInput>

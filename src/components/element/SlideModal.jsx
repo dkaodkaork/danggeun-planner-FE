@@ -27,13 +27,13 @@ const ModalBackdrop = styled.div`
 `;
 
 const MenuLayout = styled.div`
-  width: 100%;
+  width: 375px;
   background-color: #fffdfa;
   position: fixed;
   bottom: ${(props) => (props.toggle ? "0" : props.bottom)};
   height: ${(props) => props.height || "662px"};
   transition: all 0.5s ease-in;
-  padding: 39px 27px 25px 27px;
+  padding: 28px;
   border-radius: 12px 12px 0px 0px;
   box-shadow: 0px -4px 4px rgba(0, 0, 0, 0.1);
 `;

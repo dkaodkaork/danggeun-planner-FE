@@ -7,6 +7,8 @@ const initialState = {
   groupList: [],
   groupAdd: {},
   groupDetail: {},
+  groupMemberGet: {},
+  searchMember: [],
   isLoading: false,
   error: null,
 };
@@ -17,6 +19,19 @@ export const __getGroupList = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const { data } = await api.getGroupListApi();
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+// 그룹원 조회
+export const __getGroupMember = createAsyncThunk(
+  "__getGroupMember",
+  async (payload, thunkAPI) => {
+    try {
+      const { data } = await api.getGroupMemberApi(payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -67,8 +82,26 @@ export const __deleteGroup = createAsyncThunk(
 export const __putGroupUpdate = createAsyncThunk(
   "__putGroupUpdate",
   async (payload, thunkAPI) => {
+    //구조분해할당
+    const { groupInfo, groupId } = payload;
     try {
-      const { data } = await api.putGroupUpdateApi(payload);
+      const { data } = await api.putGroupUpdateApi(groupInfo, groupId);
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+// 그룹 초대 회원 검색
+export const __getGroupMemberInvite = createAsyncThunk(
+  "__getGroupMemberInvite",
+  async (payload, thunkAPI) => {
+    //구조분해할당
+    const { groupId, username } = payload;
+    try {
+      const { data } = await api.getGroupMemberInviteApi(groupId, username);
+      console.log(data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -102,6 +135,16 @@ export const groupSlice = createSlice({
       state.error = action.payload;
     });
 
+    //그룹원 조회
+    builder.addCase(__getGroupMember.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.groupMemberGet = action.payload;
+    });
+    builder.addCase(__getGroupMember.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    });
+
     //그룹 등록
     builder.addCase(__postGroupAdd.fulfilled, (state, action) => {
       state.isLoading = false;
@@ -126,6 +169,16 @@ export const groupSlice = createSlice({
       state.isLoading = false;
     });
     builder.addCase(__putGroupUpdate.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    });
+
+    //회원 검색
+    builder.addCase(__getGroupMemberInvite.fulfilled, (state, action) => {
+      state.isLoading = false;
+      console.log(action.payload);
+    });
+    builder.addCase(__getGroupMemberInvite.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     });
