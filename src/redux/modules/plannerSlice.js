@@ -5,7 +5,7 @@ const initialState = {
   data: {
     isOwner: "",
     username: "",
-    carrot: "",
+    carrot: "55",
     timers: [],
     plans: [],
   },
