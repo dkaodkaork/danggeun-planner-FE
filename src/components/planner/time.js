@@ -1,6 +1,6 @@
 export const today = () => {
   let now = new Date();
-  console.log(now);
+  // console.log(now);
   let year = now.getFullYear();
   let month = now.getMonth() + 1;
   let date = now.getDate();
