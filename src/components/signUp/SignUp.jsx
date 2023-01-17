@@ -72,7 +72,7 @@ const SignUp = () => {
 
   return (
     <StContainer>
-      <Header menuName="SIGN UP" justifyContent="center"></Header>
+      <Header menuName="SIGN UP" justifyContent="center" />
       <StInputBox>
         <StTitle>E-mail</StTitle>
 

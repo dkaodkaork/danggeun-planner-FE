@@ -4,20 +4,18 @@ import { IMAGES } from "../../constants/index";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-const NicknameCard = ({ nickname, profileImage, link }) => {
-  const userInfo = useSelector((state) => state.mypage.data);
-
+const UsernameCard = ({ username, profileImage, link }) => {
   return (
     <>
       <StContainer to={link}>
-        <StImg src={IMAGES.test}></StImg>
-        <StNicknameBox>{nickname}</StNicknameBox>
+        <StImg src={profileImage}></StImg>
+        <StUsernameBox>{username}</StUsernameBox>
       </StContainer>
     </>
   );
 };
 
-export default NicknameCard;
+export default UsernameCard;
 
 const StContainer = styled(Link)`
   display: flex;
@@ -33,7 +31,7 @@ const StImg = styled.img`
   height: 30px;
 `;
 
-const StNicknameBox = styled.div`
+const StUsernameBox = styled.div`
   font-size: 1.4rem;
   font-family: "Pretendard";
   font-style: normal;

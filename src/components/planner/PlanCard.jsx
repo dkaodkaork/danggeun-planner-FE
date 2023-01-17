@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { IMAGES } from "../../constants/index";
 
-const PlanCard = ({ color, content, startTime, endTime, count }) => {
+const PlanCard = ({ color, content, startTime, endTime, count, onClick }) => {
   const carrotSticker = () => {
     if (count) {
       const carrots = [];
@@ -15,7 +15,7 @@ const PlanCard = ({ color, content, startTime, endTime, count }) => {
   };
 
   return (
-    <StContainer>
+    <StContainer onClick={onClick}>
       <StCardLabel color={color}></StCardLabel>
       <StCard>
         <StTitle>

@@ -1,21 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Header from "../header/Header";
 import { PATH, IMAGES } from "../../constants/index";
-import NicknameCard from "./NicknameCard";
-import { Link } from "react-router-dom";
+import UsernameCard from "./UsernameCard";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { today } from "./time";
+import { today, planStartTime } from "./time";
 import BottomBtns from "./BottomBtns";
 import PlanCard from "./PlanCard";
 import SlideModal from "../element/SlideModal";
-import Input from "../element/Input";
 import { addPlanModalOpenStatus } from "../../redux/modules/modalSlice";
+import {
+  __getAllPlan,
+  __getTimerPlan,
+  __getPlan,
+  __postPlan,
+  __deletePlan,
+  __putPlan,
+} from "../../redux/modules/plannerSlice";
+import PlannerModal from "./\bPlannerModal";
+import Button from "../timer/TimerButton";
 
 const Planner = () => {
-  const planInfo = useSelector((state) => state?.planner?.data);
-  // console.log(planInfo.contents);
+  // hook
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const param = useParams();
+  const plans = useSelector((state) => state?.planner?.data);
 
+  console.log(plans.isOwner);
+
+  // 상태 선언
   const [countInput, setCountInput] = useState(0);
   const [planTitle, setPlanTitle] = useState("");
   const [startTime, setStartTime] = useState({
@@ -27,25 +42,77 @@ const Planner = () => {
     min: "",
   });
 
-  const b = [...planInfo.contents];
-  const a = b.sort((a, b) => {
+  //
+  const planInfo = {
+    startTime: planStartTime(startTime),
+    endTime: planStartTime(endTime),
+    content: planTitle,
+  };
+  // console.log(planInfo);
+
+  // const decodeUri = decodeURI(History.location);
+  // console.log(History.location?.search);
+
+  useEffect(() => {
+    dispatch(__getAllPlan({ username: param.username, date: param.date }));
+  }, [dispatch]);
+
+  // // sort 하는 함수
+  // const a = () => {
+  //   if (plans.contents.length !== 0) {
+  //     const temp = [...plans?.contents];
+  //     return temp;
+  //   }
+  // };
+  // 처음에 빈배열이 들어와서 오류가 뜸..
+
+  // const temp = ["1"];
+  const temp = [...plans?.contents];
+
+  const sortedPlans = temp?.sort((a, b) => {
     return (
       Number(a.startTime.replace(":", "")) -
       Number(b.startTime.replace(":", ""))
     );
   });
-  // console.log("sorted", a);
 
-  const dispatch = useDispatch();
-
+  // 모달은 나주에 slice에서 빼고 하면 코드 많이 줄일 수 있을 것 같음. 상태로 관리
   // const [addPlanModalOpen, setAddPlanModalOpen] = useState(false);
   const addPlanModalOpen = useSelector(
     (state) => state.modalSlice.addPlanModalOpen
   );
 
-  const clickModalHandler = () => {
+  const openModalHanlder = () => {
     dispatch(addPlanModalOpenStatus(!addPlanModalOpen));
-    console.log("1");
+  };
+
+  const closeModalHandler = () => {
+    if (
+      !planTitle ||
+      !startTime.hour ||
+      !startTime.min ||
+      !endTime.hour ||
+      !endTime.min
+    ) {
+      alert("제목과 시간을 모두 입력해주세요!");
+    } else {
+      if (
+        startTime.hour > 24 ||
+        startTime.hour < 0 ||
+        startTime.min > 60 ||
+        startTime.min < 0 ||
+        endTime.hour > 24 ||
+        endTime.hour < 0 ||
+        endTime.min > 60 ||
+        endTime.min < 0
+      ) {
+        alert("올바른 시간을 입력해주세요!");
+      } else {
+        dispatch(addPlanModalOpenStatus(!addPlanModalOpen));
+        dispatch(__postPlan(planInfo));
+      }
+    }
+    setPlanTitle("");
     setEndTime({
       hour: "",
       min: "",
@@ -55,13 +122,15 @@ const Planner = () => {
       min: "",
     });
   };
+  //
 
+  // 플랜 제목
   const changeTitleHandler = (e) => {
-    console.log(e.target.value);
     setPlanTitle(e.target.value);
     setCountInput(e.target.value.length);
   };
 
+  // 플랜 시작시간 종료시간
   const changeStartTimeHandler = (e) => {
     setStartTime({ ...startTime, [e.target.name]: e.target.value });
   };
@@ -69,6 +138,12 @@ const Planner = () => {
   const changeEndTimeHandler = (e) => {
     setEndTime({ ...endTime, [e.target.name]: e.target.value });
   };
+
+  const submitPlanInfoHandler = () => {
+    // dispatch(__postPlan())
+  };
+
+  // 플랜 등록
 
   // 숫자만 입력되도록 하는 함수, input type number 일때 maxLength 안먹힘
   const isNumber = (e) => {
@@ -84,23 +159,58 @@ const Planner = () => {
           right={IMAGES.menu}
           left={IMAGES.home}
           leftLink={PATH.timer}
-        ></Header>
+        />
         <StDiv>
-          <NicknameCard
+          <UsernameCard
             link={PATH.profile}
-            nickname={planInfo.username}
-            profileImage={planInfo.porfileImage}
-          ></NicknameCard>
+            username={plans.username}
+            profileImage={plans.profileImage}
+          />
           <Link to={PATH.calendar}>{IMAGES.calendarIcon}</Link>
         </StDiv>
         <StDiv>
           <StDateBox>{today()}</StDateBox>
           <StTodayCarrot>
-            오늘 수확량 <span>{planInfo.carrot}</span>
+            오늘 수확량 <span>{plans.carrot}</span>
           </StTodayCarrot>
         </StDiv>
         <StBodyDiv>
-          {a.map((val) => {
+          <StBtnBox>
+            <Button
+              width="45px"
+              height="29px"
+              backgroundColor="#F9F3EA"
+              color="#595550"
+              fontSize="1.2rem"
+              children="전체"
+              fontFamily="Pretendard"
+              padding="0px"
+              border=" 1px solid #595550"
+            />
+            <Button
+              width="45px"
+              height="29px"
+              backgroundColor="#F9F3EA"
+              color="#4A8A51"
+              fontSize="1.2rem"
+              children="계획"
+              fontFamily="Pretendard"
+              padding="0px"
+              border=" 1px solid #4A8A51"
+            />
+            <Button
+              width="45px"
+              height="29px"
+              backgroundColor="#F9F3EA"
+              color="#F27808"
+              fontSize="1.2rem"
+              children="집중"
+              fontFamily="Pretendard"
+              padding="0px"
+              border="1px solid #F27808"
+            />
+          </StBtnBox>
+          {sortedPlans.map((val) => {
             let color = "";
             if (Object.keys(val)[0] === "timerId") {
               color = "#F27808";
@@ -110,90 +220,32 @@ const Planner = () => {
             return (
               <div key={val.startTime}>
                 <PlanCard
+                  onClick={plans.isOwner ? openModalHanlder : () => {}}
                   color={color}
                   content={val.content}
                   startTime={val.startTime}
                   endTime={val.endTime}
                   count={val?.count}
-                ></PlanCard>
+                />
               </div>
             );
           })}
         </StBodyDiv>
-        <BottomBtns onClick={clickModalHandler} />
+        {plans.isOwner && <BottomBtns onClick={openModalHanlder} />}
       </StContainer>
       <SlideModal height="258px" bottom="-260px" toggle={addPlanModalOpen}>
-        <StModalHeader>
-          <StDateBox>{today()}</StDateBox>
-          <button onClick={clickModalHandler}>{IMAGES.checkBtn}</button>
-        </StModalHeader>
-        <StInputBox>
-          <StInput
-            placeholder="제목 입력"
-            onChange={changeTitleHandler}
-            maxLength="24"
-          ></StInput>
-          <StLabel>{countInput}/24</StLabel>
-        </StInputBox>
-        <StTimeBox>
-          <StSpan>시작</StSpan>
-          <Input
-            onChange={changeStartTimeHandler}
-            type="number"
-            name="hour"
-            value={startTime.hour}
-            onInput={isNumber}
-            placeholder="00"
-            maxLength="2"
-            width="45px"
-            height="45px"
-            fontSize="1.4rem"
-            padding="12px"
-          ></Input>
-          <div>:</div>
-          <Input
-            onChange={changeStartTimeHandler}
-            onInput={isNumber}
-            name="min"
-            value={startTime.min}
-            type="number"
-            placeholder="00"
-            maxLength="2"
-            width="45px"
-            height="45px"
-            fontSize="1.4rem"
-            padding="12px"
-          ></Input>
-          <p>-</p>
-          <StSpan>종료</StSpan>
-          <Input
-            onChange={changeEndTimeHandler}
-            type="number"
-            name="hour"
-            defaultValue={endTime.hour}
-            onInput={isNumber}
-            placeholder="00"
-            maxLength="2"
-            width="45px"
-            height="45px"
-            fontSize="1.4rem"
-            padding="12px"
-          ></Input>
-          <div>:</div>
-          <Input
-            onChange={changeEndTimeHandler}
-            type="number"
-            name="min"
-            defaultValue={endTime.min}
-            onInput={isNumber}
-            placeholder="00"
-            maxLength="2"
-            width="45px"
-            height="45px"
-            fontSize="1.4rem"
-            padding="12px"
-          ></Input>
-        </StTimeBox>
+        <PlannerModal
+          openModalHanlder={openModalHanlder}
+          closeModalHandler={closeModalHandler}
+          changeTitleHandler={changeTitleHandler}
+          changeStartTimeHandler={changeStartTimeHandler}
+          changeEndTimeHandler={changeEndTimeHandler}
+          planTitle={planTitle}
+          countInput={countInput}
+          startTime={startTime}
+          endTime={endTime}
+          isNumber={isNumber}
+        />
       </SlideModal>
     </>
   );
@@ -204,15 +256,6 @@ export default Planner;
 const StContainer = styled.div`
   background-color: #f9f3ea;
   height: 812px;
-`;
-
-const StDiv = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin: 0px 32px 0px 29px;
-  height: 56px;
 `;
 
 const StDateBox = styled.div`
@@ -244,6 +287,15 @@ const StTodayCarrot = styled.div`
   }
 `;
 
+const StDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0px 32px 0px 29px;
+  height: 56px;
+`;
+
 const StBodyDiv = styled.div`
   display: flex;
   flex-direction: column;
@@ -251,108 +303,15 @@ const StBodyDiv = styled.div`
   gap: 10px;
   height: 550px;
   overflow: scroll;
-  margin-bottom: 15px;
+  margin: 6px 0px 15px 0px;
 `;
 
-const StModalHeader = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 319px;
-  height: 19px;
-  div {
-    margin-left: 87px;
-  }
-`;
-
-const StInputBox = styled.div`
-  width: 319px;
-  display: flex;
-  flex-direction: column;
+const StBtnBox = styled.div`
+  width: 327px;
   gap: 10px;
-  /* align-items: flex-start; */
-`;
-
-const StInput = styled.input`
+  align-items: center;
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
-  padding: 19px;
-  gap: 10px;
-  width: 319px;
-
-  height: 55px;
-  margin-top: 25px;
-
-  background: #ffffff;
-  /* back2 */
-
-  border: 1px solid #f1e5d2;
-  border-radius: 12px;
-
-  ::placeholder {
-    font-family: "Pretendard";
-    font-style: normal;
-    font-weight: 500;
-    font-size: 1.4rem;
-    line-height: 17px;
-    color: #a4a4a4;
-  }
-`;
-
-const StLabel = styled.label`
-  height: 16px;
-  width: 310px;
-  font-family: "Pretendard";
-  font-style: normal;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 130%;
-
-  text-align: right;
-
-  color: #4a8a51;
-`;
-
-const StTimeBox = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0px;
-  /* gap: 31px; */
-
-  width: 319px;
-  height: 41px;
-  margin-top: 24px;
-
-  p {
-    margin: 0px 19px 0px 19px;
-  }
-
-  div {
-    margin: 0px 4px 0px 4px;
-  }
-`;
-
-const StSpan = styled.span`
-  width: 28px;
-  height: 19px;
-
-  font-family: "Pretendard";
-  font-style: normal;
-  font-weight: 500;
-  font-size: 1.4rem;
-  line-height: 19px;
-  /* identical to box height */
-
-  display: flex;
-  align-items: center;
-  text-decoration-line: underline;
-
-  /* word */
-
-  color: #595550;
-  margin-right: 12px;
+  justify-content: flex-start;
+  margin-bottom: 14px;
 `;

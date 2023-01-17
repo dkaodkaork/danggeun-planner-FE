@@ -3,33 +3,33 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { PATH } from "../../constants/index";
-import { __putNickname } from "../../redux/modules/mypageSlice";
+import { __putUsername } from "../../redux/modules/mypageSlice";
 import Header from "../header/Header";
 import Button from "../timer/TimerButton";
 
-const NicknameForm = () => {
+const UsernameForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [countNickname, setCountNickname] = useState(0);
+  const [countUsername, setCountUsername] = useState(0);
 
   const [userInfo, setUserInfo] = useState({
     username: "",
   });
-  const changeNicknameHandler = (e) => {
+  const changeUsernameHandler = (e) => {
     const { name, value } = e.target;
     setUserInfo({ [name]: value });
-    setCountNickname(e.target.value.length);
+    setCountUsername(e.target.value.length);
   };
 
-  const submitNicknameHandler = () => {
+  const submitUsernameHandler = () => {
     if (userInfo.username === "") {
       alert("닉네임을 입력해주세요!");
     } else {
-      return dispatch(__putNickname(userInfo)).then((res) => {
+      return dispatch(__putUsername(userInfo)).then((res) => {
         console.log(res.pay);
         if (res?.payload?.message === "닉네임 변경 성공") {
-          navigate(PATH.main);
+          navigate(PATH.timer);
         }
       });
     }
@@ -37,7 +37,7 @@ const NicknameForm = () => {
 
   return (
     <StContainer>
-      <Header menuName="SIGN UP" justifyContent="center"></Header>
+      <Header menuName="SIGN UP" justifyContent="center" />
       <StDiv>
         <div>프로필 만들기</div>
       </StDiv>
@@ -47,14 +47,14 @@ const NicknameForm = () => {
           name="username"
           type="text"
           // value={loginInfo.email}
-          onChange={changeNicknameHandler}
+          onChange={changeUsernameHandler}
           maxLength="6"
           placeholder="닉네임은 6자리 이하입니다."
         />
-        <StLabel>{countNickname}/6</StLabel>
+        <StLabel>{countUsername}/6</StLabel>
       </StInputBox>
       <Button
-        onClick={submitNicknameHandler}
+        onClick={submitUsernameHandler}
         backgroundColor="#A4A4A4"
         width="319px"
         marginTop="421px"
@@ -68,7 +68,7 @@ const NicknameForm = () => {
   );
 };
 
-export default NicknameForm;
+export default UsernameForm;
 
 const StContainer = styled.div`
   background-color: #f9f3ea;
@@ -179,7 +179,6 @@ const StBottomText = styled.div`
   /* or 18px */
 
   text-align: center;
-  text-decoration-line: underline;
 
   /* 1 */
 

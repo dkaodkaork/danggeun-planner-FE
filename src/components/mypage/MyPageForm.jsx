@@ -41,7 +41,7 @@ const MypageForm = () => {
         leftLink={PATH.timer}
       ></Header>
 
-      <StProfileContainer>
+      <StProfileBody>
         <StProfileBox>
           <StImg src={userInfo.profileImage}></StImg>
           <StInfoBox>
@@ -113,7 +113,7 @@ const MypageForm = () => {
             로그아웃
           </Button>
         </StBtns>
-      </StProfileContainer>
+      </StProfileBody>
     </StContainer>
   );
 };
@@ -125,7 +125,7 @@ const StContainer = styled.div`
   height: 812px;
 `;
 
-const StProfileContainer = styled.div`
+const StProfileBody = styled.div`
   width: 375px;
   display: flex;
   flex-direction: column;

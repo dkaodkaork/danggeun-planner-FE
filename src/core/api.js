@@ -12,7 +12,7 @@ export const api = {
     ),
 
   // 유저정보
-  putNicknameApi: (userInfo) => baseURL.put(`member/username`, userInfo),
+  putUsernameApi: (userInfo) => baseURL.put(`member/username`, userInfo),
   getUserInfoApi: () => baseURL.get(`member/mypage`),
   putProfileImgApi: (formData) => baseURL.put(`member/image`, formData),
 
@@ -38,7 +38,12 @@ export const api = {
     baseURL.get(`/group/invitation/search/${groupId}/${username}`),
 
   // 플래너
-  getPlannerApi: (username, date) => baseURL.get(`planner/${username}/${date}`),
+  getAllPlannerApi: (username, date) =>
+    baseURL.get(`planner/${username}/${date}`),
+  getPlanApi: (username, date) =>
+    baseURL.get(`planner/${username}/${date}/plan`),
+  getTimerPlanApi: (username, date) =>
+    baseURL.get(`planner/${username}/${date}/timer`),
   postPlanApi: (planInfo) => baseURL.post(`plan`, planInfo),
   putPlanApi: (planId, planInfo) => baseURL.put(`plan/${planId}`, planInfo),
   deletePlanApi: (planId) => baseURL.delete(`plan/${planId}`),

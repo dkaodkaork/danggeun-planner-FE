@@ -41,13 +41,13 @@ const TimerBackground = ({
           justifyContent="right"
           right={IMAGES.menu}
           //   menuName="timer"
-        ></Header>
+        />
         <Timer
           parsedTime={parsedTime}
           isClear={isClear}
           strokeDashoffset={strokeDashoffset()}
           circumference={circumference}
-        ></Timer>
+        />
         <StButtonBox>
           {isClear ? perBtnByMode[mode].start : perBtnByMode[mode].rest}
         </StButtonBox>

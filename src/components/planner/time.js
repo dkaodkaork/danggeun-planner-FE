@@ -15,3 +15,7 @@ export const timeStamp = () => {
   today.setHours(today.getHours() + 9);
   return today.toISOString().substring(0, 19);
 };
+
+export const planStartTime = (time) => {
+  return timeStamp().slice(0, 11) + time.hour + ":" + time.min + ":" + "00";
+};

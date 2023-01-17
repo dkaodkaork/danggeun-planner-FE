@@ -4,9 +4,7 @@ import LoginPage from "../pages/LoginPage";
 import MainPage from "../pages/MainPage";
 import SignUpPage from "../pages/SignUpPage";
 import CalendarPage from "../pages/CalendarPage";
-import NciknameFormPage from "../pages/NicknameFormPage";
-import TermsConditionsPage from "../pages/TermsConditionsPage";
-import LoginOptionPage from "../pages/LoginOptionPage";
+import UsernameFormPage from "../pages/UsernameFormPage";
 import MyPage from "../pages/MyPage";
 import ProfilePage from "../pages/ProfilePage";
 import TimerPage from "../pages/TimerPage";
@@ -23,16 +21,14 @@ const Router = () => {
     <BrowserRouter>
       <Routes>
         <Route>
-          <Route path="/" element={<MainPage />} />
+          <Route path="/" element={<TimerPage />} />
+          <Route path="/main" element={<MainPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignUpPage />} />
-          <Route path="/loginoption" element={<LoginOptionPage />} />
-          <Route path="/termsconditions" element={<TermsConditionsPage />} />
           <Route path="/calendar" element={<CalendarPage />} />
-          <Route path="/nickname" element={<NciknameFormPage />} />
+          <Route path="/username" element={<UsernameFormPage />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/timer" element={<TimerPage />} />
           <Route path="/planner/:username/:date" element={<PlannerPage />} />
           <Route path="/carrot" element={<GetCarrotPage />} />
           <Route path="/group" element={<GroupListPage />} />
