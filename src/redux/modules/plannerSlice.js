@@ -4,116 +4,57 @@ import { api } from "../../core/api";
 const initialState = {
   data: {
     isOwner: "",
-    username: "당근몬",
+    username: "",
     profileImage: "",
-    carrot: "55",
-    contents: [
-      {
-        timerId: 1,
-        startTime: "08:22",
-        endTime: "09:55",
-        content: "당근수확!",
-        count: 3,
-      },
-      {
-        timerId: 3,
-        startTime: "15:38",
-        endTime: "16:25",
-        content: "당근수확!",
-        count: 7,
-      },
-      {
-        timerId: 3,
-        startTime: "15:35",
-        endTime: "16:25",
-        content: "당근수확!",
-        count: 0,
-      },
-
-      {
-        timerId: 2,
-        startTime: "11:52",
-        endTime: "12:25",
-        content: "당근수확!",
-        count: 2,
-      },
-      {
-        planId: 1,
-        startTime: "10:23",
-        endTime: "11:25",
-        content: "수학공부!",
-      },
-      {
-        planId: 2,
-        startTime: "13:23",
-        endTime: "14:25",
-        content: "수학공부!",
-      },
-      {
-        timerId: 3,
-        startTime: "15:32",
-        endTime: "16:25",
-        content: "당근수확!",
-        count: 5,
-      },
-      {
-        timerId: 3,
-        startTime: "15:33",
-        endTime: "16:25",
-        content: "당근수확!",
-        count: 0,
-      },
-      {
-        timerId: 3,
-        startTime: "15:34",
-        endTime: "16:25",
-        content: "당근수확!",
-        count: 4,
-      },
-
-      {
-        timerId: 3,
-        startTime: "15:36",
-        endTime: "16:25",
-        content: "당근수확!",
-        count: 0,
-      },
-      {
-        timerId: 3,
-        startTime: "15:37",
-        endTime: "16:25",
-        content: "당근수확!",
-        count: 2,
-      },
-
-      {
-        timerId: 3,
-        startTime: "15:39",
-        endTime: "16:25",
-        content: "당근수확!",
-        count: 1,
-      },
-      {
-        timerId: 3,
-        startTime: "15:40",
-        endTime: "16:25",
-        content: "당근수확!",
-        count: 5,
-      },
-    ],
+    carrot: "",
+    contents: [],
   },
   isLoading: false,
   error: null,
 };
 
-export const __getPlanner = createAsyncThunk(
-  "planner/get",
+export const __getAllPlan = createAsyncThunk(
+  "all/get",
+  async (payload, thunkAPI) => {
+    try {
+      const { data } = await api.getAllPlannerApi(
+        payload.username,
+        payload.date
+      );
+      console.log(data);
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      console.log(error.response.status);
+      return thunkAPI.rejectWithValue();
+    }
+  }
+);
+
+export const __getPlan = createAsyncThunk(
+  "plan/get",
   async (payload, thunkAPI) => {
     try {
       console.log(payload);
       const { username, date } = payload;
       console.log(username, date);
-      const response = await api.getPlannerApi(username, date);
+      const response = await api.getAllPlannerApi(username, date);
+      console.log(response);
+      return thunkAPI.fulfillWithValue();
+    } catch (error) {
+      console.log(error.response.status);
+      return thunkAPI.rejectWithValue();
+    }
+  }
+);
+
+export const __getTimerPlan = createAsyncThunk(
+  "timerplan/get",
+  async (payload, thunkAPI) => {
+    try {
+      console.log(payload);
+      const { username, date } = payload;
+      console.log(username, date);
+      const response = await api.getAllPlannerApi(username, date);
       console.log(response);
       return thunkAPI.fulfillWithValue();
     } catch (error) {
@@ -128,9 +69,9 @@ export const __postPlan = createAsyncThunk(
   async (payload, thunkAPI) => {
     console.log(payload);
     try {
-      const response = await api.postPlanApi(payload);
-      console.log(response);
-      return thunkAPI.fulfillWithValue();
+      const { data } = await api.postPlanApi(payload);
+      console.log(data);
+      return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       console.log(error);
       return thunkAPI.rejectWithValue();
@@ -177,15 +118,14 @@ export const plannerSlice = createSlice({
     builder
 
       // 플래너 조회
-      .addCase(__getPlanner.pending, (state) => {
+      .addCase(__getAllPlan.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(__getPlanner.fulfilled, (state, action) => {
+      .addCase(__getAllPlan.fulfilled, (state, action) => {
         state.isLoading = false;
-        console.log(action.payload);
-        // state.data = {...action.payload}
+        state.data = { ...action.payload };
       })
-      .addCase(__getPlanner.rejected, (state, action) => {
+      .addCase(__getAllPlan.rejected, (state, action) => {
         state.isLoading = false;
       })
 
@@ -196,7 +136,7 @@ export const plannerSlice = createSlice({
       .addCase(__postPlan.fulfilled, (state, action) => {
         state.isLoading = false;
         console.log(action);
-        state.data.plans = { ...state.data.plans, ...action.payload };
+        state.data.contents = { ...state.data.contents, ...action.payload };
       })
       .addCase(__postPlan.rejected, (state, action) => {
         state.isLoading = false;
