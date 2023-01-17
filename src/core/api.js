@@ -17,8 +17,8 @@ export const api = {
   putProfileImgApi: (formData) => baseURL.put(`member/image`, formData),
 
   // 캘린더
-  getCalendarApi: (todayYear, todayMonth) =>
-    instance.get(`/calendar/${todayYear}-${todayMonth}`),
+  getCalendarApi: (todayMonth, todayYear, username) =>
+    baseURL.get(`/calendar/${username}/${todayYear}-${todayMonth}`),
 
   // 타이머
   postTimerApi: () => baseURL.post(`/timer`),
@@ -53,4 +53,7 @@ export const api = {
   postPlanApi: (planInfo) => baseURL.post(`plan`, planInfo),
   putPlanApi: (planId, planInfo) => baseURL.put(`plan/${planId}`, planInfo),
   deletePlanApi: (planId) => baseURL.delete(`plan/${planId}`),
+
+  //검색
+  getSearchUserApi: (username) => baseURL.get(`/member/search/${username}`),
 };

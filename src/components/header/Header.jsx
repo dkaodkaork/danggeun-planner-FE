@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import GroupMenu from "../group/GroupMenu";
+import Menu from "../menu/Menu";
 
 const Header = ({
   menuName,
@@ -44,7 +45,7 @@ const Header = ({
           </MenuIcon>
         </TopIcon>
       </HeaderStyle>
-      <GroupMenu />
+      <Menu />
     </>
   );
 };
