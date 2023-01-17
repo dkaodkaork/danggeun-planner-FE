@@ -36,6 +36,9 @@ export const api = {
   //그룹 초대 회원 검색
   getGroupMemberInviteApi: (groupId, username) =>
     baseURL.get(`/group/invitation/search/${groupId}/${username}`),
+  //그룹원 초대
+  postGroupMemberInvite: (groupId, inviteList) =>
+    baseURL.post(`/group/invitation/${groupId}/participant`, inviteList),
 
   // 플래너
   getPlannerApi: (username, date) => baseURL.get(`planner/${username}/${date}`),

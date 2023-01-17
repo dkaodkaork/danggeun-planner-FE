@@ -109,6 +109,21 @@ export const __getGroupMemberInvite = createAsyncThunk(
   }
 );
 
+// 그룹원 초대
+export const __postGroupMemberInvite = createAsyncThunk(
+  "__postGroupMemberInvite",
+  async (payload, thunkAPI) => {
+    //구조분해할당
+    const { groupId, inviteList } = payload;
+    try {
+      const { data } = await api.postGroupMemberInvite(groupId, inviteList);
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 // reducer
 export const groupSlice = createSlice({
   name: "group",
@@ -176,9 +191,17 @@ export const groupSlice = createSlice({
     //회원 검색
     builder.addCase(__getGroupMemberInvite.fulfilled, (state, action) => {
       state.isLoading = false;
-      console.log(action.payload);
+      state.searchMember = action.payload.members;
     });
     builder.addCase(__getGroupMemberInvite.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    });
+    //그룹원 초대
+    builder.addCase(__postGroupMemberInvite.fulfilled, (state, action) => {
+      state.isLoading = false;
+    });
+    builder.addCase(__postGroupMemberInvite.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     });
