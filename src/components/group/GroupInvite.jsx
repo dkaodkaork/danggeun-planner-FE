@@ -11,12 +11,13 @@ import TimerButton from "../timer/TimerButton";
 import { IMAGES } from "../../constants/images.js";
 import { PATH } from "../../constants/index";
 
-import { detailMenuOpenStatus } from "../../redux/modules/modalSlice";
-
 import {
   __getGroupMemberInvite,
   __postGroupMemberInvite,
 } from "../../redux/modules/groupSlice";
+
+//그룹 오픈 관련
+import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
 
 const GroupInvite = () => {
   const dispatch = useDispatch();
@@ -42,7 +43,6 @@ const GroupInvite = () => {
 
   //검색 리스트
   const searchMember = useSelector((state) => state.group.searchMember);
-  console.log(searchMember);
 
   const clickSearch = () => {
     dispatch(__getGroupMemberInvite({ groupId, username }));
@@ -74,9 +74,34 @@ const GroupInvite = () => {
     });
   };
 
+  //그룹 오픈 관련
+  const groupMenuOpen = useSelector((state) => state.modalSlice.groupMenuOpen);
+
+  const clickGroupMenuHandler = () => {
+    dispatch(groupMenuOpenStatus(!groupMenuOpen));
+  };
+
   return (
     <>
-      <Header menuName="Group" right={IMAGES.menu} left={IMAGES.home}></Header>
+      <Header
+        menuName="Group"
+        right={IMAGES.menu}
+        left={IMAGES.home}
+        leftLink={PATH.timer}
+        clickMenuHandler={clickGroupMenuHandler}
+      ></Header>
+      <Header
+        fontFamily="MaplestoryOTFBold"
+        menuName="그룹원 추가"
+        height="56px"
+        padding="12px 28px 12px 28px "
+        fontSize="2.0rem"
+        fontWeight="700"
+        width="219px"
+        left={IMAGES.fold}
+        onClick={() => navigate(-1)}
+        marginRight="40px"
+      />
       <GroupLayout>
         <p>검색할 유저 닉네임</p>
 

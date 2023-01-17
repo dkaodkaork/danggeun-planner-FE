@@ -114,7 +114,6 @@ export const __getGroupMemberInvite = createAsyncThunk(
     const { groupId, username } = payload;
     try {
       const { data } = await api.getGroupMemberInviteApi(groupId, username);
-      console.log(data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);

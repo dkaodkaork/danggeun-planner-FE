@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { IMAGES } from "../../constants/images.js";
+import { PATH } from "../../constants/index";
+
 import moment from "moment";
 
 //모듈 import
@@ -18,6 +20,8 @@ import GroupMember from "./GroupMember.jsx";
 
 const GroupDetail = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const groupMenuOpen = useSelector((state) => state.modalSlice.groupMenuOpen);
   const groupDetailData = useSelector((state) => state.group.groupDetail);
 
@@ -44,11 +48,24 @@ const GroupDetail = () => {
         menuName="Group"
         right={IMAGES.menu}
         left={IMAGES.home}
+        leftLink={PATH.timer}
         clickMenuHandler={clickGroupMenuHandler}
       ></Header>
+      <Header
+        fontFamily="MaplestoryOTFBold"
+        menuName={groupDetailData?.groupName}
+        height="56px"
+        padding="12px 28px 12px 28px "
+        fontSize="2.0rem"
+        fontWeight="700"
+        width="219px"
+        left={IMAGES.fold}
+        onClick={() => navigate(-1)}
+        marginRight="40px"
+      />
       <GroupLayout>
         <GroupImg src="https://velog.velcdn.com/images/posinity/post/d98edda0-adc8-45ae-a97f-8e9316d70199/image.png" />
-        <GroupName>{groupDetailData.groupName}</GroupName>
+        {/* <GroupName>{groupDetailData.groupName}</GroupName> */}
         <GroupInfo>{groupDetailData.description}</GroupInfo>
         <RankBox>
           <RankName>
