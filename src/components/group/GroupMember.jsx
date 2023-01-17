@@ -152,21 +152,6 @@ const GroupMember = () => {
                   </Carrot>
                 </Member>
               ))}
-              <Member>
-                <OnlineState>
-                  <div />
-                  <span>접속중</span>
-                </OnlineState>
-                {/* <OfflineState>
-                  <div />
-                  <span>접속중</span>
-                </OfflineState> */}
-                <User>
-                  <img src="https://velog.velcdn.com/images/posinity/post/d98edda0-adc8-45ae-a97f-8e9316d70199/image.png" />
-                  <span>노력한토깽이</span>
-                </User>
-                <Carrot>{IMAGES.memberCarrot} 100</Carrot>
-              </Member>
             </ScrollBox>
             <GroupButton>
               {groupMemberGet?.isAdmin ? (

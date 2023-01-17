@@ -127,7 +127,9 @@ const GroupInvite = () => {
               ))}
             </UserBox>
           ) : null}
-          <TimerButton onClick={InviteSubmit}>초대</TimerButton>
+          <TimerButton onClick={InviteSubmit} marginTop="30px">
+            초대
+          </TimerButton>
         </Flex>
       </GroupLayout>
     </>
@@ -187,7 +189,18 @@ const UserBox = styled.div`
   margin-top: 25px;
   width: 319px;
   height: 160px;
-  background-color: #2b70ad;
+  background: #f1e5d2;
+  border-radius: 12px;
+  padding: 26px 28px;
+  div {
+    margin-top: 14px;
+  }
+  span {
+    font-family: "Pretendard-Regular";
+    color: #595550;
+    font-weight: 500;
+    font-size: 1.4rem;
+  }
 `;
 
 const UserLayout = styled.div`
