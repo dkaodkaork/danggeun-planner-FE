@@ -1,22 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import styled from "styled-components";
-import Modal from "../element/Modal";
-import ButtonS from "../element/ButtonS";
+
 import Input from "../element/Input";
 import Header from "../header/Header";
+import TimerButton from "../timer/TimerButton";
 
 import { IMAGES } from "../../constants/images.js";
 import { PATH } from "../../constants/index";
 
 import { detailMenuOpenStatus } from "../../redux/modules/modalSlice";
 
-import { __getGroupMemberInvite } from "../../redux/modules/groupInviteSlice";
+import {
+  __getGroupMemberInvite,
+  __postGroupMemberInvite,
+} from "../../redux/modules/groupSlice";
 
 const GroupInvite = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   //제목, 내용 담기
   const [username, setUsername] = useState("");
@@ -36,11 +40,38 @@ const GroupInvite = () => {
   const param = useParams();
   const groupId = param.groupId;
 
-  console.log(groupId);
+  //검색 리스트
+  const searchMember = useSelector((state) => state.group.searchMember);
+  console.log(searchMember);
 
-  //검색
   const clickSearch = () => {
     dispatch(__getGroupMemberInvite({ groupId, username }));
+  };
+
+  //체크박스
+  //체크리스트를 저장할 배열
+  const [checkedList, setCheckedList] = useState([]);
+
+  //체크하면 checkedListd에 값이 담기고, 체크를 해제하면 값이 사라진다.
+  const onCheckedElement = (checked, item) => {
+    if (checked) {
+      setCheckedList([...checkedList, item]);
+    } else if (!checked) {
+      setCheckedList(checkedList.filter((el) => el !== item));
+    }
+  };
+
+  //리스팅 목록에서 제거
+  const onRemove = (item) => {
+    setCheckedList(checkedList.filter((el) => el !== item));
+  };
+
+  //그룹원 초대 완료하기
+  const InviteSubmit = () => {
+    const inviteList = { username: checkedList };
+    dispatch(__postGroupMemberInvite({ groupId, inviteList })).then(() => {
+      navigate(PATH.groupdetail(groupId));
+    });
   };
 
   return (
@@ -62,18 +93,43 @@ const GroupInvite = () => {
         </Search>
         <Flex>
           <SearchList toggle={toggle}>
-            <UserLayout>
-              <User>
-                <img src="https://velog.velcdn.com/images/posinity/post/d98edda0-adc8-45ae-a97f-8e9316d70199/image.png" />
-                <span>닉네임</span>
-              </User>
-              <button>{IMAGES.emptyCircle}</button>
-            </UserLayout>
+            {searchMember?.map((item) => (
+              <UserLayout key={item.memberId}>
+                <User>
+                  <img src={item.profileImage} />
+                  <span>{item.username}</span>
+                </User>
+                {!item.isMember ? (
+                  <input
+                    type="checkbox"
+                    value={item.username}
+                    onChange={(e) => {
+                      onCheckedElement(e.target.checked, e.target.value);
+                    }}
+                    checked={checkedList.includes(item.username) ? true : false}
+                  />
+                ) : (
+                  <div>{IMAGES.blockCircle}</div>
+                )}
+              </UserLayout>
+            ))}
           </SearchList>
           <MoreToggle onClick={clickToggle}>
             <p>더보기</p>
           </MoreToggle>
-          {!toggle ? <UserBox></UserBox> : null}
+          {!toggle ? (
+            <UserBox>
+              {checkedList.map((item) => (
+                <div key={item}>
+                  <span>{item}</span>
+                  <button onClick={() => onRemove(item)}>x</button>
+                </div>
+              ))}
+            </UserBox>
+          ) : null}
+          <TimerButton onClick={InviteSubmit} marginTop="30px">
+            초대
+          </TimerButton>
         </Flex>
       </GroupLayout>
     </>
@@ -108,7 +164,6 @@ const Search = styled.div`
 `;
 
 const SearchList = styled.div`
-  margin-top: 10px;
   width: 292px;
   height: ${(props) => (props.toggle ? "376px" : "190px")};
 `;
@@ -134,13 +189,25 @@ const UserBox = styled.div`
   margin-top: 25px;
   width: 319px;
   height: 160px;
-  background-color: #2b70ad;
+  background: #f1e5d2;
+  border-radius: 12px;
+  padding: 26px 28px;
+  div {
+    margin-top: 14px;
+  }
+  span {
+    font-family: "Pretendard-Regular";
+    color: #595550;
+    font-weight: 500;
+    font-size: 1.4rem;
+  }
 `;
 
 const UserLayout = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 10px;
 `;
 
 const MoreToggle = styled.div``;

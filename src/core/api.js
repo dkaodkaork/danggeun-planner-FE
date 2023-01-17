@@ -35,7 +35,13 @@ export const api = {
   getGroupMemberApi: (payload) => baseURL.get(`/group/${payload}/participant`),
   //그룹 초대 회원 검색
   getGroupMemberInviteApi: (groupId, username) =>
-    baseURL.get(`/group/invitation/search/${groupId}/${username}`),
+    baseURL.get(`/group/search/${groupId}/${username}`),
+  //그룹원 초대
+  postGroupMemberInvite: (groupId, inviteList) =>
+    baseURL.post(`/group/invitation/${groupId}`, inviteList),
+  //그룹 탈퇴
+  deleteOutGroupApi: (groupId) =>
+    baseURL.delete(`/group/${groupId}/participant`),
 
   // 플래너
   getAllPlannerApi: (username, date) =>

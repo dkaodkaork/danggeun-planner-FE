@@ -78,6 +78,19 @@ export const __deleteGroup = createAsyncThunk(
   }
 );
 
+// 그룹 탈퇴
+export const __outGroup = createAsyncThunk(
+  "__outGroup",
+  async (payload, thunkAPI) => {
+    try {
+      const { data } = await api.deleteOutGroupApi(payload);
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 // 그룹 수정
 export const __putGroupUpdate = createAsyncThunk(
   "__putGroupUpdate",
@@ -102,6 +115,21 @@ export const __getGroupMemberInvite = createAsyncThunk(
     try {
       const { data } = await api.getGroupMemberInviteApi(groupId, username);
       console.log(data);
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+// 그룹원 초대
+export const __postGroupMemberInvite = createAsyncThunk(
+  "__postGroupMemberInvite",
+  async (payload, thunkAPI) => {
+    //구조분해할당
+    const { groupId, inviteList } = payload;
+    try {
+      const { data } = await api.postGroupMemberInvite(groupId, inviteList);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -176,9 +204,25 @@ export const groupSlice = createSlice({
     //회원 검색
     builder.addCase(__getGroupMemberInvite.fulfilled, (state, action) => {
       state.isLoading = false;
-      console.log(action.payload);
+      state.searchMember = action.payload.members;
     });
     builder.addCase(__getGroupMemberInvite.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    });
+    //그룹원 초대
+    builder.addCase(__postGroupMemberInvite.fulfilled, (state, action) => {
+      state.isLoading = false;
+    });
+    builder.addCase(__postGroupMemberInvite.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    });
+    //그룹 탈퇴
+    builder.addCase(__outGroup.fulfilled, (state, action) => {
+      state.isLoading = false;
+    });
+    builder.addCase(__outGroup.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     });
