@@ -33,6 +33,7 @@ const Header = ({
             fontWeight={fontWeight}
             width={width}
             marginRight={marginRight}
+            fontFamily={fontFamily}
           >
             {menuName}
           </MenuName>
@@ -72,9 +73,9 @@ export const MenuName = styled.h1`
   margin-right: ${({ marginRight }) => marginRight};
 
   text-align: center;
-  font-family: ${({ fontFamily }) => fontFamily || "MaplestoryOTFBold"};
+  font-family: ${({ fontFamily }) => fontFamily || "MaplestoryOTFLight"};
   font-weight: ${({ fontWeight }) => fontWeight || "300"};
-  font-size: ${({ fontSize }) => fontSize || "1.6rem"};
+  font-size: ${({ fontSize }) => fontSize || "1.4rem"};
   color: #595550;
 `;
 
