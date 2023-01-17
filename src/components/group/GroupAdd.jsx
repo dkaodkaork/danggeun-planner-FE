@@ -13,6 +13,9 @@ import TimerButton from "../timer/TimerButton";
 
 import { __postGroupAdd } from "../../redux/modules/groupSlice";
 
+//메뉴 오픈 관련
+import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
+
 const GroupAdd = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -51,18 +54,43 @@ const GroupAdd = () => {
     }
   };
 
+  //메뉴 오픈 관련
+  const groupMenuOpen = useSelector((state) => state.modalSlice.groupMenuOpen);
+
+  const clickGroupMenuHandler = () => {
+    dispatch(groupMenuOpenStatus(!groupMenuOpen));
+  };
+
   return (
     <>
-      <Header menuName="Group" right={IMAGES.menu} left={IMAGES.home}></Header>
+      <Header
+        menuName="Group"
+        right={IMAGES.menu}
+        left={IMAGES.home}
+        leftLink={PATH.timer}
+        clickMenuHandler={clickGroupMenuHandler}
+      ></Header>
+      <Header
+        fontFamily="MaplestoryOTFBold"
+        menuName="그룹 만들기"
+        height="56px"
+        padding="12px 28px 12px 28px "
+        fontSize="2.0rem"
+        fontWeight="700"
+        width="219px"
+        left={IMAGES.fold}
+        onClick={() => navigate(-1)}
+        marginRight="40px"
+      />
       <GroupLayout>
-        <AddInfo>
+        {/* <AddInfo>
           <h1>그룹 만들기</h1>
-          {/* <p>
+          <p>
             가족, 친구들과 집중 상황을 공유하세요.
             <br />
             누가 더 많은 당근을 수확하는지 겨루고 격려하세요!
-          </p> */}
-        </AddInfo>
+          </p>
+        </AddInfo> */}
         <AddName>
           <h3>그룹 이름</h3>
           <Input onChange={onInputHandler} maxLength="10" />

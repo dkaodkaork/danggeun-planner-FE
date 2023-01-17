@@ -25,10 +25,10 @@ const GroupMember = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  //const groupDetailData = useSelector((state) => state.group.groupDetail);
   const groupMemberGet = useSelector((state) => state.group.groupMemberGet);
 
   const groupId = groupMemberGet?.groupId;
+  const groupName = groupMemberGet?.groupName;
 
   const groupMenuOpen = useSelector((state) => state.modalSlice.groupMenuOpen);
 
@@ -179,13 +179,25 @@ const GroupMember = () => {
         </SlideModal>
       ) : null}
       {updateModal ? (
-        <GroupModal subject="수정" onClickConfirm={clickUpdateConfirm} />
+        <GroupModal
+          groupName={groupName}
+          subject="수정"
+          onClickConfirm={clickUpdateConfirm}
+        />
       ) : null}
       {deleteModal ? (
-        <GroupModal subject="삭제" onClickConfirm={clickDeleteConfirm} />
+        <GroupModal
+          groupName={groupName}
+          subject="삭제"
+          onClickConfirm={clickDeleteConfirm}
+        />
       ) : null}
       {quitModal ? (
-        <GroupModal subject="탈퇴" onClickConfirm={clickOutConfirm} />
+        <GroupModal
+          groupName={groupName}
+          subject="탈퇴"
+          onClickConfirm={clickOutConfirm}
+        />
       ) : null}
     </>
   );

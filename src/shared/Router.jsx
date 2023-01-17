@@ -25,7 +25,7 @@ const Router = () => {
           <Route path="/main" element={<MainPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignUpPage />} />
-          <Route path="/calendar" element={<CalendarPage />} />
+          <Route path="/calendar/:username" element={<CalendarPage />} />
           <Route path="/username" element={<UsernameFormPage />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/profile" element={<ProfilePage />} />

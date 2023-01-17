@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 //api import
 import { __getCalendar } from "../../redux/modules/calendarSlice.js";
+//메뉴 오픈 관련
+import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
 
 //컴포넌트 Import
 import Header from "../header/Header";
@@ -17,15 +19,27 @@ import "../calendar/style/Calendar.css"; // css import
 
 //svg Import
 import { IMAGES } from "../../constants/images.js";
+import { PATH } from "../../constants/path.js";
 
 const CalendarGet = () => {
   const dispatch = useDispatch();
+
+  //닉네임 받기
+  const param = useParams();
+  const username = param.username;
+
   const GetCalendarData = useSelector((state) => state.calendarSlice);
   const navigate = useNavigate();
 
   const getColorStages = useSelector(
     (state) => state.calendarSlice.colorStages
   );
+
+  //메뉴 오픈 관련
+  const groupMenuOpen = useSelector((state) => state.modalSlice.groupMenuOpen);
+  const clickGroupMenuHandler = () => {
+    dispatch(groupMenuOpenStatus(!groupMenuOpen));
+  };
 
   //이번달로 이동하기 위한 useRef 사용
   const calendarRef = useRef();
@@ -34,11 +48,10 @@ const CalendarGet = () => {
   const todayYear = moment().format("YYYY");
   const todayMonth = moment().format("MM");
 
-  const username = "테스트";
   //현재 날짜에 맞는 월 데이터 불러오기
   useEffect(() => {
     dispatch(__getCalendar({ todayYear, todayMonth, username }));
-  }, []);
+  }, [groupMenuOpen]);
 
   //data에서 단계별로 분류하기
   const mark1 = getColorStages[0]?.colorStage1;
@@ -61,8 +74,9 @@ const CalendarGet = () => {
   };
 
   //버튼을 눌렀을 때 플래너로 이동하는 핸들러
-  const ClickDayHandler = (value, event) => {
-    navigate("/login"); //임시
+  const ClickDayHandler = (value) => {
+    const date = moment(value).format("YYYY-MM-DD");
+    navigate(PATH.planner(username, date));
   };
 
   const [value, setValue] = useState(new Date());
@@ -73,12 +87,12 @@ const CalendarGet = () => {
         menuName="Calendar"
         right={IMAGES.menu}
         left={IMAGES.home}
+        leftLink={PATH.timer}
+        clickMenuHandler={clickGroupMenuHandler}
       ></Header>
       <CalendarStyle>
         <ProfileLayout>
-          {/* <Profile /> */}
           <img src={GetCalendarData?.profileImage} />
-          {/* <img src="https://velog.velcdn.com/images/posinity/post/5a8adab6-f8de-41e5-a915-2b7592b35960/image.png" /> */}
         </ProfileLayout>
         <NickName>{GetCalendarData?.username}</NickName>
         <MonthlyGet>

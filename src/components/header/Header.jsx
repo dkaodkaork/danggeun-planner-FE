@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import GroupMenu from "../group/GroupMenu";
+import Menu from "../menu/Menu";
 
 const Header = ({
   menuName,
@@ -33,6 +34,7 @@ const Header = ({
             fontWeight={fontWeight}
             width={width}
             marginRight={marginRight}
+            fontFamily={fontFamily}
           >
             {menuName}
           </MenuName>
@@ -43,7 +45,7 @@ const Header = ({
           </MenuIcon>
         </TopIcon>
       </HeaderStyle>
-      <GroupMenu />
+      <Menu />
     </>
   );
 };
@@ -72,9 +74,9 @@ export const MenuName = styled.h1`
   margin-right: ${({ marginRight }) => marginRight};
 
   text-align: center;
-  font-family: ${({ fontFamily }) => fontFamily || "MaplestoryOTFBold"};
+  font-family: ${({ fontFamily }) => fontFamily || "MaplestoryOTFLight"};
   font-weight: ${({ fontWeight }) => fontWeight || "300"};
-  font-size: ${({ fontSize }) => fontSize || "1.6rem"};
+  font-size: ${({ fontSize }) => fontSize || "1.4rem"};
   color: #595550;
 `;
 

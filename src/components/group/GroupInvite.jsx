@@ -11,18 +11,19 @@ import TimerButton from "../timer/TimerButton";
 import { IMAGES } from "../../constants/images.js";
 import { PATH } from "../../constants/index";
 
-import { detailMenuOpenStatus } from "../../redux/modules/modalSlice";
-
 import {
   __getGroupMemberInvite,
   __postGroupMemberInvite,
 } from "../../redux/modules/groupSlice";
 
+//그룹 오픈 관련
+import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
+
 const GroupInvite = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  //제목, 내용 담기
+  //이름 Input
   const [username, setUsername] = useState("");
 
   const onInputHandler = (e) => {
@@ -42,7 +43,6 @@ const GroupInvite = () => {
 
   //검색 리스트
   const searchMember = useSelector((state) => state.group.searchMember);
-  console.log(searchMember);
 
   const clickSearch = () => {
     dispatch(__getGroupMemberInvite({ groupId, username }));
@@ -74,9 +74,34 @@ const GroupInvite = () => {
     });
   };
 
+  //그룹 오픈 관련
+  const groupMenuOpen = useSelector((state) => state.modalSlice.groupMenuOpen);
+
+  const clickGroupMenuHandler = () => {
+    dispatch(groupMenuOpenStatus(!groupMenuOpen));
+  };
+
   return (
     <>
-      <Header menuName="Group" right={IMAGES.menu} left={IMAGES.home}></Header>
+      <Header
+        menuName="Group"
+        right={IMAGES.menu}
+        left={IMAGES.home}
+        leftLink={PATH.timer}
+        clickMenuHandler={clickGroupMenuHandler}
+      ></Header>
+      <Header
+        fontFamily="MaplestoryOTFBold"
+        menuName="그룹원 추가"
+        height="56px"
+        padding="12px 28px 12px 28px "
+        fontSize="2.0rem"
+        fontWeight="700"
+        width="219px"
+        left={IMAGES.fold}
+        onClick={() => navigate(-1)}
+        marginRight="40px"
+      />
       <GroupLayout>
         <p>검색할 유저 닉네임</p>
 
@@ -115,7 +140,17 @@ const GroupInvite = () => {
             ))}
           </SearchList>
           <MoreToggle onClick={clickToggle}>
-            <p>더보기</p>
+            {!toggle ? (
+              <>
+                <button>{IMAGES.downArrowS}</button>
+                <p>더보기</p>
+              </>
+            ) : (
+              <>
+                <button>{IMAGES.upArrowS}</button>
+                <p>접기</p>
+              </>
+            )}
           </MoreToggle>
           {!toggle ? (
             <UserBox>
@@ -168,6 +203,16 @@ const SearchList = styled.div`
   height: ${(props) => (props.toggle ? "376px" : "190px")};
 `;
 
+const UserLayout = styled.div`
+  width: 292px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  height: 30px;
+  overflow: scroll;
+`;
+
 const User = styled.div`
   display: flex;
   align-items: center;
@@ -175,7 +220,8 @@ const User = styled.div`
   width: 116px;
   padding-left: 12px;
   img {
-    width: 20px;
+    width: 30px;
+    margin-right: 7px;
   }
   span {
     font-family: "Pretendard-Regular";
@@ -192,6 +238,8 @@ const UserBox = styled.div`
   background: #f1e5d2;
   border-radius: 12px;
   padding: 26px 28px;
+  overflow: scroll;
+
   div {
     margin-top: 14px;
   }
@@ -203,11 +251,8 @@ const UserBox = styled.div`
   }
 `;
 
-const UserLayout = styled.div`
+const MoreToggle = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 10px;
+  flex-direction: column;
+  gap: 5px;
 `;
-
-const MoreToggle = styled.div``;

@@ -24,6 +24,8 @@ import { ReactComponent as Naver } from "../assets/images/login/naver_logo.svg";
 import { ReactComponent as Google } from "../assets/images/login/google.svg";
 import { ReactComponent as Fold } from "../assets/images/mypage/fold_icon.svg";
 import { ReactComponent as Edit } from "../assets/images/mypage/NotePencil.svg";
+import { ReactComponent as DownArrowS } from "../assets/images/downArrowS.svg";
+import { ReactComponent as UpArrowS } from "../assets/images/upArrowS.svg";
 
 export const IMAGES = {
   // 로그인
@@ -71,4 +73,8 @@ export const IMAGES = {
   checkCircle: <CheckCircle />,
   blockCircle: <BlockCircle />,
   emptyCircle: <EmptyCircle />,
+
+  //작은화살표
+  downArrowS: <DownArrowS />,
+  upArrowS: <UpArrowS />,
 };
