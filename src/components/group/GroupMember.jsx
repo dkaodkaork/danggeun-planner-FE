@@ -14,6 +14,7 @@ import {
 import {
   __deleteGroup,
   __getGroupMember,
+  __outGroup,
 } from "../../redux/modules/groupSlice.js";
 
 import SlideModal from "../element/SlideModal";
@@ -86,6 +87,14 @@ const GroupMember = () => {
     navigate(PATH.groupupdate(groupId));
     //dispatch(groupMenuOpenStatus(!groupMenuOpen));
     dispatch(groupMemberOpenStatus(!groupMemberOpen));
+  };
+
+  //그룹 탈퇴
+  const clickOutConfirm = () => {
+    dispatch(__outGroup(groupId)).then(() => {
+      navigate(PATH.grouplist);
+      dispatch(groupMemberOpenStatus(!groupMemberOpen));
+    });
   };
 
   return (
@@ -190,7 +199,9 @@ const GroupMember = () => {
       {deleteModal ? (
         <GroupModal subject="삭제" onClickConfirm={clickDeleteConfirm} />
       ) : null}
-      {quitModal ? <GroupModal subject="탈퇴" /> : null}
+      {quitModal ? (
+        <GroupModal subject="탈퇴" onClickConfirm={clickOutConfirm} />
+      ) : null}
     </>
   );
 };

@@ -78,6 +78,19 @@ export const __deleteGroup = createAsyncThunk(
   }
 );
 
+// 그룹 탈퇴
+export const __outGroup = createAsyncThunk(
+  "__outGroup",
+  async (payload, thunkAPI) => {
+    try {
+      const { data } = await api.deleteOutGroupApi(payload);
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 // 그룹 수정
 export const __putGroupUpdate = createAsyncThunk(
   "__putGroupUpdate",
@@ -202,6 +215,14 @@ export const groupSlice = createSlice({
       state.isLoading = false;
     });
     builder.addCase(__postGroupMemberInvite.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    });
+    //그룹 탈퇴
+    builder.addCase(__outGroup.fulfilled, (state, action) => {
+      state.isLoading = false;
+    });
+    builder.addCase(__outGroup.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     });
