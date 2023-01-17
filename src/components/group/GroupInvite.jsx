@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import styled from "styled-components";
 
@@ -20,6 +20,7 @@ import {
 
 const GroupInvite = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   //제목, 내용 담기
   const [username, setUsername] = useState("");
@@ -68,7 +69,9 @@ const GroupInvite = () => {
   //그룹원 초대 완료하기
   const InviteSubmit = () => {
     const inviteList = { username: checkedList };
-    dispatch(__postGroupMemberInvite({ groupId, inviteList }));
+    dispatch(__postGroupMemberInvite({ groupId, inviteList })).then(() => {
+      navigate(PATH.groupdetail(groupId));
+    });
   };
 
   return (
