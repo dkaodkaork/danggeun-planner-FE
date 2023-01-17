@@ -54,7 +54,7 @@ const Login = () => {
           if (data.data.isExistUsername) {
             navigate(PATH.main);
           } else {
-            navigate(PATH.nickname);
+            navigate(PATH.username);
           }
         }
       } catch (error) {
