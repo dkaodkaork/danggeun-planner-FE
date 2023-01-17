@@ -8,17 +8,39 @@ const Header = ({
   justifyContent,
   left,
   right,
+  rightLink,
   leftLink,
   clickMenuHandler,
+  height,
+  onClick,
+  padding,
+  fontSize,
+  fontWeight,
+  fontFamily,
+  width,
+  marginRight,
 }) => {
   return (
     <>
-      <HeaderStyle>
+      <HeaderStyle height={height} padding={padding}>
         <TopIcon justifyContent={justifyContent}>
-          <Link to={leftLink}>{left}</Link>
+          <Link to={leftLink}>
+            <button onClick={onClick}>{left}</button>
+          </Link>
           {/* <Link to={rightLink}>{right}</Link> */}
-          <MenuName>{menuName}</MenuName>
-          <MenuIcon onClick={clickMenuHandler}>{right}</MenuIcon>
+          <MenuName
+            fontSize={fontSize}
+            fontWeight={fontWeight}
+            width={width}
+            marginRight={marginRight}
+          >
+            {menuName}
+          </MenuName>
+          <MenuIcon onClick={clickMenuHandler} fontFamily={fontFamily}>
+            <Link to={rightLink}>
+              <button onClick={onClick}>{right}</button>
+            </Link>
+          </MenuIcon>
         </TopIcon>
       </HeaderStyle>
       <GroupMenu />
@@ -29,9 +51,9 @@ const Header = ({
 export default Header;
 
 export const HeaderStyle = styled.div`
-  height: "72px";
+  height: ${({ height }) => height || "72px"};
   background-color: #f9f3ea;
-  padding: 28px 28px 12px 27px;
+  padding: ${({ padding }) => padding || "28px 28px 12px 27px"};
 `;
 
 export const TopIcon = styled.div`
@@ -46,10 +68,13 @@ export const HomeNav = styled.div`
 `;
 
 export const MenuName = styled.h1`
+  width: ${({ width }) => width};
+  margin-right: ${({ marginRight }) => marginRight};
+
   text-align: center;
-  font-family: "MaplestoryOTFBold";
-  font-weight: 700;
-  font-size: 1.6rem;
+  font-family: ${({ fontFamily }) => fontFamily || "MaplestoryOTFBold"};
+  font-weight: ${({ fontWeight }) => fontWeight || "300"};
+  font-size: ${({ fontSize }) => fontSize || "1.6rem"};
   color: #595550;
 `;
 
