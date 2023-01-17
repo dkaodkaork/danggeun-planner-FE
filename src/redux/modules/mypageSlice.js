@@ -12,11 +12,11 @@ const initialState = {
   error: null,
 };
 
-export const __putNickname = createAsyncThunk(
-  "nickname/add",
+export const __putUsername = createAsyncThunk(
+  "username/add",
   async (payload, thunkAPI) => {
     try {
-      const { data } = await api.putNicknameApi(payload);
+      const { data } = await api.putUsernameApi(payload);
       return thunkAPI.fulfillWithValue(data);
     } catch (error) {
       // alert(error.response.data.message);
@@ -58,14 +58,14 @@ export const mypageSlice = createSlice({
     builder
 
       // 닉네임 등록
-      .addCase(__putNickname.pending, (state) => {
+      .addCase(__putUsername.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(__putNickname.fulfilled, (state, action) => {
+      .addCase(__putUsername.fulfilled, (state, action) => {
         state.isLoading = false;
         state.data = { ...state.data, username: action.payload.data.username };
       })
-      .addCase(__putNickname.rejected, (state, action) => {
+      .addCase(__putUsername.rejected, (state, action) => {
         state.isLoading = false;
       })
 
