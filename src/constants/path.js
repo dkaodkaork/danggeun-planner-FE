@@ -1,15 +1,15 @@
 export const PATH = {
   //route 경로
-  main: "/",
+  main: "/main",
   login: "/login",
   signup: "/signup",
   loginoption: "/loginoption",
   termsconditions: "/termsconditions",
   calendar: "/calendar",
-  nickname: "/nickname",
+  username: "/username",
   mypage: "/mypage",
   profile: "/profile",
-  timer: "/timer",
+  timer: "/",
   getcarrot: "/getcarrot",
   planner: "/planner/:username/:date",
   carrot: "/carrot",
