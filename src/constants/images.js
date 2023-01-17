@@ -23,7 +23,7 @@ import { ReactComponent as Kakao } from "../assets/images/login/kakao.svg";
 import { ReactComponent as Naver } from "../assets/images/login/naver_logo.svg";
 import { ReactComponent as Google } from "../assets/images/login/google.svg";
 import { ReactComponent as Fold } from "../assets/images/mypage/fold_icon.svg";
-import { ReactComponent as Edit } from "../assets/images/mypage/fold_icon.svg";
+import { ReactComponent as Edit } from "../assets/images/mypage/NotePencil.svg";
 
 export const IMAGES = {
   // 로그인
@@ -34,6 +34,7 @@ export const IMAGES = {
   // 마이페이지
   fold: <Fold />,
   edit: <Edit />,
+  camera: require("../assets/images/mypage/camera.svg"),
 
   // 타이머 이미지
   defalut: require("../assets/images/timer/default.png"),
