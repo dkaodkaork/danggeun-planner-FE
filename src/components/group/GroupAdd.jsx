@@ -13,7 +13,7 @@ import TimerButton from "../timer/TimerButton";
 
 import { __postGroupAdd } from "../../redux/modules/groupSlice";
 
-//그룹 오픈 관련
+//메뉴 오픈 관련
 import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
 
 const GroupAdd = () => {
@@ -54,7 +54,7 @@ const GroupAdd = () => {
     }
   };
 
-  //그룹 오픈 관련
+  //메뉴 오픈 관련
   const groupMenuOpen = useSelector((state) => state.modalSlice.groupMenuOpen);
 
   const clickGroupMenuHandler = () => {

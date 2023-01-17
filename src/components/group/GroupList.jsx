@@ -7,22 +7,24 @@ import { IMAGES } from "../../constants/images.js";
 import { PATH } from "../../constants/path.js";
 
 import { __getGroupList } from "../../redux/modules/groupSlice";
+
+//메뉴 오픈 관련
 import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
 
 const GroupList = () => {
   const dispatch = useDispatch();
   const groupData = useSelector((state) => state.group.groupList);
 
-  //그룹 오픈 관련
+  useEffect(() => {
+    dispatch(__getGroupList());
+  }, []);
+
+  //메뉴 오픈 관련
   const groupMenuOpen = useSelector((state) => state.modalSlice.groupMenuOpen);
 
   const clickGroupMenuHandler = () => {
     dispatch(groupMenuOpenStatus(!groupMenuOpen));
   };
-
-  useEffect(() => {
-    dispatch(__getGroupList());
-  }, []);
 
   return (
     <>
