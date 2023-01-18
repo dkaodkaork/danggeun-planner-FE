@@ -7,13 +7,7 @@ const Timer = ({ parsedTime, circumference, strokeDashoffset, isClear }) => {
       <StTimer>
         <StTime>{parsedTime || "00:00"}</StTime>
         <StSvg>
-          <StCircle
-            cx={130}
-            cy={130}
-            r={130}
-            stroke="#ffcd9f"
-            fill="none"
-          ></StCircle>
+          <StCircle cx={130} cy={130} r={130} stroke="#ffcd9f" fill="none" />
         </StSvg>
         <StSvg>
           <StCircle
@@ -25,7 +19,7 @@ const Timer = ({ parsedTime, circumference, strokeDashoffset, isClear }) => {
             stroke="#f27808"
             fill="none"
             strokeLinecap="round"
-          ></StCircle>
+          />
         </StSvg>
       </StTimer>
     </StTimerContainer>

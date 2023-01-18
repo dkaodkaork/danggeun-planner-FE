@@ -1,12 +1,11 @@
 import React from "react";
-import { PATH, IMAGES } from "../../constants/index";
+import { IMAGES } from "../../constants/index";
 import styled from "styled-components";
 
-const BottomBtns = () => {
+const BottomBtns = ({ onClick }) => {
   return (
     <StContainer>
-      {IMAGES.rangeBtn}
-      {IMAGES.addBtn}
+      <StButton onClick={onClick}>{IMAGES.addBtn}</StButton>
     </StContainer>
   );
 };
@@ -15,13 +14,14 @@ export default BottomBtns;
 
 const StContainer = styled.div`
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 12px 24px 28px;
-  width: 100%;
+  justify-content: center;
+`;
 
-  bottom: 1%;
-
-  /* width: 300px; */
-  position: absolute;
+const StButton = styled.button`
+  border-radius: 100%;
+  :active {
+    position: relative;
+    bottom: 0.2rem;
+  }
 `;

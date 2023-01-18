@@ -1,15 +1,33 @@
 import React from "react";
 import styled from "styled-components";
+import { IMAGES } from "../../constants/index";
 
-const PlanCard = ({ color }) => {
+const PlanCard = ({ color, content, startTime, endTime, count, onClick }) => {
+  const carrotSticker = () => {
+    if (count) {
+      const carrots = [];
+      for (let i = 0; i < count; i++) {
+        carrots.push(<div key={i}>{IMAGES.carrotSticker}</div>);
+      }
+
+      return carrots;
+    }
+  };
+
   return (
-    <StContainer>
+    <StContainer onClick={onClick}>
       <StCardLabel color={color}></StCardLabel>
       <StCard>
         <StTitle>
-          첫번째 일정 <StText> (연속1) </StText>
+          {content}
+          {count ? <StText> (연속{count}) </StText> : null}
         </StTitle>
-        <StTime>8:00 - 10:00</StTime>
+        <StDiv>
+          <StTime>
+            {startTime} - {endTime}
+          </StTime>
+          {count ? <StCarrotSticker>{carrotSticker()}</StCarrotSticker> : null}
+        </StDiv>
       </StCard>
     </StContainer>
   );
@@ -67,7 +85,6 @@ const StText = styled.span`
 `;
 
 const StTime = styled.div`
-  width: 68px;
   height: 14px;
 
   font-family: "Pretendard";
@@ -77,4 +94,17 @@ const StTime = styled.div`
   line-height: 14px;
 
   color: #a4a4a4;
+`;
+
+const StDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 5px;
+`;
+
+const StCarrotSticker = styled.div`
+  display: flex;
+  flex-direction: row;
 `;

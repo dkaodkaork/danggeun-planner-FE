@@ -3,26 +3,53 @@ import { api } from "../../core/api";
 
 const initialState = {
   data: {
-    isOwner: "",
+    isOwner: true,
     username: "",
-    carrot: "55",
-    timers: [],
-    plans: [],
+    profileImage: "",
+    carrot: "",
+    contents: [],
   },
   isLoading: false,
   error: null,
 };
 
-export const __getPlanner = createAsyncThunk(
-  "planner/get",
+export const __getAllPlan = createAsyncThunk(
+  "all/get",
   async (payload, thunkAPI) => {
+    const { username, date } = payload;
     try {
-      console.log(payload);
-      const { username, date } = payload;
-      console.log(username, date);
-      const response = await api.getPlannerApi(username, date);
-      console.log(response);
-      return thunkAPI.fulfillWithValue();
+      const { data } = await api.getAllPlanApi(username, date);
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      console.log(error.response.status);
+      return thunkAPI.rejectWithValue();
+    }
+  }
+);
+
+export const __getPlan = createAsyncThunk(
+  "plan/get",
+  async (payload, thunkAPI) => {
+    const { username, date } = payload;
+    try {
+      const { data } = await api.getPlanApi(username, date);
+      console.log(data.data);
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      console.log(error.response.status);
+      return thunkAPI.rejectWithValue();
+    }
+  }
+);
+
+export const __getFocusPlan = createAsyncThunk(
+  "focusplan/get",
+  async (payload, thunkAPI) => {
+    const { username, date } = payload;
+    try {
+      const { data } = await api.getFocusPlanApi(username, date);
+      console.log(data.data);
+      return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       console.log(error.response.status);
       return thunkAPI.rejectWithValue();
@@ -35,9 +62,9 @@ export const __postPlan = createAsyncThunk(
   async (payload, thunkAPI) => {
     console.log(payload);
     try {
-      const response = await api.postPlanApi(payload);
-      console.log(response);
-      return thunkAPI.fulfillWithValue();
+      const { data } = await api.postPlanApi(payload);
+      console.log(data);
+      return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       console.log(error);
       return thunkAPI.rejectWithValue();
@@ -48,14 +75,33 @@ export const __postPlan = createAsyncThunk(
 export const __putPlan = createAsyncThunk(
   "plan/put",
   async (payload, thunkAPI) => {
-    console.log(payload);
-    const { planId, planInfo } = payload;
+    // console.log(payload);
+    const { id, planInfo } = payload;
     try {
-      const response = await api.putPlanApi(planId, planInfo);
-      console.log(response);
-      return thunkAPI.fulfillWithValue();
+      const { data } = await api.putPlanApi(id, planInfo);
+
+      return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
+      return thunkAPI.rejectWithValue();
+    }
+  }
+);
+
+export const __putTimerContent = createAsyncThunk(
+  "timer/put",
+  async (payload, thunkAPI) => {
+    console.log(payload);
+
+    try {
+      const { data } = await api.putTimerContentApi(
+        payload.id,
+        payload.content
+      );
+
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      // console.log(error);
       return thunkAPI.rejectWithValue();
     }
   }
@@ -66,9 +112,9 @@ export const __deletePlan = createAsyncThunk(
   async (payload, thunkAPI) => {
     console.log(payload);
     try {
-      const response = await api.deletePlanApi(payload);
+      const response = await api.deletePlanApi(payload.id);
       console.log(response);
-      return thunkAPI.fulfillWithValue();
+      return thunkAPI.fulfillWithValue(payload.id);
     } catch (error) {
       console.log(error);
       return thunkAPI.rejectWithValue();
@@ -79,20 +125,54 @@ export const __deletePlan = createAsyncThunk(
 export const plannerSlice = createSlice({
   name: "planner",
   initialState,
-  reducers: {},
+  reducers: {
+    timerTest: (state, action) => {
+      state.data.contents = state.data.contents.map((plan) => {
+        if (plan?.timerId === action.payload.id) {
+          return {
+            ...plan,
+            content: action.payload.title.content,
+          };
+        }
+
+        return plan;
+      });
+    },
+  },
   extraReducers: (builder) => {
     builder
 
-      // 플래너 조회
-      .addCase(__getPlanner.pending, (state) => {
+      // 플래너 전체 조회
+      .addCase(__getAllPlan.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(__getPlanner.fulfilled, (state, action) => {
+      .addCase(__getAllPlan.fulfilled, (state, action) => {
         state.isLoading = false;
-        console.log(action.payload);
-        // state.data = {...action.payload}
+        state.data = { ...action.payload };
       })
-      .addCase(__getPlanner.rejected, (state, action) => {
+      .addCase(__getAllPlan.rejected, (state, action) => {
+        state.isLoading = false;
+      })
+      // 계획만 조회
+      .addCase(__getPlan.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(__getPlan.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.data = { ...action.payload };
+      })
+      .addCase(__getPlan.rejected, (state, action) => {
+        state.isLoading = false;
+      })
+      // 집중계획 조회
+      .addCase(__getFocusPlan.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(__getFocusPlan.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.data = { ...action.payload };
+      })
+      .addCase(__getFocusPlan.rejected, (state, action) => {
         state.isLoading = false;
       })
 
@@ -103,7 +183,7 @@ export const plannerSlice = createSlice({
       .addCase(__postPlan.fulfilled, (state, action) => {
         state.isLoading = false;
         console.log(action);
-        state.data.plans = { ...state.data.plans, ...action.payload };
+        state.data.contents = [...state.data.contents, { ...action.payload }];
       })
       .addCase(__postPlan.rejected, (state, action) => {
         state.isLoading = false;
@@ -116,11 +196,37 @@ export const plannerSlice = createSlice({
       })
       .addCase(__putPlan.fulfilled, (state, action) => {
         state.isLoading = false;
-        console.log(action);
-        state.data.plans = state.data.plans.map((plan) => {
-          if (plan.planId === action.payload.planId) {
-            return (plan = action.payload.planInfo);
+        console.log(action.payload);
+        state.data.contents = state.data.contents.map((plan) => {
+          if (plan?.planId === action.payload.planId) {
+            return {
+              ...plan,
+              ...action.payload,
+            };
           }
+          return plan;
+        });
+      })
+      .addCase(__putTimerContent.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+
+      // // 타이머 제목 수정
+      .addCase(__putTimerContent.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(__putTimerContent.fulfilled, (state, action) => {
+        state.isLoading = false;
+        console.log(action.payload);
+        state.data.contents = state.data.contents.map((plan) => {
+          if (plan?.timerId === action.payload.timerId) {
+            return {
+              ...plan,
+              ...action.payload,
+            };
+          }
+          return plan;
         });
       })
       .addCase(__putPlan.rejected, (state, action) => {
@@ -135,8 +241,8 @@ export const plannerSlice = createSlice({
       .addCase(__deletePlan.fulfilled, (state, action) => {
         state.isLoading = false;
         console.log(action);
-        state.data.plans = state.data.plans.filter(
-          (plan) => plan.planId !== action.payload
+        state.data.contents = state.data.contents.filter(
+          (plan) => plan?.planId !== action.payload
         );
       })
       .addCase(__deletePlan.rejected, (state, action) => {
@@ -146,5 +252,5 @@ export const plannerSlice = createSlice({
   },
 });
 
-// export const {} = plannerSlice.actions;
+export const { timerTest } = plannerSlice.actions;
 export default plannerSlice.reducer;

@@ -1,6 +1,6 @@
 export const today = () => {
   let now = new Date();
-  console.log(now);
+  // console.log(now);
   let year = now.getFullYear();
   let month = now.getMonth() + 1;
   let date = now.getDate();
@@ -13,9 +13,9 @@ export const today = () => {
 export const timeStamp = () => {
   let today = new Date(); //
   today.setHours(today.getHours() + 9);
-  return today
-    .toISOString()
-    .replace("T", " ")
-    .replaceAll("-", ":")
-    .substring(0, 19);
+  return today.toISOString().substring(0, 19);
+};
+
+export const planStartTime = (time) => {
+  return timeStamp().slice(0, 11) + time.hour + ":" + time.min + ":" + "00";
 };

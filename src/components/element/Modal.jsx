@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
-const Modal = (props) => {
+const Modal = ({ children, height }) => {
   return (
     <ModalBackdrop>
-      <ModalBox>{props.children}</ModalBox>
+      <ModalBox height={height}>{children}</ModalBox>
     </ModalBackdrop>
   );
 };
@@ -19,10 +19,11 @@ export const ModalBackdrop = styled.div`
   justify-content: center;
   align-items: center;
   background: rgba(0, 0, 0, 0.5);
+  z-index: 11;
 `;
 
 const ModalBox = styled.div`
-  height: 259px;
+  height: ${(props) => props.height || "259px"};
   width: 328px;
   border-radius: 12px;
   background: #fffdfa;

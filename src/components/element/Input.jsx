@@ -4,6 +4,11 @@ import styled from "styled-components";
 const Input = (props) => {
   return (
     <StInput
+      disabled={props.disabled}
+      name={props.name}
+      value={props.value}
+      defaultValue={props.defaultValue}
+      onInput={props.onInput}
       backgroundColor={props.backgroundColor}
       background={props.background}
       color={props.color}

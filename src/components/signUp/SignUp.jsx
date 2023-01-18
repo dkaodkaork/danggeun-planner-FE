@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { isValidEmail, isValidPassword } from "./func";
 import { api } from "../../core/api";
 import { MSG } from "../../constants/messages";
+import Header from "../header/Header";
+import LoginBtnBox from "../login/LoginBtnBox";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -70,41 +72,56 @@ const SignUp = () => {
 
   return (
     <StContainer>
-      <StInputForm>
-        <label>이메일</label>
-        <input
+      <Header menuName="SIGN UP" justifyContent="center" />
+      <StInputBox>
+        <StTitle>E-mail</StTitle>
+
+        <StInput
           name="email"
           type="text"
           value={signUpInfo.email}
           onChange={changeEmailHandler}
+          placeholder="이메일 형식"
         />
-        {emailError && signUpInfo.email !== "" && MSG.emailInvalidMsg}
-      </StInputForm>
-      <StInputForm>
-        <label>비밀번호</label>
-        <input
+        <StLabel>
+          {emailError && signUpInfo.email !== "" && MSG.emailInvalidMsg}
+        </StLabel>
+      </StInputBox>
+      <StInputBox marginTop="10px">
+        <StTitle>Password</StTitle>
+
+        <StInput
           maxLength="13"
           name="password"
           type="password"
           value={signUpInfo.password}
           onChange={changePwdHandler}
+          placeholder="영문, 숫자, 특수문자가 포함된 8~13자리"
         />
-        {pwdError && signUpInfo.password !== "" && MSG.pwdInvalidMsg}
-      </StInputForm>
-      <StInputForm>
-        <label>비밀번호 확인</label>
-        <input
+        <StLabel>
+          {pwdError && signUpInfo.password !== "" && MSG.pwdInvalidMsg}
+        </StLabel>
+      </StInputBox>
+      <StInputBox marginTop="0px" marginBottom="24px">
+        <StTitle>Password Check</StTitle>
+
+        <StInput
           maxLength="13"
           name="checkPassword"
           type="password"
           value={signUpInfo.checkPassword}
           onChange={changecheckPwdHandler}
+          placeholder="영문, 숫자, 특수문자가 포함된 8~13자리"
         />
-        {checkPwdError &&
-          signUpInfo.checkPassword !== "" &&
-          MSG.checkPwdInvalidMsg}
-      </StInputForm>
-      <button
+        <StLabel>
+          {checkPwdError &&
+            signUpInfo.checkPassword !== "" &&
+            MSG.checkPwdInvalidMsg}
+        </StLabel>
+      </StInputBox>
+      <LoginBtnBox
+        mainBtnName="가입하기"
+        onClick={submitHandler}
         disabled={
           signUpInfo.email === "" ||
           signUpInfo.password === "" ||
@@ -113,45 +130,78 @@ const SignUp = () => {
           pwdError ||
           checkPwdError
         }
-        onClick={submitHandler}
-      >
-        회원가입
-      </button>
+        bottomText="이미 아이디가 있으신가요?"
+      />
     </StContainer>
   );
 };
 export default SignUp;
 
 const StContainer = styled.div`
+  background-color: #f9f3ea;
+  height: 812px;
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
+  align-items: center;
+`;
 
-  gap: 2rem;
-  height: 30rem;
-  max-width: 350px;
-  margin: 50px auto 0;
-  background: #fff;
-  border: 4px solid #d8d9de;
-  border-radius: 10px;
+const StInputBox = styled.div`
+  width: 319px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: ${({ marginTop }) => marginTop || "20px"};
+  gap: 10px;
+  margin-bottom: ${({ marginBottom }) => marginBottom};
+`;
 
-  button {
-    width: 100px;
-    height: 30px;
-    border-radius: 10px;
-    background-color: #fff;
-    border: 1px solid black;
+const StTitle = styled.label`
+  width: 319px;
+  height: 16px;
+  margin-left: 10px;
+
+  font-family: "Pretendard";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 130%;
+  text-align: left;
+
+  color: #595550;
+`;
+
+const StInput = styled.input`
+  padding: 19px;
+  width: 319px;
+
+  height: 55px;
+
+  background: #ffffff;
+
+  border: 1px solid #f1e5d2;
+  border-radius: 12px;
+
+  ::placeholder {
+    font-family: "Pretendard";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.4rem;
+    line-height: 17px;
+    color: #a4a4a4;
   }
 `;
 
-const StInputForm = styled.div`
-  display: flex;
-  flex-direction: column;
-  input {
-    width: 345px;
-    height: 30px;
-    border-radius: 10px;
-    border: 1px solid black;
-  }
+const StLabel = styled.label`
+  height: 16px;
+  width: 310px;
+  font-family: "Pretendard";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 130%;
+
+  text-align: center;
+
+  color: #4a8a51;
 `;

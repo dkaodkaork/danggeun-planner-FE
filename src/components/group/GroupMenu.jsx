@@ -296,6 +296,7 @@ const ModalBackdrop = styled.div`
   align-items: center;
   background: rgba(0, 0, 0, 0.5);
   transition: all 0.5s ease-in;
+  z-index: 10;
 `;
 
 const MenuLayout = styled.div`

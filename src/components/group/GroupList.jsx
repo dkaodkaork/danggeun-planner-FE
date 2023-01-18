@@ -8,19 +8,42 @@ import { PATH } from "../../constants/path.js";
 
 import { __getGroupList } from "../../redux/modules/groupSlice";
 
+//메뉴 오픈 관련
+import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
+
 const GroupList = () => {
   const dispatch = useDispatch();
   const groupData = useSelector((state) => state.group.groupList);
-
-  const param = useParams();
 
   useEffect(() => {
     dispatch(__getGroupList());
   }, []);
 
+  //메뉴 오픈 관련
+  const groupMenuOpen = useSelector((state) => state.modalSlice.groupMenuOpen);
+
+  const clickGroupMenuHandler = () => {
+    dispatch(groupMenuOpenStatus(!groupMenuOpen));
+  };
+
   return (
     <>
-      <Header menuName="Group" right={IMAGES.menu} left={IMAGES.home}></Header>
+      <Header
+        menuName="Group"
+        right={IMAGES.menu}
+        left={IMAGES.home}
+        leftLink={PATH.timer}
+        clickMenuHandler={clickGroupMenuHandler}
+      ></Header>
+      <Header
+        fontFamily="MaplestoryOTFBold"
+        menuName="그룹 목록"
+        height="56px"
+        padding="12px 28px 12px 28px "
+        fontSize="2.0rem"
+        fontWeight="700"
+        width="219px"
+      />
       <GroupLayout>
         <CardLayout>
           <Link to={PATH.groupadd}>

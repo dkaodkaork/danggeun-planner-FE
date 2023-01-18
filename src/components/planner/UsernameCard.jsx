@@ -2,29 +2,26 @@ import React from "react";
 import styled from "styled-components";
 import { IMAGES } from "../../constants/index";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
-const NicknameCard = () => {
-  const userInfo = useSelector((state) => state.mypage.data);
-
+const UsernameCard = ({ username, profileImage, link }) => {
   return (
     <>
-      <StContainer>
-        <StImg src={IMAGES.test}></StImg>
-        <StNicknameBox>여섯글자닉넴</StNicknameBox>
+      <StContainer to={link}>
+        <StImg src={profileImage}></StImg>
+        <StUsernameBox>{username}</StUsernameBox>
       </StContainer>
     </>
   );
 };
 
-export default NicknameCard;
+export default UsernameCard;
 
-const StContainer = styled.div`
+const StContainer = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  /* width: 73px;
-  height: 17px; */
 `;
 
 const StImg = styled.img`
@@ -34,7 +31,7 @@ const StImg = styled.img`
   height: 30px;
 `;
 
-const StNicknameBox = styled.div`
+const StUsernameBox = styled.div`
   font-size: 1.4rem;
   font-family: "Pretendard";
   font-style: normal;

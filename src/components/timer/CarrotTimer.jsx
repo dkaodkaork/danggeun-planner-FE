@@ -10,7 +10,7 @@ import { timeStamp } from "../planner/time";
 const CarrotTimer = () => {
   const [stack, setStack] = useState("");
   const [mode, setMode] = useState("focusMode");
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(1);
 
   const dispatch = useDispatch();
 
@@ -46,6 +46,7 @@ const CarrotTimer = () => {
 
   const callback = () => {
     if (!currentTime && mode === "focusMode") {
+      setCount(count + 1);
       focusModeDoneHandler();
     } else if (!currentTime && mode === "restMode") {
       restModeDoneHandler();
@@ -54,7 +55,7 @@ const CarrotTimer = () => {
 
   const focusModeDoneHandler = () => {
     toggleTimer(0);
-    setCount(count + 1);
+    // setCount(count + 1);
 
     dispatch(
       __finsihTimer({
@@ -67,9 +68,9 @@ const CarrotTimer = () => {
   };
 
   const restModeDoneHandler = () => {
-    if (count === 2) {
+    if (count === 3) {
       toggleTimer(longRestTime);
-      setCount(0);
+      setCount(1);
     } else {
       toggleTimer(startTime);
       setMode("focusMode");
@@ -79,7 +80,7 @@ const CarrotTimer = () => {
   const startTimerHandler = () => {
     toggleTimer();
     if (timer === startTime) {
-      dispatch(__startTimer({ startTime: timeStamp(), count: count }));
+      dispatch(__startTimer({ startTime: timeStamp() }));
       console.log("타이머 시작통신");
       // console.log(timeStamp());
     }
@@ -87,7 +88,7 @@ const CarrotTimer = () => {
 
   const focusGiveUpHandler = () => {
     toggleTimer(startTime);
-    setCount(0);
+    setCount(1);
   };
 
   const getCarrotHandler = () => {

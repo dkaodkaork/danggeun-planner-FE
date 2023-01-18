@@ -22,7 +22,7 @@ const GroupModal = (props) => {
       {detailMenuOpen ? (
         <Modal>
           <img src="https://velog.velcdn.com/images/posinity/post/d98edda0-adc8-45ae-a97f-8e9316d70199/image.png"></img>
-          <GroupName>당그니즈</GroupName>
+          <GroupName>{props.groupName}</GroupName>
           <GetMsg>위 그룹을 정말 {props.subject}하시겠습니까?</GetMsg>
           <BtnLayout>
             <ButtonS onClick={props.onClickConfirm}>네</ButtonS>
