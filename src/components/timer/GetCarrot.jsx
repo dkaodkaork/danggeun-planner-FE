@@ -35,7 +35,9 @@ export const ModalContainer = styled.div`
 
 export const ModalBackdrop = styled.div`
   width: 375px;
-  height: 100%;
+  height: 815px;
+  bottom: 0px;
+  right: 104px;
   position: fixed;
   display: flex;
   justify-content: center;
