@@ -23,6 +23,7 @@ export const api = {
   // 타이머
   postTimerApi: () => baseURL.post(`/timer`),
   putTimerApi: (timerId) => baseURL.put(`/timer/${timerId}`),
+  putTimerContentApi: (timerId) => baseURL.put(`timer/${timerId}/content`),
 
   //그룹
   getGroupListApi: () => baseURL.get(`/group`),
@@ -44,11 +45,10 @@ export const api = {
     baseURL.delete(`/group/${groupId}/participant`),
 
   // 플래너
-  getAllPlannerApi: (username, date) =>
-    baseURL.get(`planner/${username}/${date}`),
+  getAllPlanApi: (username, date) => baseURL.get(`planner/${username}/${date}`),
   getPlanApi: (username, date) =>
     baseURL.get(`planner/${username}/${date}/plan`),
-  getTimerPlanApi: (username, date) =>
+  getFocusPlanApi: (username, date) =>
     baseURL.get(`planner/${username}/${date}/timer`),
   postPlanApi: (planInfo) => baseURL.post(`plan`, planInfo),
   putPlanApi: (planId, planInfo) => baseURL.put(`plan/${planId}`, planInfo),
