@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import Timer from "./Timer";
 import TimerMsg from "./TimerMsg";
-import Header from "../header/Header";
 import { IMAGES } from "../../constants/index";
 
 const TimerBackground = ({
@@ -37,11 +36,6 @@ const TimerBackground = ({
   return (
     <>
       <StBackground url={perImageByStack[stack]} delay={perDelayByStack[stack]}>
-        <Header
-          justifyContent="right"
-          right={IMAGES.menu}
-          //   menuName="timer"
-        />
         <Timer
           parsedTime={parsedTime}
           isClear={isClear}
@@ -67,7 +61,7 @@ const StBackground = styled.div`
   background-position: center;
   background-size: auto;
   background-repeat: no-repeat;
-  height: 812px;
+  height: 740px;
 `;
 
 const StButtonBox = styled.div`

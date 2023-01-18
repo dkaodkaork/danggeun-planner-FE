@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { isValidEmail, isValidPassword } from "./func";
 import { api } from "../../core/api";
-import { MSG } from "../../constants/messages";
+import { MSG, PATH } from "../../constants/index";
+
 import Header from "../header/Header";
 import LoginBtnBox from "../login/LoginBtnBox";
 
@@ -58,7 +59,7 @@ const SignUp = () => {
         });
 
         if (status === 201) {
-          navigate("/login");
+          navigate(PATH.login);
         } else {
           alert(data.message);
         }
@@ -131,6 +132,7 @@ const SignUp = () => {
           checkPwdError
         }
         bottomText="이미 아이디가 있으신가요?"
+        path={PATH.login}
       />
     </StContainer>
   );

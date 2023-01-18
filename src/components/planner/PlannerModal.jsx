@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { IMAGES } from "../../constants/index";
-import { today } from "./time";
+import { getDayOfWeek } from "./time";
 import Input from "../element/Input";
 
 const PlannerModal = ({
@@ -19,18 +19,23 @@ const PlannerModal = ({
   id,
   plan,
   editTimerContentHandler,
+  date,
 }) => {
   return (
     <>
       <StModalHeader>
         <button
           onClick={() => {
-            closeModalHanlder(id);
+            closeModalHanlder(id, plan);
           }}
         >
-          {isEdit ? IMAGES.trashBtn : IMAGES.fold}
+          {isEdit && plan?.hasOwnProperty("planId")
+            ? IMAGES.trashBtn
+            : IMAGES.fold}
         </button>
-        <StDateBox>{today()}</StDateBox>
+
+        <StDateBox>{getDayOfWeek(date)}</StDateBox>
+
         <button
           onClick={
             plan?.hasOwnProperty("timerId")
@@ -71,6 +76,7 @@ const PlannerModal = ({
           disabled={plan?.hasOwnProperty("timerId") ? true : false}
         />
         <div>:</div>
+
         <Input
           onChange={changeStartTimeHandler}
           onInput={isNumber}

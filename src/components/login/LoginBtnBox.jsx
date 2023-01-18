@@ -2,8 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import Button from "../timer/TimerButton";
 import { PATH, MSG, IMAGES } from "../../constants/index";
+import { Link } from "react-router-dom";
 
-const LoginBtnBox = ({ onClick, disabled, mainBtnName, bottomText }) => {
+const LoginBtnBox = ({ onClick, disabled, mainBtnName, bottomText, path }) => {
   return (
     <StContainer>
       <Button
@@ -58,7 +59,9 @@ const LoginBtnBox = ({ onClick, disabled, mainBtnName, bottomText }) => {
           {IMAGES.google} 구글 아이디로 로그인하기
         </Button>
       </StOauthBtns>
-      <StBottomText>{bottomText}</StBottomText>
+      <Link to={path}>
+        <StBottomText>{bottomText}</StBottomText>
+      </Link>
     </StContainer>
   );
 };

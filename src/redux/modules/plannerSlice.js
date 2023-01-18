@@ -33,7 +33,7 @@ export const __getPlan = createAsyncThunk(
     const { username, date } = payload;
     try {
       const { data } = await api.getPlanApi(username, date);
-      console.log(data.data);
+      // console.log(data.data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       console.log(error.response.status);
@@ -48,7 +48,7 @@ export const __getFocusPlan = createAsyncThunk(
     const { username, date } = payload;
     try {
       const { data } = await api.getFocusPlanApi(username, date);
-      console.log(data.data);
+      // console.log(data.data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       console.log(error.response.status);
@@ -67,7 +67,7 @@ export const __postPlan = createAsyncThunk(
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       console.log(error);
-      return thunkAPI.rejectWithValue();
+      return thunkAPI.rejectWithValue(error.response.data.message);
     }
   }
 );
@@ -75,7 +75,7 @@ export const __postPlan = createAsyncThunk(
 export const __putPlan = createAsyncThunk(
   "plan/put",
   async (payload, thunkAPI) => {
-    // console.log(payload);
+    console.log("수정통신 시작", payload);
     const { id, planInfo } = payload;
     try {
       const { data } = await api.putPlanApi(id, planInfo);
@@ -94,14 +94,11 @@ export const __putTimerContent = createAsyncThunk(
     console.log(payload);
 
     try {
-      const { data } = await api.putTimerContentApi(
-        payload.id,
-        payload.content
-      );
-
+      const { data } = await api.putTimerContentApi(payload.id, payload.title);
+      console.log(data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
-      // console.log(error);
+      console.log(error);
       return thunkAPI.rejectWithValue();
     }
   }
@@ -110,7 +107,7 @@ export const __putTimerContent = createAsyncThunk(
 export const __deletePlan = createAsyncThunk(
   "plan/delete",
   async (payload, thunkAPI) => {
-    console.log(payload);
+    console.log("삭제 통신 시작 ", payload);
     try {
       const response = await api.deletePlanApi(payload.id);
       console.log(response);
@@ -182,12 +179,13 @@ export const plannerSlice = createSlice({
       })
       .addCase(__postPlan.fulfilled, (state, action) => {
         state.isLoading = false;
-        console.log(action);
-        state.data.contents = [...state.data.contents, { ...action.payload }];
+        console.log(action.payload);
+        state.data.contents = [...state.data.contents, action.payload];
       })
       .addCase(__postPlan.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.payload;
+        console.log(action.payload);
+        alert();
       })
 
       // 계획 수정

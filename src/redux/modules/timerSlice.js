@@ -4,10 +4,6 @@ import { api } from "../../core/api";
 const initialState = {
   data: {
     timerId: "",
-    date: "",
-    startTime: "",
-    endTime: "",
-    count: "",
   },
   isLoading: false,
   error: null,
