@@ -111,12 +111,12 @@ const GroupUpdate = () => {
           <h3>그룹 소개</h3>
           <Textarea
             onChange={onTextareaHandler}
-            maxLength="60"
+            maxLength="50"
             placeholder={groupDetailData.description}
           />
           <p>
             <span>{textareaCount}</span>
-            <span>/60 자</span>
+            <span>/50 자</span>
           </p>
         </Addcontents>
         <TimerButton
