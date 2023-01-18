@@ -1,27 +1,49 @@
 import React from "react";
 import styled from "styled-components";
-import { PATH, IMAGES } from "../../constants/index";
-import { today, planStartTime } from "./time";
+import { IMAGES } from "../../constants/index";
+import { today } from "./time";
 import Input from "../element/Input";
 
 const PlannerModal = ({
-  openModalHanlder,
-  closeModalHandler,
+  doneAddModalHandler,
   changeTitleHandler,
   changeStartTimeHandler,
   changeEndTimeHandler,
+  closeModalHanlder,
   planTitle,
   countInput,
   startTime,
   endTime,
   isNumber,
+  isEdit,
+  id,
+  plan,
+  editTimerContentHandler,
 }) => {
   return (
     <>
       <StModalHeader>
-        <button onClick={openModalHanlder}>{IMAGES.fold}</button>
+        <button
+          onClick={() => {
+            closeModalHanlder(id);
+          }}
+        >
+          {isEdit ? IMAGES.trashBtn : IMAGES.fold}
+        </button>
         <StDateBox>{today()}</StDateBox>
-        <button onClick={closeModalHandler}>{IMAGES.checkBtn}</button>
+        <button
+          onClick={
+            plan?.hasOwnProperty("timerId")
+              ? () => {
+                  editTimerContentHandler(id);
+                }
+              : () => {
+                  doneAddModalHandler(id);
+                }
+          }
+        >
+          {IMAGES.checkBtn}
+        </button>
       </StModalHeader>
       <StInputBox>
         <StInput
@@ -38,7 +60,7 @@ const PlannerModal = ({
           onChange={changeStartTimeHandler}
           type="number"
           name="hour"
-          value={startTime?.hour}
+          value={startTime.hour}
           onInput={isNumber}
           placeholder="00"
           maxLength="2"
@@ -46,13 +68,14 @@ const PlannerModal = ({
           height="45px"
           fontSize="1.4rem"
           padding="12px"
+          disabled={plan?.hasOwnProperty("timerId") ? true : false}
         />
         <div>:</div>
         <Input
           onChange={changeStartTimeHandler}
           onInput={isNumber}
           name="min"
-          value={startTime?.min}
+          value={startTime.min}
           type="number"
           placeholder="00"
           maxLength="2"
@@ -60,6 +83,7 @@ const PlannerModal = ({
           height="45px"
           fontSize="1.4rem"
           padding="12px"
+          disabled={plan?.hasOwnProperty("timerId") ? true : false}
         />
         <p>-</p>
         <StSpan>종료</StSpan>
@@ -67,7 +91,7 @@ const PlannerModal = ({
           onChange={changeEndTimeHandler}
           type="number"
           name="hour"
-          value={endTime?.hour}
+          value={endTime.hour}
           onInput={isNumber}
           placeholder="00"
           maxLength="2"
@@ -75,13 +99,14 @@ const PlannerModal = ({
           height="45px"
           fontSize="1.4rem"
           padding="12px"
+          disabled={plan?.hasOwnProperty("timerId") ? true : false}
         ></Input>
         <div>:</div>
         <Input
           onChange={changeEndTimeHandler}
           type="number"
           name="min"
-          value={endTime?.min}
+          value={endTime.min}
           onInput={isNumber}
           placeholder="00"
           maxLength="2"
@@ -89,6 +114,7 @@ const PlannerModal = ({
           height="45px"
           fontSize="1.4rem"
           padding="12px"
+          disabled={plan?.hasOwnProperty("timerId") ? true : false}
         />
       </StTimeBox>
     </>

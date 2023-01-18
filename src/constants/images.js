@@ -19,6 +19,7 @@ import { ReactComponent as CheckCircle } from "../assets/images/group/check_circ
 import { ReactComponent as EmptyCircle } from "../assets/images/group/empty_circle.svg";
 import { ReactComponent as CarrotSticker } from "../assets/images/planner/carrot.svg";
 import { ReactComponent as CheckBtn } from "../assets/images/planner/check.svg";
+import { ReactComponent as Trash } from "../assets/images/planner/trash_icon.svg";
 import { ReactComponent as Kakao } from "../assets/images/login/kakao.svg";
 import { ReactComponent as Naver } from "../assets/images/login/naver_logo.svg";
 import { ReactComponent as Google } from "../assets/images/login/google.svg";
@@ -56,6 +57,7 @@ export const IMAGES = {
   rangeBtn: <RangeBtn />,
   carrotSticker: <CarrotSticker />,
   checkBtn: <CheckBtn />,
+  trashBtn: <Trash />,
   //
   menu: <Menu />,
   home: <Home />,
