@@ -52,7 +52,7 @@ const Login = () => {
           // });
           console.log(data.data);
           if (data.data.isExistUsername) {
-            navigate(PATH.main);
+            navigate(PATH.timer);
           } else {
             navigate(PATH.username);
           }
@@ -95,6 +95,7 @@ const Login = () => {
         onClick={submitHandler}
         mainBtnName="로그인"
         bottomText="아이디가 없으신가요?"
+        path={PATH.signup}
       />
     </StContainer>
   );

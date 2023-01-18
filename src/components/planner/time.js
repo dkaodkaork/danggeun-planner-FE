@@ -1,3 +1,5 @@
+// moment 라이브러리 사용으로 추후 삭제? 해야 될 것 같음
+
 export const today = () => {
   let now = new Date();
   // console.log(now);
@@ -10,6 +12,19 @@ export const today = () => {
   return year + "년 " + month + "월 " + date + "일 " + "(" + dayOfWeek + ")";
 };
 
+export const getDayOfWeek = (day) => {
+  //ex) getDayOfWeek('2022-06-13')
+
+  const week = ["일", "월", "화", "수", "목", "금", "토"];
+
+  const dayOfWeek = week[new Date(day).getDay()];
+  let year = day.slice(0, 4);
+  let month = day.slice(5, 7);
+  let date = day.slice(8, 10);
+
+  return year + "년 " + month + "월 " + date + "일 " + "(" + dayOfWeek + ")";
+};
+
 export const timeStamp = () => {
   let today = new Date(); //
   today.setHours(today.getHours() + 9);
@@ -17,5 +32,9 @@ export const timeStamp = () => {
 };
 
 export const planStartTime = (time) => {
-  return timeStamp().slice(0, 11) + time.hour + ":" + time.min + ":" + "00";
+  return (
+    timeStamp().slice(0, 11) +
+    (time.hour < 10 ? "0" + time.hour + ":" : time.hour + ":") +
+    (time.min < 10 ? "0" + time.min : time.min)
+  );
 };

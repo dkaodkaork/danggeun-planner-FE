@@ -4,10 +4,12 @@ import Header from "../header/Header";
 import Button from "../timer/TimerButton";
 import { PATH, IMAGES } from "../../constants/index";
 
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { __getUserInfo } from "../../redux/modules/mypageSlice";
+//
+import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
 
 const MypageForm = () => {
   const dispatch = useDispatch();
@@ -26,95 +28,106 @@ const MypageForm = () => {
     }
   };
 
+  // 메뉴 오픈 관련 추후에 반드시 빼야함
+  const groupMenuOpen = useSelector((state) => state.modalSlice.groupMenuOpen);
+
+  const clickGroupMenuHandler = () => {
+    dispatch(groupMenuOpenStatus(!groupMenuOpen));
+  };
+  //
+
   return (
-    <StContainer>
+    <>
       <Header
         menuName="MY"
         right={IMAGES.menu}
         left={IMAGES.home}
         leftLink={PATH.timer}
-      ></Header>
+        clickMenuHandler={clickGroupMenuHandler}
+      />
       <Header
         menuName="마이페이지"
         right={IMAGES.edit}
         left={IMAGES.fold}
-        leftLink={PATH.timer}
-      ></Header>
-
-      <StProfileBody>
-        <StProfileBox>
-          <StImg src={userInfo.profileImage}></StImg>
-          <StInfoBox>
-            <StInfo>{userInfo.username}</StInfo>
-            <StTotalCarrot>
-              <p>누적</p> <span>{IMAGES.carrotSticker}</span>
-              {userInfo.totalCarrot}
-            </StTotalCarrot>
-          </StInfoBox>
-        </StProfileBox>
-        <StHr></StHr>
-        <StEmailBox>{userInfo.email}</StEmailBox>
-        <StBtns>
-          <Button
-            border="1px solid #F1E5D2"
-            height="54px"
-            width="319px"
-            backgroundColor="#FFFDFA"
-            fontSize="1.4rem"
-            color="#595550"
-            fontFamily="Pretendard"
-            fontStyle="normal"
-            fontWeight="500"
-            gap="24px"
-            filter="none"
-            type="button"
-            onClick={() =>
-              window.open(
-                "https://www.notion.so/4de1bdd12eda48e79ac2dde2c45d6c8f"
-              )
-            }
-          >
-            도움말
-          </Button>
-          <Button
-            border="1px solid #F1E5D2"
-            height="54px"
-            width="319px"
-            backgroundColor="#FFFDFA"
-            fontSize="1.4rem"
-            fontFamily="Pretendard"
-            fontStyle="normal"
-            fontWeight="500"
-            color="#595550"
-            gap="25px"
-            filter="none"
-            onClick={() =>
-              window.open(
-                "https://www.notion.so/4de1bdd12eda48e79ac2dde2c45d6c8f"
-              )
-            }
-          >
-            1:1 문의
-          </Button>
-          <Button
-            border="1px solid #F1E5D2"
-            height="54px"
-            width="319px"
-            backgroundColor="#FFFDFA"
-            fontSize="1.4rem"
-            fontFamily="Pretendard"
-            fontStyle="normal"
-            fontWeight="500"
-            color="#FF0000"
-            gap="28px"
-            filter="none"
-            onClick={logoutHandler}
-          >
-            로그아웃
-          </Button>
-        </StBtns>
-      </StProfileBody>
-    </StContainer>
+        rightLink={PATH.profile}
+        onClick={() => navigate(-1)}
+      />
+      <StContainer>
+        <StProfileBody>
+          <StProfileBox>
+            <StImg src={userInfo.profileImage}></StImg>
+            <StInfoBox>
+              <StInfo>{userInfo.username}</StInfo>
+              <StTotalCarrot>
+                <p>누적</p> <span>{IMAGES.carrotSticker}</span>
+                {userInfo.totalCarrot}
+              </StTotalCarrot>
+            </StInfoBox>
+          </StProfileBox>
+          <StHr></StHr>
+          <StEmailBox>{userInfo.email}</StEmailBox>
+          <StBtns>
+            <Button
+              border="1px solid #F1E5D2"
+              height="54px"
+              width="319px"
+              backgroundColor="#FFFDFA"
+              fontSize="1.4rem"
+              color="#595550"
+              fontFamily="Pretendard"
+              fontStyle="normal"
+              fontWeight="500"
+              gap="24px"
+              filter="none"
+              type="button"
+              onClick={() =>
+                window.open(
+                  "https://www.notion.so/4de1bdd12eda48e79ac2dde2c45d6c8f"
+                )
+              }
+            >
+              도움말
+            </Button>
+            <Button
+              border="1px solid #F1E5D2"
+              height="54px"
+              width="319px"
+              backgroundColor="#FFFDFA"
+              fontSize="1.4rem"
+              fontFamily="Pretendard"
+              fontStyle="normal"
+              fontWeight="500"
+              color="#595550"
+              gap="25px"
+              filter="none"
+              onClick={() =>
+                window.open(
+                  "https://www.notion.so/4de1bdd12eda48e79ac2dde2c45d6c8f"
+                )
+              }
+            >
+              1:1 문의
+            </Button>
+            <Button
+              border="1px solid #F1E5D2"
+              height="54px"
+              width="319px"
+              backgroundColor="#FFFDFA"
+              fontSize="1.4rem"
+              fontFamily="Pretendard"
+              fontStyle="normal"
+              fontWeight="500"
+              color="#FF0000"
+              gap="28px"
+              filter="none"
+              onClick={logoutHandler}
+            >
+              로그아웃
+            </Button>
+          </StBtns>
+        </StProfileBody>
+      </StContainer>
+    </>
   );
 };
 

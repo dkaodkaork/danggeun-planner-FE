@@ -10,6 +10,8 @@ import {
   __putProfileImg,
 } from "../../redux/modules/mypageSlice";
 import Button from "../timer/TimerButton";
+//
+import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -28,6 +30,14 @@ const Profile = () => {
     username: "",
   });
 
+  // 메뉴 오픈 관련 추후에 반드시 빼야함
+  const groupMenuOpen = useSelector((state) => state.modalSlice.groupMenuOpen);
+
+  const clickGroupMenuHandler = () => {
+    dispatch(groupMenuOpenStatus(!groupMenuOpen));
+  };
+  //
+
   const changeUsernameHandler = (e) => {
     setEditUsername({
       [e.target.name]: e.target.value,
@@ -35,12 +45,16 @@ const Profile = () => {
     setCountUsername(e.target.value.length);
   };
 
-  const submitHandler = () => {
+  const submitHandler = async () => {
     if (editUsername.username === "") {
-      navigate(-1);
+      navigate(PATH.mypage);
     } else {
-      dispatch(__putUsername(editUsername));
-      navigate(-1);
+      const res = await dispatch(__putUsername(editUsername));
+      if (res?.error?.message) {
+        alert("이미 사용중인 닉네임 입니다.");
+      } else {
+        navigate(PATH.mypage);
+      }
     }
   };
 
@@ -60,13 +74,14 @@ const Profile = () => {
   };
 
   return (
-    <StContainer>
+    <>
       <Header
         menuName="MY"
         right={IMAGES.menu}
         left={IMAGES.home}
         leftLink={PATH.timer}
         fontFamily="Pretendard"
+        clickMenuHandler={clickGroupMenuHandler}
       />
       <Header
         menuName="프로필 수정하기"
@@ -79,48 +94,55 @@ const Profile = () => {
         width="219px"
         marginRight="40px"
       />
-      <StEditProfileBody>
-        <StProfileImage>
-          <label>프로필 이미지</label>
-          <StImg onClick={profileImgClickHandler} src={userInfo.profileImage} />
-          <input
-            style={{ display: "none" }}
-            ref={profileImgInput}
-            type="file"
-            name="file"
-            accept="image/*"
-            onChange={changeImgHandler}
-            onClick={setDefaultClickHandler}
-          />
-        </StProfileImage>
-        <StInputBox>
-          <StTitle>닉네임</StTitle>
-          <StInput
-            name="username"
-            type="text"
-            defaultValue={
-              editUsername.username === ""
-                ? userInfo.username
-                : editUsername.username
-            }
-            onChange={changeUsernameHandler}
-            maxLength="6"
-            placeholder="닉네임은 6자리 이하입니다."
-            autoFocus
-          />
-          <StLabel>{countUsername}/6</StLabel>
-        </StInputBox>
-        <Button
-          onClick={submitHandler}
-          backgroundColor="#F27808"
-          width="319px"
-          marginTop="321px"
-        >
-          완 료
-        </Button>
-        <StBottomText>불쾌감을 주는 프로필은 사용하지 말아주세요.</StBottomText>
-      </StEditProfileBody>
-    </StContainer>
+      <StContainer>
+        <StEditProfileBody>
+          <StProfileImage>
+            <label>프로필 이미지</label>
+            <StImg
+              onClick={profileImgClickHandler}
+              src={userInfo.profileImage}
+            />
+            <input
+              style={{ display: "none" }}
+              ref={profileImgInput}
+              type="file"
+              name="file"
+              accept="image/*"
+              onChange={changeImgHandler}
+              onClick={setDefaultClickHandler}
+            />
+          </StProfileImage>
+          <StInputBox>
+            <StTitle>닉네임</StTitle>
+            <StInput
+              name="username"
+              type="text"
+              defaultValue={
+                editUsername.username === ""
+                  ? userInfo.username
+                  : editUsername.username
+              }
+              onChange={changeUsernameHandler}
+              maxLength="6"
+              placeholder="닉네임은 6자리 이하입니다."
+              autoFocus
+            />
+            <StLabel>{countUsername}/6</StLabel>
+          </StInputBox>
+          <Button
+            onClick={submitHandler}
+            backgroundColor="#F27808"
+            width="319px"
+            marginTop="321px"
+          >
+            완 료
+          </Button>
+          <StBottomText>
+            불쾌감을 주는 프로필은 사용하지 말아주세요.
+          </StBottomText>
+        </StEditProfileBody>
+      </StContainer>
+    </>
   );
 };
 
@@ -180,7 +202,7 @@ const StTitle = styled.label`
 
 const StImg = styled.img`
   border-radius: 50%;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   object-fit: cover;
   width: 50px;
   height: 50px;

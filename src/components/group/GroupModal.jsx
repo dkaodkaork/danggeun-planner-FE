@@ -15,6 +15,7 @@ const GroupModal = (props) => {
 
   const clickGroupMenuHandler = () => {
     dispatch(detailMenuOpenStatus(!detailMenuOpen));
+    props.onClickCancle();
   };
 
   return (
