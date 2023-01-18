@@ -222,6 +222,8 @@ const Planner = () => {
       e.target.value = e.target.value.slice(0, e.target.maxLength);
   };
 
+  console.log(sortedPlans);
+
   return (
     <>
       <StContainer>

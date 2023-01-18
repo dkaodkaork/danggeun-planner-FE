@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
-const SlideModal = ({ children, bottom, height, toggle }) => {
+const SlideModal = ({ children, bottom, height, toggle, cancleHandler }) => {
   return (
     <>
-      <ModalBackdrop toggle={toggle} />
+      <ModalBackdrop toggle={toggle} onClick={cancleHandler} />
       <MenuLayout bottom={bottom} height={height} toggle={toggle}>
         {children}
       </MenuLayout>
