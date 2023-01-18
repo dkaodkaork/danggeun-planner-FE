@@ -30,7 +30,7 @@ const CarrotTimer = () => {
   };
   //
 
-  const startTime = 1000 * 4;
+  const startTime = 1000 * 4 * 20;
   const restTime = 1000 * 2;
   const longRestTime = 1000 * 3;
 
