@@ -19,7 +19,7 @@ export const __startTimer = createAsyncThunk(
     try {
       console.log("시작 페이로드", payload);
       // console.log("타이머 시작 통신 ");
-      const { data } = await api.postTimerApi();
+      const { data } = await api.postTimerApi(payload);
       console.log(data.data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
@@ -34,7 +34,10 @@ export const __finsihTimer = createAsyncThunk(
   async (payload, thunkAPI) => {
     console.log("종료 페이로드", payload);
     try {
-      const response = await api.putTimerApi(payload.timerId);
+      const response = await api.putTimerApi(
+        payload.timerId,
+        payload.timerInfo
+      );
       console.log(response);
       return thunkAPI.fulfillWithValue();
     } catch (error) {
