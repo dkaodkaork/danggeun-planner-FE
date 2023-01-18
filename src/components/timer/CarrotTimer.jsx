@@ -56,14 +56,9 @@ const CarrotTimer = () => {
   const focusModeDoneHandler = () => {
     toggleTimer(0);
     // setCount(count + 1);
+    const timerInfo = { endTime: timeStamp(), count: count };
 
-    dispatch(
-      __finsihTimer({
-        timerId: data.timerId,
-        endTime: timeStamp(),
-        count: count,
-      })
-    );
+    dispatch(__finsihTimer({ timerId: data.timerId, timerInfo }));
     // console.log(timeStamp());
   };
 
