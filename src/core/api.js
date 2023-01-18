@@ -21,8 +21,9 @@ export const api = {
     baseURL.get(`/calendar/${username}/${todayYear}-${todayMonth}`),
 
   // 타이머
-  postTimerApi: () => baseURL.post(`/timer`),
-  putTimerApi: (timerId) => baseURL.put(`/timer/${timerId}`),
+  postTimerApi: (startTime) => baseURL.post(`/timer`, startTime),
+  putTimerApi: (timerId, timerInfo) =>
+    baseURL.put(`/timer/${timerId}`, timerInfo),
   putTimerContentApi: (timerId) => baseURL.put(`timer/${timerId}/content`),
 
   //그룹
