@@ -5,7 +5,7 @@ import { PATH, IMAGES } from "../../constants/index";
 import UsernameCard from "./UsernameCard";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { today, planStartTime } from "./time";
+import { planStartTime, getDayOfWeek } from "./time";
 import BottomBtns from "./BottomBtns";
 import PlanCard from "./PlanCard";
 import SlideModal from "../element/SlideModal";
@@ -22,12 +22,17 @@ import {
 } from "../../redux/modules/plannerSlice";
 import PlannerModal from "./PlannerModal";
 import SortingBtnGroup from "./SortingBtnGroup";
+import { v4 as uuidv4 } from "uuid";
+//
+import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
 
 const Planner = () => {
   // hook
   const dispatch = useDispatch();
-  const param = useParams();
+  const { date, username } = useParams();
+
   const plans = useSelector((state) => state?.planner?.data);
+  // console.log(plans.error);
 
   // 상태 선언
   const [selectedId, setSelectedId] = useState(null);
@@ -44,6 +49,14 @@ const Planner = () => {
   });
   const [plan, setPlan] = useState();
 
+  // 메뉴 오픈 관련 추후에 반드시 빼야함
+  const groupMenuOpen = useSelector((state) => state.modalSlice.groupMenuOpen);
+
+  const clickGroupMenuHandler = () => {
+    dispatch(groupMenuOpenStatus(!groupMenuOpen));
+  };
+  //
+
   // onchange로 받은 값 시작시간 끝나는 시간 파싱해서 보낼것
   const planInfo = {
     startTime: planStartTime(startTime),
@@ -51,27 +64,25 @@ const Planner = () => {
     content: planTitle,
   };
 
+  // console.log(planInfo);
   // 플래너 조회 요청
   useEffect(() => {
-    dispatch(__getAllPlan({ username: param.username, date: param.date }));
+    dispatch(__getAllPlan({ username: username, date: date }));
   }, [dispatch]);
 
   // 전체 조회 버튼
   const onClickGetAllPlan = () => {
-    dispatch(__getAllPlan({ username: param.username, date: param.date }));
-    console.log("전체조회");
+    dispatch(__getAllPlan({ username: username, date: date }));
   };
 
   // 계획 조회 버튼
   const onClickgetPlan = () => {
-    dispatch(__getPlan({ username: param.username, date: param.date }));
-    console.log("계획조회");
+    dispatch(__getPlan({ username: username, date: date }));
   };
 
   // 집중 조회 버튼
   const onClickgetFocusPlan = () => {
-    dispatch(__getFocusPlan({ username: param.username, date: param.date }));
-    console.log("집중조회");
+    dispatch(__getFocusPlan({ username: username, date: date }));
   };
 
   // 시작시간기준으로 정렬하기
@@ -82,6 +93,8 @@ const Planner = () => {
       Number(b.startTime.replace(":", ""))
     );
   });
+  // console.log(temp);
+  // console.log(sortedPlans);
 
   // 모달은 나주에 slice에서 빼고 하면 코드 많이 줄일 수 있을 것 같음. 상태로 관리
   const planModalOpen = useSelector(
@@ -125,13 +138,28 @@ const Planner = () => {
   };
 
   // 계획 삭제
-  const closeModalHanlder = (id) => {
-    console.log(id);
+  const closeModalHanlder = (id, plan) => {
+    console.log(id, plan);
     console.log(isEdit);
-    dispatch(planModalOpenStatus(!planModalOpen));
-    if (isEdit) {
-      dispatch(__deletePlan({ id }));
+    if (plan?.hasOwnProperty("timerId")) {
+      dispatch(planModalOpenStatus(!planModalOpen));
+    } else {
+      if (isEdit) {
+        if (window.confirm("삭제하시겠습니까?")) {
+          dispatch(__deletePlan({ id }));
+          dispatch(planModalOpenStatus(!planModalOpen));
+        }
+      } else {
+        dispatch(planModalOpenStatus(!planModalOpen));
+      }
     }
+
+    // else if ()
+    // if (isEdit) {
+    //   if (window.confirm("삭제 하시겠습니까?")) {
+    //     dispatch(__deletePlan({ id }));
+    //   }
+    // }
   };
 
   // 타이머 제목 수정
@@ -198,11 +226,9 @@ const Planner = () => {
   // 플랜 시작시간 종료시간
   const changeStartTimeHandler = (e) => {
     let time = e.target.value;
-    // 한자리 숫자 시간 입력시
+    console.log(time);
+    // if()
 
-    // if (time < 10) {
-    //   time = "0" + time;
-    // }
     setStartTime({ ...startTime, [e.target.name]: time });
   };
 
@@ -224,23 +250,24 @@ const Planner = () => {
 
   return (
     <>
+      <Header
+        menuName="Planner"
+        right={IMAGES.menu}
+        left={IMAGES.home}
+        leftLink={PATH.timer}
+        clickMenuHandler={clickGroupMenuHandler}
+      />
       <StContainer>
-        <Header
-          menuName="Planner"
-          right={IMAGES.menu}
-          left={IMAGES.home}
-          leftLink={PATH.timer}
-        />
         <StDiv>
           <UsernameCard
             link={PATH.profile}
             username={plans.username}
             profileImage={plans.profileImage}
           />
-          <Link to={PATH.calendar}>{IMAGES.calendarIcon}</Link>
+          <Link to={PATH.calendar(username)}>{IMAGES.calendarIcon}</Link>
         </StDiv>
         <StDiv>
-          <StDateBox>{today()}</StDateBox>
+          <StDateBox>{getDayOfWeek(date)}</StDateBox>
           <StTodayCarrot>
             오늘 수확량 <span>{plans.carrot}</span>
           </StTodayCarrot>
@@ -260,7 +287,7 @@ const Planner = () => {
               color = "#67986C";
             }
             return (
-              <div key={val.startTime}>
+              <div key={uuidv4()}>
                 <PlanCard
                   onClick={
                     plans.isOwner
@@ -298,6 +325,7 @@ const Planner = () => {
           isEdit={isEdit}
           id={selectedId}
           plan={plan}
+          date={date}
         />
       </SlideModal>
     </>
