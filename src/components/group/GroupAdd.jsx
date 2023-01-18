@@ -101,10 +101,10 @@ const GroupAdd = () => {
         </AddName>
         <Addcontents>
           <h3>그룹 소개</h3>
-          <Textarea onChange={onTextareaHandler} maxLength="60" />
+          <Textarea onChange={onTextareaHandler} maxLength="50" />
           <p>
             <span>{textareaCount}</span>
-            <span>/60 자</span>
+            <span>/50 자</span>
           </p>
         </Addcontents>
         <TimerButton marginTop="80px" width="319px" onClick={onClickGroupAdd}>
