@@ -56,6 +56,11 @@ const SearchModal = ({ propsState }) => {
     navigate(PATH.calendar(username));
   };
 
+  //모달 오픈 관련
+  const searchModalOpen = useSelector(
+    (state) => state.modalSlice.searchModalOpen
+  );
+
   return (
     <>
       {openPopup && (

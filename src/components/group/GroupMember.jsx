@@ -20,6 +20,7 @@ import {
 import SlideModal from "../element/SlideModal";
 import GroupModal from "./GroupModal";
 import GroupDetailBtn from "../element/GroupDetailBtn";
+import ProfileImg from "../element/ProfileImg";
 
 const GroupMember = () => {
   const dispatch = useDispatch();
@@ -47,10 +48,6 @@ const GroupMember = () => {
   const [quitModal, setQuitModal] = useState(false);
   const [updateModal, setUpdateModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
-
-  const clickGroupMenuHandler = () => {
-    dispatch(groupMenuOpenStatus(!groupMenuOpen));
-  };
 
   //클릭 핸들러
   const clickQuitHandler = () => {
@@ -133,7 +130,10 @@ const GroupMember = () => {
                 {groupMemberGet?.myInfo !== undefined ? (
                   <>
                     <User>
-                      <img src={groupMemberGet?.myInfo[0]?.profileImage} />
+                      <ProfileImg
+                        src={groupMemberGet?.myInfo[0]?.profileImage}
+                      />
+                      {/* <img src={groupMemberGet?.myInfo[0]?.profileImage} /> */}
                       <span>{groupMemberGet?.myInfo[0]?.username}</span>
                     </User>
                     <Carrot>
@@ -157,7 +157,8 @@ const GroupMember = () => {
                     </OfflineState>
                   )}
                   <User>
-                    <img src={user?.profileImage} />
+                    <ProfileImg src={user?.profileImage} />
+                    {/* <img src={user?.profileImage} /> */}
                     <span>{user?.username}</span>
                   </User>
                   <Carrot>
@@ -298,11 +299,11 @@ const OfflineState = styled(State)`
   }
 `;
 
-const User = styled(State)`
+const User = styled.div`
   width: 116px;
-  img {
-    width: 20px;
-  }
+  display: flex;
+  align-items: center;
+  gap: 7px;
   span {
     font-family: "Pretendard-Regular";
     color: #595550;

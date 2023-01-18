@@ -28,6 +28,7 @@ import { ReactComponent as Edit } from "../assets/images/mypage/NotePencil.svg";
 import { ReactComponent as DownArrowS } from "../assets/images/downArrowS.svg";
 import { ReactComponent as UpArrowS } from "../assets/images/upArrowS.svg";
 import { ReactComponent as SearchIcon } from "../assets/images/searchIcon.svg";
+import { ReactComponent as XIcon } from "../assets/images/group/xIcon.svg";
 
 export const IMAGES = {
   // 로그인
@@ -76,6 +77,7 @@ export const IMAGES = {
   checkCircle: <CheckCircle />,
   blockCircle: <BlockCircle />,
   emptyCircle: <EmptyCircle />,
+  xIcon: <XIcon />,
 
   //작은화살표
   downArrowS: <DownArrowS />,

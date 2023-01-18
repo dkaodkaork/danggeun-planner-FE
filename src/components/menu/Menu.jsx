@@ -7,7 +7,7 @@ import { PATH } from "../../constants/index";
 
 import {
   groupMenuOpenStatus,
-  detailMenuOpenStatus,
+  searchModalOpenStatus,
 } from "../../redux/modules/modalSlice";
 
 import { __getUserInfo } from "../../redux/modules/mypageSlice";
@@ -71,9 +71,19 @@ const Menu = () => {
     dispatch(groupMenuOpenStatus(!groupMenuOpen));
   };
 
+  //모달 오픈 관련
+  const searchModalOpen = useSelector(
+    (state) => state.modalSlice.searchModalOpen
+  );
+
+  //검정 배경 클릭 시 모달 닫기
+  const clickBackdropModalHandler = () => {
+    dispatch(searchModalOpenStatus(!searchModalOpen));
+  };
+
   return (
     <>
-      <ModalBackdrop toggle={groupMenuOpen} onClick={clickBackdropHandler}>
+      <ModalBackdrop toggle={groupMenuOpen}>
         <MenuLayout toggle={groupMenuOpen}>
           <MenuIcon>
             <button onClick={clickGroupMenuHandler}>{IMAGES.nextArrow}</button>
@@ -86,8 +96,8 @@ const Menu = () => {
             <MenuButton onClick={clickPlannerNav}>플래너</MenuButton>
             <MenuButton onClick={clickGroupNav}>그룹</MenuButton>
           </MenuNav>
-          <Search>
-            <button onClick={clickSearchNav}>{IMAGES.searchIcon}</button>
+          <Search onClick={clickSearchNav}>
+            <button>{IMAGES.searchIcon}</button>
             <span>검색</span>
           </Search>
         </MenuLayout>
