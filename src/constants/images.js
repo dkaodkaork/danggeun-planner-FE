@@ -27,6 +27,7 @@ import { ReactComponent as Fold } from "../assets/images/mypage/fold_icon.svg";
 import { ReactComponent as Edit } from "../assets/images/mypage/NotePencil.svg";
 import { ReactComponent as DownArrowS } from "../assets/images/downArrowS.svg";
 import { ReactComponent as UpArrowS } from "../assets/images/upArrowS.svg";
+import { ReactComponent as SearchIcon } from "../assets/images/searchIcon.svg";
 
 export const IMAGES = {
   // 로그인
@@ -79,4 +80,7 @@ export const IMAGES = {
   //작은화살표
   downArrowS: <DownArrowS />,
   upArrowS: <UpArrowS />,
+
+  //메뉴
+  searchIcon: <SearchIcon />,
 };

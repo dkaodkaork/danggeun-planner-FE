@@ -97,10 +97,23 @@ const GroupMember = () => {
     });
   };
 
+  //모달에 전달해주는 취소 기능
+  const clickDeleteCancle = () => {
+    setDeleteModal(false);
+  };
+  const clickUpdateCancle = () => {
+    setUpdateModal(false);
+  };
+
   return (
     <>
       {!groupMenuOpen ? (
-        <SlideModal bottom="-574px" height="662px" toggle={groupMemberOpen}>
+        <SlideModal
+          bottom="-574px"
+          height="662px"
+          toggle={groupMemberOpen}
+          cancleHandler={ClickToggle}
+        >
           <GroupMemberLayout>
             <Top>
               {groupMemberOpen ? (
@@ -183,6 +196,7 @@ const GroupMember = () => {
           groupName={groupName}
           subject="수정"
           onClickConfirm={clickUpdateConfirm}
+          onClickCancle={clickUpdateCancle}
         />
       ) : null}
       {deleteModal ? (
@@ -190,6 +204,7 @@ const GroupMember = () => {
           groupName={groupName}
           subject="삭제"
           onClickConfirm={clickDeleteConfirm}
+          onClickCancle={clickDeleteCancle}
         />
       ) : null}
       {quitModal ? (
