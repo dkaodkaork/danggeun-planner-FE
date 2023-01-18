@@ -9,7 +9,7 @@ const initialState = {
     totalCarrot: "",
   },
   isLoading: false,
-  error: null,
+  error: "",
 };
 
 export const __putUsername = createAsyncThunk(
@@ -17,10 +17,12 @@ export const __putUsername = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const { data } = await api.putUsernameApi(payload);
+      console.log(data);
       return thunkAPI.fulfillWithValue(data);
     } catch (error) {
-      // alert(error.response.data.message);
-      return thunkAPI.rejectWithValue();
+      console.log(error);
+      console.log(error.response.data.message);
+      return thunkAPI.rejectWithValue(error.response.data.message);
     }
   }
 );
@@ -67,6 +69,8 @@ export const mypageSlice = createSlice({
       })
       .addCase(__putUsername.rejected, (state, action) => {
         state.isLoading = false;
+        console.log(action.payload);
+        state.error = action.payload;
       })
 
       // 마이페이지 유저정보 가져오기
@@ -79,6 +83,7 @@ export const mypageSlice = createSlice({
       })
       .addCase(__getUserInfo.rejected, (state, action) => {
         state.isLoading = false;
+        // state.error = action.payload;
       })
 
       // 프로필이미지 변경하기

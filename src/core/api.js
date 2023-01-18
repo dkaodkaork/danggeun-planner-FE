@@ -24,7 +24,8 @@ export const api = {
   postTimerApi: (startTime) => baseURL.post(`/timer`, startTime),
   putTimerApi: (timerId, timerInfo) =>
     baseURL.put(`/timer/${timerId}`, timerInfo),
-  putTimerContentApi: (timerId) => baseURL.put(`timer/${timerId}/content`),
+  putTimerContentApi: (timerId, content) =>
+    baseURL.put(`timer/${timerId}/content`, content),
 
   //그룹
   getGroupListApi: () => baseURL.get(`/group`),
