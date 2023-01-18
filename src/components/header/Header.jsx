@@ -20,6 +20,7 @@ const Header = ({
   fontFamily,
   width,
   marginRight,
+  marginLeft,
 }) => {
   return (
     <>
@@ -34,13 +35,14 @@ const Header = ({
             fontWeight={fontWeight}
             width={width}
             marginRight={marginRight}
+            marginLeft={marginLeft}
             fontFamily={fontFamily}
           >
             {menuName}
           </MenuName>
           <MenuIcon onClick={clickMenuHandler} fontFamily={fontFamily}>
             <Link to={rightLink}>
-              <button onClick={onClick}>{right}</button>
+              <button>{right}</button>
             </Link>
           </MenuIcon>
         </TopIcon>
@@ -72,6 +74,7 @@ export const HomeNav = styled.div`
 export const MenuName = styled.h1`
   width: ${({ width }) => width};
   margin-right: ${({ marginRight }) => marginRight};
+  margin-left: ${({ marginLeft }) => marginLeft};
 
   text-align: center;
   font-family: ${({ fontFamily }) => fontFamily || "MaplestoryOTFLight"};
