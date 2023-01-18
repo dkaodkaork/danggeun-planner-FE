@@ -29,6 +29,9 @@ import { ReactComponent as DownArrowS } from "../assets/images/downArrowS.svg";
 import { ReactComponent as UpArrowS } from "../assets/images/upArrowS.svg";
 import { ReactComponent as SearchIcon } from "../assets/images/searchIcon.svg";
 import { ReactComponent as XIcon } from "../assets/images/group/xIcon.svg";
+import { ReactComponent as Gold } from "../assets/images/group/gold.svg";
+import { ReactComponent as Silver } from "../assets/images/group/silver.svg";
+import { ReactComponent as Bronze } from "../assets/images/group/bronze.svg";
 
 export const IMAGES = {
   // 로그인
@@ -78,6 +81,9 @@ export const IMAGES = {
   blockCircle: <BlockCircle />,
   emptyCircle: <EmptyCircle />,
   xIcon: <XIcon />,
+  gold: <Gold />,
+  silver: <Silver />,
+  bronze: <Bronze />,
 
   //작은화살표
   downArrowS: <DownArrowS />,
