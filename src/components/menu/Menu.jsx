@@ -13,6 +13,7 @@ import {
 import { __getUserInfo } from "../../redux/modules/mypageSlice";
 
 import SearchModal from "../search/SearchModal.jsx";
+import ProfileImg from "../element/ProfileImg.jsx";
 
 import moment from "moment";
 
@@ -76,9 +77,7 @@ const Menu = () => {
         <MenuLayout toggle={groupMenuOpen}>
           <MenuIcon>
             <button onClick={clickGroupMenuHandler}>{IMAGES.nextArrow}</button>
-            <ImgCircle>
-              <ProfileImg src={userInfo?.profileImage} />
-            </ImgCircle>
+            <ProfileImg src={userInfo?.profileImage} />
           </MenuIcon>
           <Nickname>{userInfo?.username}</Nickname>
           <MenuNav>
@@ -153,19 +152,6 @@ const MenuButton = styled.button`
   text-align: center;
   color: #4a8a51;
   gap: 24px;
-`;
-
-//프로필 이미지 둥글게
-const ImgCircle = styled.div`
-  width: 30px;
-  height: 30px;
-  border-radius: 70%;
-  overflow: hidden;
-`;
-const ProfileImg = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 `;
 
 const Nickname = styled.div`
