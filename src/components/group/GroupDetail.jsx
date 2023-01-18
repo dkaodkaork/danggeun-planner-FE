@@ -69,13 +69,14 @@ const GroupDetail = () => {
         <GroupInfo>{groupDetailData.description}</GroupInfo>
         <RankBox>
           <RankName>
-            {todayYear}년 {todayMonth}월 랭킹
+            {todayYear}년 <strong> {todayMonth}월</strong> 랭킹
           </RankName>
           {groupDetailData?.ranking?.length !== 0 &&
           groupDetailData?.ranking?.length !== undefined ? (
             <>
               <Gold>
-                <span>{groupDetailData?.ranking[0]?.rank}위</span>
+                {/* <span>{groupDetailData?.ranking[0]?.rank}위</span> */}
+                <span>{IMAGES.gold}</span>
                 <User>
                   <img src="https://velog.velcdn.com/images/posinity/post/d98edda0-adc8-45ae-a97f-8e9316d70199/image.png" />
                   <span>{groupDetailData?.ranking[0]?.username}</span>
@@ -138,7 +139,7 @@ const GroupLayout = styled.div`
 `;
 
 const GroupImg = styled.img`
-  margin-top: 30px;
+  margin-top: 12px;
   width: 67px;
 `;
 
@@ -152,11 +153,11 @@ const GroupName = styled.p`
 
 const GroupInfo = styled.p`
   margin-top: 24px;
-  font-family: "MaplestoryOTFLight";
-  font-weight: 300;
-  font-size: 1.4rem;
-  line-height: 2.24rem;
-  color: #614925;
+  font-family: "Pretendard-Bold";
+  font-weight: 700;
+  font-size: 1.6rem;
+  line-height: 2.56rem;
+  color: #595550;
 `;
 
 const RankBox = styled.div`
@@ -179,10 +180,14 @@ const RankName = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: "MaplestoryOTFBold";
+  font-family: "Pretendard-Bold";
   font-weight: 700;
-  font-size: 1.4rem;
-  color: #614925;
+  font-size: 1.6rem;
+  color: #595550;
+  strong {
+    padding: 0 5px;
+    color: #f27808;
+  }
 `;
 
 const NoGetMsg = styled.div`

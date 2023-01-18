@@ -24,6 +24,9 @@ const GroupInvite = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  //검색 리스트
+  //const searchMember = useSelector((state) => state.group.searchMember);
+
   //그룹 오픈 관련
   const groupMenuOpen = useSelector((state) => state.modalSlice.groupMenuOpen);
 
@@ -55,15 +58,26 @@ const GroupInvite = () => {
   }, []);
   //검색 리스트를 저장할 배열
   const [searchList, setSearchList] = useState([]);
-  //검색 리스트
-  const searchMember = useSelector((state) => state.group.searchMember);
-
-  console.log(searchList);
 
   //검색 시 데이터 불러옴
   const clickSearch = () => {
-    dispatch(__getGroupMemberInvite({ groupId, username }));
-    setSearchList(searchMember);
+    if (username === "") {
+      alert("닉네임을 입력해주세요");
+    } else {
+      dispatch(__getGroupMemberInvite({ groupId, username })).then((res) => {
+        // console.log(res.payload.response?.status);
+        // if (res.payload.response?.status === 404) {
+        //   alert(res.payload.response?.data?.message);
+        // } else {
+        //   setSearchList(res.payload.members);
+        // }
+        if (res.payload.members.length === 0) {
+          alert("검색 결과가 없습니다");
+        } else {
+          setSearchList(res.payload.members);
+        }
+      });
+    }
   };
 
   //체크박스
@@ -178,8 +192,8 @@ const GroupInvite = () => {
               ))}
             </UserBox>
           ) : null}
-          <TimerButton onClick={InviteSubmit} marginTop="30px">
-            초대
+          <TimerButton onClick={InviteSubmit} marginTop="30px" width="319px">
+            완료
           </TimerButton>
         </Flex>
       </GroupLayout>
@@ -269,10 +283,11 @@ const UserBox = styled.div`
   height: 160px;
   background: #f1e5d2;
   border-radius: 12px;
-  padding: 26px 28px;
+  padding: 26px 46px 26px 46px;
   overflow: scroll;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
 
   div {
     margin-top: 14px;
