@@ -33,7 +33,7 @@ const StTimerContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 54px 58px 33px 57px;
+  margin: 72px 58px 33px 57px;
 `;
 
 const StTimer = styled.div`

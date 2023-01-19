@@ -34,7 +34,7 @@ export const timeStamp = () => {
 export const planStartTime = (time) => {
   return (
     timeStamp().slice(0, 11) +
-    (time.hour < 10 ? "0" + time.hour + ":" : time.hour + ":") +
-    (time.min < 10 ? "0" + time.min : time.min)
+    (time.hour.length < 2 ? "0" + time.hour + ":" : time.hour + ":") +
+    (time.min.length < 2 ? "0" + time.min : time.min)
   );
 };

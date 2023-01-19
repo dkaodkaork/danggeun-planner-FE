@@ -20,7 +20,9 @@ const PlannerModal = ({
   plan,
   editTimerContentHandler,
   date,
+  isDisabled,
 }) => {
+  console.log(isDisabled);
   return (
     <>
       <StModalHeader>
@@ -38,10 +40,14 @@ const PlannerModal = ({
 
         <button
           onClick={
-            plan?.hasOwnProperty("timerId")
-              ? () => {
-                  editTimerContentHandler(id);
-                }
+            isDisabled
+              ? plan?.hasOwnProperty("timerId")
+                ? () => {
+                    editTimerContentHandler(id);
+                  }
+                : () => {
+                    doneAddModalHandler(id);
+                  }
               : () => {
                   doneAddModalHandler(id);
                 }
@@ -73,7 +79,9 @@ const PlannerModal = ({
           height="45px"
           fontSize="1.4rem"
           padding="12px"
-          disabled={plan?.hasOwnProperty("timerId") ? true : false}
+          disabled={
+            isDisabled && plan?.hasOwnProperty("timerId") ? true : false
+          }
         />
         <div>:</div>
 
@@ -89,7 +97,9 @@ const PlannerModal = ({
           height="45px"
           fontSize="1.4rem"
           padding="12px"
-          disabled={plan?.hasOwnProperty("timerId") ? true : false}
+          disabled={
+            isDisabled && plan?.hasOwnProperty("timerId") ? true : false
+          }
         />
         <p>-</p>
         <StSpan>종료</StSpan>
@@ -105,7 +115,9 @@ const PlannerModal = ({
           height="45px"
           fontSize="1.4rem"
           padding="12px"
-          disabled={plan?.hasOwnProperty("timerId") ? true : false}
+          disabled={
+            isDisabled && plan?.hasOwnProperty("timerId") ? true : false
+          }
         ></Input>
         <div>:</div>
         <Input
@@ -120,7 +132,9 @@ const PlannerModal = ({
           height="45px"
           fontSize="1.4rem"
           padding="12px"
-          disabled={plan?.hasOwnProperty("timerId") ? true : false}
+          disabled={
+            isDisabled && plan?.hasOwnProperty("timerId") ? true : false
+          }
         />
       </StTimeBox>
     </>
@@ -131,9 +145,7 @@ export default PlannerModal;
 
 const StDateBox = styled.div`
   height: 19px;
-  font-family: "Pretendard";
-  font-style: normal;
-  font-weight: 700;
+  font-family: "Pretendard-Bold";
   font-size: 1.7rem;
   line-height: 19px;
   color: #595550;
@@ -179,12 +191,10 @@ const StInput = styled.input`
   border-radius: 12px;
 
   ::placeholder {
-    font-family: "Pretendard";
-    font-style: normal;
-    font-weight: 500;
+    font-family: "Pretendard-Regular";
     font-size: 1.4rem;
     line-height: 17px;
-    color: #a4a4a4;
+    color: #e3e1e1;
   }
 `;
 
@@ -192,9 +202,7 @@ const StLabel = styled.label`
   height: 16px;
   width: 310px;
   font-family: "Pretendard";
-  font-style: normal;
-  font-weight: 500;
-  font-size: 12px;
+  font-size: 1.2rem;
   line-height: 130%;
 
   text-align: right;

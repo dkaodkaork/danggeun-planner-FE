@@ -25,10 +25,11 @@ const LoginBtnBox = ({ onClick, disabled, mainBtnName, bottomText, path }) => {
           fontFamily="Pretendard"
           fontStyle="normal"
           fontWeight="700"
-          gap="24px"
           filter="none"
         >
-          {IMAGES.kakao} 카카오 아이디로 로그인하기
+          <StImg src={IMAGES.kakao} alt="카카오 로그인" />
+          <StText>카카오 아이디</StText>
+          <StP>로 로그인하기</StP>
         </Button>
         <Button
           height="54px"
@@ -39,10 +40,11 @@ const LoginBtnBox = ({ onClick, disabled, mainBtnName, bottomText, path }) => {
           fontStyle="normal"
           fontWeight="700"
           color="#FFFDFA"
-          gap="25px"
           filter="none"
         >
-          {IMAGES.naver} 네이버 아이디로 로그인하기
+          <StImg src={IMAGES.naver} alt="네이버 로그인" />
+          <StText>네이버 아이디</StText>
+          <StP>로 로그인하기</StP>
         </Button>
         <Button
           height="54px"
@@ -53,10 +55,11 @@ const LoginBtnBox = ({ onClick, disabled, mainBtnName, bottomText, path }) => {
           fontStyle="normal"
           fontWeight="700"
           color="#595550"
-          gap="28px"
           filter="none"
         >
-          {IMAGES.google} 구글 아이디로 로그인하기
+          <StImg src={IMAGES.google} alt="구글 로그인" />
+          <StText>구글 아이디</StText>
+          <StP>로 로그인하기</StP>
         </Button>
       </StOauthBtns>
       <Link to={path}>
@@ -90,16 +93,29 @@ const StBottomText = styled.div`
   font-family: "Pretendard";
   font-style: normal;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 1.4rem;
   line-height: 130%;
-  /* or 18px */
 
   text-align: center;
   text-decoration-line: underline;
 
-  /* 1 */
-
   color: #f27808;
 
-  margin-top: 59px;
+  margin-top: 39px;
+`;
+
+const StImg = styled.img`
+  width: 30px;
+  height: 30px;
+`;
+
+const StText = styled.div`
+  font-family: "Pretendard-Bold";
+  font-size: 1.5rem;
+  margin-left: 24px;
+`;
+
+const StP = styled.p`
+  font-family: "Pretendard-Regular";
+  font-size: 1.5rem;
 `;
