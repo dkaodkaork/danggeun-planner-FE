@@ -13,6 +13,9 @@ const UsernameForm = () => {
 
   const [countUsername, setCountUsername] = useState(0);
 
+  //버튼 활성화
+  const [disabled, setDisabled] = useState(false);
+
   const [userInfo, setUserInfo] = useState({
     username: "",
   });
@@ -20,6 +23,9 @@ const UsernameForm = () => {
     const { name, value } = e.target;
     setUserInfo({ [name]: value });
     setCountUsername(e.target.value.length);
+    if (countUsername > 0) {
+      setDisabled(true);
+    }
   };
 
   const submitUsernameHandler = () => {
@@ -27,7 +33,7 @@ const UsernameForm = () => {
       alert("닉네임을 입력해주세요!");
     } else {
       return dispatch(__putUsername(userInfo)).then((res) => {
-        if (res?.payload?.message === "닉네임 변경 성공") {
+        if (res?.payload?.message === "닉네임 등록 성공") {
           navigate(PATH.timer);
         }
       });
@@ -51,9 +57,9 @@ const UsernameForm = () => {
       </StInputBox>
       <Button
         onClick={submitUsernameHandler}
-        backgroundColor="#A4A4A4"
         width="319px"
         marginTop="421px"
+        disabled={!disabled}
       >
         완료
       </Button>
