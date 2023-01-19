@@ -62,12 +62,10 @@ const StButton = styled.button`
   animation: ${({ animation }) => animation};
   filter: ${({ filter }) =>
     filter || "drop-shadow(0px 4px 0px rgba(0, 0, 0, 0.25))"};
-  /* &:disabled {
-    background-color: ${({ backgroundColor }) =>
-    backgroundColor || "rgba(88, 132, 224, 0.7)"};
-    color: ${({ color }) => color || "#fff"};
+  &:disabled {
+    background-color: ${({ backgroundColor }) => backgroundColor || "#A4A4A4"};
   }
-  &:active {
+  /* &:active {
     background-color: ${({ backgroundColor }) =>
     backgroundColor || "var(--color-point-blue)"};
     color: ${({ color }) => color || "#fff"};

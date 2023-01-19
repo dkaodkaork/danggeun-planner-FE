@@ -63,6 +63,11 @@ const Menu = () => {
     navigate(PATH.planner(userInfo.username, today));
     dispatch(groupMenuOpenStatus(!groupMenuOpen));
   };
+  //마이페이지
+  const clickProfileNav = () => {
+    navigate(PATH.mypage);
+    dispatch(groupMenuOpenStatus(!groupMenuOpen));
+  };
   //검색 모달
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -86,10 +91,14 @@ const Menu = () => {
       <ModalBackdrop toggle={groupMenuOpen}>
         <MenuLayout toggle={groupMenuOpen}>
           <MenuIcon>
-            <button onClick={clickGroupMenuHandler}>{IMAGES.nextArrow}</button>
-            <ProfileImg src={userInfo?.profileImage} />
+            <div onClick={clickGroupMenuHandler}>
+              <button>{IMAGES.nextArrow}</button>
+            </div>
+            <div onClick={clickProfileNav}>
+              <ProfileImg src={userInfo?.profileImage} />
+            </div>
           </MenuIcon>
-          <Nickname>{userInfo?.username}</Nickname>
+          <Nickname onClick={clickProfileNav}>{userInfo?.username}</Nickname>
           <MenuNav>
             <MenuButton onClick={clickTimverNav}>타이머</MenuButton>
             <MenuButton onClick={clickCalendarNav}>캘린더</MenuButton>

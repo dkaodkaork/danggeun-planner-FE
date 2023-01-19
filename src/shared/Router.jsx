@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
+
 import LoginPage from "../pages/auth/LoginPage";
 import SignUpPage from "../pages/auth/SignUpPage";
 import CalendarPage from "../pages/CalendarPage";
@@ -14,12 +15,14 @@ import GroupAddPage from "../pages/group/GroupAddPage";
 import GroupDetailPage from "../pages/group/GroupDetailPage";
 import GroupUpdatePage from "../pages/group/GroupUpdatePage";
 import GroupInvitePage from "../pages/group/GroupInvitePage";
+import PrivateRoute from "./PrivateRoute";
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route>
+          {/* <PrivateRoute exact path="/" element={<TimerPage />} /> */}
           <Route path="/" element={<TimerPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignUpPage />} />
