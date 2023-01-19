@@ -11,6 +11,7 @@ import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
 //컴포넌트 Import
 import Header from "../header/Header";
 import TodayBtn from "./TodayBtn";
+import ProfileImg from "../element/ProfileImg.jsx";
 
 //캘린더 라이브러리 관련 import
 import Calendar from "react-calendar";
@@ -81,6 +82,8 @@ const CalendarGet = () => {
 
   const [value, setValue] = useState(new Date());
 
+  const todayStage = 4;
+
   return (
     <>
       <Header
@@ -92,11 +95,15 @@ const CalendarGet = () => {
       ></Header>
       <CalendarStyle>
         <ProfileLayout>
-          <img src={GetCalendarData?.profileImage} />
+          <ProfileImg
+            src={GetCalendarData?.profileImage}
+            width="125px"
+            height="125px"
+          />
         </ProfileLayout>
         <NickName>{GetCalendarData?.username}</NickName>
         <MonthlyGet>
-          {GetCalendarData?.username}님의 이번달 총 수확량은
+          {GetCalendarData?.username}님의 이번달 총 수확량은{" "}
           <strong>{GetCalendarData?.carrot}</strong>
           개입니다
         </MonthlyGet>
@@ -117,15 +124,15 @@ const CalendarGet = () => {
             //   ["S", "M", "T", "W", "T", "F", "S"][date.getDay()]
             // } //요일 표시 수정
             // 년도를 클릭해서 월로 바로 이동할 때 호출되는 함수
-            onViewChange={({ action, activeStartDate, value, view }) =>
-              console.log("New activeStartDate is: ", activeStartDate)
-            }
+            // onViewChange={({ activeStartDate }) =>
+            //   console.log("New activeStartDate is: ", activeStartDate)
+            // }
             // 이전,다음 버튼 사용할 때 호출되는 함수
             onActiveStartDateChange={ClickArrowHandler}
             //하루를 클릭할 때 호출되는 함수
             onClickDay={ClickDayHandler}
             //해당 잔디 색깔 표시하기
-            tileClassName={({ date, view }) => {
+            tileClassName={({ date }) => {
               if (mark1?.find((x) => x === moment(date).format("YYYY-MM-DD"))) {
                 return "state1";
               }
@@ -138,9 +145,37 @@ const CalendarGet = () => {
               if (mark4?.find((x) => x === moment(date).format("YYYY-MM-DD"))) {
                 return "state4";
               }
+              // if (
+              //   todayStage === 1 &&
+              //   moment().format("YYYY-MM-DD") ===
+              //     moment(date).format("YYYY-MM-DD")
+              // ) {
+              //   return "todayState1";
+              // }
+              if (
+                moment().format("YYYY-MM-DD") ===
+                moment(date).format("YYYY-MM-DD")
+              ) {
+                switch (todayStage) {
+                  case 1:
+                    return "todayState1";
+                    break;
+                  case 2:
+                    return "todayState2";
+                    break;
+                  case 3:
+                    return "todayState3";
+                    break;
+                  case 4:
+                    return "todayState4";
+                    break;
+                }
+              }
             }}
           />
-          <TodayBtn onClickToday={ClickTodayHandler} />
+          <TodayBtnLayout>
+            <TodayBtn onClickToday={ClickTodayHandler} />
+          </TodayBtnLayout>
         </CalendarLayout>
       </CalendarStyle>
     </>
@@ -158,25 +193,27 @@ export const CalendarStyle = styled.div`
 `;
 
 export const ProfileLayout = styled.div`
-  margin-top: 43px;
+  margin-top: 34px;
 `;
 
 export const NickName = styled.h2`
-  margin-top: 43px;
+  margin-top: 24px;
   font-family: "MaplestoryOTFBold";
   font-weight: 700;
   font-size: 2.4rem;
+  color: #595550;
 `;
 
 export const MonthlyGet = styled.p`
-  margin-top: 43px;
+  margin-top: 24px;
   font-family: "Pretendard-Regular";
   font-weight: 500;
   font-size: 1.4rem;
   color: #403b36;
   strong {
+    font-family: "Pretendard-bold";
     font-weight: 700;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     color: #f27808;
     padding: 0 2px 0 2px;
   }
@@ -188,4 +225,8 @@ export const CalendarLayout = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 12px;
+`;
+
+export const TodayBtnLayout = styled.div`
+  margin-top: 24px;
 `;
