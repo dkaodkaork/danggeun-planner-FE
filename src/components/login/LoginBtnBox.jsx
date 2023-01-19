@@ -7,12 +7,7 @@ import { Link } from "react-router-dom";
 const LoginBtnBox = ({ onClick, disabled, mainBtnName, bottomText, path }) => {
   return (
     <StContainer>
-      <Button
-        onClick={onClick}
-        backgroundColor="#A4A4A4"
-        width="319px"
-        disabled={disabled}
-      >
+      <Button onClick={onClick} width="319px" disabled={disabled}>
         {mainBtnName}
       </Button>
       <StOauthBtns>
