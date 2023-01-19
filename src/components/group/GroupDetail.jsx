@@ -43,7 +43,7 @@ const GroupDetail = () => {
   const todayYear = moment().format("YYYY");
   const todayMonth = moment().format("M");
 
-  console.log(groupDetailData);
+  //console.log(groupDetailData);
 
   return (
     <>
@@ -68,8 +68,8 @@ const GroupDetail = () => {
         marginRight="40px"
       />
       <GroupLayout>
-        <GroupImg src="https://velog.velcdn.com/images/posinity/post/d98edda0-adc8-45ae-a97f-8e9316d70199/image.png" />
-        <GroupInfo>{groupDetailData.description}</GroupInfo>
+        <GroupImg src={groupDetailData?.groupImage} />
+        <GroupInfo>{groupDetailData?.description}</GroupInfo>
         <RankBox>
           <RankName>
             {todayYear}년 <strong> {todayMonth}월</strong> 랭킹

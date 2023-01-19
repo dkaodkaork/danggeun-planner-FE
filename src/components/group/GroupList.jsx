@@ -14,6 +14,7 @@ import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
 const GroupList = () => {
   const dispatch = useDispatch();
   const groupData = useSelector((state) => state.group.groupList);
+  //console.log(groupData);
 
   useEffect(() => {
     dispatch(__getGroupList());
@@ -65,7 +66,7 @@ const GroupList = () => {
                       <span>{group.participants}</span>
                     </People>
                   </TopInfo>
-                  <GroupImg src="https://velog.velcdn.com/images/posinity/post/d98edda0-adc8-45ae-a97f-8e9316d70199/image.png" />
+                  <GroupImg src={group.groupImage} />
                   <p>
                     {group.description.length < 9
                       ? group.description
