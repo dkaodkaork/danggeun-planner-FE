@@ -24,13 +24,13 @@ import { PATH } from "../../constants/path.js";
 
 const CalendarGet = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   //닉네임 받기
   const param = useParams();
   const username = param.username;
 
   const GetCalendarData = useSelector((state) => state.calendarSlice);
-  const navigate = useNavigate();
 
   const getColorStages = useSelector(
     (state) => state.calendarSlice.colorStages
@@ -60,6 +60,9 @@ const CalendarGet = () => {
   const mark3 = getColorStages[0]?.colorStage3;
   const mark4 = getColorStages[0]?.colorStage4;
 
+  //오늘 날짜 단계 저장
+  const todayStage = GetCalendarData?.todayColorStage;
+
   //이번달로 이동하는 핸들러
   const ClickTodayHandler = () => {
     const calendar = calendarRef.current;
@@ -81,8 +84,6 @@ const CalendarGet = () => {
   };
 
   const [value, setValue] = useState(new Date());
-
-  const todayStage = 0;
 
   return (
     <>
@@ -145,13 +146,6 @@ const CalendarGet = () => {
               if (mark4?.find((x) => x === moment(date).format("YYYY-MM-DD"))) {
                 return "state4";
               }
-              // if (
-              //   todayStage === 1 &&
-              //   moment().format("YYYY-MM-DD") ===
-              //     moment(date).format("YYYY-MM-DD")
-              // ) {
-              //   return "todayState1";
-              // }
               if (
                 moment().format("YYYY-MM-DD") ===
                 moment(date).format("YYYY-MM-DD")
