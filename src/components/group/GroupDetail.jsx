@@ -63,7 +63,8 @@ const GroupDetail = () => {
         fontWeight="700"
         width="219px"
         left={IMAGES.fold}
-        onClick={() => navigate(-1)}
+        leftLink={PATH.grouplist}
+        // onClick={() => navigate(-1)}
         marginRight="40px"
       />
       <GroupLayout>
@@ -125,8 +126,9 @@ const GroupDetail = () => {
           )}
         </RankBox>
         <MonthlyCarrot>
-          우리 그룹은 오늘 <strong>{groupDetailData?.groupCarrot}개</strong>{" "}
-          당근을 수확했어요!
+          우리 그룹은 오늘{" "}
+          <strong>{groupDetailData?.groupDailyCarrot}개</strong> 당근을
+          수확했어요!
           <br />
           우리 그룹은 이번달 <strong>
             {groupDetailData?.groupCarrot}개
@@ -236,6 +238,7 @@ const User = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
+  margin-left: -37px;
 `;
 
 const CarrotNumber = styled.p`
