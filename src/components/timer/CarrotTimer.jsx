@@ -128,7 +128,6 @@ const CarrotTimer = () => {
         textDecoration="underline"
         underlinePosition="under"
         filter="none"
-        fontWeight="400"
         fontFamily="MaplestoryOTFLight"
       >
         포기하기
@@ -152,7 +151,6 @@ const CarrotTimer = () => {
         textDecoration="underline"
         underlinePosition="under"
         filter="none"
-        fontWeight="400"
         fontFamily="MaplestoryOTFLight"
       >
         넘어가기

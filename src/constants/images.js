@@ -20,21 +20,21 @@ import { ReactComponent as EmptyCircle } from "../assets/images/group/empty_circ
 import { ReactComponent as CarrotSticker } from "../assets/images/planner/carrot.svg";
 import { ReactComponent as CheckBtn } from "../assets/images/planner/check.svg";
 import { ReactComponent as Trash } from "../assets/images/planner/trash_icon.svg";
-import { ReactComponent as Kakao } from "../assets/images/login/kakao.svg";
-import { ReactComponent as Naver } from "../assets/images/login/naver_logo.svg";
-import { ReactComponent as Google } from "../assets/images/login/google.svg";
 import { ReactComponent as Fold } from "../assets/images/mypage/fold_icon.svg";
 import { ReactComponent as Edit } from "../assets/images/mypage/NotePencil.svg";
 import { ReactComponent as DownArrowS } from "../assets/images/downArrowS.svg";
 import { ReactComponent as UpArrowS } from "../assets/images/upArrowS.svg";
 import { ReactComponent as SearchIcon } from "../assets/images/searchIcon.svg";
 import { ReactComponent as XIcon } from "../assets/images/group/xIcon.svg";
+import { ReactComponent as Gold } from "../assets/images/group/gold.svg";
+import { ReactComponent as Silver } from "../assets/images/group/silver.svg";
+import { ReactComponent as Bronze } from "../assets/images/group/bronze.svg";
 
 export const IMAGES = {
   // 로그인
-  kakao: <Kakao />,
-  naver: <Naver />,
-  google: <Google />,
+  kakao: require("../assets/images/login/kakao.png"),
+  naver: require("../assets/images/login/naver.png"),
+  google: require("../assets/images/login/google.png"),
 
   // 마이페이지
   fold: <Fold />,
@@ -78,6 +78,12 @@ export const IMAGES = {
   blockCircle: <BlockCircle />,
   emptyCircle: <EmptyCircle />,
   xIcon: <XIcon />,
+  goldSvg: <Gold />,
+  silverSvg: <Silver />,
+  bronzeSvg: <Bronze />,
+  goldPng: require("../assets/images/group/gold.png"),
+  silverPng: require("../assets/images/group/silver.png"),
+  bronzePng: require("../assets/images/group/bronze.png"),
 
   //작은화살표
   downArrowS: <DownArrowS />,

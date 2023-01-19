@@ -14,13 +14,13 @@ const GetCarrot = ({ onClick }) => {
   return (
     <>
       <Button onClick={openModalHandler}>당근 수확하기</Button>
-      <ModalContainer>
+      <>
         {isOpen ? (
           <ModalBackdrop>
             <GetCarrotModal onOpenModal={openModalHandler} onClick={onClick} />
           </ModalBackdrop>
         ) : null}
-      </ModalContainer>
+      </>
     </>
   );
 };
@@ -37,7 +37,6 @@ export const ModalBackdrop = styled.div`
   width: 375px;
   height: 815px;
   bottom: 0px;
-  right: 104px;
   position: fixed;
   display: flex;
   justify-content: center;

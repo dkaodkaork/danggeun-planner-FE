@@ -1,34 +1,34 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import LoginPage from "../pages/LoginPage";
-import MainPage from "../pages/MainPage";
-import SignUpPage from "../pages/SignUpPage";
-import CalendarPage from "../pages/CalendarPage";
-import UsernameFormPage from "../pages/UsernameFormPage";
-import MyPage from "../pages/MyPage";
-import ProfilePage from "../pages/ProfilePage";
-import TimerPage from "../pages/TimerPage";
-import GetCarrotPage from "../pages/GetCarrotPage";
-import PlannerPage from "../pages/PlannerPage";
+import LoginPage from "../pages/auth/LoginPage";
+import SignUpPage from "../pages/auth/SignUpPage";
+import CalendarPage from "../pages/calendar/CalendarPage";
+import UsernameFormPage from "../pages/auth/UsernameFormPage";
+import MyPage from "../pages/user/MyPage";
+import ProfileEditPage from "../pages/user/ProfileEditPage";
+import TimerPage from "../pages/timer/TimerPage";
+import GetCarrotPage from "../pages/timer/GetCarrotPage";
+import PlannerPage from "../pages/planner/PlannerPage";
 import GroupListPage from "../pages/group/GroupListPage";
 import GroupAddPage from "../pages/group/GroupAddPage";
 import GroupDetailPage from "../pages/group/GroupDetailPage";
 import GroupUpdatePage from "../pages/group/GroupUpdatePage";
 import GroupInvitePage from "../pages/group/GroupInvitePage";
+import PrivateRoute from "./PrivateRoute";
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route>
-          <Route path="/" element={<TimerPage />} />
-          <Route path="/main" element={<MainPage />} />
-          <Route path="/login" element={<LoginPage />} />
+          {/* <PrivateRoute exact path="/" element={<TimerPage />} /> */}
+          <Route path="/timer" element={<TimerPage />} />
+          <Route path="/" element={<LoginPage />} />
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/calendar/:username" element={<CalendarPage />} />
           <Route path="/username" element={<UsernameFormPage />} />
           <Route path="/mypage" element={<MyPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/profile" element={<ProfileEditPage />} />
           <Route path="/planner/:username/:date" element={<PlannerPage />} />
           <Route path="/carrot" element={<GetCarrotPage />} />
           <Route path="/group" element={<GroupListPage />} />

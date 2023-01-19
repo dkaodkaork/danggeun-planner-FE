@@ -80,7 +80,7 @@ const Profile = () => {
         right={IMAGES.menu}
         left={IMAGES.home}
         leftLink={PATH.timer}
-        fontFamily="Pretendard"
+        fontFamily="Pretendard-Regular"
         clickMenuHandler={clickGroupMenuHandler}
       />
       <Header
@@ -90,7 +90,7 @@ const Profile = () => {
         height="56px"
         padding="12px 28px 12px 28px "
         fontSize="2.0rem"
-        fontWeight="700"
+        fontFamily="MaplestoryOTFBold"
         width="219px"
         marginRight="40px"
       />
@@ -151,9 +151,6 @@ export default Profile;
 const StContainer = styled.div`
   background-color: #f9f3ea;
   height: 812px;
-  /* display: flex;
-  flex-direction: column;
-  align-items: center; */
 `;
 
 const StEditProfileBody = styled.div`
@@ -168,7 +165,6 @@ const StProfileImage = styled.div`
 
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   gap: 10px;
   align-items: center;
 
@@ -178,9 +174,6 @@ const StProfileImage = styled.div`
     font-weight: 700;
     font-size: 1.2rem;
     line-height: 130%;
-    /* identical to box height, or 16px */
-
-    /* word1 */
 
     color: #595550;
   }
@@ -192,7 +185,7 @@ const StTitle = styled.label`
   font-family: "Pretendard";
   font-style: normal;
   font-weight: 700;
-  font-size: 12px;
+  font-size: 1.2rem;
   line-height: 130%;
   text-align: left;
   margin-left: 13px;
@@ -202,7 +195,6 @@ const StTitle = styled.label`
 
 const StImg = styled.img`
   border-radius: 50%;
-  /* border: 1px solid black; */
   object-fit: cover;
   width: 50px;
   height: 50px;
@@ -247,7 +239,7 @@ const StLabel = styled.label`
   font-family: "Pretendard";
   font-style: normal;
   font-weight: 500;
-  font-size: 12px;
+  font-size: 1.2rem;
   line-height: 130%;
 
   text-align: right;
@@ -264,14 +256,9 @@ const StBottomText = styled.div`
   font-family: "Pretendard";
   font-style: normal;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 1.4rem;
   line-height: 130%;
-  /* or 18px */
-
   text-align: center;
-
-  /* 1 */
-
   color: #f27808;
 
   margin-top: 20px;

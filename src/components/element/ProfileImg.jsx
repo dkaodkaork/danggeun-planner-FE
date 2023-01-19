@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
-const ProfileImg = ({ src }) => {
+const ProfileImg = ({ src, width, height }) => {
   return (
     <>
-      <ImgCircle>
+      <ImgCircle width={width} height={height}>
         <Profile src={src} />
       </ImgCircle>
     </>
@@ -14,8 +14,8 @@ const ProfileImg = ({ src }) => {
 export default ProfileImg;
 
 const ImgCircle = styled.div`
-  width: 30px;
-  height: 30px;
+  width: ${(props) => props.width || "30px"};
+  height: ${(props) => props.width || "30px"};
   border-radius: 70%;
   overflow: hidden;
 `;

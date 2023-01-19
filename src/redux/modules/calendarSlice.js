@@ -7,6 +7,7 @@ const initialState = {
   username: "",
   profileImage: "",
   carrot: 0,
+  todayColorStage: 0,
   colorStages: [
     {
       colorStage1: [],
@@ -47,6 +48,7 @@ export const calendarSlice = createSlice({
       state.profileImage = action.payload.profileImage;
       state.carrot = action.payload.carrot;
       state.colorStages = action.payload.colorStages;
+      state.todayColorStage = action.payload.todayColorStage;
     });
     builder.addCase(__getCalendar.rejected, (state, action) => {
       state.isLoading = false;

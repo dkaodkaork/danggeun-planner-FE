@@ -25,11 +25,8 @@ const StMsg = styled.p`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 226px;
+  margin-top: 260px;
   font-size: 1.4rem;
   font-family: "Pretendard";
-  font-style: normal;
-
-  font-weight: 500;
   color: #403b36;
 `;

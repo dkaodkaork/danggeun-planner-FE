@@ -64,7 +64,7 @@ const SignUp = () => {
           alert(data.message);
         }
       } catch (error) {
-        // alert(error.response.data.message);
+        alert(error.response.data.message);
       }
     } else {
       alert(MSG.formInvalidMsg);
@@ -166,7 +166,7 @@ const StTitle = styled.label`
   font-family: "Pretendard";
   font-style: normal;
   font-weight: 700;
-  font-size: 12px;
+  font-size: 1.2rem;
   line-height: 130%;
   text-align: left;
 
@@ -200,7 +200,7 @@ const StLabel = styled.label`
   font-family: "Pretendard";
   font-style: normal;
   font-weight: 500;
-  font-size: 12px;
+  font-size: 1.2rem;
   line-height: 130%;
 
   text-align: center;

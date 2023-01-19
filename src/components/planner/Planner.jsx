@@ -48,6 +48,7 @@ const Planner = () => {
     min: "",
   });
   const [plan, setPlan] = useState();
+  const [isDisabled, setIsDisabled] = useState(false);
 
   // 메뉴 오픈 관련 추후에 반드시 빼야함
   const groupMenuOpen = useSelector((state) => state.modalSlice.groupMenuOpen);
@@ -103,6 +104,8 @@ const Planner = () => {
 
   // 모달창 열기
   const openModalHanlder = () => {
+    console.log("추가하자");
+    setIsDisabled(false);
     // 모달 열때 안에 내용 초기화
     setPlanTitle("");
     setEndTime({
@@ -121,6 +124,7 @@ const Planner = () => {
   // 모달창 수정할때 열기
   const openEditModalHanlder = (id, val) => {
     dispatch(planModalOpenStatus(!planModalOpen));
+    setIsDisabled(true);
     setIsEdit(true);
     setSelectedId(id);
     setPlanTitle(val.content);
@@ -139,8 +143,8 @@ const Planner = () => {
 
   // 계획 삭제
   const closeModalHanlder = (id, plan) => {
-    console.log(id, plan);
-    console.log(isEdit);
+    // console.log(id, plan);
+    // console.log(isEdit);
     if (plan?.hasOwnProperty("timerId")) {
       dispatch(planModalOpenStatus(!planModalOpen));
     } else {
@@ -174,8 +178,11 @@ const Planner = () => {
     }
   };
 
+  // console.log(planTitle);
+
   // 계획 추가, 계획 수정 // 나중에 변수명 수정 , 로직 간단하게 해야함 급하게 짬
   const doneAddModalHandler = (id) => {
+    console.log("계획 수정및 추가 ");
     if (
       !planTitle ||
       !startTime.hour ||
@@ -199,20 +206,23 @@ const Planner = () => {
       } else {
         dispatch(planModalOpenStatus(!planModalOpen));
         if (isEdit) {
+          console.log(startTime);
+          console.log(endTime);
+          console.log(planTitle);
           dispatch(__putPlan({ planInfo, id }));
         } else {
           dispatch(__postPlan(planInfo));
         }
       }
-      setPlanTitle("");
-      setEndTime({
-        hour: "",
-        min: "",
-      });
-      setStartTime({
-        hour: "",
-        min: "",
-      });
+      // setPlanTitle("");
+      // setEndTime({
+      //   hour: "",
+      //   min: "",
+      // });
+      // setStartTime({
+      //   hour: "",
+      //   min: "",
+      // });
     }
   };
   //
@@ -234,10 +244,6 @@ const Planner = () => {
 
   const changeEndTimeHandler = (e) => {
     let time = e.target.value;
-    // 한자리 숫자 시간 입력시
-    // if (time < 10) {
-    //   time = "0" + time;
-    // }
     setEndTime({ ...endTime, [e.target.name]: time });
   };
 
@@ -248,7 +254,7 @@ const Planner = () => {
       e.target.value = e.target.value.slice(0, e.target.maxLength);
   };
 
-  console.log(sortedPlans);
+  // console.log(sortedPlans);
 
   return (
     <>
@@ -262,7 +268,7 @@ const Planner = () => {
       <StContainer>
         <StDiv>
           <UsernameCard
-            link={PATH.profile}
+            link={PATH.mypage}
             username={plans.username}
             profileImage={plans.profileImage}
           />
@@ -328,6 +334,7 @@ const Planner = () => {
           id={selectedId}
           plan={plan}
           date={date}
+          isDisabled={isDisabled}
         />
       </SlideModal>
     </>
@@ -343,10 +350,8 @@ const StContainer = styled.div`
 
 const StDateBox = styled.div`
   height: 19px;
-  font-family: "Pretendard";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 1.7rem;
+  font-family: "Pretendard-Bold";
+  font-size: 1.6rem;
   line-height: 19px;
   color: #595550;
   word-spacing: 2px;
@@ -355,10 +360,10 @@ const StDateBox = styled.div`
 
 const StTodayCarrot = styled.div`
   height: 17px;
-  font-family: "Pretendard";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 1.4rem;
+  font-family: "Pretendard-Regular";
+  /* font-style: normal;
+  font-weight: 500; */
+  font-size: 1.5rem;
   line-height: 17px;
   color: #595550;
   text-align: right;
@@ -366,7 +371,6 @@ const StTodayCarrot = styled.div`
 
   span {
     color: #f27808;
-    font-weight: 600;
   }
 `;
 

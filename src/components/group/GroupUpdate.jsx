@@ -32,14 +32,23 @@ const GroupUpdate = () => {
   const [groupName, setGroupName] = useState("");
   const [description, setDescription] = useState("");
 
+  //버튼 활성화
+  const [disabled, setDisabled] = useState(false);
+
   const onInputHandler = (e) => {
     setGroupName(e.target.value);
     setInputCount(e.target.value.length);
+    if (textareaCount > 0) {
+      setDisabled(true);
+    }
   };
 
   const onTextareaHandler = (e) => {
     setDescription(e.target.value);
     setTextareaCount(e.target.value.length);
+    if (inputCount > 0) {
+      setDisabled(true);
+    }
   };
 
   const onClickGroupUpdate = () => {
@@ -111,18 +120,19 @@ const GroupUpdate = () => {
           <h3>그룹 소개</h3>
           <Textarea
             onChange={onTextareaHandler}
-            maxLength="60"
+            maxLength="50"
             placeholder={groupDetailData.description}
           />
           <p>
             <span>{textareaCount}</span>
-            <span>/60 자</span>
+            <span>/50 자</span>
           </p>
         </Addcontents>
         <TimerButton
           marginTop="80px"
           width="319px"
           onClick={onClickGroupUpdate}
+          disabled={!disabled}
         >
           완 료
         </TimerButton>
@@ -137,7 +147,7 @@ export default GroupUpdate;
 const GroupLayout = styled.div`
   background-color: #f9f3ea;
   min-height: 722px; //812px에서 헤더 90px을 뺀 값을 줘야 스크롤이 안생김
-  padding: 0 32px 42px 32px;
+  padding: 13px 32px 42px 32px;
 `;
 
 const AddInfo = styled.div`
@@ -159,7 +169,6 @@ const AddInfo = styled.div`
 `;
 
 const AddName = styled.div`
-  margin-top: 64px;
   h3 {
     font-family: "Pretendard-Regular";
     font-size: 1.2rem;

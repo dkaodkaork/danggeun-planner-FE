@@ -17,6 +17,7 @@ import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
 //컴포넌트 import
 import Header from "../header/Header";
 import GroupMember from "./GroupMember.jsx";
+import ProfileImg from "../element/ProfileImg.jsx";
 
 const GroupDetail = () => {
   const dispatch = useDispatch();
@@ -42,6 +43,8 @@ const GroupDetail = () => {
   const todayYear = moment().format("YYYY");
   const todayMonth = moment().format("M");
 
+  //console.log(groupDetailData);
+
   return (
     <>
       <Header
@@ -60,53 +63,60 @@ const GroupDetail = () => {
         fontWeight="700"
         width="219px"
         left={IMAGES.fold}
-        onClick={() => navigate(-1)}
+        leftLink={PATH.grouplist}
+        // onClick={() => navigate(-1)}
         marginRight="40px"
       />
       <GroupLayout>
-        <GroupImg src="https://velog.velcdn.com/images/posinity/post/d98edda0-adc8-45ae-a97f-8e9316d70199/image.png" />
-        {/* <GroupName>{groupDetailData.groupName}</GroupName> */}
-        <GroupInfo>{groupDetailData.description}</GroupInfo>
+        <GroupImg src={groupDetailData?.groupImage} />
+        <GroupInfo>{groupDetailData?.description}</GroupInfo>
         <RankBox>
           <RankName>
-            {todayYear}년 {todayMonth}월 랭킹
+            {todayYear}년 <strong> {todayMonth}월</strong> 랭킹
           </RankName>
           {groupDetailData?.ranking?.length !== 0 &&
           groupDetailData?.ranking?.length !== undefined ? (
             <>
               <Gold>
-                <span>{groupDetailData?.ranking[0]?.rank}위</span>
+                <img src={IMAGES.goldPng} />
                 <User>
-                  <img src="https://velog.velcdn.com/images/posinity/post/d98edda0-adc8-45ae-a97f-8e9316d70199/image.png" />
+                  <ProfileImg src={groupDetailData?.ranking[0]?.profileImage} />
                   <span>{groupDetailData?.ranking[0]?.username}</span>
                 </User>
                 <CarrotNumber>
-                  🥕 {groupDetailData?.ranking[0]?.carrot}
+                  {IMAGES.memberCarrot} {groupDetailData?.ranking[0]?.carrot}
                 </CarrotNumber>
               </Gold>
               {groupDetailData?.ranking?.length === 1 ? null : (
                 <>
-                  <Silver>
-                    <span>{groupDetailData?.ranking[1]?.rank}위</span>
-                    <SliverUser>
-                      <img src="https://velog.velcdn.com/images/posinity/post/d98edda0-adc8-45ae-a97f-8e9316d70199/image.png" />
+                  <Gold>
+                    <img src={IMAGES.silverPng} />
+                    <User>
+                      <ProfileImg
+                        src={groupDetailData?.ranking[1]?.profileImage}
+                      />
+                      {/* <img src="https://velog.velcdn.com/images/posinity/post/d98edda0-adc8-45ae-a97f-8e9316d70199/image.png" /> */}
                       <span>{groupDetailData?.ranking[1]?.username}</span>
-                    </SliverUser>
-                    <SilverCarrotNumber>
-                      🥕 {groupDetailData?.ranking[1]?.carrot}
-                    </SilverCarrotNumber>
-                  </Silver>
+                    </User>
+                    <CarrotNumber>
+                      {IMAGES.memberCarrot}{" "}
+                      {groupDetailData?.ranking[1]?.carrot}
+                    </CarrotNumber>
+                  </Gold>
                   {groupDetailData?.ranking?.length === 2 ? null : (
-                    <Silver>
+                    <Gold>
                       <span>{groupDetailData?.ranking[2]?.rank}위</span>
-                      <SliverUser>
-                        <img src="https://velog.velcdn.com/images/posinity/post/d98edda0-adc8-45ae-a97f-8e9316d70199/image.png" />
+                      <User>
+                        <ProfileImg
+                          src={groupDetailData?.ranking[2]?.profileImage}
+                        />
                         <span>{groupDetailData?.ranking[2]?.username}</span>
-                      </SliverUser>
-                      <SilverCarrotNumber>
-                        🥕 {groupDetailData?.ranking[2]?.carrot}
-                      </SilverCarrotNumber>
-                    </Silver>
+                      </User>
+                      <CarrotNumber>
+                        {IMAGES.memberCarrot}
+                        {groupDetailData?.ranking[2]?.carrot}
+                      </CarrotNumber>
+                    </Gold>
                   )}
                 </>
               )}
@@ -116,9 +126,14 @@ const GroupDetail = () => {
           )}
         </RankBox>
         <MonthlyCarrot>
-          우리 그룹에서 이번달에
-          <br /> 총 <strong>{groupDetailData?.groupCarrot}개</strong> 당근을
+          우리 그룹은 오늘{" "}
+          <strong>{groupDetailData?.groupDailyCarrot}개</strong> 당근을
           수확했어요!
+          <br />
+          우리 그룹은 이번달 <strong>
+            {groupDetailData?.groupCarrot}개
+          </strong>{" "}
+          당근을 수확했어요!
         </MonthlyCarrot>
       </GroupLayout>
       <GroupMember />
@@ -138,7 +153,7 @@ const GroupLayout = styled.div`
 `;
 
 const GroupImg = styled.img`
-  margin-top: 30px;
+  margin-top: 12px;
   width: 67px;
 `;
 
@@ -152,11 +167,11 @@ const GroupName = styled.p`
 
 const GroupInfo = styled.p`
   margin-top: 24px;
-  font-family: "MaplestoryOTFLight";
-  font-weight: 300;
-  font-size: 1.4rem;
-  line-height: 2.24rem;
-  color: #614925;
+  font-family: "Pretendard-Bold";
+  font-weight: 700;
+  font-size: 1.6rem;
+  line-height: 2.56rem;
+  color: #595550;
 `;
 
 const RankBox = styled.div`
@@ -179,10 +194,14 @@ const RankName = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: "MaplestoryOTFBold";
+  font-family: "Pretendard-Bold";
   font-weight: 700;
-  font-size: 1.4rem;
-  color: #614925;
+  font-size: 1.6rem;
+  color: #595550;
+  strong {
+    padding: 0 5px;
+    color: #f27808;
+  }
 `;
 
 const NoGetMsg = styled.div`
@@ -199,34 +218,19 @@ const NoGetMsg = styled.div`
 const Gold = styled.div`
   margin-top: 14px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   width: 259px;
   height: 40px;
   gap: 14px;
-  span {
-    font-family: "MaplestoryOTFBold";
-    font-weight: 700;
-    font-size: 2rem;
-    color: #f27808;
-  }
-  img {
-    width: 40px;
-  }
-`;
-
-const Silver = styled(Gold)`
-  height: 30px;
-  gap: 17px;
-  /* &:last-child {
-    margin-bottom: 24px;
-  } */
-  span {
-    font-size: 1.6rem;
-    color: #595550;
-  }
   img {
     width: 30px;
+  }
+  span {
+    font-family: "Pretendard-Regular";
+    font-weight: 500;
+    font-size: 1.4rem;
+    color: #595550;
   }
 `;
 
@@ -234,14 +238,7 @@ const User = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
-  span {
-    color: #595550;
-  }
-`;
-
-const SliverUser = styled(User)`
-  gap: 8px;
-  justify-content: flex-start;
+  margin-left: -37px;
 `;
 
 const CarrotNumber = styled.p`
@@ -251,21 +248,18 @@ const CarrotNumber = styled.p`
   color: #f27808;
 `;
 
-const SilverCarrotNumber = styled(CarrotNumber)`
-  font-size: 1.6rem;
-`;
-
 const MonthlyCarrot = styled.p`
   margin-top: 24px;
   text-align: center;
-  font-family: "MaplestoryOTFLight";
-  font-weight: 300;
-  font-size: 2rem;
-  line-height: 3rem;
+  font-family: "Pretendard-Regular";
+  font-weight: 500;
+  font-size: 1.4rem;
+  line-height: 2.8rem;
   color: #595550;
   strong {
-    font-family: "MaplestoryOTFBold";
+    font-family: "Pretendard-Bold";
     font-weight: 700;
+    font-size: 1.6rem;
     color: #f27808;
   }
 `;

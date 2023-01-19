@@ -125,11 +125,10 @@ const StInputBox = styled.div`
 const StTitle = styled.label`
   width: 319px;
   height: 16px;
-
   font-family: "Pretendard";
   font-style: normal;
   font-weight: 700;
-  font-size: 12px;
+  font-size: 1.2rem;
   line-height: 130%;
   text-align: left;
   margin-left: 10px;
@@ -163,7 +162,7 @@ const StLabel = styled.label`
   font-family: "Pretendard";
   font-style: normal;
   font-weight: 500;
-  font-size: 12px;
+  font-size: 1.2rem;
   line-height: 130%;
 
   text-align: right;
