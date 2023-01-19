@@ -81,9 +81,12 @@ export const IMAGES = {
   blockCircle: <BlockCircle />,
   emptyCircle: <EmptyCircle />,
   xIcon: <XIcon />,
-  gold: <Gold />,
-  silver: <Silver />,
-  bronze: <Bronze />,
+  goldSvg: <Gold />,
+  silverSvg: <Silver />,
+  bronzeSvg: <Bronze />,
+  goldPng: require("../assets/images/group/gold.png"),
+  silverPng: require("../assets/images/group/silver.png"),
+  bronzePng: require("../assets/images/group/bronze.png"),
 
   //작은화살표
   downArrowS: <DownArrowS />,
