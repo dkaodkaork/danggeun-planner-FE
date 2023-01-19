@@ -49,6 +49,10 @@ const MypageForm = () => {
         menuName="마이페이지"
         right={IMAGES.edit}
         left={IMAGES.fold}
+        height="56px"
+        padding="12px 28px 12px 28px"
+        fontFamily="MaplestoryOTFBold"
+        fontSize="2rem"
         rightLink={PATH.profile}
         onClick={() => navigate(-1)}
       />
@@ -161,9 +165,6 @@ const StImg = styled.img`
   width: 125px;
   height: 125px;
   border: 0px;
-  /* display: inline-block;
-  content: ""; */
-  /* border: 1px solid black; */
 `;
 
 const StInfoBox = styled.div`
@@ -176,7 +177,7 @@ const StInfo = styled.div`
   font-family: "MaplestoryOTFBold";
   font-style: normal;
   font-weight: 700;
-  font-size: 24px;
+  font-size: 2.4rem;
   line-height: 27px;
 
   margin: 70px 24px 10px 24px;
@@ -227,15 +228,10 @@ const StEmailBox = styled.div`
   font-family: "Pretendard";
   font-style: normal;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 1.4rem;
   line-height: 160%;
-  /* or 22px */
-
   display: flex;
   align-items: center;
-
-  /* word2 */
-
   color: #a4a4a4;
 `;
 

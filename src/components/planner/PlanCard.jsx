@@ -74,7 +74,7 @@ const StTitle = styled.div`
   font-family: "Pretendard";
   font-style: normal;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 1.4rem;
   line-height: 17px;
 
   color: #595550;
@@ -90,7 +90,7 @@ const StTime = styled.div`
   font-family: "Pretendard";
   font-style: normal;
   font-weight: 500;
-  font-size: 12px;
+  font-size: 1.2rem;
   line-height: 14px;
 
   color: #a4a4a4;
