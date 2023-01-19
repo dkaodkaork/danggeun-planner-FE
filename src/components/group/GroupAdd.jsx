@@ -90,7 +90,6 @@ const GroupAdd = () => {
         left={IMAGES.fold}
         leftLink={PATH.grouplist}
         // onClick={() => navigate(-1)}
-        marginRight="40px"
       />
       <GroupLayout>
         {/* <AddInfo>

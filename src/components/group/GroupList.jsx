@@ -40,7 +40,7 @@ const GroupList = () => {
         fontFamily="MaplestoryOTFBold"
         menuName="그룹 목록"
         height="56px"
-        padding="12px 28px 12px 28px "
+        padding="12px 28px 12px 28px"
         fontSize="2.0rem"
         fontWeight="700"
         width="219px"
