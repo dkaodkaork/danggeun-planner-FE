@@ -65,7 +65,6 @@ const GroupDetail = () => {
         left={IMAGES.fold}
         leftLink={PATH.grouplist}
         // onClick={() => navigate(-1)}
-        marginRight="40px"
       />
       <GroupLayout>
         <GroupImg src={groupDetailData?.groupImage} />

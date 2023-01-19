@@ -27,7 +27,7 @@ const Header = ({
       <HeaderStyle height={height} padding={padding}>
         <TopIcon justifyContent={justifyContent}>
           <Link to={leftLink}>
-            <button onClick={onClick}>{left}</button>
+            <Icon onClick={onClick}>{left}</Icon>
           </Link>
           {/* <Link to={rightLink}>{right}</Link> */}
           <MenuName
@@ -42,7 +42,7 @@ const Header = ({
           </MenuName>
           <MenuIcon onClick={clickMenuHandler} fontFamily={fontFamily}>
             <Link to={rightLink}>
-              <button>{right}</button>
+              <Icon>{right}</Icon>
             </Link>
           </MenuIcon>
         </TopIcon>
@@ -65,6 +65,10 @@ export const TopIcon = styled.div`
   justify-content: ${({ justifyContent }) => justifyContent || "space-between"};
   align-items: center;
   /* padding: 0 36px 0 36px; */
+`;
+
+export const Icon = styled.button`
+  width: 32px;
 `;
 
 export const HomeNav = styled.div`

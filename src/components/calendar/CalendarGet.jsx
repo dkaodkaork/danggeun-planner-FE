@@ -185,7 +185,7 @@ export const CalendarStyle = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 722px; //812px에서 헤더 90px을 뺀 값을 줘야 스크롤이 안생김
+  min-height: 740px; //812px에서 헤더값 뺌
 `;
 
 export const ProfileLayout = styled.div`
