@@ -1,9 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-
 import LoginPage from "../pages/auth/LoginPage";
 import SignUpPage from "../pages/auth/SignUpPage";
-import CalendarPage from "../pages/CalendarPage";
+import CalendarPage from "../pages/calendar/CalendarPage";
 import UsernameFormPage from "../pages/auth/UsernameFormPage";
 import MyPage from "../pages/user/MyPage";
 import ProfileEditPage from "../pages/user/ProfileEditPage";
