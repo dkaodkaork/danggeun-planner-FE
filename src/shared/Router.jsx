@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LoginPage from "../pages/LoginPage";
 import MainPage from "../pages/MainPage";
 import SignUpPage from "../pages/SignUpPage";
-import CalendarPage from "../pages/CalendarPage";
+import CalendarPage from "../pages/calendar/CalendarPage";
 import UsernameFormPage from "../pages/UsernameFormPage";
 import MyPage from "../pages/MyPage";
 import ProfilePage from "../pages/ProfilePage";
@@ -15,12 +15,14 @@ import GroupAddPage from "../pages/group/GroupAddPage";
 import GroupDetailPage from "../pages/group/GroupDetailPage";
 import GroupUpdatePage from "../pages/group/GroupUpdatePage";
 import GroupInvitePage from "../pages/group/GroupInvitePage";
+import PrivateRoute from "./PrivateRoute";
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route>
+          {/* <PrivateRoute exact path="/" element={<TimerPage />} /> */}
           <Route path="/" element={<TimerPage />} />
           <Route path="/main" element={<MainPage />} />
           <Route path="/login" element={<LoginPage />} />
