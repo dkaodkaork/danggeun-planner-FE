@@ -82,7 +82,7 @@ const CalendarGet = () => {
 
   const [value, setValue] = useState(new Date());
 
-  const todayStage = 4;
+  const todayStage = 0;
 
   return (
     <>
@@ -157,6 +157,8 @@ const CalendarGet = () => {
                 moment(date).format("YYYY-MM-DD")
               ) {
                 switch (todayStage) {
+                  case 0:
+                    break;
                   case 1:
                     return "todayState1";
                     break;
