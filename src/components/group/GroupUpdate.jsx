@@ -93,7 +93,6 @@ const GroupUpdate = () => {
         width="219px"
         left={IMAGES.fold}
         onClick={() => navigate(-1)}
-        marginRight="40px"
       />
       <GroupLayout>
         {/* <AddInfo>

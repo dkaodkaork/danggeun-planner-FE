@@ -1,5 +1,5 @@
 import React from "react";
-import CalendarGet from "../calendar/CalendarPage";
+import CalendarGet from "../../components/calendar/CalendarGet";
 
 const CalendarPage = () => {
   return <CalendarGet></CalendarGet>;

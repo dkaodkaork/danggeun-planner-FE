@@ -6,7 +6,6 @@ import { IMAGES } from "../../constants/images.js";
 import { PATH } from "../../constants/index";
 
 import {
-  groupMenuOpenStatus,
   detailMenuOpenStatus,
   groupMemberOpenStatus,
 } from "../../redux/modules/modalSlice";
@@ -119,7 +118,7 @@ const GroupMember = () => {
                 <button onClick={ClickToggle}>{IMAGES.upArrow}</button>
               )}
               <h1>그룹원 목록</h1>
-              <span>{groupMemberGet.onlineParticipant} 접속중</span>
+              <div>{groupMemberGet.onlineParticipant} 접속중</div>
             </Top>
             <ScrollBox>
               <Member>
@@ -230,15 +229,17 @@ const GroupMemberLayout = styled.div`
 const Top = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  width: 100%;
   h1 {
-    margin-left: 52px;
     font-weight: 700;
     font-size: 1.6rem;
     color: #595550;
     font-family: "Pretendard-Bold";
   }
-  span {
-    margin-left: 52px;
+  div {
+    width: 72px;
+    text-align: right;
     color: #4a8a51;
     font-family: "Pretendard-Regular";
     font-weight: 500;
