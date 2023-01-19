@@ -22,8 +22,8 @@ const Router = () => {
       <Routes>
         <Route>
           {/* <PrivateRoute exact path="/" element={<TimerPage />} /> */}
-          <Route path="/" element={<TimerPage />} />
-          <Route path="/login" element={<LoginPage />} />
+          <Route path="/timer" element={<TimerPage />} />
+          <Route path="/" element={<LoginPage />} />
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/calendar/:username" element={<CalendarPage />} />
           <Route path="/username" element={<UsernameFormPage />} />
