@@ -179,7 +179,6 @@ const CarrotTimer = () => {
       <Header
         right={IMAGES.menu}
         menuName="TIMER"
-        marginLeft="32px"
         clickMenuHandler={clickGroupMenuHandler}
       />
       <StContainer>
