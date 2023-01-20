@@ -345,7 +345,7 @@ export default Planner;
 
 const StContainer = styled.div`
   background-color: #f9f3ea;
-  height: 812px;
+  height: 684px;
 `;
 
 const StDateBox = styled.div`
