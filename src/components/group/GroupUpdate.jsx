@@ -29,42 +29,43 @@ const GroupUpdate = () => {
   let [inputCount, setInputCount] = useState(0);
 
   //제목, 내용 담기
-  const [groupName, setGroupName] = useState("");
-  const [description, setDescription] = useState("");
+  const [groupName, setGroupName] = useState(groupDetailData?.groupName);
+  const [description, setDescription] = useState(groupDetailData?.description);
 
   //버튼 활성화
-  const [disabled, setDisabled] = useState(false);
+  // const [disabled, setDisabled] = useState(false);
 
   const onInputHandler = (e) => {
     setGroupName(e.target.value);
     setInputCount(e.target.value.length);
-    if (textareaCount > 0) {
-      setDisabled(true);
-    }
+    // if (textareaCount > 0) {
+    //   setDisabled(true);
+    // }
   };
 
   const onTextareaHandler = (e) => {
     setDescription(e.target.value);
     setTextareaCount(e.target.value.length);
-    if (inputCount > 0) {
-      setDisabled(true);
-    }
   };
 
   const onClickGroupUpdate = () => {
     //하나의 객체로 묶어서 보내야 함!
     const groupInfo = { groupName, description };
-    if (inputCount === 0) {
-      alert("그룹 제목을 입력해주세요");
-    } else if (textareaCount === 0) {
-      alert("그룹 내용을 입력해주세요");
-    } else {
-      return dispatch(__putGroupUpdate({ groupInfo, groupId })).then((res) => {
-        const groupId = res.payload.groupId;
-        navigate(PATH.groupdetail(groupId));
-        // navigate(`/group/${groupId}`);
-      });
-    }
+    // if (inputCount === 0) {
+    //   alert("그룹 제목을 입력해주세요");
+    // } else if (textareaCount === 0) {
+    //   alert("그룹 내용을 입력해주세요");
+    // } else {
+    //   return dispatch(__putGroupUpdate({ groupInfo, groupId })).then((res) => {
+    //     const groupId = res.payload.groupId;
+    //     navigate(PATH.groupdetail(groupId));
+    //     // navigate(`/group/${groupId}`);
+    //   });
+    // }
+    dispatch(__putGroupUpdate({ groupInfo, groupId })).then((res) => {
+      const groupId = res.payload.groupId;
+      navigate(PATH.groupdetail(groupId));
+    });
   };
 
   //그룹 오픈 관련
@@ -95,21 +96,9 @@ const GroupUpdate = () => {
         onClick={() => navigate(-1)}
       />
       <GroupLayout>
-        {/* <AddInfo>
-          <h1>그룹 수정하기</h1>
-          <p>
-            가족, 친구들과 집중 상황을 공유하세요.
-            <br />
-            누가 더 많은 당근을 수확하는지 겨루고 격려하세요!
-          </p>
-        </AddInfo> */}
         <AddName>
           <h3>그룹 이름</h3>
-          <Input
-            placeholder={groupDetailData.groupName}
-            onChange={onInputHandler}
-            maxLength="10"
-          />
+          <Input onChange={onInputHandler} maxLength="10" value={groupName} />
           <p>
             <span>{inputCount}</span>
             <span>/10 자</span>
@@ -120,8 +109,8 @@ const GroupUpdate = () => {
           <Textarea
             onChange={onTextareaHandler}
             maxLength="50"
-            placeholder={groupDetailData.description}
-          />
+            value={description}
+          ></Textarea>
           <p>
             <span>{textareaCount}</span>
             <span>/50 자</span>
@@ -131,7 +120,6 @@ const GroupUpdate = () => {
           marginTop="80px"
           width="319px"
           onClick={onClickGroupUpdate}
-          disabled={!disabled}
         >
           완 료
         </TimerButton>
