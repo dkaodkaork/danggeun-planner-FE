@@ -83,7 +83,8 @@ const GroupDetail = () => {
                   <span>{groupDetailData?.ranking[0]?.username}</span>
                 </User>
                 <CarrotNumber>
-                  {IMAGES.memberCarrot} {groupDetailData?.ranking[0]?.carrot}
+                  {IMAGES.memberCarrot}
+                  {groupDetailData?.ranking[0]?.carrot}
                 </CarrotNumber>
               </Gold>
               {groupDetailData?.ranking?.length === 1 ? null : (
@@ -94,17 +95,16 @@ const GroupDetail = () => {
                       <ProfileImg
                         src={groupDetailData?.ranking[1]?.profileImage}
                       />
-                      {/* <img src="https://velog.velcdn.com/images/posinity/post/d98edda0-adc8-45ae-a97f-8e9316d70199/image.png" /> */}
                       <span>{groupDetailData?.ranking[1]?.username}</span>
                     </User>
                     <CarrotNumber>
-                      {IMAGES.memberCarrot}{" "}
+                      {IMAGES.memberCarrot}
                       {groupDetailData?.ranking[1]?.carrot}
                     </CarrotNumber>
                   </Gold>
                   {groupDetailData?.ranking?.length === 2 ? null : (
                     <Gold>
-                      <span>{groupDetailData?.ranking[2]?.rank}위</span>
+                      <img src={IMAGES.bronzePng} />
                       <User>
                         <ProfileImg
                           src={groupDetailData?.ranking[2]?.profileImage}
@@ -237,7 +237,7 @@ const User = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-left: -37px;
+  width: 115px;
 `;
 
 const CarrotNumber = styled.p`
@@ -245,6 +245,8 @@ const CarrotNumber = styled.p`
   font-weight: 700;
   font-size: 2rem;
   color: #f27808;
+  width: 55px;
+  text-align: right;
 `;
 
 const MonthlyCarrot = styled.p`
