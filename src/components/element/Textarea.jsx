@@ -21,6 +21,7 @@ const Textarea = (props) => {
       maxLength={props.maxLength}
       contentEditable={props.contentEditable}
       placeholder={props.placeholder}
+      value={props.value}
     >
       {props.children}
     </StTextarea>
