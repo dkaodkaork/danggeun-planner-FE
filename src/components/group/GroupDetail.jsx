@@ -83,8 +83,7 @@ const GroupDetail = () => {
                   <span>{groupDetailData?.ranking[0]?.username}</span>
                 </User>
                 <CarrotNumber>
-                  {IMAGES.memberCarrot}
-                  {groupDetailData?.ranking[0]?.carrot}
+                  {IMAGES.memberCarrot} {groupDetailData?.ranking[0]?.carrot}
                 </CarrotNumber>
               </Gold>
               {groupDetailData?.ranking?.length === 1 ? null : (
@@ -98,7 +97,7 @@ const GroupDetail = () => {
                       <span>{groupDetailData?.ranking[1]?.username}</span>
                     </User>
                     <CarrotNumber>
-                      {IMAGES.memberCarrot}
+                      {IMAGES.memberCarrot}{" "}
                       {groupDetailData?.ranking[1]?.carrot}
                     </CarrotNumber>
                   </Gold>
@@ -112,7 +111,7 @@ const GroupDetail = () => {
                         <span>{groupDetailData?.ranking[2]?.username}</span>
                       </User>
                       <CarrotNumber>
-                        {IMAGES.memberCarrot}
+                        {IMAGES.memberCarrot}{" "}
                         {groupDetailData?.ranking[2]?.carrot}
                       </CarrotNumber>
                     </Gold>
