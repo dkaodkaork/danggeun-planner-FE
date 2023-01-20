@@ -117,7 +117,7 @@ const GroupMember = () => {
               ) : (
                 <button onClick={ClickToggle}>{IMAGES.upArrow}</button>
               )}
-              <h1>그룹원 목록</h1>
+              <h1 onClick={ClickToggle}>그룹원 목록</h1>
               <div>{groupMemberGet.onlineParticipant} 접속중</div>
             </Top>
             <ScrollBox>
