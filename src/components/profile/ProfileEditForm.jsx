@@ -30,6 +30,9 @@ const Profile = () => {
     username: "",
   });
 
+  console.log(userInfo.username);
+  //버튼 활성화
+  const [disabled, setDisabled] = useState(false);
   // 메뉴 오픈 관련 추후에 반드시 빼야함
   const groupMenuOpen = useSelector((state) => state.modalSlice.groupMenuOpen);
 
@@ -43,6 +46,10 @@ const Profile = () => {
       [e.target.name]: e.target.value,
     });
     setCountUsername(e.target.value.length);
+    if (countUsername > 0) {
+      console.log(userInfo.username);
+      setDisabled(true);
+    }
   };
 
   const submitHandler = async () => {
@@ -131,9 +138,9 @@ const Profile = () => {
           </StInputBox>
           <Button
             onClick={submitHandler}
-            backgroundColor="#F27808"
             width="319px"
             marginTop="321px"
+            // disabled={!disabled}
           >
             완 료
           </Button>
