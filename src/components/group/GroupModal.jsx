@@ -13,6 +13,9 @@ const GroupModal = (props) => {
     (state) => state.modalSlice.detailMenuOpen
   );
 
+  //그룹 이미지 불러오기
+  const groupDetailData = useSelector((state) => state.group.groupDetail);
+
   const clickGroupMenuHandler = () => {
     dispatch(detailMenuOpenStatus(!detailMenuOpen));
     props.onClickCancle();
@@ -22,7 +25,7 @@ const GroupModal = (props) => {
     <>
       {detailMenuOpen ? (
         <Modal>
-          <img src="https://velog.velcdn.com/images/posinity/post/d98edda0-adc8-45ae-a97f-8e9316d70199/image.png"></img>
+          <GroupImg src={groupDetailData?.groupImage} />
           <GroupName>{props.groupName}</GroupName>
           <GetMsg>위 그룹을 정말 {props.subject}하시겠습니까?</GetMsg>
           <BtnLayout>
@@ -44,6 +47,11 @@ const GroupName = styled.p`
   font-weight: 700;
   font-size: 2.4rem;
   color: #614925;
+`;
+
+const GroupImg = styled.img`
+  width: 67px;
+  height: 67px;
 `;
 
 const GetMsg = styled.p`
