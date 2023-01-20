@@ -30,7 +30,7 @@ const Profile = () => {
     username: "",
   });
 
-  console.log(userInfo.username);
+  // console.log(userInfo.username);
   //버튼 활성화
   const [disabled, setDisabled] = useState(false);
   // 메뉴 오픈 관련 추후에 반드시 빼야함
@@ -47,7 +47,7 @@ const Profile = () => {
     });
     setCountUsername(e.target.value.length);
     if (countUsername > 0) {
-      console.log(userInfo.username);
+      // console.log(userInfo.username);
       setDisabled(true);
     }
   };
@@ -57,8 +57,9 @@ const Profile = () => {
       navigate(PATH.mypage);
     } else {
       const res = await dispatch(__putUsername(editUsername));
-      if (res?.error?.message) {
-        alert("이미 사용중인 닉네임 입니다.");
+      console.log(res);
+      if (res.payload === "이미 사용 중인 닉네임입니다.") {
+        alert(res.payload);
       } else {
         navigate(PATH.mypage);
       }
@@ -99,7 +100,6 @@ const Profile = () => {
         fontSize="2.0rem"
         fontFamily="MaplestoryOTFBold"
         width="219px"
-        marginRight="40px"
       />
       <StContainer>
         <StEditProfileBody>
