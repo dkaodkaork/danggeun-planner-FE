@@ -33,7 +33,7 @@ const UsernameForm = () => {
       alert("닉네임을 입력해주세요!");
     } else {
       return dispatch(__putUsername(userInfo)).then((res) => {
-        if (res?.payload?.message === "닉네임 등록 성공") {
+        if (res?.payload?.message === "닉네임 변경 성공") {
           navigate(PATH.timer);
         }
       });
