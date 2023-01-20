@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { IMAGES } from "../../constants/images.js";
 import { PATH } from "../../constants/index";
@@ -20,6 +20,10 @@ import moment from "moment";
 const Menu = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  //현재 메뉴 정보 가져오기
+  const location = useLocation();
+  const nowMenu = location.pathname.slice(1, 2);
 
   //오늘 날짜 가져오기
   const today = moment().format("YYYY-MM-DD");
@@ -100,10 +104,42 @@ const Menu = () => {
           </MenuIcon>
           <Nickname onClick={clickProfileNav}>{userInfo?.username}</Nickname>
           <MenuNav>
-            <MenuButton onClick={clickTimverNav}>타이머</MenuButton>
-            <MenuButton onClick={clickCalendarNav}>캘린더</MenuButton>
-            <MenuButton onClick={clickPlannerNav}>플래너</MenuButton>
-            <MenuButton onClick={clickGroupNav}>그룹</MenuButton>
+            <MenuBtnLayout>
+              {nowMenu === "t" && <Carrot>{IMAGES.menuCarrot}</Carrot>}
+              <MenuButton
+                onClick={clickTimverNav}
+                className={nowMenu === "t" && "active"}
+              >
+                타이머
+              </MenuButton>
+            </MenuBtnLayout>
+            <MenuBtnLayout>
+              {nowMenu === "c" && <Carrot>{IMAGES.menuCarrot}</Carrot>}
+              <MenuButton
+                onClick={clickCalendarNav}
+                className={nowMenu === "c" && "active"}
+              >
+                캘린더
+              </MenuButton>
+            </MenuBtnLayout>
+            <MenuBtnLayout>
+              {nowMenu === "p" && <Carrot>{IMAGES.menuCarrot}</Carrot>}
+              <MenuButton
+                onClick={clickPlannerNav}
+                className={nowMenu === "p" && "active"}
+              >
+                플래너
+              </MenuButton>
+            </MenuBtnLayout>
+            <MenuBtnLayout>
+              {nowMenu === "g" && <Carrot>{IMAGES.menuCarrot}</Carrot>}
+              <MenuButton
+                onClick={clickGroupNav}
+                className={nowMenu === "g" && "active"}
+              >
+                그룹
+              </MenuButton>
+            </MenuBtnLayout>
           </MenuNav>
           <Search onClick={clickSearchNav}>
             <button>{IMAGES.searchIcon}</button>
@@ -121,7 +157,7 @@ export default Menu;
 const ModalBackdrop = styled.div`
   visibility: ${(props) => (props.toggle ? "visible" : "hidden")};
   width: 375px;
-  height: 100%;
+  height: 812px;
   position: fixed;
   display: flex;
   justify-content: center;
@@ -136,7 +172,7 @@ const MenuLayout = styled.div`
   background-color: #fffdfa;
   position: absolute;
   right: ${(props) => (props.toggle ? "0" : "-196px")};
-  height: 100%;
+  height: 812px;
   transition: all 0.4s;
   padding: 28px;
   border-radius: 12px 0px 0px 12px;
@@ -171,6 +207,20 @@ const MenuButton = styled.button`
   text-align: center;
   color: #4a8a51;
   gap: 24px;
+  &.active {
+    background: #4a8a51;
+    color: #fffdfa;
+  }
+`;
+
+const MenuBtnLayout = styled.div`
+  position: relative;
+`;
+
+const Carrot = styled.div`
+  position: absolute;
+  top: -12px;
+  right: 8px;
 `;
 
 const Nickname = styled.div`
