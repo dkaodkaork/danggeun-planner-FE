@@ -29,6 +29,7 @@ import { ReactComponent as XIcon } from "../assets/images/group/xIcon.svg";
 import { ReactComponent as Gold } from "../assets/images/group/gold.svg";
 import { ReactComponent as Silver } from "../assets/images/group/silver.svg";
 import { ReactComponent as Bronze } from "../assets/images/group/bronze.svg";
+import { ReactComponent as MenuCarrot } from "../assets/images/menuCarrot.svg";
 
 export const IMAGES = {
   // 로그인
@@ -91,4 +92,5 @@ export const IMAGES = {
 
   //메뉴
   searchIcon: <SearchIcon />,
+  menuCarrot: <MenuCarrot />,
 };
