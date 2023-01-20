@@ -125,7 +125,6 @@ const GroupInvite = () => {
         width="219px"
         left={IMAGES.fold}
         onClick={() => navigate(-1)}
-        marginRight="40px"
       />
       <GroupLayout>
         <p>검색할 유저 닉네임</p>
