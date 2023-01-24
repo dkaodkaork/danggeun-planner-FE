@@ -30,6 +30,7 @@ import { ReactComponent as Gold } from "../assets/images/group/gold.svg";
 import { ReactComponent as Silver } from "../assets/images/group/silver.svg";
 import { ReactComponent as Bronze } from "../assets/images/group/bronze.svg";
 import { ReactComponent as MenuCarrot } from "../assets/images/menuCarrot.svg";
+import { ReactComponent as TodayBtnIcon } from "../assets/images/calendar/todayBtnIcon.svg";
 
 export const IMAGES = {
   // 로그인
@@ -41,6 +42,9 @@ export const IMAGES = {
   fold: <Fold />,
   edit: <Edit />,
   camera: require("../assets/images/mypage/camera.svg"),
+
+  //캘린더
+  todayBtnIcon: <TodayBtnIcon />,
 
   // 타이머 이미지
   defalut: require("../assets/images/timer/default.png"),
