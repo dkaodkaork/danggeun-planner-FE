@@ -1,15 +1,16 @@
-import React, { useState, useEffect, useRef } from "react";
+//리액트 관련
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
-import Header from "../header/Header";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { IMAGES } from "../../constants/images.js";
-import { PATH } from "../../constants/path.js";
 
+//상수, api
+import { IMAGES, PATH } from "../../constants/index";
 import { __getGroupList } from "../../redux/modules/groupSlice";
-
-//메뉴 오픈 관련
 import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
+
+//컴포넌트
+import Header from "../header/Header";
 
 const GroupList = () => {
   const dispatch = useDispatch();

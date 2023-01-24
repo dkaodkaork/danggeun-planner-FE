@@ -1,15 +1,15 @@
+//리액트 관련
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { IMAGES } from "../../constants/images.js";
-import { PATH } from "../../constants/index";
 
+//상수, api
+import { IMAGES, PATH } from "../../constants/index";
 import { __getSearchUser } from "../../redux/modules/searchSlice.js";
-
-//메뉴 오픈 관련
 import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
 
+//컴포넌트
 import Modal from "../element/Modal.jsx";
 import Input from "../element/Input.jsx";
 import ProfileImg from "../element/ProfileImg.jsx";

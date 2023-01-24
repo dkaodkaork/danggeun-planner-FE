@@ -1,7 +1,8 @@
+//리액트 관련
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import GroupMenu from "../group/GroupMenu";
+//컴포넌트
 import Menu from "../menu/Menu";
 
 const Header = ({

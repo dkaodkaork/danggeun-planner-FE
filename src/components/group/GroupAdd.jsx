@@ -1,20 +1,18 @@
+//리액트 관련
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import Header from "../header/Header";
-import styled from "styled-components";
-import { IMAGES } from "../../constants/images.js";
-import { PATH } from "../../constants/index";
+//상수, api
+import { IMAGES, PATH } from "../../constants/index";
+import { __postGroupAdd } from "../../redux/modules/groupSlice";
+import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
 
+//컴포넌트
+import Header from "../header/Header";
 import Input from "../element/Input";
 import Textarea from "../element/Textarea";
 import TimerButton from "../timer/TimerButton";
-
-import { __postGroupAdd } from "../../redux/modules/groupSlice";
-
-//메뉴 오픈 관련
-import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
 
 const GroupAdd = () => {
   const dispatch = useDispatch();

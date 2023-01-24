@@ -1,24 +1,22 @@
+//리액트 관련
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-
 import styled from "styled-components";
 
-import Input from "../element/Input";
-import Header from "../header/Header";
-import TimerButton from "../timer/TimerButton";
-import ProfileImg from "../element/ProfileImg";
-
-import { IMAGES } from "../../constants/images.js";
-import { PATH } from "../../constants/index";
-
+//상수, api
+import { IMAGES, PATH } from "../../constants/index";
 import {
   __getGroupMemberInvite,
   __postGroupMemberInvite,
 } from "../../redux/modules/groupSlice";
-
-//그룹 오픈 관련
 import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
+
+//컴포넌트
+import Input from "../element/Input";
+import Header from "../header/Header";
+import TimerButton from "../timer/TimerButton";
+import ProfileImg from "../element/ProfileImg";
 
 const GroupInvite = () => {
   const dispatch = useDispatch();

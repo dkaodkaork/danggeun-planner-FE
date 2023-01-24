@@ -1,20 +1,21 @@
-import React, { useState, useEffect } from "react";
+//리액트 관련
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { IMAGES } from "../../constants/images.js";
-import { PATH } from "../../constants/index";
 
-import moment from "moment";
-
-//모듈 import
+//상수, api
+import { IMAGES, PATH } from "../../constants/index";
 import {
   __getGroupDetail,
   __getGroupMember,
 } from "../../redux/modules/groupSlice";
 import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
 
-//컴포넌트 import
+//라이브러리
+import moment from "moment";
+
+//컴포넌트
 import Header from "../header/Header";
 import GroupMember from "./GroupMember.jsx";
 import ProfileImg from "../element/ProfileImg.jsx";

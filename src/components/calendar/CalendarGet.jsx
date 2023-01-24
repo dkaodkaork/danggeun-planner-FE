@@ -1,26 +1,23 @@
+//리액트 관련
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 
-//api import
+//상수, api
+import { IMAGES, PATH } from "../../constants/index";
 import { __getCalendar } from "../../redux/modules/calendarSlice.js";
-//메뉴 오픈 관련
 import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
 
-//컴포넌트 Import
-import Header from "../header/Header";
-import TodayBtn from "./TodayBtn";
-import ProfileImg from "../element/ProfileImg.jsx";
-
-//캘린더 라이브러리 관련 import
+//라이브러리
 import Calendar from "react-calendar";
 import moment from "moment";
 import "../calendar/style/Calendar.css"; // css import
 
-//svg Import
-import { IMAGES } from "../../constants/images.js";
-import { PATH } from "../../constants/path.js";
+//컴포넌트
+import Header from "../header/Header";
+import TodayBtn from "./TodayBtn";
+import ProfileImg from "../element/ProfileImg.jsx";
 
 const CalendarGet = () => {
   const dispatch = useDispatch();
