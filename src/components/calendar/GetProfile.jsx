@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { ReactComponent as TodayBtnIcon } from "../../assets/images/calendar/todayBtnIcon.svg";
 import ProfileImg from "../element/ProfileImg.jsx";
 
 const GetProfile = ({ GetCalendarData }) => {
