@@ -1,8 +1,10 @@
 import React from "react";
-import styled from "styled-components";
-import Button from "../timer/TimerButton";
-import { PATH, MSG, IMAGES } from "../../constants/index";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
+
+import { IMAGES } from "../../constants/index";
+
+import Button from "../timer/TimerButton";
 
 const LoginBtnBox = ({ onClick, disabled, mainBtnName, bottomText, path }) => {
   return (

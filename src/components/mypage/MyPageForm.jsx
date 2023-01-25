@@ -1,15 +1,17 @@
 import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { __getUserInfo } from "../../redux/modules/mypageSlice";
+import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import Header from "../header/Header";
-import Button from "../timer/TimerButton";
+
 import { PATH, IMAGES } from "../../constants/index";
 
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-
-import { __getUserInfo } from "../../redux/modules/mypageSlice";
-//
-import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
+import Header from "../header/Header";
+import Button from "../timer/TimerButton";
+import Head from "../header/Head";
+import SubHeader from "../header/SubHeader";
+import Menu from "../menu/Menu";
 
 const MypageForm = () => {
   const dispatch = useDispatch();
@@ -31,14 +33,28 @@ const MypageForm = () => {
   // 메뉴 오픈 관련 추후에 반드시 빼야함
   const groupMenuOpen = useSelector((state) => state.modalSlice.groupMenuOpen);
 
-  const clickGroupMenuHandler = () => {
+  const OpenMenuHanlder = () => {
     dispatch(groupMenuOpenStatus(!groupMenuOpen));
   };
   //
 
   return (
     <>
-      <Header
+      <Head
+        leftLink={PATH.timer}
+        leftSlot={IMAGES.home}
+        title="MY"
+        onClick={OpenMenuHanlder}
+        rightSlot={IMAGES.menu}
+      />
+      <SubHeader
+        title="마이페이지"
+        rightLink={PATH.profile}
+        rightSlot={IMAGES.edit}
+      />
+      <Menu />
+
+      {/* <Header
         menuName="MY"
         right={IMAGES.menu}
         left={IMAGES.home}
@@ -55,7 +71,7 @@ const MypageForm = () => {
         fontSize="2rem"
         rightLink={PATH.profile}
         onClick={() => navigate(-1)}
-      />
+      /> */}
       <StContainer>
         <StProfileBody>
           <StProfileBox>

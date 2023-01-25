@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+
+import { PATH, MSG } from "../../constants/index";
 import { api } from "../../core/api";
 
-import { PATH, MSG, IMAGES } from "../../constants/index";
-import { useNavigate } from "react-router-dom";
 import Header from "../header/Header";
-
+import Head from "../header/Head";
+import SubHeader from "../header/SubHeader";
 import LoginBtnBox from "./LoginBtnBox";
 
 const Login = () => {
@@ -15,8 +17,6 @@ const Login = () => {
     email: "",
     password: "",
   });
-  const [countEmail, setCountEmail] = useState(0);
-  const [countPwd, setCountPwd] = useState(0);
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
@@ -24,12 +24,9 @@ const Login = () => {
     switch (name) {
       case "email":
         setLoginInfo({ ...loginInfo, [name]: value });
-        setCountEmail(e.target.value.length);
-
         return;
       case "password":
         setLoginInfo({ ...loginInfo, [name]: value });
-        setCountPwd(e.target.value.length);
         return;
       default:
         return;
@@ -42,15 +39,10 @@ const Login = () => {
     } else {
       try {
         const { headers, data, status } = await api.postLoginApi(loginInfo);
-        console.log(headers);
+
         if (status === 200) {
           localStorage.setItem("accessToken", headers.accesstoken);
           localStorage.setItem("refreshToken", headers.refreshtoken);
-          // setCookies("accessToken", headers.accessToken, {
-          //   path: "/",
-          //   maxAge: 36000,
-          // });
-          console.log(data.data);
           if (data.data.isExistUsername) {
             navigate(PATH.timer);
           } else {
@@ -65,7 +57,13 @@ const Login = () => {
 
   return (
     <StContainer>
-      <Header menuName="LOGIN" justifyContent="center"></Header>
+      <Head title="LOGIN" />
+      <SubHeader title="이메일로 로그인" />
+      {/* <Header
+        menuName="LOGIN"
+        justifyContent="center"
+        padding="35px 78px 19px 78px"
+      ></Header> */}
       <StInputBox>
         <StTitle>E-mail</StTitle>
         <StInput
@@ -76,7 +74,6 @@ const Login = () => {
           maxLength="24"
           placeholder="이메일 형식"
         />
-        <StLabel>{countEmail}/24</StLabel>
       </StInputBox>
       <StInputBox marginBottom="115px">
         <StTitle>Password</StTitle>
@@ -89,7 +86,6 @@ const Login = () => {
           onChange={changeHandler}
           placeholder="영문, 숫자, 특수문자가 포함된 8~13자리"
         />
-        <StLabel>{countPwd}/13</StLabel>
       </StInputBox>
       <LoginBtnBox
         onClick={submitHandler}
@@ -154,18 +150,4 @@ const StInput = styled.input`
     line-height: 17px;
     color: #a4a4a4;
   }
-`;
-
-const StLabel = styled.label`
-  height: 16px;
-  width: 310px;
-  font-family: "Pretendard";
-  font-style: normal;
-  font-weight: 500;
-  font-size: 1.2rem;
-  line-height: 130%;
-
-  text-align: right;
-
-  color: #4a8a51;
 `;

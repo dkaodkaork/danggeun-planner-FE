@@ -1,7 +1,9 @@
 import React from "react";
 import styled from "styled-components";
+
 import { IMAGES } from "../../constants/index";
 import { getDayOfWeek } from "./time";
+
 import Input from "../element/Input";
 
 const PlannerModal = ({

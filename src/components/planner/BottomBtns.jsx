@@ -1,6 +1,7 @@
 import React from "react";
-import { IMAGES } from "../../constants/index";
 import styled from "styled-components";
+
+import { IMAGES } from "../../constants/index";
 
 const BottomBtns = ({ onClick }) => {
   return (

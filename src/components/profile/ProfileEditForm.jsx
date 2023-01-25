@@ -1,17 +1,21 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import Header from "../header/Header";
-import { PATH, IMAGES } from "../../constants/index";
+import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
 import {
   __getUserInfo,
   __putUsername,
   __putProfileImg,
 } from "../../redux/modules/mypageSlice";
+import styled from "styled-components";
+
+import { PATH, IMAGES } from "../../constants/index";
+
+import Header from "../header/Header";
 import Button from "../timer/TimerButton";
-//
-import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
+import Head from "../header/Head";
+import SubHeader from "../header/SubHeader";
+import Menu from "../menu/Menu";
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -36,7 +40,7 @@ const Profile = () => {
   // 메뉴 오픈 관련 추후에 반드시 빼야함
   const groupMenuOpen = useSelector((state) => state.modalSlice.groupMenuOpen);
 
-  const clickGroupMenuHandler = () => {
+  const OpenMenuHanlder = () => {
     dispatch(groupMenuOpenStatus(!groupMenuOpen));
   };
   //
@@ -83,7 +87,20 @@ const Profile = () => {
 
   return (
     <>
-      <Header
+      <Head
+        leftLink={PATH.timer}
+        leftSlot={IMAGES.home}
+        title="MY"
+        onClick={OpenMenuHanlder}
+        rightSlot={IMAGES.menu}
+      />
+      <SubHeader
+        title="프로필 수정하기"
+        onClick={() => navigate(-1)}
+        leftSlot={IMAGES.fold}
+      />
+      <Menu />
+      {/* <Header
         menuName="MY"
         right={IMAGES.menu}
         left={IMAGES.home}
@@ -100,7 +117,7 @@ const Profile = () => {
         fontSize="2.0rem"
         fontFamily="MaplestoryOTFBold"
         width="219px"
-      />
+      /> */}
       <StContainer>
         <StEditProfileBody>
           <StProfileImage>
