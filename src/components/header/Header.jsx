@@ -70,6 +70,7 @@ const StHeaderLayout = styled.div`
 const StIcon = styled.button`
   width: 32px;
   height: 32px;
+  cursor: pointer;
 `;
 
 const StMenuName = styled.h1`
