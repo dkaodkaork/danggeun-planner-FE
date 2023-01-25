@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
-const Modal = ({ children, height, width }) => {
+const Modal = ({ children, height, width, modalRef, modalOutSideClick }) => {
   return (
-    <ModalBackdrop>
+    <ModalBackdrop ref={modalRef} onClick={(e) => modalOutSideClick(e)}>
       <ModalBox height={height} width={width}>
         {children}
       </ModalBox>
