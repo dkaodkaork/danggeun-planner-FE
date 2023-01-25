@@ -15,7 +15,6 @@ import Header from "../header/Header";
 import Button from "../timer/TimerButton";
 import Head from "../header/Head";
 import SubHeader from "../header/SubHeader";
-import Menu from "../menu/Menu";
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -99,25 +98,6 @@ const Profile = () => {
         onClick={() => navigate(-1)}
         leftSlot={IMAGES.fold}
       />
-      <Menu />
-      {/* <Header
-        menuName="MY"
-        right={IMAGES.menu}
-        left={IMAGES.home}
-        leftLink={PATH.timer}
-        fontFamily="Pretendard-Regular"
-        clickMenuHandler={clickGroupMenuHandler}
-      />
-      <Header
-        menuName="프로필 수정하기"
-        left={IMAGES.fold}
-        onClick={() => navigate(-1)}
-        height="56px"
-        padding="12px 28px 12px 28px "
-        fontSize="2.0rem"
-        fontFamily="MaplestoryOTFBold"
-        width="219px"
-      /> */}
       <StContainer>
         <StEditProfileBody>
           <StProfileImage>

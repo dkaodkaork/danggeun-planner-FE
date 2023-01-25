@@ -1,17 +1,21 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import Menu from "../menu/Menu";
 
 const Head = ({ leftLink, leftSlot, title, rightSlot, onClick }) => {
   return (
-    <StContainer>
-      <StBox>
-        <StLeftSlot>
-          <Link to={leftLink}>{leftSlot}</Link>
-        </StLeftSlot>
-        <StCenterSlot>{title}</StCenterSlot>
-        <StRightSlot onClick={onClick}>{rightSlot}</StRightSlot>
-      </StBox>
-    </StContainer>
+    <>
+      <StContainer>
+        <StBox>
+          <StLeftSlot>
+            <Link to={leftLink}>{leftSlot}</Link>
+          </StLeftSlot>
+          <StCenterSlot>{title}</StCenterSlot>
+          <StRightSlot onClick={onClick}>{rightSlot}</StRightSlot>
+        </StBox>
+      </StContainer>
+      <Menu />
+    </>
   );
 };
 

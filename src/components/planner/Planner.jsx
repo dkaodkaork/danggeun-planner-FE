@@ -269,7 +269,6 @@ const Planner = () => {
         rightSlot={IMAGES.menu}
         onClick={OpenMenuHanlder}
       />
-      <Menu />
       {/* <Header
         menuName="Planner"
         right={IMAGES.menu}
