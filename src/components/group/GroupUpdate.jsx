@@ -11,6 +11,7 @@ import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
 
 //컴포넌트
 import Header from "../header/Header";
+import SubHeader from "../header/SubHeader";
 import Input from "../element/Input";
 import Textarea from "../element/Textarea";
 import TimerButton from "../timer/TimerButton";
@@ -77,22 +78,16 @@ const GroupUpdate = () => {
   return (
     <>
       <Header
-        menuName="Group"
-        right={IMAGES.menu}
-        left={IMAGES.home}
+        title="Group"
+        rightSlot={IMAGES.menu}
+        leftSlot={IMAGES.home}
         leftLink={PATH.timer}
-        clickMenuHandler={clickGroupMenuHandler}
+        onClick={clickGroupMenuHandler}
       ></Header>
-      <Header
-        fontFamily="MaplestoryOTFBold"
-        menuName="그룹 수정"
-        height="56px"
-        padding="12px 28px 12px 28px "
-        fontSize="2.0rem"
-        fontWeight="700"
-        width="219px"
-        left={IMAGES.fold}
-        onClick={() => navigate(-1)}
+      <SubHeader
+        title="그룹 수정"
+        leftSlot={IMAGES.fold}
+        leftLink={() => navigate(-1)}
       />
       <GroupLayout>
         <AddName>

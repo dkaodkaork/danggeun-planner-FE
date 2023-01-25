@@ -13,6 +13,7 @@ import { IMAGES, PATH } from "../../constants/index";
 
 //컴포넌트
 import Header from "../header/Header";
+import SubHeader from "../header/SubHeader";
 
 const GroupList = () => {
   const dispatch = useDispatch();
@@ -32,21 +33,13 @@ const GroupList = () => {
   return (
     <>
       <Header
-        menuName="Group"
-        right={IMAGES.menu}
-        left={IMAGES.home}
+        title="Group"
+        leftSlot={IMAGES.home}
         leftLink={PATH.timer}
-        clickMenuHandler={clickGroupMenuHandler}
-      ></Header>
-      <Header
-        fontFamily="MaplestoryOTFBold"
-        menuName="그룹 목록"
-        height="56px"
-        padding="12px 28px 12px 28px"
-        fontSize="2.0rem"
-        fontWeight="700"
-        width="219px"
+        rightSlot={IMAGES.menu}
+        onClick={clickGroupMenuHandler}
       />
+      <SubHeader title="그룹 목록" />
       <StGroupLayout>
         {groupData?.length !== 0 && groupData?.length !== undefined ? (
           <>
