@@ -6,7 +6,6 @@ import { PATH, MSG } from "../../constants/index";
 import { api } from "../../core/api";
 
 import Header from "../header/Header";
-import Head from "../header/Head";
 import SubHeader from "../header/SubHeader";
 import LoginBtnBox from "./LoginBtnBox";
 
@@ -57,13 +56,8 @@ const Login = () => {
 
   return (
     <StContainer>
-      <Head title="LOGIN" />
+      <Header title="LOGIN" />
       <SubHeader title="이메일로 로그인" />
-      {/* <Header
-        menuName="LOGIN"
-        justifyContent="center"
-        padding="35px 78px 19px 78px"
-      ></Header> */}
       <StInputBox>
         <StTitle>E-mail</StTitle>
         <StInput

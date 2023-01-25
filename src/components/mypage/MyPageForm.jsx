@@ -7,11 +7,9 @@ import styled from "styled-components";
 
 import { PATH, IMAGES } from "../../constants/index";
 
-import Header from "../header/Header";
 import Button from "../timer/TimerButton";
-import Head from "../header/Head";
+import Header from "../header/Header";
 import SubHeader from "../header/SubHeader";
-import Menu from "../menu/Menu";
 
 const MypageForm = () => {
   const dispatch = useDispatch();
@@ -40,7 +38,7 @@ const MypageForm = () => {
 
   return (
     <>
-      <Head
+      <Header
         leftLink={PATH.timer}
         leftSlot={IMAGES.home}
         title="MY"
@@ -52,26 +50,6 @@ const MypageForm = () => {
         rightLink={PATH.profile}
         rightSlot={IMAGES.edit}
       />
-      <Menu />
-
-      {/* <Header
-        menuName="MY"
-        right={IMAGES.menu}
-        left={IMAGES.home}
-        leftLink={PATH.timer}
-        clickMenuHandler={clickGroupMenuHandler}
-      />
-      <Header
-        menuName="마이페이지"
-        right={IMAGES.edit}
-        left={IMAGES.fold}
-        height="56px"
-        padding="12px 28px 12px 28px"
-        fontFamily="MaplestoryOTFBold"
-        fontSize="2rem"
-        rightLink={PATH.profile}
-        onClick={() => navigate(-1)}
-      /> */}
       <StContainer>
         <StProfileBody>
           <StProfileBox>

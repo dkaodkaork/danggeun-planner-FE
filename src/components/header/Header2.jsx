@@ -6,7 +6,8 @@ import styled from "styled-components";
 //컴포넌트
 import Menu from "../menu/Menu";
 
-const Header = ({
+
+const Header2 = ({
   menuName,
   justifyContent,
   left,
@@ -53,7 +54,7 @@ const Header = ({
   );
 };
 
-export default Header;
+export default Header2;
 
 const StHeaderStyle = styled.div`
   height: ${({ height }) => height || "72px"};

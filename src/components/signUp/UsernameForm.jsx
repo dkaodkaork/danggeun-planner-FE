@@ -8,6 +8,7 @@ import { PATH } from "../../constants/index";
 
 import Header from "../header/Header";
 import Button from "../timer/TimerButton";
+import SubHeader from "../header/SubHeader";
 
 const UsernameForm = () => {
   const dispatch = useDispatch();
@@ -44,8 +45,8 @@ const UsernameForm = () => {
 
   return (
     <StContainer>
-      <Header menuName="SIGN UP" justifyContent="center" />
-      <StDiv>프로필 만들기</StDiv>
+      <Header title="SIGN UP" />
+      <SubHeader title="프로필 만들기" />
       <StInputBox>
         <StTitle>닉네임</StTitle>
         <StInput

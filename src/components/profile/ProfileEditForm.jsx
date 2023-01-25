@@ -11,9 +11,8 @@ import styled from "styled-components";
 
 import { PATH, IMAGES } from "../../constants/index";
 
-import Header from "../header/Header";
 import Button from "../timer/TimerButton";
-import Head from "../header/Head";
+import Header from "../header/Header";
 import SubHeader from "../header/SubHeader";
 
 const Profile = () => {
@@ -86,7 +85,7 @@ const Profile = () => {
 
   return (
     <>
-      <Head
+      <Header
         leftLink={PATH.timer}
         leftSlot={IMAGES.home}
         title="MY"

@@ -20,7 +20,6 @@ import { PATH, IMAGES } from "../../constants/index";
 import { v4 as uuidv4 } from "uuid";
 
 import Header from "../header/Header";
-import Head from "../header/Head";
 import { planStartTime, getDayOfWeek } from "./time";
 import UsernameCard from "./UsernameCard";
 import BottomBtns from "./BottomBtns";
@@ -28,7 +27,6 @@ import PlanCard from "./PlanCard";
 import PlannerModal from "./PlannerModal";
 import SlideModal from "../element/SlideModal";
 import SortingBtnGroup from "./SortingBtnGroup";
-import Menu from "../menu/Menu";
 
 const Planner = () => {
   // hook
@@ -262,20 +260,13 @@ const Planner = () => {
 
   return (
     <>
-      <Head
+      <Header
         title="PLANNER"
         leftLink={PATH.timer}
         leftSlot={IMAGES.home}
         rightSlot={IMAGES.menu}
         onClick={OpenMenuHanlder}
       />
-      {/* <Header
-        menuName="Planner"
-        right={IMAGES.menu}
-        left={IMAGES.home}
-        leftLink={PATH.timer}
-        clickMenuHandler={clickGroupMenuHandler}
-      /> */}
       <StContainer>
         <StDiv>
           <UsernameCard
