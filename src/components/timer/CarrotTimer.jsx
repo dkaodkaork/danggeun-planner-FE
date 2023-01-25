@@ -181,7 +181,6 @@ const CarrotTimer = () => {
   return (
     <>
       <Head title="TIMER" rightSlot={IMAGES.menu} onClick={OpenMenuHanlder} />
-      <Menu />
       <StContainer>
         <TimerBackground
           parsedTime={parsedTime}
