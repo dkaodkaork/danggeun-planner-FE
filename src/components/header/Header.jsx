@@ -19,7 +19,7 @@ const Header = ({ leftLink, leftSlot, title, rightSlot, onClick }) => {
   );
 };
 
-export default Head;
+export default Header;
 
 const StContainer = styled.div`
   width: 375px;
