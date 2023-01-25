@@ -1,11 +1,14 @@
 //리액트 관련
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 //리덕스
-import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
+import {
+  groupMenuOpenStatus,
+  searchModalOpenStatus,
+} from "../../redux/modules/modalSlice";
 import { __getUserInfo } from "../../redux/modules/mypageSlice";
 
 //상수, api
@@ -43,6 +46,11 @@ const Menu = () => {
     dispatch(groupMenuOpenStatus(!groupMenuOpen));
   };
 
+  //검색 모달 관리
+  const searchModalOpen = useSelector(
+    (state) => state.modalSlice.searchModalOpen
+  );
+
   //메뉴 클릭 시 이동 핸들러
   //그룹
   const clickGroupNav = () => {
@@ -56,7 +64,7 @@ const Menu = () => {
   };
   //검색
   const clickSearchNav = () => {
-    setModalOpen(!modalOpen);
+    dispatch(searchModalOpenStatus(!searchModalOpen));
   };
   //타이머
   const clickTimverNav = () => {
@@ -73,9 +81,6 @@ const Menu = () => {
     navigate(PATH.mypage);
     dispatch(groupMenuOpenStatus(!groupMenuOpen));
   };
-
-  //검색 모달
-  const [modalOpen, setModalOpen] = useState(false);
 
   //바깥쪽 클릭해서 닫히게 하는 useRef 구현
   const modalRef = useRef();
@@ -147,7 +152,7 @@ const Menu = () => {
           </Search>
         </MenuLayout>
       </ModalBackdrop>
-      {modalOpen && <SearchModal propsState={modalOpen} />}
+      <SearchModal />
     </>
   );
 };
