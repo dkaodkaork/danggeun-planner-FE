@@ -1,15 +1,7 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import Header from "../header/Header";
-import { PATH, IMAGES } from "../../constants/index";
-import UsernameCard from "./UsernameCard";
-import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { planStartTime, getDayOfWeek } from "./time";
-import BottomBtns from "./BottomBtns";
-import PlanCard from "./PlanCard";
-import SlideModal from "../element/SlideModal";
 import { planModalOpenStatus } from "../../redux/modules/modalSlice";
+import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
 import {
   __getAllPlan,
   __getTimerPlan,
@@ -20,11 +12,23 @@ import {
   __putTimerContent,
   __getFocusPlan,
 } from "../../redux/modules/plannerSlice";
-import PlannerModal from "./PlannerModal";
-import SortingBtnGroup from "./SortingBtnGroup";
+import { Link, useParams } from "react-router-dom";
+import styled from "styled-components";
+
+import { PATH, IMAGES } from "../../constants/index";
+
 import { v4 as uuidv4 } from "uuid";
-//
-import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
+
+import Header from "../header/Header";
+import Head from "../header/Head";
+import { planStartTime, getDayOfWeek } from "./time";
+import UsernameCard from "./UsernameCard";
+import BottomBtns from "./BottomBtns";
+import PlanCard from "./PlanCard";
+import PlannerModal from "./PlannerModal";
+import SlideModal from "../element/SlideModal";
+import SortingBtnGroup from "./SortingBtnGroup";
+import Menu from "../menu/Menu";
 
 const Planner = () => {
   // hook
@@ -53,7 +57,7 @@ const Planner = () => {
   // 메뉴 오픈 관련 추후에 반드시 빼야함
   const groupMenuOpen = useSelector((state) => state.modalSlice.groupMenuOpen);
 
-  const clickGroupMenuHandler = () => {
+  const OpenMenuHanlder = () => {
     dispatch(groupMenuOpenStatus(!groupMenuOpen));
   };
   //
@@ -258,13 +262,21 @@ const Planner = () => {
 
   return (
     <>
-      <Header
+      <Head
+        title="PLANNER"
+        leftLink={PATH.timer}
+        leftSlot={IMAGES.home}
+        rightSlot={IMAGES.menu}
+        onClick={OpenMenuHanlder}
+      />
+      <Menu />
+      {/* <Header
         menuName="Planner"
         right={IMAGES.menu}
         left={IMAGES.home}
         leftLink={PATH.timer}
         clickMenuHandler={clickGroupMenuHandler}
-      />
+      /> */}
       <StContainer>
         <StDiv>
           <UsernameCard
@@ -345,7 +357,7 @@ export default Planner;
 
 const StContainer = styled.div`
   background-color: #f9f3ea;
-  height: 684px;
+  height: 740px;
 `;
 
 const StDateBox = styled.div`
@@ -361,8 +373,6 @@ const StDateBox = styled.div`
 const StTodayCarrot = styled.div`
   height: 17px;
   font-family: "Pretendard-Regular";
-  /* font-style: normal;
-  font-weight: 500; */
   font-size: 1.5rem;
   line-height: 17px;
   color: #595550;

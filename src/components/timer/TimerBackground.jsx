@@ -1,8 +1,10 @@
 import React from "react";
 import styled from "styled-components";
+
+import { IMAGES } from "../../constants/index";
+
 import Timer from "./Timer";
 import TimerMsg from "./TimerMsg";
-import { IMAGES } from "../../constants/index";
 
 const TimerBackground = ({
   stack,

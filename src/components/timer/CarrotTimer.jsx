@@ -1,17 +1,21 @@
 import React, { useLayoutEffect, useState } from "react";
-import styled from "styled-components";
-import useTimer from "../../hooks/useTimer";
-import Button from "./TimerButton";
 import { useDispatch, useSelector } from "react-redux";
 import { __startTimer, __finsihTimer } from "../../redux/modules/timerSlice";
-import TimerBackground from "./TimerBackground";
-import { timeStamp } from "../planner/time";
+import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
+import styled from "styled-components";
+
 import { IMAGES } from "../../constants/index";
+import useTimer from "../../hooks/useTimer";
+import { timeStamp } from "../planner/time";
+
 import Header from "../header/Header";
+import Head from "../header/Head";
+import Button from "./TimerButton";
+import GetCarrot from "./GetCarrot";
+import TimerBackground from "./TimerBackground";
+import Menu from "../menu/Menu";
 
 //
-import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
-import GetCarrot from "./GetCarrot";
 
 const CarrotTimer = () => {
   const [stack, setStack] = useState("");
@@ -25,7 +29,7 @@ const CarrotTimer = () => {
   // 메뉴 오픈 관련 추후에 반드시 빼야함
   const groupMenuOpen = useSelector((state) => state.modalSlice.groupMenuOpen);
 
-  const clickGroupMenuHandler = () => {
+  const OpenMenuHanlder = () => {
     dispatch(groupMenuOpenStatus(!groupMenuOpen));
   };
   //
@@ -176,11 +180,8 @@ const CarrotTimer = () => {
 
   return (
     <>
-      <Header
-        right={IMAGES.menu}
-        menuName="TIMER"
-        clickMenuHandler={clickGroupMenuHandler}
-      />
+      <Head title="TIMER" rightSlot={IMAGES.menu} onClick={OpenMenuHanlder} />
+      <Menu />
       <StContainer>
         <TimerBackground
           parsedTime={parsedTime}

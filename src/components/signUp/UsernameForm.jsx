@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { __putUsername } from "../../redux/modules/mypageSlice";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+
 import { PATH } from "../../constants/index";
-import { __putUsername } from "../../redux/modules/mypageSlice";
+
 import Header from "../header/Header";
 import Button from "../timer/TimerButton";
 
