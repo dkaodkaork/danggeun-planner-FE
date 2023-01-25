@@ -19,7 +19,7 @@ const Header = ({ leftLink, leftSlot, title, rightSlot, onClick }) => {
   );
 };
 
-export default Header;
+export default Head;
 
 const StContainer = styled.div`
   width: 375px;
@@ -33,7 +33,6 @@ const StContainer = styled.div`
 const StBox = styled.div`
   width: 319px;
   height: 32px;
-
   display: flex;
   flex-direction: row;
   align-items: center;

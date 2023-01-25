@@ -15,15 +15,13 @@ import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
 //컴포넌트
 import Input from "../element/Input";
 import Header from "../header/Header";
+import SubHeader from "../header/SubHeader";
 import TimerButton from "../timer/TimerButton";
 import ProfileImg from "../element/ProfileImg";
 
 const GroupInvite = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  //검색 리스트
-  //const searchMember = useSelector((state) => state.group.searchMember);
 
   //그룹 오픈 관련
   const groupMenuOpen = useSelector((state) => state.modalSlice.groupMenuOpen);
@@ -107,22 +105,16 @@ const GroupInvite = () => {
   return (
     <>
       <Header
-        menuName="Group"
-        right={IMAGES.menu}
-        left={IMAGES.home}
+        title="Group"
+        rightSlot={IMAGES.menu}
+        leftSlot={IMAGES.home}
         leftLink={PATH.timer}
-        clickMenuHandler={clickGroupMenuHandler}
+        onClick={clickGroupMenuHandler}
       ></Header>
-      <Header
-        fontFamily="MaplestoryOTFBold"
-        menuName="그룹원 추가"
-        height="56px"
-        padding="12px 28px 12px 28px "
-        fontSize="2.0rem"
-        fontWeight="700"
-        width="219px"
-        left={IMAGES.fold}
-        onClick={() => navigate(-1)}
+      <SubHeader
+        title="그룹원 추가"
+        leftSlot={IMAGES.fold}
+        leftLink={() => navigate(-1)}
       />
       <GroupLayout>
         <p>검색할 유저 닉네임</p>

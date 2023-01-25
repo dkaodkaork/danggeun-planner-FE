@@ -19,6 +19,7 @@ import moment from "moment";
 
 //컴포넌트
 import Header from "../header/Header";
+import SubHeader from "../header/SubHeader";
 import GroupMember from "./GroupMember.jsx";
 import ProfileImg from "../element/ProfileImg.jsx";
 
@@ -50,21 +51,15 @@ const GroupDetail = () => {
   return (
     <>
       <Header
-        menuName="Group"
-        right={IMAGES.menu}
-        left={IMAGES.home}
+        title="Group"
+        rightSlot={IMAGES.menu}
+        leftSlot={IMAGES.home}
         leftLink={PATH.timer}
-        clickMenuHandler={clickGroupMenuHandler}
+        onClick={clickGroupMenuHandler}
       ></Header>
-      <Header
-        fontFamily="MaplestoryOTFBold"
-        menuName={groupDetailData?.groupName}
-        height="56px"
-        padding="12px 28px 12px 28px "
-        fontSize="2.0rem"
-        fontWeight="700"
-        width="219px"
-        left={IMAGES.fold}
+      <SubHeader
+        title={groupDetailData?.groupName}
+        leftSlot={IMAGES.fold}
         leftLink={PATH.grouplist}
       />
       <GroupLayout>

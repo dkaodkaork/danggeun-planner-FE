@@ -6,6 +6,7 @@ import styled from "styled-components";
 //컴포넌트
 import Menu from "../menu/Menu";
 
+
 const Header2 = ({
   menuName,
   justifyContent,

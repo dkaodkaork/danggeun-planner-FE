@@ -18,6 +18,7 @@ import "../calendar/style/Calendar.css"; // css import
 
 //컴포넌트
 import Header from "../header/Header";
+import SubHeader from "../header/SubHeader";
 import TodayBtn from "./TodayBtn";
 // import ProfileImg from "../element/ProfileImg.jsx";
 import GetProfile from "./GetProfile.jsx";
@@ -88,26 +89,13 @@ const CalendarGet = () => {
   return (
     <>
       <Header
-        menuName="Calendar"
-        right={IMAGES.menu}
-        left={IMAGES.home}
+        title="Calendar"
+        rightSlot={IMAGES.menu}
+        leftSlot={IMAGES.home}
         leftLink={PATH.timer}
-        clickMenuHandler={clickGroupMenuHandler}
+        onClick={clickGroupMenuHandler}
       ></Header>
       <StCalendarStyle>
-        {/* <StProfileLayout> */}
-        {/* <ProfileImg
-            src={GetCalendarData?.profileImage}
-            width="125px"
-            height="125px"
-          />
-        </StProfileLayout>
-        <StNickName>{GetCalendarData?.username}</StNickName>
-        <StMonthlyGet>
-          {GetCalendarData?.username}님의 이번달 총 수확량은{" "}
-          <strong>{GetCalendarData?.carrot}</strong>
-          개입니다
-        </StMonthlyGet> */}
         <GetProfile GetCalendarData={GetCalendarData} />
         <StCalendarLayout>
           <Calendar
