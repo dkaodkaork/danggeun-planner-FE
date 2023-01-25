@@ -8,13 +8,10 @@ import { IMAGES } from "../../constants/index";
 import useTimer from "../../hooks/useTimer";
 import { timeStamp } from "../planner/time";
 
-import Header from "../header/Header";
-import Head from "../header/Head";
+import Head from "../header/Header";
 import Button from "./TimerButton";
 import GetCarrot from "./GetCarrot";
 import TimerBackground from "./TimerBackground";
-import Menu from "../menu/Menu";
-
 //
 
 const CarrotTimer = () => {

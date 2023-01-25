@@ -1,53 +1,19 @@
-//리액트 관련
-import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-
-//컴포넌트
 import Menu from "../menu/Menu";
 
-const Header = ({
-  menuName,
-  justifyContent,
-  left,
-  right,
-  rightLink,
-  leftLink,
-  clickMenuHandler,
-  height,
-  onClick,
-  padding,
-  fontSize,
-  fontWeight,
-  fontFamily,
-  width,
-  marginRight,
-  marginLeft,
-}) => {
+const Header = ({ leftLink, leftSlot, title, rightSlot, onClick }) => {
   return (
     <>
-      <StHeaderStyle height={height} padding={padding}>
-        <StHeaderLayout justifyContent={justifyContent}>
-          <Link to={leftLink}>
-            <StIcon onClick={onClick}>{left}</StIcon>
-          </Link>
-          <StMenuName
-            fontSize={fontSize}
-            fontWeight={fontWeight}
-            width={width}
-            marginRight={marginRight}
-            marginLeft={marginLeft}
-            fontFamily={fontFamily}
-          >
-            {menuName}
-          </StMenuName>
-          <div onClick={clickMenuHandler} fontFamily={fontFamily}>
-            <Link to={rightLink}>
-              <StIcon>{right}</StIcon>
-            </Link>
-          </div>
-        </StHeaderLayout>
-      </StHeaderStyle>
+      <StContainer>
+        <StBox>
+          <StLeftSlot>
+            <Link to={leftLink}>{leftSlot}</Link>
+          </StLeftSlot>
+          <StCenterSlot>{title}</StCenterSlot>
+          <StRightSlot onClick={onClick}>{rightSlot}</StRightSlot>
+        </StBox>
+      </StContainer>
       <Menu />
     </>
   );
@@ -55,31 +21,44 @@ const Header = ({
 
 export default Header;
 
-const StHeaderStyle = styled.div`
-  height: ${({ height }) => height || "72px"};
+const StContainer = styled.div`
+  width: 375px;
+  height: 72px;
+
+  padding: 28px 28px 12px 28px;
+
   background-color: #f9f3ea;
-  padding: ${({ padding }) => padding || "28px 28px 12px 27px"};
 `;
 
-const StHeaderLayout = styled.div`
+const StBox = styled.div`
+  width: 319px;
+  height: 32px;
+
   display: flex;
-  justify-content: ${({ justifyContent }) => justifyContent || "space-between"};
+  flex-direction: row;
   align-items: center;
+  justify-content: space-between;
 `;
 
-const StIcon = styled.button`
+const StLeftSlot = styled.div`
   width: 32px;
   height: 32px;
-  cursor: pointer;
 `;
 
-const StMenuName = styled.h1`
-  width: ${({ width }) => width};
-  margin-right: ${({ marginRight }) => marginRight};
-  margin-left: ${({ marginLeft }) => marginLeft};
+const StCenterSlot = styled.div`
+  width: 219px;
+  height: 18px;
+
+  font-family: "MaplestoryOTFLight";
+  font-size: 1.4rem;
+  line-height: 18px;
+
   text-align: center;
-  font-family: ${({ fontFamily }) => fontFamily || "MaplestoryOTFLight"};
-  font-weight: ${({ fontWeight }) => fontWeight || "300"};
-  font-size: ${({ fontSize }) => fontSize || "1.4rem"};
+
   color: #595550;
+`;
+
+const StRightSlot = styled.div`
+  width: 32px;
+  height: 32px;
 `;

@@ -7,7 +7,10 @@ import { api } from "../../core/api";
 import { isValidEmail, isValidPassword } from "./func";
 
 import Header from "../header/Header";
-import LoginBtnBox from "../login/LoginBtnBox";
+import SubHeader from "../header/SubHeader";
+import Button from "../timer/TimerButton";
+import Label from "../element/Label";
+import InputForm from "../element/InputForm";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -74,9 +77,18 @@ const SignUp = () => {
 
   return (
     <StContainer>
-      <Header menuName="SIGN UP" justifyContent="center" />
+      <Header title="SIGNUP" />
+      <SubHeader title="회원가입" />
+      <InputForm
+        text="E-mail"
+        name="email"
+        type="text"
+        value={signUpInfo.email}
+        onChange={changeEmailHandler}
+        placeholder="이메일 형식"
+      />
       <StInputBox>
-        <StTitle>E-mail</StTitle>
+        <Label text="E-mail" />
 
         <StInput
           name="email"
@@ -121,8 +133,7 @@ const SignUp = () => {
             MSG.checkPwdInvalidMsg}
         </StLabel>
       </StInputBox>
-      <LoginBtnBox
-        mainBtnName="가입하기"
+      <Button
         onClick={submitHandler}
         disabled={
           signUpInfo.email === "" ||
@@ -132,9 +143,10 @@ const SignUp = () => {
           pwdError ||
           checkPwdError
         }
-        bottomText="이미 아이디가 있으신가요?"
-        path={PATH.login}
-      />
+        width="319px"
+      >
+        가입하기
+      </Button>
     </StContainer>
   );
 };
