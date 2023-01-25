@@ -1,16 +1,15 @@
 //리액트 관련
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
+//리덕스
+import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
+import { __getUserInfo } from "../../redux/modules/mypageSlice";
+
 //상수, api
 import { IMAGES, PATH } from "../../constants/index";
-import {
-  groupMenuOpenStatus,
-  searchModalOpenStatus,
-} from "../../redux/modules/modalSlice";
-import { __getUserInfo } from "../../redux/modules/mypageSlice";
 
 //라이브러리
 import moment from "moment";
@@ -74,27 +73,26 @@ const Menu = () => {
     navigate(PATH.mypage);
     dispatch(groupMenuOpenStatus(!groupMenuOpen));
   };
+
   //검색 모달
   const [modalOpen, setModalOpen] = useState(false);
 
-  //검정 배경 클릭 시 메뉴 닫기
-  const clickBackdropHandler = () => {
-    dispatch(groupMenuOpenStatus(!groupMenuOpen));
-  };
+  //바깥쪽 클릭해서 닫히게 하는 useRef 구현
+  const modalRef = useRef();
 
-  //모달 오픈 관련
-  const searchModalOpen = useSelector(
-    (state) => state.modalSlice.searchModalOpen
-  );
-
-  //검정 배경 클릭 시 모달 닫기
-  const clickBackdropModalHandler = () => {
-    dispatch(searchModalOpenStatus(!searchModalOpen));
+  const modalOutSideClick = (e) => {
+    if (modalRef.current === e.target) {
+      dispatch(groupMenuOpenStatus(!groupMenuOpen));
+    }
   };
 
   return (
     <>
-      <ModalBackdrop toggle={groupMenuOpen}>
+      <ModalBackdrop
+        toggle={groupMenuOpen}
+        ref={modalRef}
+        onClick={(e) => modalOutSideClick(e)}
+      >
         <MenuLayout toggle={groupMenuOpen}>
           <MenuIcon>
             <div onClick={clickGroupMenuHandler}>
@@ -184,6 +182,10 @@ const MenuIcon = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  cursor: pointer;
+  button {
+    cursor: pointer;
+  }
 `;
 
 const MenuNav = styled.div`
@@ -209,6 +211,8 @@ const MenuButton = styled.button`
   text-align: center;
   color: #4a8a51;
   gap: 24px;
+  cursor: pointer;
+
   &.active {
     background: #4a8a51;
     color: #fffdfa;
@@ -240,6 +244,7 @@ const Search = styled.div`
   justify-content: center;
   align-items: center;
   gap: 12px;
+  cursor: pointer;
   span {
     font-family: "MaplestoryOTFLight";
     font-weight: 300;
