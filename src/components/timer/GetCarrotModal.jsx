@@ -1,32 +1,33 @@
-import React, { useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
-import TimerButton from "./TimerButton";
+
 import { IMAGES } from "../../constants/index";
 
 //Gsap라이브러리 Import
 import { gsap } from "gsap";
-//import getCarrotModal from "./style/getCarrotModal.css";
+import { Howl } from "howler";
+
+import TimerButton from "./TimerButton";
 
 const GetCarrotModal = (props) => {
   const carrotRef = useRef();
   const blingRef = useRef();
+
+  const [disabled, setDisabled] = useState(true);
 
   //당근 애니메이션
   useEffect(() => {
     let tl = gsap.timeline();
     tl.from(carrotRef.current, {
       y: -150,
-      duration: 0.5,
+      duration: 0.7,
       ease: "bounce.out",
     });
     tl.to(carrotRef.current, {
       y: 0,
       rotation: 360,
-      // repeat: -1,
-      // repeatDelay: 1,
       duration: 1.3,
       scale: 1.5,
-      // yoyo: true,
       ease: "bounce.out",
     });
     tl.to(carrotRef.current, {
@@ -45,17 +46,41 @@ const GetCarrotModal = (props) => {
     });
   }, []);
 
+  //효과음 도전해봤으나 작동안됨
+  const sound = new Howl({
+    src: ["../../assets/audio/getCarrotAudio.mp3"],
+    autoplay: true,
+    volume: 1.0,
+    onend: () => {
+      console.log("Finished!");
+    },
+  });
+
+  useEffect(() => {
+    setTimeout(() => {
+      sound.play();
+    }, 500);
+
+    setTimeout(() => {
+      setDisabled(false);
+    }, 1500);
+  });
+
   return (
-    <ModalBox onClick={props.onOpenModal}>
-      <CarrotLayout>
-        <CarrotEffect ref={blingRef} />
-        <CarrotImg ref={carrotRef}>{IMAGES.completeCarrot}</CarrotImg>
-      </CarrotLayout>
-      <GetMsg>당근 1개를 수확했습니다!</GetMsg>
-      <TimerButton width="108px" height="44px" onClick={props.onClick}>
-        확인
-      </TimerButton>
-    </ModalBox>
+    <>
+      <ModalBox onClick={props.onOpenModal}>
+        <CarrotLayout>
+          <CarrotEffect ref={blingRef} />
+          <CarrotImg ref={carrotRef}>{IMAGES.completeCarrot}</CarrotImg>
+        </CarrotLayout>
+        <GetMsg disabled={disabled}>당근 1개를 수확했습니다!</GetMsg>
+        {!disabled ? (
+          <TimerButton width="108px" height="44px" onClick={props.onClick}>
+            확인
+          </TimerButton>
+        ) : null}
+      </ModalBox>
+    </>
   );
 };
 
@@ -79,7 +104,7 @@ const GetMsg = styled.p`
   font-family: "Pretendard-Regular";
   font-size: 1.6rem;
   font-weight: 500;
-  color: #403b36;
+  color: ${(props) => (props.disabled ? "#fff" : "black")};
   overflow: hidden;
 `;
 

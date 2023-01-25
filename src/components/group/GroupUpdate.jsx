@@ -87,7 +87,7 @@ const GroupUpdate = () => {
       <SubHeader
         title="그룹 수정"
         leftSlot={IMAGES.fold}
-        leftLink={() => navigate(-1)}
+        leftLink={PATH.groupdetail(groupId)}
       />
       <GroupLayout>
         <AddName>

@@ -61,12 +61,6 @@ const GroupInvite = () => {
       alert("닉네임을 입력해주세요");
     } else {
       dispatch(__getGroupMemberInvite({ groupId, username })).then((res) => {
-        // console.log(res.payload.response?.status);
-        // if (res.payload.response?.status === 404) {
-        //   alert(res.payload.response?.data?.message);
-        // } else {
-        //   setSearchList(res.payload.members);
-        // }
         if (res.payload.members.length === 0) {
           alert("검색 결과가 없습니다");
         } else {
@@ -114,7 +108,7 @@ const GroupInvite = () => {
       <SubHeader
         title="그룹원 추가"
         leftSlot={IMAGES.fold}
-        leftLink={() => navigate(-1)}
+        leftLink={PATH.groupdetail(groupId)}
       />
       <GroupLayout>
         <p>검색할 유저 닉네임</p>
