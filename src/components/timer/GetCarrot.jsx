@@ -14,29 +14,21 @@ const GetCarrot = ({ onClick }) => {
   return (
     <>
       <Button onClick={openModalHandler}>당근 수확하기</Button>
-      <>
-        {isOpen ? (
-          <ModalBackdrop>
-            <GetCarrotModal onOpenModal={openModalHandler} onClick={onClick} />
-          </ModalBackdrop>
-        ) : null}
-      </>
+      {isOpen ? (
+        <ModalBackdrop>
+          <GetCarrotModal onOpenModal={openModalHandler} onClick={onClick} />
+        </ModalBackdrop>
+      ) : null}
     </>
   );
 };
 
 export default GetCarrot;
 
-export const ModalContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-export const ModalBackdrop = styled.div`
+const ModalBackdrop = styled.div`
   width: 375px;
   height: 815px;
-  bottom: 0px;
+  top: 0px;
   position: fixed;
   display: flex;
   justify-content: center;
