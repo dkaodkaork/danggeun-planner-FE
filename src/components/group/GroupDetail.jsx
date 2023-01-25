@@ -1,27 +1,29 @@
-import React, { useState, useEffect } from "react";
+//리액트 관련
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { IMAGES } from "../../constants/images.js";
-import { PATH } from "../../constants/index";
 
-import moment from "moment";
-
-//모듈 import
+//리덕스
 import {
   __getGroupDetail,
   __getGroupMember,
 } from "../../redux/modules/groupSlice";
 import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
 
-//컴포넌트 import
+//상수, api
+import { IMAGES, PATH } from "../../constants/index";
+
+//라이브러리
+import moment from "moment";
+
+//컴포넌트
 import Header from "../header/Header";
 import GroupMember from "./GroupMember.jsx";
 import ProfileImg from "../element/ProfileImg.jsx";
 
 const GroupDetail = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const groupMenuOpen = useSelector((state) => state.modalSlice.groupMenuOpen);
   const groupDetailData = useSelector((state) => state.group.groupDetail);
@@ -64,7 +66,6 @@ const GroupDetail = () => {
         width="219px"
         left={IMAGES.fold}
         leftLink={PATH.grouplist}
-        // onClick={() => navigate(-1)}
       />
       <GroupLayout>
         <GroupImg src={groupDetailData?.groupImage} />
@@ -155,14 +156,6 @@ const GroupImg = styled.img`
   width: 67px;
 `;
 
-const GroupName = styled.p`
-  margin-top: 24px;
-  font-family: "MaplestoryOTFBold";
-  font-weight: 700;
-  font-size: 2.4rem;
-  color: #614925;
-`;
-
 const GroupInfo = styled.p`
   margin-top: 24px;
   font-family: "Pretendard-Bold";
@@ -175,7 +168,6 @@ const GroupInfo = styled.p`
 const RankBox = styled.div`
   margin-top: 24px;
   width: 319px;
-  //height: 210px;
   border-radius: 12px;
   background: #fffdfa;
   border: 1px solid #f1e5d2;

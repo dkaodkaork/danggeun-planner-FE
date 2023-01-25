@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import { ReactComponent as TodayBtnIcon } from "../../assets/images/calendar/todayBtnIcon.svg";
+import { IMAGES } from "../../constants/index";
 
-const TodayBtn = (props) => {
+const TodayBtn = ({ onClickToday }) => {
   return (
-    <BtnLayout onClick={props.onClickToday}>
-      <TodayBtnIcon />
+    <BtnLayout onClick={onClickToday}>
+      {IMAGES.todayBtnIcon}
       <BtnText>Today</BtnText>
     </BtnLayout>
   );
@@ -24,6 +24,7 @@ const BtnLayout = styled.div`
   background: #fffdfa;
   gap: 2px;
   box-shadow: 0px 4px 0px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
 `;
 
 const BtnText = styled.div`

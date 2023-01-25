@@ -1,28 +1,29 @@
+//리액트 관련
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
-import Header from "../header/Header";
 import styled from "styled-components";
-import { IMAGES } from "../../constants/images.js";
-import { PATH } from "../../constants/index";
 
+//리덕스
+import { __postGroupAdd } from "../../redux/modules/groupSlice";
+import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
+
+//상수, api
+import { IMAGES, PATH } from "../../constants/index";
+
+//컴포넌트
+import Header from "../header/Header";
 import Input from "../element/Input";
 import Textarea from "../element/Textarea";
 import TimerButton from "../timer/TimerButton";
-
-import { __postGroupAdd } from "../../redux/modules/groupSlice";
-
-//메뉴 오픈 관련
-import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
 
 const GroupAdd = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   //글자수 카운터
-  let [textareaCount, setTextareaCount] = useState(0);
-  let [inputCount, setInputCount] = useState(0);
+  const [textareaCount, setTextareaCount] = useState(0);
+  const [inputCount, setInputCount] = useState(0);
 
   //제목, 내용 담기
   const [groupName, setGroupName] = useState("");
@@ -57,7 +58,6 @@ const GroupAdd = () => {
         (res) => {
           const groupId = res.payload.groupId;
           navigate(PATH.groupdetail(groupId));
-          // navigate(`/group/${groupId}`);
         }
       );
     }
@@ -89,17 +89,8 @@ const GroupAdd = () => {
         width="219px"
         left={IMAGES.fold}
         leftLink={PATH.grouplist}
-        // onClick={() => navigate(-1)}
       />
       <GroupLayout>
-        {/* <AddInfo>
-          <h1>그룹 만들기</h1>
-          <p>
-            가족, 친구들과 집중 상황을 공유하세요.
-            <br />
-            누가 더 많은 당근을 수확하는지 겨루고 격려하세요!
-          </p>
-        </AddInfo> */}
         <AddName>
           <h3>그룹 이름</h3>
           <Input
@@ -144,24 +135,6 @@ const GroupLayout = styled.div`
   background-color: #f9f3ea;
   min-height: 722px; //812px에서 헤더 90px을 뺀 값을 줘야 스크롤이 안생김
   padding: 13px 32px 42px 32px;
-`;
-
-const AddInfo = styled.div`
-  margin-top: 64px;
-  text-align: center;
-  color: #595550;
-  h1 {
-    font-family: "MaplestoryOTFBold";
-    font-size: 2.4rem;
-    font-weight: 700;
-  }
-  p {
-    margin-top: 14px;
-    font-family: "MaplestoryOTFLight";
-    font-size: 1.4rem;
-    font-weight: 300;
-    line-height: 2rem;
-  }
 `;
 
 const AddName = styled.div`

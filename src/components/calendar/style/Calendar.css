@@ -127,9 +127,9 @@
   background-color: #f0f0f0;
 }
 /* 일 선택 시 호버 */
-.react-calendar__tile:enabled:hover {
+/* .react-calendar__tile:enabled:hover {
   background-color: #e6e6e6;
-}
+} */
 
 /* 일 선택 시 포커스  */
 /* .react-calendar__tile:enabled:focus {

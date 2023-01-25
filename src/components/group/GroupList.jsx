@@ -1,20 +1,22 @@
-import React, { useState, useEffect, useRef } from "react";
+//리액트 관련
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
-import Header from "../header/Header";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { IMAGES } from "../../constants/images.js";
-import { PATH } from "../../constants/path.js";
 
+//리덕스
 import { __getGroupList } from "../../redux/modules/groupSlice";
-
-//메뉴 오픈 관련
 import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
+
+//상수, api
+import { IMAGES, PATH } from "../../constants/index";
+
+//컴포넌트
+import Header from "../header/Header";
 
 const GroupList = () => {
   const dispatch = useDispatch();
   const groupData = useSelector((state) => state.group.groupList);
-  //console.log(groupData);
 
   useEffect(() => {
     dispatch(__getGroupList());
@@ -45,52 +47,64 @@ const GroupList = () => {
         fontWeight="700"
         width="219px"
       />
-      <GroupLayout>
-        <CardLayout>
-          <Link to={PATH.groupadd}>
-            <CardBoxAdd>{IMAGES.groupAdd}</CardBoxAdd>
-          </Link>
-          {[...groupData].reverse()?.map((group) => (
-            // {groupData?.map((group) => (
-            <div key={group.groupId}>
-              <Link to={PATH.groupdetail(group.groupId)}>
-                <CardBox>
-                  <TopInfo>
-                    <GroupName>
-                      {group.groupName.length < 7
-                        ? group.groupName
-                        : group.groupName.slice(0, 6) + "..."}
-                    </GroupName>
-                    <People>
-                      {IMAGES.groupListPeople}
-                      <span>{group.participants}</span>
-                    </People>
-                  </TopInfo>
-                  <GroupImg src={group.groupImage} />
-                  <p>
-                    {group.description.length < 9
-                      ? group.description
-                      : group.description.slice(0, 8) + "..."}
-                  </p>
-                </CardBox>
+      <StGroupLayout>
+        {groupData?.length !== 0 && groupData?.length !== undefined ? (
+          <>
+            <StCardLayout>
+              <Link to={PATH.groupadd}>
+                <StCardBoxAdd>{IMAGES.groupAdd}</StCardBoxAdd>
               </Link>
-            </div>
-          ))}
-        </CardLayout>
-      </GroupLayout>
+              {[...groupData].reverse()?.map((group) => (
+                <div key={group.groupId}>
+                  <Link to={PATH.groupdetail(group.groupId)}>
+                    <StCardBox>
+                      <StTopInfo>
+                        <StGroupName>
+                          {group.groupName.length < 7
+                            ? group.groupName
+                            : group.groupName.slice(0, 6) + "..."}
+                        </StGroupName>
+                        <StPeople>
+                          {IMAGES.groupListPeople}
+                          <span>{group.participants}</span>
+                        </StPeople>
+                      </StTopInfo>
+                      <StGroupImg src={group.groupImage} />
+                      <p>
+                        {group.description.length < 9
+                          ? group.description
+                          : group.description.slice(0, 8) + "..."}
+                      </p>
+                    </StCardBox>
+                  </Link>
+                </div>
+              ))}
+            </StCardLayout>
+          </>
+        ) : (
+          <div>
+            <StCardLayout>
+              <Link to={PATH.groupadd}>
+                <StCardBoxAdd>{IMAGES.groupAdd}</StCardBoxAdd>
+              </Link>
+            </StCardLayout>
+            <StNoGroup>그룹이 없습니다</StNoGroup>
+          </div>
+        )}
+      </StGroupLayout>
     </>
   );
 };
 
 export default GroupList;
 
-const GroupLayout = styled.div`
+const StGroupLayout = styled.div`
   background-color: #f9f3ea;
   min-height: 722px; //812px에서 헤더 90px을 뺀 값을 줘야 스크롤이 안생김
+  padding: 12px 22px;
 `;
 
-const CardLayout = styled.div`
-  width: 328px;
+const StCardLayout = styled.div`
   margin: 0 auto;
   margin-top: 31px;
   display: flex;
@@ -100,7 +114,7 @@ const CardLayout = styled.div`
   gap: 10px;
 `;
 
-const CardBoxAdd = styled.div`
+const StCardBoxAdd = styled.div`
   width: 159px;
   height: 159px;
   padding: 16px 14px 16px 14px;
@@ -113,7 +127,7 @@ const CardBoxAdd = styled.div`
   align-items: center;
 `;
 
-const CardBox = styled.div`
+const StCardBox = styled.div`
   width: 159px;
   height: 159px;
   padding: 16px 14px 16px 14px;
@@ -134,24 +148,34 @@ const CardBox = styled.div`
   }
 `;
 
-const TopInfo = styled.div`
+const StNoGroup = styled.div`
+  text-align: center;
+  margin-top: 152px;
+  font-family: "Pretendard-Regular";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.4rem;
+  color: #a4a4a4;
+`;
+
+const StTopInfo = styled.div`
   display: flex;
   justify-content: space-between;
 `;
 
-const GroupImg = styled.img`
+const StGroupImg = styled.img`
   width: 67px;
   margin: 0 auto;
 `;
 
-const GroupName = styled.span`
+const StGroupName = styled.span`
   font-family: "MaplestoryOTFBold";
   font-weight: 700;
   font-size: 16px;
   color: #614925;
 `;
 
-const People = styled.div`
+const StPeople = styled.div`
   span {
     padding-left: 3px;
     font-family: "Pretendard-Regular";

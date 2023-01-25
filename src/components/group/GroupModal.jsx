@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from "react";
+//리액트 관련
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+
+//상수, api
+import { detailMenuOpenStatus } from "../../redux/modules/modalSlice";
+
+//컴포넌트
 import Modal from "../element/Modal";
 import ButtonS from "../element/ButtonS";
-
-import { detailMenuOpenStatus } from "../../redux/modules/modalSlice";
 
 const GroupModal = (props) => {
   const dispatch = useDispatch();

@@ -1,7 +1,9 @@
+//리액트 관련
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import GroupMenu from "../group/GroupMenu";
+
+//컴포넌트
 import Menu from "../menu/Menu";
 
 const Header = ({
@@ -24,13 +26,12 @@ const Header = ({
 }) => {
   return (
     <>
-      <HeaderStyle height={height} padding={padding}>
-        <TopIcon justifyContent={justifyContent}>
+      <StHeaderStyle height={height} padding={padding}>
+        <StHeaderLayout justifyContent={justifyContent}>
           <Link to={leftLink}>
-            <Icon onClick={onClick}>{left}</Icon>
+            <StIcon onClick={onClick}>{left}</StIcon>
           </Link>
-          {/* <Link to={rightLink}>{right}</Link> */}
-          <MenuName
+          <StMenuName
             fontSize={fontSize}
             fontWeight={fontWeight}
             width={width}
@@ -39,14 +40,14 @@ const Header = ({
             fontFamily={fontFamily}
           >
             {menuName}
-          </MenuName>
-          <MenuIcon onClick={clickMenuHandler} fontFamily={fontFamily}>
+          </StMenuName>
+          <div onClick={clickMenuHandler} fontFamily={fontFamily}>
             <Link to={rightLink}>
-              <Icon>{right}</Icon>
+              <StIcon>{right}</StIcon>
             </Link>
-          </MenuIcon>
-        </TopIcon>
-      </HeaderStyle>
+          </div>
+        </StHeaderLayout>
+      </StHeaderStyle>
       <Menu />
     </>
   );
@@ -54,37 +55,31 @@ const Header = ({
 
 export default Header;
 
-export const HeaderStyle = styled.div`
+const StHeaderStyle = styled.div`
   height: ${({ height }) => height || "72px"};
   background-color: #f9f3ea;
   padding: ${({ padding }) => padding || "28px 28px 12px 27px"};
 `;
 
-export const TopIcon = styled.div`
+const StHeaderLayout = styled.div`
   display: flex;
   justify-content: ${({ justifyContent }) => justifyContent || "space-between"};
   align-items: center;
-  /* padding: 0 36px 0 36px; */
 `;
 
-export const Icon = styled.button`
+const StIcon = styled.button`
   width: 32px;
+  height: 32px;
+  cursor: pointer;
 `;
 
-export const HomeNav = styled.div`
-  width: 32px;
-`;
-
-export const MenuName = styled.h1`
+const StMenuName = styled.h1`
   width: ${({ width }) => width};
   margin-right: ${({ marginRight }) => marginRight};
   margin-left: ${({ marginLeft }) => marginLeft};
-
   text-align: center;
   font-family: ${({ fontFamily }) => fontFamily || "MaplestoryOTFLight"};
   font-weight: ${({ fontWeight }) => fontWeight || "300"};
   font-size: ${({ fontSize }) => fontSize || "1.4rem"};
   color: #595550;
 `;
-
-const MenuIcon = styled.div``;

@@ -1,21 +1,25 @@
-import React, { useState, useEffect } from "react";
+//리액트 관련
+import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { IMAGES } from "../../constants/images.js";
-import { PATH } from "../../constants/index";
 
+//리덕스
 import {
   groupMenuOpenStatus,
   searchModalOpenStatus,
 } from "../../redux/modules/modalSlice";
-
 import { __getUserInfo } from "../../redux/modules/mypageSlice";
 
+//상수, api
+import { IMAGES, PATH } from "../../constants/index";
+
+//라이브러리
+import moment from "moment";
+
+//컴포넌트
 import SearchModal from "../search/SearchModal.jsx";
 import ProfileImg from "../element/ProfileImg.jsx";
-
-import moment from "moment";
 
 const Menu = () => {
   const dispatch = useDispatch();
@@ -42,6 +46,11 @@ const Menu = () => {
     dispatch(groupMenuOpenStatus(!groupMenuOpen));
   };
 
+  //검색 모달 관리
+  const searchModalOpen = useSelector(
+    (state) => state.modalSlice.searchModalOpen
+  );
+
   //메뉴 클릭 시 이동 핸들러
   //그룹
   const clickGroupNav = () => {
@@ -55,7 +64,7 @@ const Menu = () => {
   };
   //검색
   const clickSearchNav = () => {
-    setModalOpen(!modalOpen);
+    dispatch(searchModalOpenStatus(!searchModalOpen));
   };
   //타이머
   const clickTimverNav = () => {
@@ -72,27 +81,23 @@ const Menu = () => {
     navigate(PATH.mypage);
     dispatch(groupMenuOpenStatus(!groupMenuOpen));
   };
-  //검색 모달
-  const [modalOpen, setModalOpen] = useState(false);
 
-  //검정 배경 클릭 시 메뉴 닫기
-  const clickBackdropHandler = () => {
-    dispatch(groupMenuOpenStatus(!groupMenuOpen));
-  };
+  //바깥쪽 클릭해서 닫히게 하는 useRef 구현
+  const modalRef = useRef();
 
-  //모달 오픈 관련
-  const searchModalOpen = useSelector(
-    (state) => state.modalSlice.searchModalOpen
-  );
-
-  //검정 배경 클릭 시 모달 닫기
-  const clickBackdropModalHandler = () => {
-    dispatch(searchModalOpenStatus(!searchModalOpen));
+  const modalOutSideClick = (e) => {
+    if (modalRef.current === e.target) {
+      dispatch(groupMenuOpenStatus(!groupMenuOpen));
+    }
   };
 
   return (
     <>
-      <ModalBackdrop toggle={groupMenuOpen}>
+      <ModalBackdrop
+        toggle={groupMenuOpen}
+        ref={modalRef}
+        onClick={(e) => modalOutSideClick(e)}
+      >
         <MenuLayout toggle={groupMenuOpen}>
           <MenuIcon>
             <div onClick={clickGroupMenuHandler}>
@@ -147,7 +152,7 @@ const Menu = () => {
           </Search>
         </MenuLayout>
       </ModalBackdrop>
-      {modalOpen && <SearchModal propsState={modalOpen} />}
+      <SearchModal />
     </>
   );
 };
@@ -182,6 +187,10 @@ const MenuIcon = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  cursor: pointer;
+  button {
+    cursor: pointer;
+  }
 `;
 
 const MenuNav = styled.div`
@@ -207,6 +216,8 @@ const MenuButton = styled.button`
   text-align: center;
   color: #4a8a51;
   gap: 24px;
+  cursor: pointer;
+
   &.active {
     background: #4a8a51;
     color: #fffdfa;
@@ -238,6 +249,7 @@ const Search = styled.div`
   justify-content: center;
   align-items: center;
   gap: 12px;
+  cursor: pointer;
   span {
     font-family: "MaplestoryOTFLight";
     font-weight: 300;
