@@ -29,8 +29,6 @@ const GroupList = () => {
     dispatch(groupMenuOpenStatus(!groupMenuOpen));
   };
 
-  console.log(groupData.length);
-
   return (
     <>
       <Header
@@ -50,10 +48,6 @@ const GroupList = () => {
         width="219px"
       />
       <StGroupLayout>
-        {/* <StCardLayout>
-          <Link to={PATH.groupadd}>
-            <StCardBoxAdd>{IMAGES.groupAdd}</StCardBoxAdd>
-          </Link> */}
         {groupData?.length !== 0 && groupData?.length !== undefined ? (
           <>
             <StCardLayout>

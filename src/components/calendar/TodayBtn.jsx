@@ -24,6 +24,7 @@ const BtnLayout = styled.div`
   background: #fffdfa;
   gap: 2px;
   box-shadow: 0px 4px 0px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
 `;
 
 const BtnText = styled.div`
