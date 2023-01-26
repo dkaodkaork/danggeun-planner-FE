@@ -8,6 +8,7 @@ import { api } from "../../../core/api";
 import Header from "../../header/Header";
 import SubHeader from "../../header/SubHeader";
 import Button from "../../timer/TimerButton";
+import InputBox from "../signUp/InputBox";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -73,34 +74,31 @@ const Login = () => {
     <StContainer>
       <Header title="LOGIN" />
       <SubHeader title="이메일로 로그인" />
-      <StInputBox>
-        <StTitle>E-mail</StTitle>
-        <StInput
-          name="email"
-          type="text"
-          value={loginInfo.email}
-          onChange={changeHandler}
-          maxLength="24"
-          placeholder="이메일 형식"
-        />
-      </StInputBox>
-      <StInputBox>
-        <StTitle>Password</StTitle>
 
-        <StInput
-          maxLength="13"
-          name="password"
-          type="password"
-          value={loginInfo.password}
-          onChange={changeHandler}
-          placeholder="영문, 숫자, 특수문자가 포함된 8~13자리"
-        />
-      </StInputBox>
+      <InputBox
+        margin="12px 0px 12px 0px"
+        title="E-mail"
+        name="email"
+        type="text"
+        value={loginInfo.email}
+        onChange={changeHandler}
+        placeholder="이메일 형식"
+      />
+
+      <InputBox
+        title="Password"
+        name="password"
+        type="password"
+        value={loginInfo.password}
+        onChange={changeHandler}
+        placeholder="영문, 숫자, 특수문자가 포함된 8~13자리"
+      />
+
       <Button
         onClick={submitHandler}
         disabled={disabled}
         width="319px"
-        marginTop="338px"
+        marginTop="300px"
       >
         로그인
       </Button>
@@ -121,51 +119,6 @@ const StContainer = styled.div`
   align-items: center;
 `;
 
-const StInputBox = styled.div`
-  width: 319px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-top: 20px;
-  gap: 10px;
-  margin-bottom: ${({ marginBottom }) => marginBottom};
-`;
-
-const StTitle = styled.label`
-  width: 319px;
-  height: 16px;
-  font-family: "Pretendard";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 1.2rem;
-  line-height: 130%;
-  text-align: left;
-  margin-left: 10px;
-
-  color: #595550;
-`;
-const StInput = styled.input`
-  padding: 19px;
-  width: 319px;
-
-  height: 55px;
-
-  background: #ffffff;
-
-  border: 1px solid #f1e5d2;
-  border-radius: 12px;
-
-  ::placeholder {
-    font-family: "Pretendard";
-    font-style: normal;
-    font-weight: 500;
-    font-size: 1.4rem;
-    line-height: 17px;
-    color: #a4a4a4;
-  }
-`;
-
 const StBottomText = styled.div`
   width: 319px;
   height: 18px;
@@ -182,6 +135,5 @@ const StBottomText = styled.div`
   text-decoration-line: underline;
 
   color: #4a8a51;
-
   margin-top: 24px;
 `;
