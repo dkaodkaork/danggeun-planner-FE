@@ -25,16 +25,23 @@ const Profile = () => {
   }, [dispatch]);
 
   const [countUsername, setCountUsername] = useState(0);
-
+  const [disabled, setDisabled] = useState(true);
   const userInfo = useSelector((state) => state.mypage.data);
 
-  const [editUsername, setEditUsername] = useState({
-    username: "",
-  });
+  const [editUsername, setEditUsername] = useState({ username: "" });
 
-  // console.log(userInfo.username);
-  //버튼 활성화
-  const [disabled, setDisabled] = useState(false);
+  useEffect(() => {
+    setCountUsername(userInfo.username.length);
+  }, []);
+
+  useEffect(() => {
+    if (countUsername > 0) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
+    }
+  }, [countUsername]);
+
   // 메뉴 오픈 관련 추후에 반드시 빼야함
   const groupMenuOpen = useSelector((state) => state.modalSlice.groupMenuOpen);
 
@@ -48,10 +55,6 @@ const Profile = () => {
       [e.target.name]: e.target.value,
     });
     setCountUsername(e.target.value.length);
-    if (countUsername > 0) {
-      // console.log(userInfo.username);
-      setDisabled(true);
-    }
   };
 
   const submitHandler = async () => {
@@ -59,7 +62,6 @@ const Profile = () => {
       navigate(PATH.mypage);
     } else {
       const res = await dispatch(__putUsername(editUsername));
-      console.log(res);
       if (res.payload === "이미 사용 중인 닉네임입니다.") {
         alert(res.payload);
       } else {
@@ -136,7 +138,7 @@ const Profile = () => {
             onClick={submitHandler}
             width="319px"
             marginTop="321px"
-            // disabled={!disabled}
+            disabled={disabled}
           >
             완 료
           </Button>
