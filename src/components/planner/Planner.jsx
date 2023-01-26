@@ -22,7 +22,7 @@ import { v4 as uuidv4 } from "uuid";
 import Header from "../header/Header";
 import { planStartTime, getDayOfWeek } from "./time";
 import UsernameCard from "./UsernameCard";
-import BottomBtns from "./BottomBtns";
+import BottomBtn from "./BottomBtn";
 import PlanCard from "./PlanCard";
 import PlannerModal from "./PlannerModal";
 import SlideModal from "../element/SlideModal";
@@ -34,7 +34,7 @@ const Planner = () => {
   const { date, username } = useParams();
 
   const plans = useSelector((state) => state?.planner?.data);
-  // console.log(plans.error);
+  console.log(plans.contents);
 
   // 상태 선언
   const [selectedId, setSelectedId] = useState(null);
@@ -67,7 +67,6 @@ const Planner = () => {
     content: planTitle,
   };
 
-  // console.log(planInfo);
   // 플래너 조회 요청
   useEffect(() => {
     dispatch(__getAllPlan({ username: username, date: date }));
@@ -96,8 +95,6 @@ const Planner = () => {
       Number(b.startTime.replace(":", ""))
     );
   });
-  // console.log(temp);
-  // console.log(sortedPlans);
 
   // 모달은 나주에 slice에서 빼고 하면 코드 많이 줄일 수 있을 것 같음. 상태로 관리
   const planModalOpen = useSelector(
@@ -159,13 +156,6 @@ const Planner = () => {
         dispatch(planModalOpenStatus(!planModalOpen));
       }
     }
-
-    // else if ()
-    // if (isEdit) {
-    //   if (window.confirm("삭제 하시겠습니까?")) {
-    //     dispatch(__deletePlan({ id }));
-    //   }
-    // }
   };
 
   // 타이머 제목 수정
@@ -174,13 +164,10 @@ const Planner = () => {
       alert("제목을 입력해주세요!");
     } else {
       const title = { content: planTitle };
-      // dispatch(timerTest({ title, id }));
       dispatch(__putTimerContent({ title, id }));
       dispatch(planModalOpenStatus(!planModalOpen));
     }
   };
-
-  // console.log(planTitle);
 
   // 계획 추가, 계획 수정 // 나중에 변수명 수정 , 로직 간단하게 해야함 급하게 짬
   const doneAddModalHandler = (id) => {
@@ -216,15 +203,6 @@ const Planner = () => {
           dispatch(__postPlan(planInfo));
         }
       }
-      // setPlanTitle("");
-      // setEndTime({
-      //   hour: "",
-      //   min: "",
-      // });
-      // setStartTime({
-      //   hour: "",
-      //   min: "",
-      // });
     }
   };
   //
@@ -238,9 +216,6 @@ const Planner = () => {
   // 플랜 시작시간 종료시간
   const changeStartTimeHandler = (e) => {
     let time = e.target.value;
-    console.log(time);
-    // if()
-
     setStartTime({ ...startTime, [e.target.name]: time });
   };
 
@@ -255,8 +230,6 @@ const Planner = () => {
     if (e.target.value.length > e.target.maxLength)
       e.target.value = e.target.value.slice(0, e.target.maxLength);
   };
-
-  // console.log(sortedPlans);
 
   return (
     <>
@@ -288,35 +261,43 @@ const Planner = () => {
             onClickgetPlan={onClickgetPlan}
             onClickgetFocusPlan={onClickgetFocusPlan}
           />
-          {sortedPlans.map((val) => {
-            let color = "";
-            const id = val.timerId ?? val.planId;
-            if (Object.keys(val)[0] === "timerId") {
-              color = "#F27808";
-            } else {
-              color = "#67986C";
-            }
-            return (
-              <div key={uuidv4()}>
-                <PlanCard
-                  onClick={
-                    plans.isOwner
-                      ? () => {
-                          openEditModalHanlder(id, val);
-                        }
-                      : () => {}
-                  }
-                  color={color}
-                  content={val.content}
-                  startTime={val.startTime}
-                  endTime={val.endTime}
-                  count={val?.count}
-                />
-              </div>
-            );
-          })}
+          {plans?.contents.length !== 0 ? (
+            <>
+              {sortedPlans.map((val) => {
+                let color = "";
+                const id = val.timerId ?? val.planId;
+                if (Object.keys(val)[0] === "timerId") {
+                  color = "#F27808";
+                } else {
+                  color = "#67986C";
+                }
+                return (
+                  <div key={uuidv4()}>
+                    <PlanCard
+                      onClick={
+                        plans.isOwner
+                          ? () => {
+                              openEditModalHanlder(id, val);
+                            }
+                          : () => {}
+                      }
+                      color={color}
+                      content={val.content}
+                      startTime={val.startTime}
+                      endTime={val.endTime}
+                      count={val?.count}
+                    />
+                  </div>
+                );
+              })}
+            </>
+          ) : (
+            <StEmptyBodyDiv>
+              <StEmptyPlanDiv>일정이 비었습니다.</StEmptyPlanDiv>
+            </StEmptyBodyDiv>
+          )}
         </StBodyDiv>
-        {plans.isOwner && <BottomBtns onClick={openModalHanlder} />}
+        {plans.isOwner && <BottomBtn onClick={openModalHanlder} />}
       </StContainer>
       <SlideModal height="258px" bottom="-260px" toggle={planModalOpen}>
         <PlannerModal
@@ -390,5 +371,24 @@ const StBodyDiv = styled.div`
   gap: 10px;
   height: 550px;
   overflow: scroll;
-  margin: 6px 0px 15px 0px;
+  margin-top: 6px;
+`;
+
+const StEmptyBodyDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  height: 507px;
+  margin-top: 6px;
+`;
+
+const StEmptyPlanDiv = styled.div`
+  text-align: center;
+  margin-top: 234px;
+  font-family: "Pretendard-Regular";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.4rem;
+  color: #a4a4a4;
 `;

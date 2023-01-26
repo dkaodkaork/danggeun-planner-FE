@@ -1,8 +1,8 @@
 import React from "react";
-import UsernameForm from "../../components/signUp/UsernameForm";
+import UsernameForm from "../../components/auth/signUp/UsernameForm";
 
 const UsernameFormPage = () => {
-  return <UsernameForm></UsernameForm>;
+  return <UsernameForm />;
 };
 
 export default UsernameFormPage;
