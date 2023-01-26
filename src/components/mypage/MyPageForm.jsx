@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import { PATH, IMAGES } from "../../constants/index";
+import { api } from "../../core/api";
 
 import Button from "../timer/TimerButton";
 import Header from "../header/Header";
@@ -21,10 +22,16 @@ const MypageForm = () => {
     dispatch(__getUserInfo());
   }, [dispatch]);
 
-  const logoutHandler = () => {
+  const logoutHandler = async () => {
     if (window.confirm("로그아웃 하시겠습니까?")) {
+      try {
+        const response = await api.postLogoutApi();
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      }
       localStorage.clear();
-      navigate(PATH.login);
+      navigate(PATH.landing);
     }
   };
 

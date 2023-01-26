@@ -3,9 +3,10 @@ import { instance, baseURL } from "./apiConfig";
 export const api = {
   // 회원가입/로그인
   postLoginApi: (loginInfo) => instance.post(`auth/login`, loginInfo),
+  postLogoutApi: () => baseURL.post(`auth/logout`),
   postSignUpApi: (signUpInfo) => instance.post(`auth/signup`, signUpInfo),
   postRefreshApi: (refreshToken) =>
-    instance.post(
+    baseURL.post(
       `auth/token`,
       {},
       { headers: { refreshToken: `${refreshToken}` } }
