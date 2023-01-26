@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
-  DivLayout,
+  DeskTopLayout,
   LayoutBox,
   BannerLayout,
   Box,
@@ -28,7 +28,7 @@ const Layout = ({ children }) => {
         <DivLayout2>{children}</DivLayout2>
       ) : (
         <Box>
-          <DivLayout>{children}</DivLayout>
+          <DeskTopLayout>{children}</DeskTopLayout>
         </Box>
       )}
     </LayoutBox>
