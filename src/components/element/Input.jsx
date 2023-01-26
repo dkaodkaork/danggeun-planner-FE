@@ -4,6 +4,7 @@ import styled from "styled-components";
 const Input = (props) => {
   return (
     <StInput
+      textAlign={props.textAlign}
       disabled={props.disabled}
       name={props.name}
       value={props.value}
@@ -34,6 +35,7 @@ const Input = (props) => {
 
 export default Input;
 const StInput = styled.input`
+  text-align: ${({ textAlign }) => textAlign};
   border-radius: 12px;
   padding: ${({ padding }) => padding || "19px 16px 19px 16px"};
   //cursor: pointer;
