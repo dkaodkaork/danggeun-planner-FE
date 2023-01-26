@@ -115,15 +115,13 @@ const CarrotTimer = () => {
     rest: (
       <Button
         onClick={focusGiveUpHandler}
-        color="#F27808"
-        backgroundColor="#F9F3EA"
+        color="#4A8A51"
+        backgroundColor="transparent"
         fontSize="1.6rem"
-        padding="none"
-        fontFamily="MaplestoryOTFBold"
-        width="100px"
-        height="40px"
-        border="1px solid #F27808"
-        marginTop="19px"
+        filter="none"
+        fontFamily="MaplestoryOTFLight"
+        textDecoration="underline"
+        underlinePosition="under"
       >
         포기하기?
       </Button>
@@ -140,15 +138,13 @@ const CarrotTimer = () => {
     rest: (
       <Button
         onClick={restModeDoneHandler}
-        color="#F27808"
-        backgroundColor="#F9F3EA"
+        color="#4A8A51"
+        backgroundColor="transparent"
         fontSize="1.6rem"
-        padding="none"
-        fontFamily="MaplestoryOTFBold"
-        width="129px"
-        height="40px"
-        border="1px solid #F27808"
-        marginTop="19px"
+        filter="none"
+        fontFamily="MaplestoryOTFLight"
+        textDecoration="underline"
+        underlinePosition="under"
       >
         휴식 건너뛰기
       </Button>
