@@ -37,6 +37,7 @@ export const IMAGES = {
   kakao: require("../assets/images/login/kakao.png"),
   naver: require("../assets/images/login/naver.png"),
   google: require("../assets/images/login/google.png"),
+  logo: require("../assets/images/login/logo.png"),
 
   // 마이페이지
   fold: <Fold />,
