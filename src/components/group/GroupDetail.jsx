@@ -139,7 +139,7 @@ export default GroupDetail;
 
 const GroupLayout = styled.div`
   background-color: #f9f3ea;
-  min-height: 722px; //812px에서 헤더 90px을 뺀 값을 줘야 스크롤이 안생김
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;

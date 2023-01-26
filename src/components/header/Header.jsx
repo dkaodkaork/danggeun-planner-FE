@@ -42,6 +42,7 @@ const StBox = styled.div`
 const StLeftSlot = styled.div`
   width: 32px;
   height: 32px;
+  cursor: pointer;
 `;
 
 const StCenterSlot = styled.div`
@@ -60,4 +61,5 @@ const StCenterSlot = styled.div`
 const StRightSlot = styled.div`
   width: 32px;
   height: 32px;
+  cursor: pointer;
 `;

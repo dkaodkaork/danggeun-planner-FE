@@ -49,6 +49,9 @@ const GroupAdd = () => {
     }
   };
 
+  const contents = description.replace(/(?:\r\n|\r|\n)/g, "<br>");
+  // console.log(contents);
+
   const onClickGroupAdd = () => {
     if (inputCount === 0) {
       alert("그룹 제목을 입력해주세요");
@@ -95,7 +98,7 @@ const GroupAdd = () => {
           />
           <p>
             <span>{inputCount}</span>
-            <span>/10 자</span>
+            <span>/10</span>
           </p>
         </AddName>
         <Addcontents>
@@ -107,18 +110,19 @@ const GroupAdd = () => {
           />
           <p>
             <span>{textareaCount}</span>
-            <span>/50 자</span>
+            <span>/50</span>
           </p>
         </Addcontents>
-        <TimerButton
-          marginTop="80px"
-          width="319px"
-          onClick={onClickGroupAdd}
-          disabled={!disabled}
-        >
-          완 료
-        </TimerButton>
-        <PageMsg>그룹 이름과 소개는 언제든 수정할 수 있습니다.</PageMsg>
+        <StBottom>
+          <TimerButton
+            width="319px"
+            onClick={onClickGroupAdd}
+            disabled={!disabled || textareaCount === 0 || inputCount === 0}
+          >
+            완 료
+          </TimerButton>
+          <PageMsg>그룹 이름과 소개는 언제든 수정할 수 있습니다.</PageMsg>
+        </StBottom>
       </GroupLayout>
     </>
   );
@@ -165,8 +169,13 @@ const Addcontents = styled.div`
   }
 `;
 
+const StBottom = styled.div`
+  position: fixed;
+  bottom: 70px;
+`;
+
 const PageMsg = styled.p`
-  margin-top: 20px;
+  margin-top: 24px;
   font-family: "Pretendard-Regular";
   font-size: 1.4rem;
   font-weight: 700;

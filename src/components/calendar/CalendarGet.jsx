@@ -167,7 +167,9 @@ const StCalendarStyle = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 740px; //812px에서 헤더값 뺌
+  height: 100%;
+  /* overflow: hidden;
+  touch-action: none; */
 `;
 
 const StProfileLayout = styled.div`

@@ -62,7 +62,7 @@ const GroupInvite = () => {
     } else {
       dispatch(__getGroupMemberInvite({ groupId, username })).then((res) => {
         if (res.payload.members.length === 0) {
-          alert("검색 결과가 없습니다");
+          alert("검색된 유저가 없습니다");
         } else {
           setSearchList(res.payload.members);
         }
@@ -175,9 +175,16 @@ const GroupInvite = () => {
               ))}
             </UserBox>
           ) : null}
-          <TimerButton onClick={InviteSubmit} marginTop="30px" width="319px">
-            완료
-          </TimerButton>
+          <StBottom>
+            <TimerButton
+              onClick={InviteSubmit}
+              width="319px"
+              disabled={checkedList.length === 0}
+            >
+              완료
+            </TimerButton>
+            <PageMsg>그룹 당 최대 99명의 멤버를 추가할 수 있습니다.</PageMsg>
+          </StBottom>
         </Flex>
       </GroupLayout>
     </>
@@ -208,7 +215,7 @@ const CheckInput = styled.input`
 
 const GroupLayout = styled.div`
   background-color: #f9f3ea;
-  min-height: 722px; //812px에서 헤더 90px을 뺀 값을 줘야 스크롤이 안생김
+  height: 100%;
   padding: 12px 28px 28px 28px;
   p {
     font-family: "Pretendard-Bold";
@@ -250,7 +257,6 @@ const User = styled.div`
   display: flex;
   align-items: center;
   gap: 7px;
-  width: 116px;
   padding-left: 12px;
   span {
     font-family: "Pretendard-Regular";
@@ -291,4 +297,19 @@ const MoreToggle = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
+  cursor: pointer;
+`;
+
+const StBottom = styled.div`
+  position: fixed;
+  bottom: 40px;
+`;
+
+const PageMsg = styled.p`
+  margin-top: 20px;
+  font-family: "Pretendard-Regular";
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-align: center;
+  color: #f27808;
 `;
