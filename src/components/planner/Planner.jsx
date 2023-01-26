@@ -255,12 +255,14 @@ const Planner = () => {
             오늘 수확량 <span>{plans.carrot}</span>
           </StTodayCarrot>
         </StDiv>
-        <StBodyDiv>
+        <StBtnGroup>
           <SortingBtnGroup
             onClickGetAllPlan={onClickGetAllPlan}
             onClickgetPlan={onClickgetPlan}
             onClickgetFocusPlan={onClickgetFocusPlan}
           />
+        </StBtnGroup>
+        <StBodyDiv>
           {plans?.contents.length !== 0 ? (
             <>
               {sortedPlans.map((val) => {
@@ -364,12 +366,18 @@ const StDiv = styled.div`
   height: 56px;
 `;
 
+const StBtnGroup = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 const StBodyDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  height: 550px;
+  height: 507px;
   overflow: scroll;
   margin-top: 6px;
 `;

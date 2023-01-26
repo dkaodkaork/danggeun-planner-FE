@@ -191,7 +191,6 @@ const StInput = styled.input`
   margin-top: 25px;
 
   background: #ffffff;
-  /* back2 */
 
   border: 1px solid #f1e5d2;
   border-radius: 12px;
@@ -200,7 +199,6 @@ const StInput = styled.input`
     font-family: "Pretendard-Regular";
     font-size: 1.4rem;
     line-height: 17px;
-    color: #e3e1e1;
   }
 `;
 
