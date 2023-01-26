@@ -15,6 +15,7 @@ import GroupDetailPage from "../pages/group/GroupDetailPage";
 import GroupUpdatePage from "../pages/group/GroupUpdatePage";
 import GroupInvitePage from "../pages/group/GroupInvitePage";
 import PrivateRoute from "./PrivateRoute";
+import LandingPage from "../pages/auth/LandingPage";
 
 const Router = () => {
   return (
@@ -22,8 +23,9 @@ const Router = () => {
       <Routes>
         <Route>
           {/* <PrivateRoute exact path="/" element={<TimerPage />} /> */}
+          <Route path="/" element={<LandingPage />} />
           <Route path="/timer" element={<TimerPage />} />
-          <Route path="/" element={<LoginPage />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/calendar/:username" element={<CalendarPage />} />
           <Route path="/username" element={<UsernameFormPage />} />
