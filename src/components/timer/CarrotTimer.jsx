@@ -31,7 +31,7 @@ const CarrotTimer = () => {
   };
   //
 
-  const startTime = 1000 * 4 * 20;
+  const startTime = 1000 * 4;
   const restTime = 1000 * 2;
   const longRestTime = 1000 * 3;
 
@@ -71,16 +71,12 @@ const CarrotTimer = () => {
     }
   };
 
-  console.log(count);
-
   const focusModeDoneHandler = () => {
     toggleTimer(0);
 
     const timerInfo = { endTime: timeStamp(), count: count + 1 };
 
     dispatch(__finsihTimer({ timerId: data.timerId, timerInfo }));
-
-    // console.log(timeStamp());
   };
 
   const restModeDoneHandler = () => {
@@ -97,8 +93,6 @@ const CarrotTimer = () => {
     toggleTimer();
     if (timer === startTime && count === 0) {
       dispatch(__startTimer({ startTime: timeStamp() }));
-      console.log("타이머 시작통신");
-      // console.log(timeStamp());
     }
   };
 
@@ -109,9 +103,7 @@ const CarrotTimer = () => {
 
   const getCarrotHandler = () => {
     setTimerTime(restTime);
-    // setCount(count + 1);
     setMode("restMode");
-    // 모달만 다시 해결해보자  모달안에 스타트 타이머 넣어서 적용해보자
   };
 
   const focusMode = {
@@ -123,15 +115,17 @@ const CarrotTimer = () => {
     rest: (
       <Button
         onClick={focusGiveUpHandler}
-        color="#614925"
-        backgroundColor="transparent"
-        fontSize="2.2rem"
-        textDecoration="underline"
-        underlinePosition="under"
-        filter="none"
-        fontFamily="MaplestoryOTFLight"
+        color="#F27808"
+        backgroundColor="#F9F3EA"
+        fontSize="1.6rem"
+        padding="none"
+        fontFamily="MaplestoryOTFBold"
+        width="100px"
+        height="40px"
+        border="1px solid #F27808"
+        marginTop="19px"
       >
-        포기하기
+        포기하기?
       </Button>
     ),
   };
@@ -146,15 +140,17 @@ const CarrotTimer = () => {
     rest: (
       <Button
         onClick={restModeDoneHandler}
-        color="#614925"
-        backgroundColor="transparent"
-        fontSize="2.2rem"
-        textDecoration="underline"
-        underlinePosition="under"
-        filter="none"
-        fontFamily="MaplestoryOTFLight"
+        color="#F27808"
+        backgroundColor="#F9F3EA"
+        fontSize="1.6rem"
+        padding="none"
+        fontFamily="MaplestoryOTFBold"
+        width="129px"
+        height="40px"
+        border="1px solid #F27808"
+        marginTop="19px"
       >
-        넘어가기
+        휴식 건너뛰기
       </Button>
     ),
   };
@@ -189,7 +185,6 @@ const CarrotTimer = () => {
           circumference={circumference}
         ></TimerBackground>
       </StContainer>
-      {/* <GetCarrot onClick={} /> */}
     </>
   );
 };

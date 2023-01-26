@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-import { MSG, PATH } from "../../constants/index";
-import { api } from "../../core/api";
-import { isValidEmail, isValidPassword } from "./func";
+import { MSG, PATH } from "../../../constants/index";
+import { api } from "../../../core/api";
+import { isValidEmail, isValidPassword } from "../func";
 
-import Header from "../header/Header";
-import SubHeader from "../header/SubHeader";
-import Button from "../timer/TimerButton";
-import Label from "../element/Label";
-import InputForm from "../element/InputForm";
+import Header from "../../header/Header";
+import SubHeader from "../../header/SubHeader";
+import Button from "../../timer/TimerButton";
+import InputBox from "./InputBox";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -76,78 +75,69 @@ const SignUp = () => {
   };
 
   return (
-    <StContainer>
-      <Header title="SIGNUP" />
-      <SubHeader title="회원가입" />
-      <InputForm
-        text="E-mail"
-        name="email"
-        type="text"
-        value={signUpInfo.email}
-        onChange={changeEmailHandler}
-        placeholder="이메일 형식"
-      />
-      <StInputBox>
-        <Label text="E-mail" />
-
-        <StInput
+    <>
+      <StContainer>
+        <Header title="SIGNUP" />
+        <SubHeader title="회원가입" />
+        <InputBox
+          margin="12px 0px 12px 0px"
+          title="E-mail"
           name="email"
           type="text"
           value={signUpInfo.email}
           onChange={changeEmailHandler}
           placeholder="이메일 형식"
+          contents={
+            emailError && signUpInfo.email !== "" && MSG.emailInvalidMsg
+          }
+          textAlign="center"
         />
-        <StLabel>
-          {emailError && signUpInfo.email !== "" && MSG.emailInvalidMsg}
-        </StLabel>
-      </StInputBox>
-      <StInputBox marginTop="10px">
-        <StTitle>Password</StTitle>
-
-        <StInput
-          maxLength="13"
+        <InputBox
+          margin="0px 0px 12px 0px"
+          title="Password"
           name="password"
           type="password"
           value={signUpInfo.password}
           onChange={changePwdHandler}
           placeholder="영문, 숫자, 특수문자가 포함된 8~13자리"
+          contents={pwdError && signUpInfo.password !== "" && MSG.pwdInvalidMsg}
+          textAlign="center"
         />
-        <StLabel>
-          {pwdError && signUpInfo.password !== "" && MSG.pwdInvalidMsg}
-        </StLabel>
-      </StInputBox>
-      <StInputBox marginTop="0px" marginBottom="24px">
-        <StTitle>Password Check</StTitle>
 
-        <StInput
-          maxLength="13"
+        <InputBox
+          title="Password Check"
           name="checkPassword"
           type="password"
           value={signUpInfo.checkPassword}
           onChange={changecheckPwdHandler}
           placeholder="영문, 숫자, 특수문자가 포함된 8~13자리"
-        />
-        <StLabel>
-          {checkPwdError &&
+          contents={
+            checkPwdError &&
             signUpInfo.checkPassword !== "" &&
-            MSG.checkPwdInvalidMsg}
-        </StLabel>
-      </StInputBox>
-      <Button
-        onClick={submitHandler}
-        disabled={
-          signUpInfo.email === "" ||
-          signUpInfo.password === "" ||
-          signUpInfo.checkPassword === "" ||
-          emailError ||
-          pwdError ||
-          checkPwdError
-        }
-        width="319px"
-      >
-        가입하기
-      </Button>
-    </StContainer>
+            MSG.checkPwdInvalidMsg
+          }
+          textAlign="center"
+        />
+        <Button
+          onClick={submitHandler}
+          disabled={
+            signUpInfo.email === "" ||
+            signUpInfo.password === "" ||
+            signUpInfo.checkPassword === "" ||
+            emailError ||
+            pwdError ||
+            checkPwdError
+          }
+          width="319px"
+          marginTop="180px"
+        >
+          가입하기
+        </Button>
+        <Link to={PATH.login}>
+          <StBottomText>로그인하러 가기</StBottomText>
+        </Link>
+      </StContainer>
+    </>
   );
 };
 export default SignUp;
@@ -160,63 +150,22 @@ const StContainer = styled.div`
   align-items: center;
 `;
 
-const StInputBox = styled.div`
+const StBottomText = styled.div`
   width: 319px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-top: ${({ marginTop }) => marginTop || "20px"};
-  gap: 10px;
-  margin-bottom: ${({ marginBottom }) => marginBottom};
-`;
+  height: 18px;
 
-const StTitle = styled.label`
-  width: 319px;
-  height: 16px;
-  margin-left: 10px;
+  text-align: center;
 
   font-family: "Pretendard";
   font-style: normal;
   font-weight: 700;
-  font-size: 1.2rem;
-  line-height: 130%;
-  text-align: left;
-
-  color: #595550;
-`;
-
-const StInput = styled.input`
-  padding: 19px;
-  width: 319px;
-
-  height: 55px;
-
-  background: #ffffff;
-
-  border: 1px solid #f1e5d2;
-  border-radius: 12px;
-
-  ::placeholder {
-    font-family: "Pretendard";
-    font-style: normal;
-    font-weight: 500;
-    font-size: 1.4rem;
-    line-height: 17px;
-    color: #a4a4a4;
-  }
-`;
-
-const StLabel = styled.label`
-  height: 16px;
-  width: 310px;
-  font-family: "Pretendard";
-  font-style: normal;
-  font-weight: 500;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   line-height: 130%;
 
   text-align: center;
+  text-decoration-line: underline;
 
   color: #4a8a51;
+
+  margin-top: 24px;
 `;

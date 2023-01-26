@@ -1,6 +1,7 @@
 export const PATH = {
   //route 경로
-  login: "/",
+  landing: "/",
+  login: "/login",
   signup: "/signup",
   loginoption: "/loginoption",
   termsconditions: "/termsconditions",

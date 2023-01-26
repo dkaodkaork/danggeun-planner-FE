@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { IMAGES } from "../../constants/index";
 
-const BottomBtns = ({ onClick }) => {
+const BottomBtn = ({ onClick }) => {
   return (
     <StContainer>
       <StButton onClick={onClick}>{IMAGES.addBtn}</StButton>
@@ -11,7 +11,7 @@ const BottomBtns = ({ onClick }) => {
   );
 };
 
-export default BottomBtns;
+export default BottomBtn;
 
 const StContainer = styled.div`
   display: flex;

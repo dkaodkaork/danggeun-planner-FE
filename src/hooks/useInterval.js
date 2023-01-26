@@ -3,16 +3,7 @@ import { useEffect, useRef } from "react";
 // 타이머를 화면에 표시하기 위해 사용할 hook
 
 const useInterval = (callback, delay, isClear) => {
-  // const savedCallback = useRef();
-
-  // useEffect(() => {
-  //   savedCallback.current = callback;
-  // }, [callback]);
-
   useEffect(() => {
-    // function tick() {
-    //   savedCallback.current();
-    // }
     if (!isClear) {
       // 1) isClear가 false일때, delay 마다 callback 함수를 실행하겠다.
       const timerId = setInterval(callback, delay);
