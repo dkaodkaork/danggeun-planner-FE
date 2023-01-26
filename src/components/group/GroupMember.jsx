@@ -158,7 +158,7 @@ const GroupMember = () => {
                   ) : (
                     <OfflineState>
                       <div />
-                      <span>자리비움</span>
+                      <span>부재중</span>
                     </OfflineState>
                   )}
                   <User onClick={clickMemberHandler}>

@@ -162,7 +162,7 @@ export default Menu;
 const ModalBackdrop = styled.div`
   visibility: ${(props) => (props.toggle ? "visible" : "hidden")};
   width: 375px;
-  height: 812px;
+  height: 100vh;
   position: fixed;
   display: flex;
   justify-content: center;
@@ -177,7 +177,7 @@ const MenuLayout = styled.div`
   background-color: #fffdfa;
   position: absolute;
   right: ${(props) => (props.toggle ? "0" : "-196px")};
-  height: 812px;
+  height: 100vh;
   transition: ${(props) => (props.toggle ? "all 0.4s" : "0s")};
   padding: 28px;
   border-radius: 12px 0px 0px 12px;

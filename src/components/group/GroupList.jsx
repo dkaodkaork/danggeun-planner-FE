@@ -99,7 +99,6 @@ const StGroupLayout = styled.div`
 
 const StCardLayout = styled.div`
   margin: 0 auto;
-  margin-top: 31px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

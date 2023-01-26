@@ -103,15 +103,16 @@ const GroupUpdate = () => {
             <span>/50</span>
           </p>
         </Addcontents>
-        <TimerButton
-          marginTop="80px"
-          width="319px"
-          onClick={onClickGroupUpdate}
-          disabled={groupName.length === 0 || description.length === 0}
-        >
-          완 료
-        </TimerButton>
-        <PageMsg>그룹 이름과 소개는 언제든 수정할 수 있습니다.</PageMsg>
+        <StBottom>
+          <TimerButton
+            width="319px"
+            onClick={onClickGroupUpdate}
+            disabled={groupName.length === 0 || description.length === 0}
+          >
+            완 료
+          </TimerButton>
+          <PageMsg>불쾌감을 주는 문구는 사용하지 말아주세요.</PageMsg>
+        </StBottom>
       </GroupLayout>
     </>
   );
@@ -176,8 +177,13 @@ const Addcontents = styled.div`
   }
 `;
 
+const StBottom = styled.div`
+  position: fixed;
+  bottom: 70px;
+`;
+
 const PageMsg = styled.p`
-  margin-top: 20px;
+  margin-top: 24px;
   font-family: "Pretendard-Regular";
   font-size: 1.4rem;
   font-weight: 700;
