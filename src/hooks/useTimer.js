@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import useInterval from "./useInterval";
+
 import moment from "moment";
+
+import useInterval from "./useInterval";
 
 const useTimer = (callback, time) => {
   const [timer, setTimer] = useState(time); // 몇분짜리 타이머 시간인지 상태로 저장
