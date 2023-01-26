@@ -80,6 +80,7 @@ const GlobalStyles = createGlobalStyle`
 
   button {
     background-color: transparent;
+    cursor: pointer;
   }
 
   ul, ol, li {
@@ -102,9 +103,19 @@ const GlobalStyles = createGlobalStyle`
   resize: none;
   }  
 
+  input::placeholder {
+    color: #cdcac6;
+  }
+
+  textarea::placeholder {
+    color: #cdcac6;
+  }
+
   .floating-button {
     padding-top: env(safe-area-inset-bottom);
   }
+
+  
 `;
 
 export default GlobalStyles;
