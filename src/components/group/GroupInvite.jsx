@@ -62,7 +62,7 @@ const GroupInvite = () => {
     } else {
       dispatch(__getGroupMemberInvite({ groupId, username })).then((res) => {
         if (res.payload.members.length === 0) {
-          alert("검색 결과가 없습니다");
+          alert("검색된 유저가 없습니다");
         } else {
           setSearchList(res.payload.members);
         }
@@ -175,7 +175,12 @@ const GroupInvite = () => {
               ))}
             </UserBox>
           ) : null}
-          <TimerButton onClick={InviteSubmit} marginTop="30px" width="319px">
+          <TimerButton
+            onClick={InviteSubmit}
+            marginTop="30px"
+            width="319px"
+            disabled={checkedList.length === 0}
+          >
             완료
           </TimerButton>
         </Flex>
@@ -250,7 +255,6 @@ const User = styled.div`
   display: flex;
   align-items: center;
   gap: 7px;
-  width: 116px;
   padding-left: 12px;
   span {
     font-family: "Pretendard-Regular";
@@ -291,4 +295,5 @@ const MoreToggle = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
+  cursor: pointer;
 `;

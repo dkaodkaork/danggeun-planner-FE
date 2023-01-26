@@ -102,6 +102,11 @@ const GroupMember = () => {
     setUpdateModal(false);
   };
 
+  const clickMemberHandler = () => {
+    console.log("hi");
+    // navigate(PATH.calendar(username));
+  };
+
   return (
     <>
       {!groupMenuOpen ? (
@@ -156,9 +161,8 @@ const GroupMember = () => {
                       <span>자리비움</span>
                     </OfflineState>
                   )}
-                  <User>
+                  <User onClick={clickMemberHandler}>
                     <ProfileImg src={user?.profileImage} />
-                    {/* <img src={user?.profileImage} /> */}
                     <span>{user?.username}</span>
                   </User>
                   <Carrot>
@@ -237,6 +241,7 @@ const Top = styled.div`
     font-size: 1.6rem;
     color: #595550;
     font-family: "Pretendard-Bold";
+    cursor: pointer;
   }
   div {
     width: 72px;
@@ -306,6 +311,7 @@ const User = styled.div`
   display: flex;
   align-items: center;
   gap: 7px;
+  cursor: pointer;
   span {
     font-family: "Pretendard-Regular";
     color: #595550;

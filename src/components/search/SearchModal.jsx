@@ -60,7 +60,7 @@ const SearchModal = ({ propsState }) => {
       dispatch(__getSearchUser(username)).then((res) => {
         console.log(res);
         if (res.payload.members.length === 0) {
-          alert("검색 결과가 없습니다");
+          alert("검색된 유저가 없습니다");
         } else {
           setSearchList(res.payload.members);
         }

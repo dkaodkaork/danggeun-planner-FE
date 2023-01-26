@@ -38,9 +38,6 @@ const GroupUpdate = () => {
   const onInputHandler = (e) => {
     setGroupName(e.target.value);
     setInputCount(e.target.value.length);
-    // if (textareaCount > 0) {
-    //   setDisabled(true);
-    // }
   };
 
   const onTextareaHandler = (e) => {
@@ -51,21 +48,17 @@ const GroupUpdate = () => {
   const onClickGroupUpdate = () => {
     //하나의 객체로 묶어서 보내야 함!
     const groupInfo = { groupName, description };
-    // if (inputCount === 0) {
-    //   alert("그룹 제목을 입력해주세요");
-    // } else if (textareaCount === 0) {
-    //   alert("그룹 내용을 입력해주세요");
-    // } else {
-    //   return dispatch(__putGroupUpdate({ groupInfo, groupId })).then((res) => {
-    //     const groupId = res.payload.groupId;
-    //     navigate(PATH.groupdetail(groupId));
-    //     // navigate(`/group/${groupId}`);
-    //   });
-    // }
-    dispatch(__putGroupUpdate({ groupInfo, groupId })).then((res) => {
-      const groupId = res.payload.groupId;
-      navigate(PATH.groupdetail(groupId));
-    });
+
+    if (inputCount === 0) {
+      alert("그룹 제목을 입력해주세요");
+    } else if (textareaCount === 0) {
+      alert("그룹 내용을 입력해주세요");
+    } else {
+      return dispatch(__putGroupUpdate({ groupInfo, groupId })).then((res) => {
+        const groupId = res.payload.groupId;
+        navigate(PATH.groupdetail(groupId));
+      });
+    }
   };
 
   //그룹 오픈 관련
@@ -95,7 +88,7 @@ const GroupUpdate = () => {
           <Input onChange={onInputHandler} maxLength="10" value={groupName} />
           <p>
             <span>{inputCount}</span>
-            <span>/10 자</span>
+            <span>/10</span>
           </p>
         </AddName>
         <Addcontents>
@@ -107,13 +100,14 @@ const GroupUpdate = () => {
           ></Textarea>
           <p>
             <span>{textareaCount}</span>
-            <span>/50 자</span>
+            <span>/50</span>
           </p>
         </Addcontents>
         <TimerButton
           marginTop="80px"
           width="319px"
           onClick={onClickGroupUpdate}
+          disabled={groupName.length === 0 || description.length === 0}
         >
           완 료
         </TimerButton>
