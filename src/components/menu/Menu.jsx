@@ -178,7 +178,7 @@ const MenuLayout = styled.div`
   position: absolute;
   right: ${(props) => (props.toggle ? "0" : "-196px")};
   height: 812px;
-  transition: all 0.4s;
+  transition: ${(props) => (props.toggle ? "all 0.4s" : "0s")};
   padding: 28px;
   border-radius: 12px 0px 0px 12px;
 `;
