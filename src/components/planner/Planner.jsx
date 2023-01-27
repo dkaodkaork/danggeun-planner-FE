@@ -72,7 +72,7 @@ const Planner = () => {
   // 플래너 조회 요청
   useEffect(() => {
     dispatch(__getAllPlan({ username: username, date: date }));
-  }, [dispatch]);
+  }, [groupMenuOpen]);
 
   // 전체 조회 버튼
   const onClickGetAllPlan = () => {
