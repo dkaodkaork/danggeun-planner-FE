@@ -21,7 +21,7 @@ export const DeskTopLayout = styled.div`
   width: 375px;
   /* min-height: 812px; */
   height: 100vh;
-  /* height: auto; */
+  /* height: 812px; */
 
   position: static;
   background-color: #f9f3ea;

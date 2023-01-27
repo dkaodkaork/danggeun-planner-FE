@@ -1,13 +1,15 @@
 //리액트 관련
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-//상수, api
-import { IMAGES, PATH } from "../../constants/index";
+//리덕스
 import { __putGroupUpdate } from "../../redux/modules/groupSlice";
 import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
+
+//상수, api
+import { IMAGES, PATH } from "../../constants/index";
 
 //컴포넌트
 import Header from "../header/Header";
@@ -32,8 +34,11 @@ const GroupUpdate = () => {
   const [groupName, setGroupName] = useState(groupDetailData?.groupName);
   const [description, setDescription] = useState(groupDetailData?.description);
 
-  //버튼 활성화
-  // const [disabled, setDisabled] = useState(false);
+  //첫 화면에 글자수 넣어주기
+  useEffect(() => {
+    setInputCount(groupDetailData?.groupName.length);
+    setTextareaCount(groupDetailData?.description.length);
+  }, []);
 
   const onInputHandler = (e) => {
     setGroupName(e.target.value);
@@ -122,26 +127,8 @@ export default GroupUpdate;
 
 const GroupLayout = styled.div`
   background-color: #f9f3ea;
-  min-height: 722px; //812px에서 헤더 90px을 뺀 값을 줘야 스크롤이 안생김
+  height: 100%;
   padding: 13px 32px 42px 32px;
-`;
-
-const AddInfo = styled.div`
-  margin-top: 64px;
-  text-align: center;
-  color: #595550;
-  h1 {
-    font-family: "MaplestoryOTFBold";
-    font-size: 2.4rem;
-    font-weight: 700;
-  }
-  p {
-    margin-top: 14px;
-    font-family: "MaplestoryOTFLight";
-    font-size: 1.4rem;
-    font-weight: 300;
-    line-height: 2rem;
-  }
 `;
 
 const AddName = styled.div`

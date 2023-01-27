@@ -20,7 +20,6 @@ import "../calendar/style/Calendar.css"; // css import
 import Header from "../header/Header";
 import SubHeader from "../header/SubHeader";
 import TodayBtn from "./TodayBtn";
-// import ProfileImg from "../element/ProfileImg.jsx";
 import GetProfile from "./GetProfile.jsx";
 
 const CalendarGet = () => {
@@ -168,35 +167,6 @@ const StCalendarStyle = styled.div`
   flex-direction: column;
   align-items: center;
   height: 100%;
-  /* overflow: hidden;
-  touch-action: none; */
-`;
-
-const StProfileLayout = styled.div`
-  margin-top: 34px;
-`;
-
-const StNickName = styled.h2`
-  margin-top: 24px;
-  font-family: "MaplestoryOTFBold";
-  font-weight: 700;
-  font-size: 2.4rem;
-  color: #595550;
-`;
-
-const StMonthlyGet = styled.p`
-  margin-top: 24px;
-  font-family: "Pretendard-Regular";
-  font-weight: 500;
-  font-size: 1.4rem;
-  color: #403b36;
-  strong {
-    font-family: "Pretendard-bold";
-    font-weight: 700;
-    font-size: 1.6rem;
-    color: #f27808;
-    padding: 0 2px 0 2px;
-  }
 `;
 
 const StCalendarLayout = styled.div`
@@ -208,5 +178,6 @@ const StCalendarLayout = styled.div`
 `;
 
 const StTodayBtnLayout = styled.div`
-  margin-top: 24px;
+  position: fixed;
+  bottom: 3.4vh;
 `;
