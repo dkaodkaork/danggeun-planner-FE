@@ -1,29 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { NativeEventSource, EventSourcePolyfill } from "event-source-polyfill";
-
-import LoginPage from "../pages/auth/LoginPage";
-import SignUpPage from "../pages/auth/SignUpPage";
-import CalendarPage from "../pages/calendar/CalendarPage";
-import UsernameFormPage from "../pages/auth/UsernameFormPage";
-import MyPage from "../pages/user/MyPage";
-import ProfileEditPage from "../pages/user/ProfileEditPage";
-import TimerPage from "../pages/timer/TimerPage";
-import GetCarrotPage from "../pages/timer/GetCarrotPage";
-import PlannerPage from "../pages/planner/PlannerPage";
-import GroupListPage from "../pages/group/GroupListPage";
-import GroupAddPage from "../pages/group/GroupAddPage";
-import GroupDetailPage from "../pages/group/GroupDetailPage";
-import GroupUpdatePage from "../pages/group/GroupUpdatePage";
-import GroupInvitePage from "../pages/group/GroupInvitePage";
-import PrivateRoute from "./PrivateRoute";
-import LandingPage from "../pages/auth/LandingPage";
-import AlarmPage from "../pages/alarm/AlarmPage";
 import { api } from "../core/api";
-import Sse from "./Sse";
-import IntroPage from "../pages/intro/IntroPage";
 
-const Router = () => {
+const Sse = () => {
   // useEffect(() => {
   //   const RefreshToken = localStorage.getItem("refreshToken");
   //   const AccessToken = localStorage.getItem("accessToken");
@@ -65,31 +44,44 @@ const Router = () => {
   //     };
   //   }
   // });
-  // const EventSource = EventSourcePolyfill || NativeEventSource;
+  const EventSource = EventSourcePolyfill || NativeEventSource;
 
-  // const [data, setDate] = useState();
+  const [data, setDate] = useState("hi");
 
-  // useEffect(() => {
-  //   const sse = new EventSource(api.getSseApi());
+  useEffect(() => {
+    const sse = new EventSource(api.getSseApi());
 
-  //   function handleStream(e) {
-  //     console.log(e);
-  //     setDate(e.data);
-  //   }
+    // function handleStream(e) {
+    //   console.log(e);
+    //   setDate(e.data);
+    // }
 
-  //   sse.onmessage = (e) => {
-  //     handleStream(e);
-  //   };
+    // sse.onopen = (e) => {
+    //   console.log("onopen");
+    // };
 
-  //   sse.onerror = (e) => {
-  //     sse.close();
-  //   };
+    // sse.onmessage = (e) => {
+    //   handleStream(e);
+    // };
 
-  //   return () => {
-  //     sse.close();
-  //   };
-  // });
-  // console.log(data);
+    // sse.onerror = (e) => {
+    //   sse.close();
+    // };
+
+    sse.addEventListener("message", async function (e) {
+      console.log(e);
+      const data = JSON.parse(e.data);
+      setDate(data);
+      console.log(data);
+    });
+
+    sse.addEventListener("close", () => sse.close());
+
+    return () => {
+      sse.close();
+    };
+  });
+  console.log(data);
   // useEffect(() => {
   //   const sseTest = async () => {
   //     try {
@@ -171,33 +163,7 @@ const Router = () => {
   //   eventSource.close();
   // };
 
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route>
-          {/* <PrivateRoute exact path="/" element={<TimerPage />} /> */}
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/sse" element={<Sse />} />
-          <Route path="/timer" element={<TimerPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignUpPage />} />
-          <Route path="/alarm" element={<AlarmPage />} />
-          <Route path="/intro" element={<IntroPage />} />
-          <Route path="/calendar/:username" element={<CalendarPage />} />
-          <Route path="/username" element={<UsernameFormPage />} />
-          <Route path="/mypage" element={<MyPage />} />
-          <Route path="/profile" element={<ProfileEditPage />} />
-          <Route path="/planner/:username/:date" element={<PlannerPage />} />
-          <Route path="/carrot" element={<GetCarrotPage />} />
-          <Route path="/group" element={<GroupListPage />} />
-          <Route path="/group/add" element={<GroupAddPage />} />
-          <Route path="/group/:groupId" element={<GroupDetailPage />} />
-          <Route path="/group/:groupId/update" element={<GroupUpdatePage />} />
-          <Route path="/group/:groupId/invite" element={<GroupInvitePage />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  );
+  return <div>{data}</div>;
 };
 
-export default Router;
+export default Sse;
