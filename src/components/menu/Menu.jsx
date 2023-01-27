@@ -81,6 +81,11 @@ const Menu = () => {
     navigate(PATH.mypage);
     dispatch(groupMenuOpenStatus(!groupMenuOpen));
   };
+  //알림
+  const clickBellNav = () => {
+    navigate(PATH.alarm);
+    dispatch(groupMenuOpenStatus(!groupMenuOpen));
+  };
 
   //바깥쪽 클릭해서 닫히게 하는 useRef 구현
   const modalRef = useRef();
@@ -103,13 +108,17 @@ const Menu = () => {
             <div onClick={clickGroupMenuHandler}>
               <button>{IMAGES.nextArrow}</button>
             </div>
-            <div onClick={clickProfileNav}>
-              <ProfileImg src={userInfo?.profileImage} />
-            </div>
+            <StBellLayout onClick={clickBellNav}>
+              <div />
+              <button>{IMAGES.bell}</button>
+            </StBellLayout>
           </MenuIcon>
-          <Nickname onClick={clickProfileNav}>{userInfo?.username}</Nickname>
+          <StUser onClick={clickProfileNav}>
+            <ProfileImg src={userInfo?.profileImage} />
+            <Nickname>{userInfo?.username}</Nickname>
+          </StUser>
           <MenuNav>
-            <MenuBtnLayout>
+            <StMenuBtnLayout>
               {nowMenu === "t" && <Carrot>{IMAGES.menuCarrot}</Carrot>}
               <MenuButton
                 onClick={clickTimverNav}
@@ -117,8 +126,8 @@ const Menu = () => {
               >
                 타이머
               </MenuButton>
-            </MenuBtnLayout>
-            <MenuBtnLayout>
+            </StMenuBtnLayout>
+            <StMenuBtnLayout>
               {nowMenu === "c" && <Carrot>{IMAGES.menuCarrot}</Carrot>}
               <MenuButton
                 onClick={clickCalendarNav}
@@ -126,8 +135,8 @@ const Menu = () => {
               >
                 캘린더
               </MenuButton>
-            </MenuBtnLayout>
-            <MenuBtnLayout>
+            </StMenuBtnLayout>
+            <StMenuBtnLayout>
               {nowMenu === "p" && <Carrot>{IMAGES.menuCarrot}</Carrot>}
               <MenuButton
                 onClick={clickPlannerNav}
@@ -135,8 +144,8 @@ const Menu = () => {
               >
                 플래너
               </MenuButton>
-            </MenuBtnLayout>
-            <MenuBtnLayout>
+            </StMenuBtnLayout>
+            <StMenuBtnLayout>
               {nowMenu === "g" && <Carrot>{IMAGES.menuCarrot}</Carrot>}
               <MenuButton
                 onClick={clickGroupNav}
@@ -144,7 +153,7 @@ const Menu = () => {
               >
                 그룹
               </MenuButton>
-            </MenuBtnLayout>
+            </StMenuBtnLayout>
           </MenuNav>
           <Search onClick={clickSearchNav}>
             <button>{IMAGES.searchIcon}</button>
@@ -179,6 +188,7 @@ const MenuLayout = styled.div`
   right: ${(props) => (props.toggle ? "0" : "-196px")};
   height: 100vh;
   transition: ${(props) => (props.toggle ? "all 0.4s" : "0s")};
+  /* transition: all 0.4s; */
   padding: 28px;
   border-radius: 12px 0px 0px 12px;
 `;
@@ -197,7 +207,7 @@ const MenuNav = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 100px;
+  margin-top: 8.6207vh;
   gap: 24px;
 `;
 
@@ -224,7 +234,20 @@ const MenuButton = styled.button`
   }
 `;
 
-const MenuBtnLayout = styled.div`
+const StBellLayout = styled.div`
+  position: relative;
+  div {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    right: 0px;
+    top: -2px;
+    border-radius: 50%;
+    background-color: #f27808;
+  }
+`;
+
+const StMenuBtnLayout = styled.div`
   position: relative;
 `;
 
@@ -234,8 +257,15 @@ const Carrot = styled.div`
   right: 8px;
 `;
 
+const StUser = styled.div`
+  margin-top: 8.6207vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+`;
+
 const Nickname = styled.div`
-  margin-top: 24px;
   font-family: "Pretendard-Bold";
   font-weight: 700;
   font-size: 1.6rem;
@@ -244,7 +274,7 @@ const Nickname = styled.div`
 `;
 
 const Search = styled.div`
-  margin-top: 100px;
+  margin-top: 8.6207vh;
   display: flex;
   justify-content: center;
   align-items: center;
