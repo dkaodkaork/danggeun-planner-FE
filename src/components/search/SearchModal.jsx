@@ -240,7 +240,6 @@ const User = styled.div`
   display: flex;
   align-items: center;
   gap: 5px;
-  width: 116px;
   padding-left: 12px;
   span {
     margin-left: 7px;
