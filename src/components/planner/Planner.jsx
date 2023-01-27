@@ -27,6 +27,8 @@ import PlanCard from "./PlanCard";
 import PlannerModal from "./PlannerModal";
 import SlideModal from "../element/SlideModal";
 import SortingBtnGroup from "./SortingBtnGroup";
+import PlannerSubHeader from "./PlannerSubHeader";
+import PrivatePlanner from "./PrivatePlanner";
 
 const Planner = () => {
   // hook
@@ -140,6 +142,10 @@ const Planner = () => {
     });
   };
 
+  const modalOutSideClick = (e) => {
+    dispatch(planModalOpenStatus(!planModalOpen));
+  };
+
   // 계획 삭제
   const closeModalHanlder = (id, plan) => {
     // console.log(id, plan);
@@ -231,6 +237,8 @@ const Planner = () => {
       e.target.value = e.target.value.slice(0, e.target.maxLength);
   };
 
+  const a = true;
+
   return (
     <>
       <Header
@@ -240,15 +248,15 @@ const Planner = () => {
         rightSlot={IMAGES.menu}
         onClick={OpenMenuHanlder}
       />
+      <PlannerSubHeader
+        username={plans.username}
+        profileImage={plans.profileImage}
+        param={username}
+      ></PlannerSubHeader>
+      {/* {a ? (
+        <PrivatePlanner />
+      ) : ( */}
       <StContainer>
-        <StDiv>
-          <UsernameCard
-            link={PATH.mypage}
-            username={plans.username}
-            profileImage={plans.profileImage}
-          />
-          <Link to={PATH.calendar(username)}>{IMAGES.calendarIcon}</Link>
-        </StDiv>
         <StDiv>
           <StDateBox>{getDayOfWeek(date)}</StDateBox>
           <StTodayCarrot>
@@ -301,7 +309,13 @@ const Planner = () => {
         </StBodyDiv>
         {plans.isOwner && <BottomBtn onClick={openModalHanlder} />}
       </StContainer>
-      <SlideModal height="258px" bottom="-260px" toggle={planModalOpen}>
+      {/* )} */}
+      <SlideModal
+        height="258px"
+        bottom="-260px"
+        toggle={planModalOpen}
+        cancleHandler={modalOutSideClick}
+      >
         <PlannerModal
           openModalHanlder={openModalHanlder}
           doneAddModalHandler={doneAddModalHandler}
@@ -330,7 +344,7 @@ export default Planner;
 
 const StContainer = styled.div`
   background-color: #f9f3ea;
-  height: 740px;
+  /* height: 100vh; */
 `;
 
 const StDateBox = styled.div`

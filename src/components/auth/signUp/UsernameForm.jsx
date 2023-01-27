@@ -66,17 +66,18 @@ const UsernameForm = () => {
         textAlign="right"
         margin="20px 0px 0px 0px"
       />
-      <Button
-        onClick={submitUsernameHandler}
-        width="319px"
-        marginTop="421px"
-        disabled={disabled}
-      >
-        완료
-      </Button>
-      <StBottomText>
-        닉네임은 추후 마이페이지에서 수정할 수 있습니다.
-      </StBottomText>
+      <StBotBox>
+        <Button
+          onClick={submitUsernameHandler}
+          width="319px"
+          disabled={disabled}
+        >
+          완료
+        </Button>
+        <StBottomText>
+          닉네임은 추후 마이페이지에서 수정할 수 있습니다.
+        </StBottomText>
+      </StBotBox>
     </StContainer>
   );
 };
@@ -102,4 +103,11 @@ const StBottomText = styled.div`
   line-height: 130%;
   color: #f27808;
   margin-top: 20px;
+`;
+
+const StBotBox = styled.div`
+  position: fixed;
+  width: 319px;
+  height: 117px;
+  bottom: 28px;
 `;

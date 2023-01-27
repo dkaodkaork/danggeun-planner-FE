@@ -20,6 +20,7 @@ import { ReactComponent as EmptyCircle } from "../assets/images/group/empty_circ
 import { ReactComponent as CarrotSticker } from "../assets/images/planner/carrot.svg";
 import { ReactComponent as CheckBtn } from "../assets/images/planner/check.svg";
 import { ReactComponent as Trash } from "../assets/images/planner/trash_icon.svg";
+import { ReactComponent as Lock } from "../assets/images/planner/lock.svg";
 import { ReactComponent as Fold } from "../assets/images/mypage/fold_icon.svg";
 import { ReactComponent as Edit } from "../assets/images/mypage/NotePencil.svg";
 import { ReactComponent as DownArrowS } from "../assets/images/downArrowS.svg";
@@ -44,6 +45,7 @@ export const IMAGES = {
   fold: <Fold />,
   edit: <Edit />,
   camera: require("../assets/images/mypage/camera.svg"),
+  gift: require("../assets/images/mypage/gift.png"),
 
   //캘린더
   todayBtnIcon: <TodayBtnIcon />,
@@ -67,6 +69,7 @@ export const IMAGES = {
   carrotSticker: <CarrotSticker />,
   checkBtn: <CheckBtn />,
   trashBtn: <Trash />,
+  lock: <Lock />,
   //
   menu: <Menu />,
   home: <Home />,

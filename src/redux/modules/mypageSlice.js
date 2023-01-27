@@ -7,6 +7,7 @@ const initialState = {
     username: "",
     profileImage: "",
     totalCarrot: "",
+    isPlannerOpened: "",
   },
   isLoading: false,
   error: "",
@@ -21,7 +22,7 @@ export const __putUsername = createAsyncThunk(
       return thunkAPI.fulfillWithValue(data);
     } catch (error) {
       console.log(error);
-      console.log(error.response.data.message);
+      alert(error.response.data.message);
       return thunkAPI.rejectWithValue(error.response.data.message);
     }
   }
@@ -31,7 +32,9 @@ export const __getUserInfo = createAsyncThunk(
   "userinfo/get",
   async (_, thunkAPI) => {
     try {
+      // console.log("1");
       const { data } = await api.getUserInfoApi();
+      // console.log(data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue();
@@ -44,6 +47,23 @@ export const __putProfileImg = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const { data } = await api.putProfileImgApi(payload);
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue();
+    }
+  }
+);
+
+export const __putPlannerOpen = createAsyncThunk(
+  "plannerOpen/put",
+  async (payload, thunkAPI) => {
+    // console.log(payload);
+    try {
+      const { data } = await api.putPlannerOpenApi({
+        isPlannerOpened: payload,
+      });
+      // console.log(data.data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       console.log(error);
@@ -78,6 +98,7 @@ export const mypageSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(__getUserInfo.fulfilled, (state, action) => {
+        // console.log(action.payload);
         state.isLoading = false;
         state.data = { ...action.payload };
       })
@@ -98,6 +119,22 @@ export const mypageSlice = createSlice({
         };
       })
       .addCase(__putProfileImg.rejected, (state, action) => {
+        state.isLoading = false;
+      })
+
+      // 플래너 공개 설정
+      .addCase(__putPlannerOpen.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(__putPlannerOpen.fulfilled, (state, action) => {
+        state.isLoading = false;
+        // console.log(action.payload.isPlannerOpened);
+        state.data = {
+          ...state.data,
+          isPlannerOpened: action.payload.isPlannerOpened,
+        };
+      })
+      .addCase(__putPlannerOpen.rejected, (state, action) => {
         state.isLoading = false;
       });
   },
