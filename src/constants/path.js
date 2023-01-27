@@ -11,6 +11,7 @@ export const PATH = {
   timer: "/timer",
   getcarrot: "/getcarrot",
   carrot: "/carrot",
+  alarm: "/alarm",
 
   //캘린더
   calendar: (username) => `/calendar/${username}`,

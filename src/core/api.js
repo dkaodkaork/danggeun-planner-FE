@@ -62,4 +62,7 @@ export const api = {
 
   //검색
   getSearchUserApi: (username) => baseURL.get(`/member/search/${username}`),
+
+  //sse 구독
+  getSseApi: () => baseURL.get(`/subscribe`),
 };

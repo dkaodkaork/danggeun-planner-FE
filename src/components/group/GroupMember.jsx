@@ -1,11 +1,10 @@
 //리액트 관련
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-//상수, api
-import { IMAGES, PATH } from "../../constants/index";
+//리덕스
 import {
   detailMenuOpenStatus,
   groupMemberOpenStatus,
@@ -16,11 +15,15 @@ import {
   __outGroup,
 } from "../../redux/modules/groupSlice.js";
 
+//상수, api
+import { IMAGES, PATH } from "../../constants/index";
+
 //컴포넌트
 import SlideModal from "../element/SlideModal";
 import GroupModal from "./GroupModal";
 import GroupDetailBtn from "../element/GroupDetailBtn";
 import ProfileImg from "../element/ProfileImg";
+import { useEffect } from "react";
 
 const GroupMember = () => {
   const dispatch = useDispatch();
@@ -40,6 +43,11 @@ const GroupMember = () => {
   const ClickToggle = () => {
     dispatch(groupMemberOpenStatus(!groupMemberOpen));
   };
+
+  //멤버 토글을 열 때마다 데이터 업데이트
+  useEffect(() => {
+    dispatch(__getGroupMember(groupId));
+  }, [groupMemberOpen]);
 
   //그룹 탈퇴, 수정, 삭제 토글 관리
   const detailMenuOpen = useSelector(
@@ -82,7 +90,6 @@ const GroupMember = () => {
   //그룹 수정
   const clickUpdateConfirm = () => {
     navigate(PATH.groupupdate(groupId));
-    //dispatch(groupMenuOpenStatus(!groupMenuOpen));
     dispatch(groupMemberOpenStatus(!groupMemberOpen));
   };
 
@@ -103,8 +110,7 @@ const GroupMember = () => {
   };
 
   const clickMemberHandler = () => {
-    console.log("hi");
-    // navigate(PATH.calendar(username));
+    dispatch(groupMemberOpenStatus(!groupMemberOpen));
   };
 
   return (
@@ -138,7 +144,6 @@ const GroupMember = () => {
                       <ProfileImg
                         src={groupMemberGet?.myInfo[0]?.profileImage}
                       />
-                      {/* <img src={groupMemberGet?.myInfo[0]?.profileImage} /> */}
                       <span>{groupMemberGet?.myInfo[0]?.username}</span>
                     </User>
                     <Carrot>
@@ -161,10 +166,12 @@ const GroupMember = () => {
                       <span>부재중</span>
                     </OfflineState>
                   )}
-                  <User onClick={clickMemberHandler}>
-                    <ProfileImg src={user?.profileImage} />
-                    <span>{user?.username}</span>
-                  </User>
+                  <Link to={PATH.calendar(user?.username)}>
+                    <User onClick={clickMemberHandler}>
+                      <ProfileImg src={user?.profileImage} />
+                      <span>{user?.username}</span>
+                    </User>
+                  </Link>
                   <Carrot>
                     {IMAGES.memberCarrot} {user?.dailyCarrot}
                   </Carrot>

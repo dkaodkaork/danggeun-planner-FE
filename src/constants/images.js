@@ -32,6 +32,7 @@ import { ReactComponent as Silver } from "../assets/images/group/silver.svg";
 import { ReactComponent as Bronze } from "../assets/images/group/bronze.svg";
 import { ReactComponent as MenuCarrot } from "../assets/images/menuCarrot.svg";
 import { ReactComponent as TodayBtnIcon } from "../assets/images/calendar/todayBtnIcon.svg";
+import { ReactComponent as Bell } from "../assets/images/bell.svg";
 
 export const IMAGES = {
   // 로그인
@@ -101,4 +102,9 @@ export const IMAGES = {
   //메뉴
   searchIcon: <SearchIcon />,
   menuCarrot: <MenuCarrot />,
+  bell: <Bell />,
+
+  //인트로
+  introBack1: require("../assets/images/intro/introBack1.png"),
+  introContent1: require("../assets/images/intro/introContent1.png"),
 };

@@ -146,7 +146,8 @@
 
 .react-calendar__tile--now:enabled:hover,
 .react-calendar__tile--now:enabled:focus {
-  background: #ffffa9;
+  /* background: #ffffa9; */
+  cursor: pointer;
 }
 
 /* 월 선택하면 나오는 월 선택 창에서 현재 월 표시 */

@@ -174,7 +174,7 @@ export const groupSlice = createSlice({
     //그룹원 조회
     builder.addCase(__getGroupMember.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.groupMemberGet = action.payload;
+      state.groupMemberGet = { ...action.payload };
     });
     builder.addCase(__getGroupMember.rejected, (state, action) => {
       state.isLoading = false;
