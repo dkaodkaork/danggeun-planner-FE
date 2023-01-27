@@ -263,6 +263,7 @@ const StUser = styled.div`
   align-items: center;
   justify-content: center;
   gap: 11px;
+  cursor: pointer;
 `;
 
 const Nickname = styled.div`
