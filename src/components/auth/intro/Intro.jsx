@@ -16,35 +16,37 @@ const Intro = () => {
   return (
     <StContainer>
       <StImg src={IMAGES.logo}></StImg>
-      <Link to={PATH.signup}>
-        <Button width="319px">회원가입</Button>
-      </Link>
-      <Link to={PATH.login}>
+      <StBtnBox>
+        <Link to={PATH.signup}>
+          <Button width="319px">회원가입</Button>
+        </Link>
+        <Link to={PATH.login}>
+          <Button
+            width="319px"
+            backgroundColor="#FFFDFA"
+            color="#F27808"
+            border="1px solid #F27808"
+          >
+            로그인
+          </Button>
+        </Link>
         <Button
+          onClick={kakaoLoginHandler}
+          height="54px"
           width="319px"
-          backgroundColor="#FFFDFA"
-          color="#F27808"
-          border="1px solid #F27808"
+          backgroundColor="#FFE600"
+          fontSize="1.4rem"
+          color="#595550"
+          fontFamily="Pretendard"
+          fontStyle="normal"
+          fontWeight="700"
+          filter="none"
         >
-          로그인
+          <StBtnImg src={IMAGES.kakao} alt="카카오 로그인" />
+          <StText>카카오 아이디</StText>
+          <StP>로 로그인하기</StP>
         </Button>
-      </Link>
-      <Button
-        onClick={kakaoLoginHandler}
-        height="54px"
-        width="319px"
-        backgroundColor="#FFE600"
-        fontSize="1.4rem"
-        color="#595550"
-        fontFamily="Pretendard"
-        fontStyle="normal"
-        fontWeight="700"
-        filter="none"
-      >
-        <StBtnImg src={IMAGES.kakao} alt="카카오 로그인" />
-        <StText>카카오 아이디</StText>
-        <StP>로 로그인하기</StP>
-      </Button>
+      </StBtnBox>
     </StContainer>
   );
 };
@@ -57,7 +59,6 @@ const StContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 24px;
 `;
 
 const StImg = styled.img`
@@ -78,4 +79,15 @@ const StText = styled.div`
 const StP = styled.p`
   font-family: "Pretendard-Regular";
   font-size: 1.5rem;
+`;
+
+const StBtnBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+
+  position: fixed;
+  width: 319px;
+  bottom: 28px;
 `;

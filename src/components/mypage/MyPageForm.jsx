@@ -168,7 +168,7 @@ const StInfoBox = styled.div`
   width: 162px;
 `;
 const StInfo = styled.div`
-  width: 126px;
+  width: 140px;
   height: 27px;
 
   font-family: "MaplestoryOTFBold";
