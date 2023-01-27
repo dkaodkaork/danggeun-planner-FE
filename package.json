@@ -8,6 +8,7 @@
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
     "axios": "^1.2.2",
+    "event-source-polyfill": "^1.0.31",
     "gsap": "^3.11.4",
     "howler": "^2.2.3",
     "moment": "^2.29.4",
