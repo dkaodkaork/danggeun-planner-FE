@@ -15,7 +15,8 @@ import GroupDetailPage from "../pages/group/GroupDetailPage";
 import GroupUpdatePage from "../pages/group/GroupUpdatePage";
 import GroupInvitePage from "../pages/group/GroupInvitePage";
 import PrivateRoute from "./PrivateRoute";
-import LandingPage from "../pages/auth/LandingPage";
+import IntroPage from "../pages/auth/IntroPage";
+import KakaoLoginPage from "../pages/auth/KakaoLoginPage";
 
 const Router = () => {
   return (
@@ -23,9 +24,10 @@ const Router = () => {
       <Routes>
         <Route>
           {/* <PrivateRoute exact path="/" element={<TimerPage />} /> */}
-          <Route path="/" element={<LandingPage />} />
+          <Route path="/" element={<IntroPage />} />
           <Route path="/timer" element={<TimerPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/kakao/login" element={<KakaoLoginPage />} />
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/calendar/:username" element={<CalendarPage />} />
           <Route path="/username" element={<UsernameFormPage />} />

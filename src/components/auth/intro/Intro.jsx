@@ -6,7 +6,7 @@ import { IMAGES, PATH } from "../../../constants/index";
 import Button from "../../timer/TimerButton";
 import { KAKAO_AUTH_URL } from "../../../core/index";
 
-const Landing = () => {
+const Intro = () => {
   console.log(KAKAO_AUTH_URL);
 
   const kakaoLoginHandler = () => {
@@ -49,11 +49,11 @@ const Landing = () => {
   );
 };
 
-export default Landing;
+export default Intro;
 
 const StContainer = styled.div`
   background-color: #f9f3ea;
-  height: 812px;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;

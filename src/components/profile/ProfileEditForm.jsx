@@ -134,17 +134,14 @@ const Profile = () => {
             />
             <StLabel>{countUsername}/6</StLabel>
           </StInputBox>
-          <Button
-            onClick={submitHandler}
-            width="319px"
-            marginTop="321px"
-            disabled={disabled}
-          >
-            완 료
-          </Button>
-          <StBottomText>
-            불쾌감을 주는 프로필은 사용하지 말아주세요.
-          </StBottomText>
+          <StBotBox>
+            <Button onClick={submitHandler} width="319px" disabled={disabled}>
+              완 료
+            </Button>
+            <StBottomText>
+              불쾌감을 주는 프로필은 사용하지 말아주세요.
+            </StBottomText>
+          </StBotBox>
         </StEditProfileBody>
       </StContainer>
     </>
@@ -267,4 +264,11 @@ const StBottomText = styled.div`
   color: #f27808;
 
   margin-top: 20px;
+`;
+
+const StBotBox = styled.div`
+  position: fixed;
+  width: 319px;
+  height: 117px;
+  bottom: 28px;
 `;

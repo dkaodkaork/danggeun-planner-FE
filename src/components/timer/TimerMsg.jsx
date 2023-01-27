@@ -25,7 +25,10 @@ const StMsg = styled.p`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 260px;
+  position: fixed;
+  bottom: 32px;
+
+  width: 375px;
   font-size: 1.4rem;
   font-family: "Pretendard";
   color: #403b36;

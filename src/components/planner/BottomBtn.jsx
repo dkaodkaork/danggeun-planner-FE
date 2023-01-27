@@ -14,6 +14,9 @@ const BottomBtn = ({ onClick }) => {
 export default BottomBtn;
 
 const StContainer = styled.div`
+  width: 375px;
+  position: fixed;
+  bottom: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
