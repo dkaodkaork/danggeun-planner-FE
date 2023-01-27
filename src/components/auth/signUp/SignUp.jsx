@@ -118,24 +118,25 @@ const SignUp = () => {
           }
           textAlign="center"
         />
-        <Button
-          onClick={submitHandler}
-          disabled={
-            signUpInfo.email === "" ||
-            signUpInfo.password === "" ||
-            signUpInfo.checkPassword === "" ||
-            emailError ||
-            pwdError ||
-            checkPwdError
-          }
-          width="319px"
-          marginTop="180px"
-        >
-          가입하기
-        </Button>
-        <Link to={PATH.login}>
-          <StBottomText>로그인하러 가기</StBottomText>
-        </Link>
+        <StBotBox>
+          <Button
+            onClick={submitHandler}
+            disabled={
+              signUpInfo.email === "" ||
+              signUpInfo.password === "" ||
+              signUpInfo.checkPassword === "" ||
+              emailError ||
+              pwdError ||
+              checkPwdError
+            }
+            width="319px"
+          >
+            가입하기
+          </Button>
+          <Link to={PATH.login}>
+            <StBottomText>로그인하러 가기</StBottomText>
+          </Link>
+        </StBotBox>
       </StContainer>
     </>
   );
@@ -168,4 +169,11 @@ const StBottomText = styled.div`
   color: #4a8a51;
 
   margin-top: 24px;
+`;
+
+const StBotBox = styled.div`
+  position: fixed;
+  width: 319px;
+  height: 117px;
+  bottom: 28px;
 `;

@@ -94,17 +94,14 @@ const Login = () => {
         placeholder="영문, 숫자, 특수문자가 포함된 8~13자리"
       />
 
-      <Button
-        onClick={submitHandler}
-        disabled={disabled}
-        width="319px"
-        marginTop="300px"
-      >
-        로그인
-      </Button>
-      <Link to={PATH.signup}>
-        <StBottomText>회원가입하러 가기</StBottomText>
-      </Link>
+      <StBotBox>
+        <Button onClick={submitHandler} disabled={disabled} width="319px">
+          로그인
+        </Button>
+        <Link to={PATH.signup}>
+          <StBottomText>회원가입하러 가기</StBottomText>
+        </Link>
+      </StBotBox>
     </StContainer>
   );
 };
@@ -136,4 +133,11 @@ const StBottomText = styled.div`
 
   color: #4a8a51;
   margin-top: 24px;
+`;
+
+const StBotBox = styled.div`
+  position: fixed;
+  width: 319px;
+  height: 117px;
+  bottom: 28px;
 `;
