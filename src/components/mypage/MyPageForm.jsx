@@ -1,6 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { __getUserInfo } from "../../redux/modules/mypageSlice";
+import {
+  __getUserInfo,
+  __putPlannerOpen,
+} from "../../redux/modules/mypageSlice";
 import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -15,12 +18,17 @@ import SubHeader from "../header/SubHeader";
 const MypageForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const userInfo = useSelector((state) => state.mypage.data);
+
+  console.log("디비에서 가져온 값", userInfo.isPlannerOpened);
 
   useEffect(() => {
     dispatch(__getUserInfo());
-  }, [dispatch]);
+  }, []);
+
+  const checkHandler = () => {
+    dispatch(__putPlannerOpen(!userInfo.isPlannerOpened));
+  };
 
   const logoutHandler = async () => {
     if (window.confirm("로그아웃 하시겠습니까?")) {
@@ -31,7 +39,7 @@ const MypageForm = () => {
         console.log(error);
       }
       localStorage.clear();
-      navigate(PATH.landing);
+      navigate(PATH.intro);
     }
   };
 
@@ -71,64 +79,52 @@ const MypageForm = () => {
           </StProfileBox>
           <StHr></StHr>
           <StEmailBox>{userInfo.email}</StEmailBox>
+          <StCheckBoxContainer>
+            <StDiv>플래너 공개</StDiv>
+            <StCheckBoxWrapper className="switch">
+              <StCheckBox
+                id="checkbox"
+                type="checkbox"
+                onChange={checkHandler}
+                checked={
+                  userInfo?.isPlannerOpened === ""
+                    ? true
+                    : userInfo?.isPlannerOpened
+                }
+              />
+              <StCheckBoxLabel htmlFor="checkbox" />
+            </StCheckBoxWrapper>
+          </StCheckBoxContainer>
           <StBtns>
+            <StGift url={IMAGES.gift}></StGift>
             <Button
-              border="1px solid #F1E5D2"
-              height="54px"
               width="319px"
-              backgroundColor="#FFFDFA"
-              fontSize="1.4rem"
-              color="#595550"
-              fontFamily="Pretendard"
-              fontStyle="normal"
-              fontWeight="500"
-              gap="24px"
-              filter="none"
-              type="button"
+              height="40px"
+              fontSize="1.6rem"
               onClick={() =>
                 window.open(
                   "https://www.notion.so/4de1bdd12eda48e79ac2dde2c45d6c8f"
                 )
               }
             >
-              도움말
+              리뷰 남기고 선물 받기
             </Button>
             <Button
-              border="1px solid #F1E5D2"
-              height="54px"
               width="319px"
-              backgroundColor="#FFFDFA"
-              fontSize="1.4rem"
-              fontFamily="Pretendard"
-              fontStyle="normal"
-              fontWeight="500"
-              color="#595550"
-              gap="25px"
-              filter="none"
+              height="40px"
+              fontSize="1.6rem"
+              border="1px solid #F27808"
+              backgroundColor="#F9F3EA"
+              color="#F27808"
               onClick={() =>
                 window.open(
                   "https://www.notion.so/4de1bdd12eda48e79ac2dde2c45d6c8f"
                 )
               }
             >
-              1:1 문의
+              공지 사항
             </Button>
-            <Button
-              border="1px solid #F1E5D2"
-              height="54px"
-              width="319px"
-              backgroundColor="#FFFDFA"
-              fontSize="1.4rem"
-              fontFamily="Pretendard"
-              fontStyle="normal"
-              fontWeight="500"
-              color="#FF0000"
-              gap="28px"
-              filter="none"
-              onClick={logoutHandler}
-            >
-              로그아웃
-            </Button>
+            <StButton onClick={logoutHandler}>로그아웃</StButton>
           </StBtns>
         </StProfileBody>
       </StContainer>
@@ -233,12 +229,102 @@ const StEmailBox = styled.div`
   line-height: 160%;
   display: flex;
   align-items: center;
-  color: #a4a4a4;
+  color: #595550;
+`;
+
+const StCheckBoxContainer = styled.div`
+  width: 319px;
+  height: 60px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f1e5d2;
+  border-radius: 12px;
+  margin-top: 24px;
+  padding: 19px;
+`;
+
+const StDiv = styled.div`
+  width: 100px;
+  height: 22px;
+  color: #595550;
+  font-size: 1.5rem;
+  font-family: "Pretendard-Regular";
+  line-height: 22px;
 `;
 
 const StBtns = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-top: 87px;
+  gap: 24px;
+  position: fixed;
+  bottom: 28px;
+  width: 319px;
+  height: 174px;
+  /* margin-top: 87px; */
+`;
+
+const StGift = styled.div`
+  position: absolute;
+  top: -17px;
+  right: 8px;
+  z-index: 10;
+  width: 40px;
+  height: 40px;
+  background-image: url(${(props) => props.url});
+`;
+
+const StButton = styled.button`
+  margin-top: 11px;
+  font-family: "MaplestoryOTFLight";
+  font-size: 1.7rem;
+  color: #4a8a51;
+  text-decoration-line: underline;
+  text-align: center;
+`;
+
+const StCheckBoxWrapper = styled.div`
+  position: relative;
+`;
+const StCheckBoxLabel = styled.label`
+  position: absolute;
+  display: flex;
+  align-items: center;
+  top: 8px;
+  left: 0;
+  width: 40px;
+  height: 14px;
+  border-radius: 15px;
+  background: #bebebe;
+  cursor: pointer;
+  &::after {
+    content: "";
+    display: block;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    background: #ffffff;
+    box-shadow: 1px 3px 3px 1px rgba(0, 0, 0, 0.2);
+    transition: 0.1s;
+  }
+`;
+const StCheckBox = styled.input`
+  opacity: 0;
+  z-index: 1;
+  border-radius: 15px;
+  width: 42px;
+  height: 26px;
+  &:checked + ${StCheckBoxLabel} {
+    background: #f27808;
+    &::after {
+      content: "";
+      display: block;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      margin-left: 21px;
+      transition: 0.2s;
+    }
+  }
 `;

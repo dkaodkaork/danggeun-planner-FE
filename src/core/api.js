@@ -3,6 +3,7 @@ import { instance, baseURL } from "./apiConfig";
 export const api = {
   // 회원가입/로그인
   postLoginApi: (loginInfo) => instance.post(`auth/login`, loginInfo),
+  postKakaoLoginApi: (code) => instance.get(`auth/kakao?code=${code}`),
   postLogoutApi: () => baseURL.post(`auth/logout`),
   postSignUpApi: (signUpInfo) => instance.post(`auth/signup`, signUpInfo),
   postRefreshApi: (refreshToken) =>
@@ -16,6 +17,8 @@ export const api = {
   putUsernameApi: (userInfo) => baseURL.put(`member/username`, userInfo),
   getUserInfoApi: () => baseURL.get(`member/mypage`),
   putProfileImgApi: (formData) => baseURL.put(`member/image`, formData),
+  putPlannerOpenApi: (isPlannerOpened) =>
+    baseURL.put(`member/disclosure`, isPlannerOpened),
 
   // 캘린더
   getCalendarApi: (todayMonth, todayYear, username) =>
