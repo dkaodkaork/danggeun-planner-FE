@@ -1,9 +1,13 @@
+import React, { useState, useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
+
+import { NativeEventSource, EventSourcePolyfill } from "event-source-polyfill";
 
 //리덕스
 import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
+import { alarmReadStatus } from "../../redux/modules/alarmSlice";
 
 //상수, api
 import { IMAGES } from "../../constants/index";
@@ -20,6 +24,53 @@ const MainHeader = ({ leftLink, leftSlot, title }) => {
   const clickGroupMenuHandler = () => {
     dispatch(groupMenuOpenStatus(!groupMenuOpen));
   };
+
+  //SSE 설정
+  const EventSource = EventSourcePolyfill || NativeEventSource;
+
+  //읽음 설정 관련
+  const alarmRead = useSelector((state) => state.alarm.alarmRead);
+
+  //console.log("헤더", alarmRead);
+
+  //sse 설정
+  useEffect(() => {
+    const fetchSse = async () => {
+      try {
+        const eventSource = new EventSource(
+          `${process.env.REACT_APP_TEST_SERVER}/api/subscribe`,
+          {
+            headers: {
+              AccessToken: localStorage.getItem("accessToken"),
+            },
+            withCredentials: true, //무조건 넣어야 함
+            heartbeatTimeout: 3600000, //리프레시토큰만큼의 기한
+          }
+        );
+        console.log("hihi");
+        /* EVENTSOURCE ONMESSAGE ---------------------------------------------------- */
+        eventSource.onmessage = async (e) => {
+          console.log("byebye");
+          console.log(e);
+          const res = await e.data;
+          if (!res.includes("EventStream Created.")) {
+            dispatch(alarmReadStatus(true));
+          } // 헤더 아이콘 상태 변경
+        };
+
+        /* EVENTSOURCE ONERROR ------------------------------------------------------ */
+        eventSource.onerror = async (event) => {
+          console.log(event);
+          //eventSource.close();
+          // if (!event.error.message.includes("No activity"))
+          //   eventSource.close();
+        };
+      } catch (error) {}
+    };
+    fetchSse();
+    // return () => eventSource.close();
+  }, []);
+
   return (
     <>
       <StContainer>
@@ -29,7 +80,7 @@ const MainHeader = ({ leftLink, leftSlot, title }) => {
           </StLeftSlot>
           <StCenterSlot>{title}</StCenterSlot>
           <StRightSlot onClick={clickGroupMenuHandler}>
-            <div />
+            {alarmRead && <div />}
             <button>{IMAGES.menu}</button>
           </StRightSlot>
         </StBox>
