@@ -14,10 +14,12 @@ import { IMAGES, PATH } from "../../constants/index";
 //컴포넌트
 import Header from "../header/Header";
 import SubHeader from "../header/SubHeader";
+import MainHeader from "../header/MainHeader";
 
 const GroupList = () => {
   const dispatch = useDispatch();
   const groupData = useSelector((state) => state.group.groupList);
+  //console.log(groupData);
 
   useEffect(() => {
     dispatch(__getGroupList());
@@ -32,13 +34,7 @@ const GroupList = () => {
 
   return (
     <>
-      <Header
-        title="Group"
-        leftSlot={IMAGES.home}
-        leftLink={PATH.timer}
-        rightSlot={IMAGES.menu}
-        onClick={clickGroupMenuHandler}
-      />
+      <MainHeader title="Group" leftSlot={IMAGES.home} leftLink={PATH.timer} />
       <SubHeader title="그룹 목록" />
       <StGroupLayout>
         {groupData?.length !== 0 && groupData?.length !== undefined ? (

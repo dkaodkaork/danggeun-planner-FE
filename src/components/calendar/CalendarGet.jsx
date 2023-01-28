@@ -17,10 +17,9 @@ import moment from "moment";
 import "../calendar/style/Calendar.css"; // css import
 
 //컴포넌트
-import Header from "../header/Header";
-import SubHeader from "../header/SubHeader";
 import TodayBtn from "./TodayBtn";
 import GetProfile from "./GetProfile.jsx";
+import MainHeader from "../header/MainHeader.jsx";
 
 const CalendarGet = () => {
   const dispatch = useDispatch();
@@ -87,13 +86,11 @@ const CalendarGet = () => {
 
   return (
     <>
-      <Header
+      <MainHeader
         title="Calendar"
-        rightSlot={IMAGES.menu}
         leftSlot={IMAGES.home}
         leftLink={PATH.timer}
-        onClick={clickGroupMenuHandler}
-      ></Header>
+      ></MainHeader>
       <StCalendarStyle>
         <GetProfile GetCalendarData={GetCalendarData} />
         <StCalendarLayout>

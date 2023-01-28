@@ -17,6 +17,7 @@ import SubHeader from "../header/SubHeader";
 import Input from "../element/Input";
 import Textarea from "../element/Textarea";
 import TimerButton from "../timer/TimerButton";
+import MainHeader from "../header/MainHeader";
 
 const GroupAdd = () => {
   const dispatch = useDispatch();
@@ -49,7 +50,6 @@ const GroupAdd = () => {
     }
   };
 
-  const contents = description.replace(/(?:\r\n|\r|\n)/g, "<br>");
   // console.log(contents);
 
   const onClickGroupAdd = () => {
@@ -76,13 +76,11 @@ const GroupAdd = () => {
 
   return (
     <>
-      <Header
+      <MainHeader
         title="Group"
-        rightSlot={IMAGES.menu}
         leftSlot={IMAGES.home}
         leftLink={PATH.timer}
-        onClick={clickGroupMenuHandler}
-      ></Header>
+      ></MainHeader>
       <SubHeader
         title="그룹 만들기"
         leftSlot={IMAGES.fold}
