@@ -18,6 +18,7 @@ import Header from "../header/Header";
 import SubHeader from "../header/SubHeader";
 import TimerButton from "../timer/TimerButton";
 import ProfileImg from "../element/ProfileImg";
+import MainHeader from "../header/MainHeader";
 
 const GroupInvite = () => {
   const dispatch = useDispatch();
@@ -91,6 +92,7 @@ const GroupInvite = () => {
   //그룹원 초대 완료하기
   const InviteSubmit = () => {
     const inviteList = { username: checkedList };
+    console.log("그룹원 초대 완료");
     dispatch(__postGroupMemberInvite({ groupId, inviteList })).then(() => {
       navigate(PATH.groupdetail(groupId));
     });
@@ -98,13 +100,11 @@ const GroupInvite = () => {
 
   return (
     <>
-      <Header
+      <MainHeader
         title="Group"
-        rightSlot={IMAGES.menu}
         leftSlot={IMAGES.home}
         leftLink={PATH.timer}
-        onClick={clickGroupMenuHandler}
-      ></Header>
+      ></MainHeader>
       <SubHeader
         title="그룹원 추가"
         leftSlot={IMAGES.fold}

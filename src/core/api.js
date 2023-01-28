@@ -63,6 +63,18 @@ export const api = {
   //검색
   getSearchUserApi: (username) => baseURL.get(`/member/search/${username}`),
 
-  //sse 구독
-  getSseApi: () => baseURL.get(`/subscribe`),
+  //알람
+  //알람 수신
+  getAlarmApi: () => baseURL.get(`/member/notification/read`),
+  //알람 리스트 조회
+  getAlarmListApi: () => baseURL.get(`/member/notification`),
+  //그룹 초대 승락
+  postAlarmAcceptApi: (groupId, notificationId) =>
+    baseURL.post(`/member/notification/${groupId}/${notificationId}`),
+  //그룹 초대 거절
+  deleteAlarmRejectApi: (groupId, notificationId) =>
+    baseURL.delete(`/member/notification/${groupId}/${notificationId}`),
+  //그룹 초대 결과 확인
+  deleteConfirmApi: (notificationId) =>
+    baseURL.delete(`/member/notification/${notificationId}`),
 };

@@ -17,6 +17,7 @@ import SubHeader from "../header/SubHeader";
 import Input from "../element/Input";
 import Textarea from "../element/Textarea";
 import TimerButton from "../timer/TimerButton";
+import MainHeader from "../header/MainHeader";
 
 const GroupUpdate = () => {
   const dispatch = useDispatch();
@@ -75,13 +76,11 @@ const GroupUpdate = () => {
 
   return (
     <>
-      <Header
+      <MainHeader
         title="Group"
-        rightSlot={IMAGES.menu}
         leftSlot={IMAGES.home}
         leftLink={PATH.timer}
-        onClick={clickGroupMenuHandler}
-      ></Header>
+      ></MainHeader>
       <SubHeader
         title="그룹 수정"
         leftSlot={IMAGES.fold}

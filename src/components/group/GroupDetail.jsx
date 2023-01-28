@@ -22,6 +22,7 @@ import Header from "../header/Header";
 import SubHeader from "../header/SubHeader";
 import GroupMember from "./GroupMember.jsx";
 import ProfileImg from "../element/ProfileImg.jsx";
+import MainHeader from "../header/MainHeader";
 
 const GroupDetail = () => {
   const dispatch = useDispatch();
@@ -50,13 +51,11 @@ const GroupDetail = () => {
 
   return (
     <>
-      <Header
+      <MainHeader
         title="Group"
-        rightSlot={IMAGES.menu}
         leftSlot={IMAGES.home}
         leftLink={PATH.timer}
-        onClick={clickGroupMenuHandler}
-      ></Header>
+      ></MainHeader>
       <SubHeader
         title={groupDetailData?.groupName}
         leftSlot={IMAGES.fold}

@@ -96,6 +96,9 @@ const Menu = () => {
     }
   };
 
+  //읽음 설정 관련
+  const alarmRead = useSelector((state) => state.alarm.alarmRead);
+
   return (
     <>
       <ModalBackdrop
@@ -109,7 +112,7 @@ const Menu = () => {
               <button>{IMAGES.nextArrow}</button>
             </div>
             <StBellLayout onClick={clickBellNav}>
-              <div />
+              {alarmRead && <div />}
               <button>{IMAGES.bell}</button>
             </StBellLayout>
           </MenuIcon>

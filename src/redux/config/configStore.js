@@ -6,6 +6,7 @@ import timer from "../modules/timerSlice";
 import group from "../modules/groupSlice";
 import planner from "../modules/plannerSlice";
 import search from "../modules/searchSlice";
+import alarm from "../modules/alarmSlice";
 
 const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ const store = configureStore({
     group,
     planner,
     search,
+    alarm,
   },
   //직렬화 오류로 추가
   // middleware: getDefaultMiddleware({
