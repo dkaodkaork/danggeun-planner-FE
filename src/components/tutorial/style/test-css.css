@@ -1,0 +1,46 @@
+.test-css {
+  top: 200px;
+  position: absolute;
+  left: 40%;
+}
+
+.test-css li {
+  position: relative;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  /*margin: 1px;*/
+  padding: 0;
+  cursor: pointer;
+}
+
+.test-css li button {
+  font-size: 0;
+  line-height: 0;
+  display: block;
+  width: 20px;
+  height: 20px;
+  padding: 5px;
+  cursor: pointer;
+  color: transparent;
+  border: 0;
+  outline: 0;
+  background: 0 0;
+}
+
+.test-css li button:before {
+  font-size: 2.7rem;
+  line-height: 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  content: "•";
+  text-align: center;
+  color: #f5cda8;
+}
+
+.test-css li.slick-active button:before {
+  color: #f5ad6a;
+}
