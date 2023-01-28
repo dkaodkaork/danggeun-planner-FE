@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
 
 import GetCarrotModal from "./GetCarrotModal";
@@ -11,32 +11,32 @@ const GetCarrot = ({ onClick }) => {
     setIsOpen(!isOpen);
   };
 
+  const modalRef = useRef();
+
+  const modalOutSideClick = (e) => {
+    if (modalRef.current === e.target) {
+      setIsOpen(!isOpen);
+    }
+  };
+
   return (
     <>
       <Button onClick={openModalHandler}>당근 수확하기</Button>
-      <>
-        {isOpen ? (
-          <ModalBackdrop>
-            <GetCarrotModal onOpenModal={openModalHandler} onClick={onClick} />
-          </ModalBackdrop>
-        ) : null}
-      </>
+      {isOpen ? (
+        <ModalBackdrop ref={modalRef} onClick={modalOutSideClick}>
+          <GetCarrotModal onOpenModal={openModalHandler} onClick={onClick} />
+        </ModalBackdrop>
+      ) : null}
     </>
   );
 };
 
 export default GetCarrot;
 
-export const ModalContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-export const ModalBackdrop = styled.div`
+const ModalBackdrop = styled.div`
   width: 375px;
-  height: 815px;
-  bottom: 0px;
+  height: 100%;
+  top: 0px;
   position: fixed;
   display: flex;
   justify-content: center;

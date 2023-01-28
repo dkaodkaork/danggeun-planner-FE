@@ -1,15 +1,7 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import Header from "../header/Header";
-import { PATH, IMAGES } from "../../constants/index";
-import UsernameCard from "./UsernameCard";
-import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { planStartTime, getDayOfWeek } from "./time";
-import BottomBtns from "./BottomBtns";
-import PlanCard from "./PlanCard";
-import SlideModal from "../element/SlideModal";
 import { planModalOpenStatus } from "../../redux/modules/modalSlice";
+import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
 import {
   __getAllPlan,
   __getTimerPlan,
@@ -20,11 +12,23 @@ import {
   __putTimerContent,
   __getFocusPlan,
 } from "../../redux/modules/plannerSlice";
-import PlannerModal from "./PlannerModal";
-import SortingBtnGroup from "./SortingBtnGroup";
+import { Link, useParams } from "react-router-dom";
+import styled from "styled-components";
+
+import { PATH, IMAGES } from "../../constants/index";
+
 import { v4 as uuidv4 } from "uuid";
-//
-import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
+
+import Header from "../header/Header";
+import { planStartTime, getDayOfWeek } from "./time";
+import UsernameCard from "./UsernameCard";
+import BottomBtn from "./BottomBtn";
+import PlanCard from "./PlanCard";
+import PlannerModal from "./PlannerModal";
+import SlideModal from "../element/SlideModal";
+import SortingBtnGroup from "./SortingBtnGroup";
+import PlannerSubHeader from "./PlannerSubHeader";
+import PrivatePlanner from "./PrivatePlanner";
 
 const Planner = () => {
   // hook
@@ -32,7 +36,7 @@ const Planner = () => {
   const { date, username } = useParams();
 
   const plans = useSelector((state) => state?.planner?.data);
-  // console.log(plans.error);
+  console.log(plans.contents);
 
   // 상태 선언
   const [selectedId, setSelectedId] = useState(null);
@@ -53,7 +57,7 @@ const Planner = () => {
   // 메뉴 오픈 관련 추후에 반드시 빼야함
   const groupMenuOpen = useSelector((state) => state.modalSlice.groupMenuOpen);
 
-  const clickGroupMenuHandler = () => {
+  const OpenMenuHanlder = () => {
     dispatch(groupMenuOpenStatus(!groupMenuOpen));
   };
   //
@@ -65,11 +69,10 @@ const Planner = () => {
     content: planTitle,
   };
 
-  // console.log(planInfo);
   // 플래너 조회 요청
   useEffect(() => {
     dispatch(__getAllPlan({ username: username, date: date }));
-  }, [dispatch]);
+  }, [groupMenuOpen]);
 
   // 전체 조회 버튼
   const onClickGetAllPlan = () => {
@@ -94,8 +97,6 @@ const Planner = () => {
       Number(b.startTime.replace(":", ""))
     );
   });
-  // console.log(temp);
-  // console.log(sortedPlans);
 
   // 모달은 나주에 slice에서 빼고 하면 코드 많이 줄일 수 있을 것 같음. 상태로 관리
   const planModalOpen = useSelector(
@@ -141,6 +142,10 @@ const Planner = () => {
     });
   };
 
+  const modalOutSideClick = (e) => {
+    dispatch(planModalOpenStatus(!planModalOpen));
+  };
+
   // 계획 삭제
   const closeModalHanlder = (id, plan) => {
     // console.log(id, plan);
@@ -157,13 +162,6 @@ const Planner = () => {
         dispatch(planModalOpenStatus(!planModalOpen));
       }
     }
-
-    // else if ()
-    // if (isEdit) {
-    //   if (window.confirm("삭제 하시겠습니까?")) {
-    //     dispatch(__deletePlan({ id }));
-    //   }
-    // }
   };
 
   // 타이머 제목 수정
@@ -172,13 +170,10 @@ const Planner = () => {
       alert("제목을 입력해주세요!");
     } else {
       const title = { content: planTitle };
-      // dispatch(timerTest({ title, id }));
       dispatch(__putTimerContent({ title, id }));
       dispatch(planModalOpenStatus(!planModalOpen));
     }
   };
-
-  // console.log(planTitle);
 
   // 계획 추가, 계획 수정 // 나중에 변수명 수정 , 로직 간단하게 해야함 급하게 짬
   const doneAddModalHandler = (id) => {
@@ -214,15 +209,6 @@ const Planner = () => {
           dispatch(__postPlan(planInfo));
         }
       }
-      // setPlanTitle("");
-      // setEndTime({
-      //   hour: "",
-      //   min: "",
-      // });
-      // setStartTime({
-      //   hour: "",
-      //   min: "",
-      // });
     }
   };
   //
@@ -236,9 +222,6 @@ const Planner = () => {
   // 플랜 시작시간 종료시간
   const changeStartTimeHandler = (e) => {
     let time = e.target.value;
-    console.log(time);
-    // if()
-
     setStartTime({ ...startTime, [e.target.name]: time });
   };
 
@@ -254,69 +237,85 @@ const Planner = () => {
       e.target.value = e.target.value.slice(0, e.target.maxLength);
   };
 
-  // console.log(sortedPlans);
+  const a = true;
 
   return (
     <>
       <Header
-        menuName="Planner"
-        right={IMAGES.menu}
-        left={IMAGES.home}
+        title="PLANNER"
         leftLink={PATH.timer}
-        clickMenuHandler={clickGroupMenuHandler}
+        leftSlot={IMAGES.home}
+        rightSlot={IMAGES.menu}
+        onClick={OpenMenuHanlder}
       />
+      <PlannerSubHeader
+        username={plans.username}
+        profileImage={plans.profileImage}
+        param={username}
+      ></PlannerSubHeader>
+      {/* {a ? (
+        <PrivatePlanner />
+      ) : ( */}
       <StContainer>
-        <StDiv>
-          <UsernameCard
-            link={PATH.mypage}
-            username={plans.username}
-            profileImage={plans.profileImage}
-          />
-          <Link to={PATH.calendar(username)}>{IMAGES.calendarIcon}</Link>
-        </StDiv>
         <StDiv>
           <StDateBox>{getDayOfWeek(date)}</StDateBox>
           <StTodayCarrot>
             오늘 수확량 <span>{plans.carrot}</span>
           </StTodayCarrot>
         </StDiv>
-        <StBodyDiv>
+        <StBtnGroup>
           <SortingBtnGroup
             onClickGetAllPlan={onClickGetAllPlan}
             onClickgetPlan={onClickgetPlan}
             onClickgetFocusPlan={onClickgetFocusPlan}
           />
-          {sortedPlans.map((val) => {
-            let color = "";
-            const id = val.timerId ?? val.planId;
-            if (Object.keys(val)[0] === "timerId") {
-              color = "#F27808";
-            } else {
-              color = "#67986C";
-            }
-            return (
-              <div key={uuidv4()}>
-                <PlanCard
-                  onClick={
-                    plans.isOwner
-                      ? () => {
-                          openEditModalHanlder(id, val);
-                        }
-                      : () => {}
-                  }
-                  color={color}
-                  content={val.content}
-                  startTime={val.startTime}
-                  endTime={val.endTime}
-                  count={val?.count}
-                />
-              </div>
-            );
-          })}
+        </StBtnGroup>
+        <StBodyDiv>
+          {plans?.contents.length !== 0 ? (
+            <>
+              {sortedPlans.map((val) => {
+                let color = "";
+                const id = val.timerId ?? val.planId;
+                if (Object.keys(val)[0] === "timerId") {
+                  color = "#F27808";
+                } else {
+                  color = "#67986C";
+                }
+                return (
+                  <div key={uuidv4()}>
+                    <PlanCard
+                      onClick={
+                        plans.isOwner
+                          ? () => {
+                              openEditModalHanlder(id, val);
+                            }
+                          : () => {}
+                      }
+                      color={color}
+                      content={val.content}
+                      startTime={val.startTime}
+                      endTime={val.endTime}
+                      count={val?.count}
+                    />
+                  </div>
+                );
+              })}
+            </>
+          ) : (
+            <StEmptyBodyDiv>
+              <StEmptyPlanDiv>일정이 비었습니다.</StEmptyPlanDiv>
+            </StEmptyBodyDiv>
+          )}
         </StBodyDiv>
-        {plans.isOwner && <BottomBtns onClick={openModalHanlder} />}
+        {plans.isOwner && <BottomBtn onClick={openModalHanlder} />}
       </StContainer>
-      <SlideModal height="258px" bottom="-260px" toggle={planModalOpen}>
+      {/* )} */}
+      <SlideModal
+        height="258px"
+        bottom="-260px"
+        toggle={planModalOpen}
+        cancleHandler={modalOutSideClick}
+      >
         <PlannerModal
           openModalHanlder={openModalHanlder}
           doneAddModalHandler={doneAddModalHandler}
@@ -345,7 +344,7 @@ export default Planner;
 
 const StContainer = styled.div`
   background-color: #f9f3ea;
-  height: 684px;
+  /* height: 100vh; */
 `;
 
 const StDateBox = styled.div`
@@ -361,8 +360,6 @@ const StDateBox = styled.div`
 const StTodayCarrot = styled.div`
   height: 17px;
   font-family: "Pretendard-Regular";
-  /* font-style: normal;
-  font-weight: 500; */
   font-size: 1.5rem;
   line-height: 17px;
   color: #595550;
@@ -383,12 +380,37 @@ const StDiv = styled.div`
   height: 56px;
 `;
 
+const StBtnGroup = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 const StBodyDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  height: 550px;
+  height: 507px;
   overflow: scroll;
-  margin: 6px 0px 15px 0px;
+  margin-top: 6px;
+`;
+
+const StEmptyBodyDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  height: 507px;
+  margin-top: 6px;
+`;
+
+const StEmptyPlanDiv = styled.div`
+  text-align: center;
+  margin-top: 234px;
+  font-family: "Pretendard-Regular";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.4rem;
+  color: #a4a4a4;
 `;

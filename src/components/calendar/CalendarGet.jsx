@@ -1,26 +1,25 @@
+//리액트 관련
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 
-//api import
+//리덕스
 import { __getCalendar } from "../../redux/modules/calendarSlice.js";
-//메뉴 오픈 관련
 import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
 
-//컴포넌트 Import
-import Header from "../header/Header";
-import TodayBtn from "./TodayBtn";
-import ProfileImg from "../element/ProfileImg.jsx";
+//상수
+import { IMAGES, PATH } from "../../constants/index";
 
-//캘린더 라이브러리 관련 import
+//라이브러리
 import Calendar from "react-calendar";
 import moment from "moment";
 import "../calendar/style/Calendar.css"; // css import
 
-//svg Import
-import { IMAGES } from "../../constants/images.js";
-import { PATH } from "../../constants/path.js";
+//컴포넌트
+import TodayBtn from "./TodayBtn";
+import GetProfile from "./GetProfile.jsx";
+import MainHeader from "../header/MainHeader.jsx";
 
 const CalendarGet = () => {
   const dispatch = useDispatch();
@@ -71,7 +70,7 @@ const CalendarGet = () => {
   };
 
   //다른 월로 이동했을 때 그 월에 맞는 데이터를 불러오는 핸들러
-  const ClickArrowHandler = ({ action, activeStartDate, value, view }) => {
+  const ClickArrowHandler = ({ activeStartDate }) => {
     const todayYear = moment(activeStartDate).format("YYYY");
     const todayMonth = moment(activeStartDate).format("MM");
     dispatch(__getCalendar({ todayYear, todayMonth, username }));
@@ -87,28 +86,14 @@ const CalendarGet = () => {
 
   return (
     <>
-      <Header
-        menuName="Calendar"
-        right={IMAGES.menu}
-        left={IMAGES.home}
+      <MainHeader
+        title="Calendar"
+        leftSlot={IMAGES.home}
         leftLink={PATH.timer}
-        clickMenuHandler={clickGroupMenuHandler}
-      ></Header>
-      <CalendarStyle>
-        <ProfileLayout>
-          <ProfileImg
-            src={GetCalendarData?.profileImage}
-            width="125px"
-            height="125px"
-          />
-        </ProfileLayout>
-        <NickName>{GetCalendarData?.username}</NickName>
-        <MonthlyGet>
-          {GetCalendarData?.username}님의 이번달 총 수확량은{" "}
-          <strong>{GetCalendarData?.carrot}</strong>
-          개입니다
-        </MonthlyGet>
-        <CalendarLayout>
+      ></MainHeader>
+      <StCalendarStyle>
+        <GetProfile GetCalendarData={GetCalendarData} />
+        <StCalendarLayout>
           <Calendar
             ref={calendarRef}
             onChange={setValue}
@@ -121,13 +106,6 @@ const CalendarGet = () => {
             formatDay={(locale, date) =>
               date.toLocaleString("en", { day: "numeric" })
             } //'일'글자 제거
-            // formatShortWeekday={(locale, date) =>
-            //   ["S", "M", "T", "W", "T", "F", "S"][date.getDay()]
-            // } //요일 표시 수정
-            // 년도를 클릭해서 월로 바로 이동할 때 호출되는 함수
-            // onViewChange={({ activeStartDate }) =>
-            //   console.log("New activeStartDate is: ", activeStartDate)
-            // }
             // 이전,다음 버튼 사용할 때 호출되는 함수
             onActiveStartDateChange={ClickArrowHandler}
             //하루를 클릭할 때 호출되는 함수
@@ -169,53 +147,26 @@ const CalendarGet = () => {
               }
             }}
           />
-          <TodayBtnLayout>
+          <StTodayBtnLayout>
             <TodayBtn onClickToday={ClickTodayHandler} />
-          </TodayBtnLayout>
-        </CalendarLayout>
-      </CalendarStyle>
+          </StTodayBtnLayout>
+        </StCalendarLayout>
+      </StCalendarStyle>
     </>
   );
 };
 
 export default CalendarGet;
 
-export const CalendarStyle = styled.div`
+const StCalendarStyle = styled.div`
   background-color: #f9f3ea;
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 740px; //812px에서 헤더값 뺌
+  height: 100%;
 `;
 
-export const ProfileLayout = styled.div`
-  margin-top: 34px;
-`;
-
-export const NickName = styled.h2`
-  margin-top: 24px;
-  font-family: "MaplestoryOTFBold";
-  font-weight: 700;
-  font-size: 2.4rem;
-  color: #595550;
-`;
-
-export const MonthlyGet = styled.p`
-  margin-top: 24px;
-  font-family: "Pretendard-Regular";
-  font-weight: 500;
-  font-size: 1.4rem;
-  color: #403b36;
-  strong {
-    font-family: "Pretendard-bold";
-    font-weight: 700;
-    font-size: 1.6rem;
-    color: #f27808;
-    padding: 0 2px 0 2px;
-  }
-`;
-
-export const CalendarLayout = styled.div`
+const StCalendarLayout = styled.div`
   margin-top: 33px;
   display: flex;
   flex-direction: column;
@@ -223,6 +174,7 @@ export const CalendarLayout = styled.div`
   gap: 12px;
 `;
 
-export const TodayBtnLayout = styled.div`
-  margin-top: 24px;
+const StTodayBtnLayout = styled.div`
+  position: fixed;
+  bottom: 3.4vh;
 `;

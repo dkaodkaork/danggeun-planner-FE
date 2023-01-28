@@ -1,7 +1,6 @@
 import axios from "axios";
 import { api } from "./api";
-
-const serverUrl = process.env.REACT_APP_TEST_SERVER + "/api";
+import { serverUrl } from ".";
 
 // 헤더 없이 사용하는 경우
 export const instance = axios.create({

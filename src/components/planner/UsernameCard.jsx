@@ -1,8 +1,6 @@
 import React from "react";
-import styled from "styled-components";
-import { IMAGES } from "../../constants/index";
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 
 const UsernameCard = ({ username, profileImage, link }) => {
   return (

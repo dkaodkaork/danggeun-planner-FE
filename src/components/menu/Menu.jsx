@@ -1,21 +1,25 @@
-import React, { useState, useEffect } from "react";
+//리액트 관련
+import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { IMAGES } from "../../constants/images.js";
-import { PATH } from "../../constants/index";
 
+//리덕스
 import {
   groupMenuOpenStatus,
   searchModalOpenStatus,
 } from "../../redux/modules/modalSlice";
-
 import { __getUserInfo } from "../../redux/modules/mypageSlice";
 
+//상수, api
+import { IMAGES, PATH } from "../../constants/index";
+
+//라이브러리
+import moment from "moment";
+
+//컴포넌트
 import SearchModal from "../search/SearchModal.jsx";
 import ProfileImg from "../element/ProfileImg.jsx";
-
-import moment from "moment";
 
 const Menu = () => {
   const dispatch = useDispatch();
@@ -42,6 +46,11 @@ const Menu = () => {
     dispatch(groupMenuOpenStatus(!groupMenuOpen));
   };
 
+  //검색 모달 관리
+  const searchModalOpen = useSelector(
+    (state) => state.modalSlice.searchModalOpen
+  );
+
   //메뉴 클릭 시 이동 핸들러
   //그룹
   const clickGroupNav = () => {
@@ -55,7 +64,7 @@ const Menu = () => {
   };
   //검색
   const clickSearchNav = () => {
-    setModalOpen(!modalOpen);
+    dispatch(searchModalOpenStatus(!searchModalOpen));
   };
   //타이머
   const clickTimverNav = () => {
@@ -72,39 +81,47 @@ const Menu = () => {
     navigate(PATH.mypage);
     dispatch(groupMenuOpenStatus(!groupMenuOpen));
   };
-  //검색 모달
-  const [modalOpen, setModalOpen] = useState(false);
-
-  //검정 배경 클릭 시 메뉴 닫기
-  const clickBackdropHandler = () => {
+  //알림
+  const clickBellNav = () => {
+    navigate(PATH.alarm);
     dispatch(groupMenuOpenStatus(!groupMenuOpen));
   };
 
-  //모달 오픈 관련
-  const searchModalOpen = useSelector(
-    (state) => state.modalSlice.searchModalOpen
-  );
+  //바깥쪽 클릭해서 닫히게 하는 useRef 구현
+  const modalRef = useRef();
 
-  //검정 배경 클릭 시 모달 닫기
-  const clickBackdropModalHandler = () => {
-    dispatch(searchModalOpenStatus(!searchModalOpen));
+  const modalOutSideClick = (e) => {
+    if (modalRef.current === e.target) {
+      dispatch(groupMenuOpenStatus(!groupMenuOpen));
+    }
   };
+
+  //읽음 설정 관련
+  const alarmRead = useSelector((state) => state.alarm.alarmRead);
 
   return (
     <>
-      <ModalBackdrop toggle={groupMenuOpen}>
+      <ModalBackdrop
+        toggle={groupMenuOpen}
+        ref={modalRef}
+        onClick={(e) => modalOutSideClick(e)}
+      >
         <MenuLayout toggle={groupMenuOpen}>
           <MenuIcon>
             <div onClick={clickGroupMenuHandler}>
               <button>{IMAGES.nextArrow}</button>
             </div>
-            <div onClick={clickProfileNav}>
-              <ProfileImg src={userInfo?.profileImage} />
-            </div>
+            <StBellLayout onClick={clickBellNav}>
+              {alarmRead && <div />}
+              <button>{IMAGES.bell}</button>
+            </StBellLayout>
           </MenuIcon>
-          <Nickname onClick={clickProfileNav}>{userInfo?.username}</Nickname>
+          <StUser onClick={clickProfileNav}>
+            <ProfileImg src={userInfo?.profileImage} />
+            <Nickname>{userInfo?.username}</Nickname>
+          </StUser>
           <MenuNav>
-            <MenuBtnLayout>
+            <StMenuBtnLayout>
               {nowMenu === "t" && <Carrot>{IMAGES.menuCarrot}</Carrot>}
               <MenuButton
                 onClick={clickTimverNav}
@@ -112,8 +129,8 @@ const Menu = () => {
               >
                 타이머
               </MenuButton>
-            </MenuBtnLayout>
-            <MenuBtnLayout>
+            </StMenuBtnLayout>
+            <StMenuBtnLayout>
               {nowMenu === "c" && <Carrot>{IMAGES.menuCarrot}</Carrot>}
               <MenuButton
                 onClick={clickCalendarNav}
@@ -121,8 +138,8 @@ const Menu = () => {
               >
                 캘린더
               </MenuButton>
-            </MenuBtnLayout>
-            <MenuBtnLayout>
+            </StMenuBtnLayout>
+            <StMenuBtnLayout>
               {nowMenu === "p" && <Carrot>{IMAGES.menuCarrot}</Carrot>}
               <MenuButton
                 onClick={clickPlannerNav}
@@ -130,8 +147,8 @@ const Menu = () => {
               >
                 플래너
               </MenuButton>
-            </MenuBtnLayout>
-            <MenuBtnLayout>
+            </StMenuBtnLayout>
+            <StMenuBtnLayout>
               {nowMenu === "g" && <Carrot>{IMAGES.menuCarrot}</Carrot>}
               <MenuButton
                 onClick={clickGroupNav}
@@ -139,7 +156,7 @@ const Menu = () => {
               >
                 그룹
               </MenuButton>
-            </MenuBtnLayout>
+            </StMenuBtnLayout>
           </MenuNav>
           <Search onClick={clickSearchNav}>
             <button>{IMAGES.searchIcon}</button>
@@ -147,7 +164,7 @@ const Menu = () => {
           </Search>
         </MenuLayout>
       </ModalBackdrop>
-      {modalOpen && <SearchModal propsState={modalOpen} />}
+      <SearchModal />
     </>
   );
 };
@@ -157,7 +174,7 @@ export default Menu;
 const ModalBackdrop = styled.div`
   visibility: ${(props) => (props.toggle ? "visible" : "hidden")};
   width: 375px;
-  height: 812px;
+  height: 100vh;
   position: fixed;
   display: flex;
   justify-content: center;
@@ -172,8 +189,9 @@ const MenuLayout = styled.div`
   background-color: #fffdfa;
   position: absolute;
   right: ${(props) => (props.toggle ? "0" : "-196px")};
-  height: 812px;
-  transition: all 0.4s;
+  height: 100vh;
+  transition: ${(props) => (props.toggle ? "all 0.4s" : "0s")};
+  /* transition: all 0.4s; */
   padding: 28px;
   border-radius: 12px 0px 0px 12px;
 `;
@@ -182,13 +200,17 @@ const MenuIcon = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  cursor: pointer;
+  button {
+    cursor: pointer;
+  }
 `;
 
 const MenuNav = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 100px;
+  margin-top: 8.6207vh;
   gap: 24px;
 `;
 
@@ -207,13 +229,28 @@ const MenuButton = styled.button`
   text-align: center;
   color: #4a8a51;
   gap: 24px;
+  cursor: pointer;
+
   &.active {
     background: #4a8a51;
     color: #fffdfa;
   }
 `;
 
-const MenuBtnLayout = styled.div`
+const StBellLayout = styled.div`
+  position: relative;
+  div {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    right: 0px;
+    top: -2px;
+    border-radius: 50%;
+    background-color: #f27808;
+  }
+`;
+
+const StMenuBtnLayout = styled.div`
   position: relative;
 `;
 
@@ -223,8 +260,16 @@ const Carrot = styled.div`
   right: 8px;
 `;
 
+const StUser = styled.div`
+  margin-top: 8.6207vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  cursor: pointer;
+`;
+
 const Nickname = styled.div`
-  margin-top: 24px;
   font-family: "Pretendard-Bold";
   font-weight: 700;
   font-size: 1.6rem;
@@ -233,11 +278,12 @@ const Nickname = styled.div`
 `;
 
 const Search = styled.div`
-  margin-top: 100px;
+  margin-top: 8.6207vh;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 12px;
+  cursor: pointer;
   span {
     font-family: "MaplestoryOTFLight";
     font-weight: 300;

@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from "react";
+//리액트 관련
+import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+
+//상수, api
+import { detailMenuOpenStatus } from "../../redux/modules/modalSlice";
+
+//컴포넌트
 import Modal from "../element/Modal";
 import ButtonS from "../element/ButtonS";
-
-import { detailMenuOpenStatus } from "../../redux/modules/modalSlice";
 
 const GroupModal = (props) => {
   const dispatch = useDispatch();
@@ -21,10 +25,18 @@ const GroupModal = (props) => {
     props.onClickCancle();
   };
 
+  const modalRef = useRef();
+
+  const modalOutSideClick = (e) => {
+    if (modalRef.current === e.target) {
+      dispatch(detailMenuOpenStatus(!detailMenuOpen));
+    }
+  };
+
   return (
     <>
       {detailMenuOpen ? (
-        <Modal>
+        <Modal modalRef={modalRef} modalOutSideClick={modalOutSideClick}>
           <GroupImg src={groupDetailData?.groupImage} />
           <GroupName>{props.groupName}</GroupName>
           <GetMsg>위 그룹을 정말 {props.subject}하시겠습니까?</GetMsg>

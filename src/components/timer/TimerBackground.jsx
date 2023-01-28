@@ -1,8 +1,10 @@
 import React from "react";
 import styled from "styled-components";
+
+import { IMAGES } from "../../constants/index";
+
 import Timer from "./Timer";
 import TimerMsg from "./TimerMsg";
-import { IMAGES } from "../../constants/index";
 
 const TimerBackground = ({
   stack,
@@ -59,9 +61,10 @@ const StBackground = styled.div`
   transition: ${(props) => props.delay};
   /* 처음만 적용안되게  */
   background-position: center;
-  background-size: auto;
+  background-size: cover;
   background-repeat: no-repeat;
-  height: 740px;
+  height: 100%;
+  width: 100%;
 `;
 
 const StButtonBox = styled.div`

@@ -26,6 +26,7 @@ export const modalSlice = createSlice({
     planModalOpenStatus: (state, action) => {
       state.addPlanModalOpen = action.payload;
     },
+    //검색 모달 관리
     searchModalOpenStatus: (state, action) => {
       state.searchModalOpen = action.payload;
     },

@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+
 import { IMAGES } from "../../constants/index";
 
 const PlanCard = ({ color, content, startTime, endTime, count, onClick }) => {

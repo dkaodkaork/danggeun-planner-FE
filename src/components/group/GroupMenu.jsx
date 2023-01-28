@@ -1,17 +1,18 @@
+//리액트 관련
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { IMAGES } from "../../constants/images.js";
-import { PATH } from "../../constants/index";
 
+//상수, api
+import { IMAGES, PATH } from "../../constants/index";
 import {
   groupMenuOpenStatus,
   detailMenuOpenStatus,
 } from "../../redux/modules/modalSlice";
-
 import { __deleteGroup } from "../../redux/modules/groupSlice.js";
 
+//컴포넌트
 import GroupModal from "./GroupModal.jsx";
 
 const GroupMenu = () => {

@@ -1,17 +1,18 @@
 import React, { useLayoutEffect, useState } from "react";
-import styled from "styled-components";
-import useTimer from "../../hooks/useTimer";
-import Button from "./TimerButton";
 import { useDispatch, useSelector } from "react-redux";
 import { __startTimer, __finsihTimer } from "../../redux/modules/timerSlice";
-import TimerBackground from "./TimerBackground";
-import { timeStamp } from "../planner/time";
-import { IMAGES } from "../../constants/index";
-import Header from "../header/Header";
-
-//
 import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
+import styled from "styled-components";
+
+import { IMAGES } from "../../constants/index";
+import useTimer from "../../hooks/useTimer";
+import { timeStamp } from "../planner/time";
+
+import Head from "../header/Header";
+import Button from "./TimerButton";
 import GetCarrot from "./GetCarrot";
+import TimerBackground from "./TimerBackground";
+//
 
 const CarrotTimer = () => {
   const [stack, setStack] = useState("");
@@ -25,12 +26,12 @@ const CarrotTimer = () => {
   // 메뉴 오픈 관련 추후에 반드시 빼야함
   const groupMenuOpen = useSelector((state) => state.modalSlice.groupMenuOpen);
 
-  const clickGroupMenuHandler = () => {
+  const OpenMenuHanlder = () => {
     dispatch(groupMenuOpenStatus(!groupMenuOpen));
   };
   //
 
-  const startTime = 1000 * 4 * 20;
+  const startTime = 1000 * 4;
   const restTime = 1000 * 2;
   const longRestTime = 1000 * 3;
 
@@ -70,16 +71,12 @@ const CarrotTimer = () => {
     }
   };
 
-  console.log(count);
-
   const focusModeDoneHandler = () => {
     toggleTimer(0);
 
     const timerInfo = { endTime: timeStamp(), count: count + 1 };
 
     dispatch(__finsihTimer({ timerId: data.timerId, timerInfo }));
-
-    // console.log(timeStamp());
   };
 
   const restModeDoneHandler = () => {
@@ -96,8 +93,6 @@ const CarrotTimer = () => {
     toggleTimer();
     if (timer === startTime && count === 0) {
       dispatch(__startTimer({ startTime: timeStamp() }));
-      console.log("타이머 시작통신");
-      // console.log(timeStamp());
     }
   };
 
@@ -108,9 +103,7 @@ const CarrotTimer = () => {
 
   const getCarrotHandler = () => {
     setTimerTime(restTime);
-    // setCount(count + 1);
     setMode("restMode");
-    // 모달만 다시 해결해보자  모달안에 스타트 타이머 넣어서 적용해보자
   };
 
   const focusMode = {
@@ -122,15 +115,15 @@ const CarrotTimer = () => {
     rest: (
       <Button
         onClick={focusGiveUpHandler}
-        color="#614925"
+        color="#4A8A51"
         backgroundColor="transparent"
-        fontSize="2.2rem"
-        textDecoration="underline"
-        underlinePosition="under"
+        fontSize="1.6rem"
         filter="none"
         fontFamily="MaplestoryOTFLight"
+        textDecoration="underline"
+        underlinePosition="under"
       >
-        포기하기
+        포기하기?
       </Button>
     ),
   };
@@ -145,15 +138,15 @@ const CarrotTimer = () => {
     rest: (
       <Button
         onClick={restModeDoneHandler}
-        color="#614925"
+        color="#4A8A51"
         backgroundColor="transparent"
-        fontSize="2.2rem"
-        textDecoration="underline"
-        underlinePosition="under"
+        fontSize="1.6rem"
         filter="none"
         fontFamily="MaplestoryOTFLight"
+        textDecoration="underline"
+        underlinePosition="under"
       >
-        넘어가기
+        휴식 건너뛰기
       </Button>
     ),
   };
@@ -176,11 +169,7 @@ const CarrotTimer = () => {
 
   return (
     <>
-      <Header
-        right={IMAGES.menu}
-        menuName="TIMER"
-        clickMenuHandler={clickGroupMenuHandler}
-      />
+      <Head title="TIMER" rightSlot={IMAGES.menu} onClick={OpenMenuHanlder} />
       <StContainer>
         <TimerBackground
           parsedTime={parsedTime}
@@ -192,7 +181,6 @@ const CarrotTimer = () => {
           circumference={circumference}
         ></TimerBackground>
       </StContainer>
-      {/* <GetCarrot onClick={} /> */}
     </>
   );
 };
@@ -204,4 +192,5 @@ const StContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 100%;
 `;

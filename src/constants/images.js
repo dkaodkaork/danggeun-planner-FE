@@ -20,6 +20,7 @@ import { ReactComponent as EmptyCircle } from "../assets/images/group/empty_circ
 import { ReactComponent as CarrotSticker } from "../assets/images/planner/carrot.svg";
 import { ReactComponent as CheckBtn } from "../assets/images/planner/check.svg";
 import { ReactComponent as Trash } from "../assets/images/planner/trash_icon.svg";
+import { ReactComponent as Lock } from "../assets/images/planner/lock.svg";
 import { ReactComponent as Fold } from "../assets/images/mypage/fold_icon.svg";
 import { ReactComponent as Edit } from "../assets/images/mypage/NotePencil.svg";
 import { ReactComponent as DownArrowS } from "../assets/images/downArrowS.svg";
@@ -30,17 +31,24 @@ import { ReactComponent as Gold } from "../assets/images/group/gold.svg";
 import { ReactComponent as Silver } from "../assets/images/group/silver.svg";
 import { ReactComponent as Bronze } from "../assets/images/group/bronze.svg";
 import { ReactComponent as MenuCarrot } from "../assets/images/menuCarrot.svg";
+import { ReactComponent as TodayBtnIcon } from "../assets/images/calendar/todayBtnIcon.svg";
+import { ReactComponent as Bell } from "../assets/images/bell.svg";
 
 export const IMAGES = {
   // 로그인
   kakao: require("../assets/images/login/kakao.png"),
   naver: require("../assets/images/login/naver.png"),
   google: require("../assets/images/login/google.png"),
+  logo: require("../assets/images/login/logo.png"),
 
   // 마이페이지
   fold: <Fold />,
   edit: <Edit />,
   camera: require("../assets/images/mypage/camera.svg"),
+  gift: require("../assets/images/mypage/gift.png"),
+
+  //캘린더
+  todayBtnIcon: <TodayBtnIcon />,
 
   // 타이머 이미지
   defalut: require("../assets/images/timer/default.png"),
@@ -61,6 +69,7 @@ export const IMAGES = {
   carrotSticker: <CarrotSticker />,
   checkBtn: <CheckBtn />,
   trashBtn: <Trash />,
+  lock: <Lock />,
   //
   menu: <Menu />,
   home: <Home />,
@@ -93,4 +102,9 @@ export const IMAGES = {
   //메뉴
   searchIcon: <SearchIcon />,
   menuCarrot: <MenuCarrot />,
+  bell: <Bell />,
+
+  //인트로
+  introBack1: require("../assets/images/intro/introBack1.png"),
+  introContent1: require("../assets/images/intro/introContent1.png"),
 };

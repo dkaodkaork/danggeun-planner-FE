@@ -1,6 +1,7 @@
 export const PATH = {
   //route 경로
-  login: "/",
+  intro: "/",
+  login: "/login",
   signup: "/signup",
   loginoption: "/loginoption",
   termsconditions: "/termsconditions",
@@ -10,6 +11,7 @@ export const PATH = {
   timer: "/timer",
   getcarrot: "/getcarrot",
   carrot: "/carrot",
+  alarm: "/alarm",
 
   //캘린더
   calendar: (username) => `/calendar/${username}`,

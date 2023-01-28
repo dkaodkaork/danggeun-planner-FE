@@ -1,31 +1,28 @@
+//리액트 관련
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-
 import styled from "styled-components";
 
-import Input from "../element/Input";
-import Header from "../header/Header";
-import TimerButton from "../timer/TimerButton";
-import ProfileImg from "../element/ProfileImg";
-
-import { IMAGES } from "../../constants/images.js";
-import { PATH } from "../../constants/index";
-
+//상수, api
+import { IMAGES, PATH } from "../../constants/index";
 import {
   __getGroupMemberInvite,
   __postGroupMemberInvite,
 } from "../../redux/modules/groupSlice";
-
-//그룹 오픈 관련
 import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
+
+//컴포넌트
+import Input from "../element/Input";
+import Header from "../header/Header";
+import SubHeader from "../header/SubHeader";
+import TimerButton from "../timer/TimerButton";
+import ProfileImg from "../element/ProfileImg";
+import MainHeader from "../header/MainHeader";
 
 const GroupInvite = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  //검색 리스트
-  //const searchMember = useSelector((state) => state.group.searchMember);
 
   //그룹 오픈 관련
   const groupMenuOpen = useSelector((state) => state.modalSlice.groupMenuOpen);
@@ -65,14 +62,8 @@ const GroupInvite = () => {
       alert("닉네임을 입력해주세요");
     } else {
       dispatch(__getGroupMemberInvite({ groupId, username })).then((res) => {
-        // console.log(res.payload.response?.status);
-        // if (res.payload.response?.status === 404) {
-        //   alert(res.payload.response?.data?.message);
-        // } else {
-        //   setSearchList(res.payload.members);
-        // }
         if (res.payload.members.length === 0) {
-          alert("검색 결과가 없습니다");
+          alert("검색된 유저가 없습니다");
         } else {
           setSearchList(res.payload.members);
         }
@@ -101,6 +92,7 @@ const GroupInvite = () => {
   //그룹원 초대 완료하기
   const InviteSubmit = () => {
     const inviteList = { username: checkedList };
+    console.log("그룹원 초대 완료");
     dispatch(__postGroupMemberInvite({ groupId, inviteList })).then(() => {
       navigate(PATH.groupdetail(groupId));
     });
@@ -108,23 +100,15 @@ const GroupInvite = () => {
 
   return (
     <>
-      <Header
-        menuName="Group"
-        right={IMAGES.menu}
-        left={IMAGES.home}
+      <MainHeader
+        title="Group"
+        leftSlot={IMAGES.home}
         leftLink={PATH.timer}
-        clickMenuHandler={clickGroupMenuHandler}
-      ></Header>
-      <Header
-        fontFamily="MaplestoryOTFBold"
-        menuName="그룹원 추가"
-        height="56px"
-        padding="12px 28px 12px 28px "
-        fontSize="2.0rem"
-        fontWeight="700"
-        width="219px"
-        left={IMAGES.fold}
-        onClick={() => navigate(-1)}
+      ></MainHeader>
+      <SubHeader
+        title="그룹원 추가"
+        leftSlot={IMAGES.fold}
+        leftLink={PATH.groupdetail(groupId)}
       />
       <GroupLayout>
         <p>검색할 유저 닉네임</p>
@@ -191,9 +175,16 @@ const GroupInvite = () => {
               ))}
             </UserBox>
           ) : null}
-          <TimerButton onClick={InviteSubmit} marginTop="30px" width="319px">
-            완료
-          </TimerButton>
+          <StBottom>
+            <TimerButton
+              onClick={InviteSubmit}
+              width="319px"
+              disabled={checkedList.length === 0}
+            >
+              완료
+            </TimerButton>
+            <PageMsg>그룹 당 최대 99명의 멤버를 추가할 수 있습니다.</PageMsg>
+          </StBottom>
         </Flex>
       </GroupLayout>
     </>
@@ -224,7 +215,7 @@ const CheckInput = styled.input`
 
 const GroupLayout = styled.div`
   background-color: #f9f3ea;
-  min-height: 722px; //812px에서 헤더 90px을 뺀 값을 줘야 스크롤이 안생김
+  height: 100%;
   padding: 12px 28px 28px 28px;
   p {
     font-family: "Pretendard-Bold";
@@ -266,7 +257,6 @@ const User = styled.div`
   display: flex;
   align-items: center;
   gap: 7px;
-  width: 116px;
   padding-left: 12px;
   span {
     font-family: "Pretendard-Regular";
@@ -307,4 +297,19 @@ const MoreToggle = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
+  cursor: pointer;
+`;
+
+const StBottom = styled.div`
+  position: fixed;
+  bottom: 40px;
+`;
+
+const PageMsg = styled.p`
+  margin-top: 20px;
+  font-family: "Pretendard-Regular";
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-align: center;
+  color: #f27808;
 `;

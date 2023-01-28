@@ -1,7 +1,9 @@
 import React from "react";
 import styled from "styled-components";
+
 import { IMAGES } from "../../constants/index";
 import { getDayOfWeek } from "./time";
+
 import Input from "../element/Input";
 
 const PlannerModal = ({
@@ -69,16 +71,17 @@ const PlannerModal = ({
         <StSpan>시작</StSpan>
         <Input
           onChange={changeStartTimeHandler}
+          onInput={isNumber}
+          value={startTime.hour}
           type="number"
           name="hour"
-          value={startTime.hour}
-          onInput={isNumber}
           placeholder="00"
           maxLength="2"
           width="45px"
           height="45px"
           fontSize="1.4rem"
-          padding="12px"
+          padding="0px"
+          textAlign="center"
           disabled={
             isDisabled && plan?.hasOwnProperty("timerId") ? true : false
           }
@@ -88,15 +91,16 @@ const PlannerModal = ({
         <Input
           onChange={changeStartTimeHandler}
           onInput={isNumber}
-          name="min"
           value={startTime.min}
           type="number"
+          name="min"
           placeholder="00"
           maxLength="2"
           width="45px"
           height="45px"
           fontSize="1.4rem"
-          padding="12px"
+          padding="0px"
+          textAlign="center"
           disabled={
             isDisabled && plan?.hasOwnProperty("timerId") ? true : false
           }
@@ -105,16 +109,17 @@ const PlannerModal = ({
         <StSpan>종료</StSpan>
         <Input
           onChange={changeEndTimeHandler}
+          onInput={isNumber}
+          value={endTime.hour}
           type="number"
           name="hour"
-          value={endTime.hour}
-          onInput={isNumber}
           placeholder="00"
           maxLength="2"
           width="45px"
           height="45px"
           fontSize="1.4rem"
-          padding="12px"
+          padding="0px"
+          textAlign="center"
           disabled={
             isDisabled && plan?.hasOwnProperty("timerId") ? true : false
           }
@@ -122,16 +127,17 @@ const PlannerModal = ({
         <div>:</div>
         <Input
           onChange={changeEndTimeHandler}
+          onInput={isNumber}
+          value={endTime.min}
           type="number"
           name="min"
-          value={endTime.min}
-          onInput={isNumber}
           placeholder="00"
           maxLength="2"
           width="45px"
           height="45px"
           fontSize="1.4rem"
-          padding="12px"
+          padding="0px"
+          textAlign="center"
           disabled={
             isDisabled && plan?.hasOwnProperty("timerId") ? true : false
           }
@@ -148,7 +154,7 @@ const StDateBox = styled.div`
   font-family: "Pretendard-Bold";
   font-size: 1.7rem;
   line-height: 19px;
-  color: #595550;
+  color: #595545;
   word-spacing: 2px;
   letter-spacing: -0.8px;
 `;
@@ -185,7 +191,6 @@ const StInput = styled.input`
   margin-top: 25px;
 
   background: #ffffff;
-  /* back2 */
 
   border: 1px solid #f1e5d2;
   border-radius: 12px;
@@ -194,7 +199,6 @@ const StInput = styled.input`
     font-family: "Pretendard-Regular";
     font-size: 1.4rem;
     line-height: 17px;
-    color: #e3e1e1;
   }
 `;
 
@@ -237,7 +241,7 @@ const StSpan = styled.span`
 
   font-family: "Pretendard";
   font-style: normal;
-  font-weight: 500;
+  font-weight: 450;
   font-size: 1.4rem;
   line-height: 19px;
   /* identical to box height */
@@ -248,6 +252,6 @@ const StSpan = styled.span`
 
   /* word */
 
-  color: #595550;
+  color: #595545;
   margin-right: 12px;
 `;

@@ -1,8 +1,9 @@
 import React from "react";
-import { IMAGES } from "../../constants/index";
 import styled from "styled-components";
 
-const BottomBtns = ({ onClick }) => {
+import { IMAGES } from "../../constants/index";
+
+const BottomBtn = ({ onClick }) => {
   return (
     <StContainer>
       <StButton onClick={onClick}>{IMAGES.addBtn}</StButton>
@@ -10,9 +11,12 @@ const BottomBtns = ({ onClick }) => {
   );
 };
 
-export default BottomBtns;
+export default BottomBtn;
 
 const StContainer = styled.div`
+  width: 375px;
+  position: fixed;
+  bottom: 10px;
   display: flex;
   align-items: center;
   justify-content: center;

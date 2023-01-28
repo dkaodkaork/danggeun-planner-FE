@@ -3,9 +3,11 @@ import { instance, baseURL } from "./apiConfig";
 export const api = {
   // 회원가입/로그인
   postLoginApi: (loginInfo) => instance.post(`auth/login`, loginInfo),
+  postKakaoLoginApi: (code) => instance.get(`auth/kakao?code=${code}`),
+  postLogoutApi: () => baseURL.post(`auth/logout`),
   postSignUpApi: (signUpInfo) => instance.post(`auth/signup`, signUpInfo),
   postRefreshApi: (refreshToken) =>
-    instance.post(
+    baseURL.post(
       `auth/token`,
       {},
       { headers: { refreshToken: `${refreshToken}` } }
@@ -15,6 +17,8 @@ export const api = {
   putUsernameApi: (userInfo) => baseURL.put(`member/username`, userInfo),
   getUserInfoApi: () => baseURL.get(`member/mypage`),
   putProfileImgApi: (formData) => baseURL.put(`member/image`, formData),
+  putPlannerOpenApi: (isPlannerOpened) =>
+    baseURL.put(`member/disclosure`, isPlannerOpened),
 
   // 캘린더
   getCalendarApi: (todayMonth, todayYear, username) =>
@@ -58,4 +62,19 @@ export const api = {
 
   //검색
   getSearchUserApi: (username) => baseURL.get(`/member/search/${username}`),
+
+  //알람
+  //알람 수신
+  getAlarmApi: () => baseURL.get(`/member/notification/read`),
+  //알람 리스트 조회
+  getAlarmListApi: () => baseURL.get(`/member/notification`),
+  //그룹 초대 승락
+  postAlarmAcceptApi: (groupId, notificationId) =>
+    baseURL.post(`/member/notification/${groupId}/${notificationId}`),
+  //그룹 초대 거절
+  deleteAlarmRejectApi: (groupId, notificationId) =>
+    baseURL.delete(`/member/notification/${groupId}/${notificationId}`),
+  //그룹 초대 결과 확인
+  deleteConfirmApi: (notificationId) =>
+    baseURL.delete(`/member/notification/${notificationId}`),
 };

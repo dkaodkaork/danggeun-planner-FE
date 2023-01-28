@@ -1,17 +1,19 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import Header from "../header/Header";
-import { PATH, IMAGES } from "../../constants/index";
+import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
 import {
   __getUserInfo,
   __putUsername,
   __putProfileImg,
 } from "../../redux/modules/mypageSlice";
+import styled from "styled-components";
+
+import { PATH, IMAGES } from "../../constants/index";
+
 import Button from "../timer/TimerButton";
-//
-import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
+import Header from "../header/Header";
+import SubHeader from "../header/SubHeader";
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -23,20 +25,27 @@ const Profile = () => {
   }, [dispatch]);
 
   const [countUsername, setCountUsername] = useState(0);
-
+  const [disabled, setDisabled] = useState(true);
   const userInfo = useSelector((state) => state.mypage.data);
 
-  const [editUsername, setEditUsername] = useState({
-    username: "",
-  });
+  const [editUsername, setEditUsername] = useState({ username: "" });
 
-  // console.log(userInfo.username);
-  //버튼 활성화
-  const [disabled, setDisabled] = useState(false);
+  useEffect(() => {
+    setCountUsername(userInfo.username.length);
+  }, []);
+
+  useEffect(() => {
+    if (countUsername > 0) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
+    }
+  }, [countUsername]);
+
   // 메뉴 오픈 관련 추후에 반드시 빼야함
   const groupMenuOpen = useSelector((state) => state.modalSlice.groupMenuOpen);
 
-  const clickGroupMenuHandler = () => {
+  const OpenMenuHanlder = () => {
     dispatch(groupMenuOpenStatus(!groupMenuOpen));
   };
   //
@@ -46,10 +55,6 @@ const Profile = () => {
       [e.target.name]: e.target.value,
     });
     setCountUsername(e.target.value.length);
-    if (countUsername > 0) {
-      // console.log(userInfo.username);
-      setDisabled(true);
-    }
   };
 
   const submitHandler = async () => {
@@ -57,7 +62,6 @@ const Profile = () => {
       navigate(PATH.mypage);
     } else {
       const res = await dispatch(__putUsername(editUsername));
-      console.log(res);
       if (res.payload === "이미 사용 중인 닉네임입니다.") {
         alert(res.payload);
       } else {
@@ -84,22 +88,16 @@ const Profile = () => {
   return (
     <>
       <Header
-        menuName="MY"
-        right={IMAGES.menu}
-        left={IMAGES.home}
         leftLink={PATH.timer}
-        fontFamily="Pretendard-Regular"
-        clickMenuHandler={clickGroupMenuHandler}
+        leftSlot={IMAGES.home}
+        title="MY"
+        onClick={OpenMenuHanlder}
+        rightSlot={IMAGES.menu}
       />
-      <Header
-        menuName="프로필 수정하기"
-        left={IMAGES.fold}
+      <SubHeader
+        title="프로필 수정하기"
         onClick={() => navigate(-1)}
-        height="56px"
-        padding="12px 28px 12px 28px "
-        fontSize="2.0rem"
-        fontFamily="MaplestoryOTFBold"
-        width="219px"
+        leftSlot={IMAGES.fold}
       />
       <StContainer>
         <StEditProfileBody>
@@ -136,17 +134,14 @@ const Profile = () => {
             />
             <StLabel>{countUsername}/6</StLabel>
           </StInputBox>
-          <Button
-            onClick={submitHandler}
-            width="319px"
-            marginTop="321px"
-            // disabled={!disabled}
-          >
-            완 료
-          </Button>
-          <StBottomText>
-            불쾌감을 주는 프로필은 사용하지 말아주세요.
-          </StBottomText>
+          <StBotBox>
+            <Button onClick={submitHandler} width="319px" disabled={disabled}>
+              완 료
+            </Button>
+            <StBottomText>
+              불쾌감을 주는 프로필은 사용하지 말아주세요.
+            </StBottomText>
+          </StBotBox>
         </StEditProfileBody>
       </StContainer>
     </>
@@ -269,4 +264,11 @@ const StBottomText = styled.div`
   color: #f27808;
 
   margin-top: 20px;
+`;
+
+const StBotBox = styled.div`
+  position: fixed;
+  width: 319px;
+  height: 117px;
+  bottom: 28px;
 `;

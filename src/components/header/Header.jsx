@@ -1,52 +1,19 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import GroupMenu from "../group/GroupMenu";
 import Menu from "../menu/Menu";
 
-const Header = ({
-  menuName,
-  justifyContent,
-  left,
-  right,
-  rightLink,
-  leftLink,
-  clickMenuHandler,
-  height,
-  onClick,
-  padding,
-  fontSize,
-  fontWeight,
-  fontFamily,
-  width,
-  marginRight,
-  marginLeft,
-}) => {
+const Header = ({ leftLink, leftSlot, title, rightSlot, onClick }) => {
   return (
     <>
-      <HeaderStyle height={height} padding={padding}>
-        <TopIcon justifyContent={justifyContent}>
-          <Link to={leftLink}>
-            <Icon onClick={onClick}>{left}</Icon>
-          </Link>
-          {/* <Link to={rightLink}>{right}</Link> */}
-          <MenuName
-            fontSize={fontSize}
-            fontWeight={fontWeight}
-            width={width}
-            marginRight={marginRight}
-            marginLeft={marginLeft}
-            fontFamily={fontFamily}
-          >
-            {menuName}
-          </MenuName>
-          <MenuIcon onClick={clickMenuHandler} fontFamily={fontFamily}>
-            <Link to={rightLink}>
-              <Icon>{right}</Icon>
-            </Link>
-          </MenuIcon>
-        </TopIcon>
-      </HeaderStyle>
+      <StContainer>
+        <StBox>
+          <StLeftSlot>
+            <Link to={leftLink}>{leftSlot}</Link>
+          </StLeftSlot>
+          <StCenterSlot>{title}</StCenterSlot>
+          <StRightSlot onClick={onClick}>{rightSlot}</StRightSlot>
+        </StBox>
+      </StContainer>
       <Menu />
     </>
   );
@@ -54,37 +21,45 @@ const Header = ({
 
 export default Header;
 
-export const HeaderStyle = styled.div`
-  height: ${({ height }) => height || "72px"};
+const StContainer = styled.div`
+  width: 375px;
+  height: 72px;
+
+  padding: 28px 28px 12px 28px;
+
   background-color: #f9f3ea;
-  padding: ${({ padding }) => padding || "28px 28px 12px 27px"};
 `;
 
-export const TopIcon = styled.div`
+const StBox = styled.div`
+  width: 319px;
+  height: 32px;
   display: flex;
-  justify-content: ${({ justifyContent }) => justifyContent || "space-between"};
+  flex-direction: row;
   align-items: center;
-  /* padding: 0 36px 0 36px; */
+  justify-content: space-between;
 `;
 
-export const Icon = styled.button`
+const StLeftSlot = styled.div`
   width: 32px;
+  height: 32px;
+  cursor: pointer;
 `;
 
-export const HomeNav = styled.div`
-  width: 32px;
-`;
+const StCenterSlot = styled.div`
+  width: 219px;
+  height: 18px;
 
-export const MenuName = styled.h1`
-  width: ${({ width }) => width};
-  margin-right: ${({ marginRight }) => marginRight};
-  margin-left: ${({ marginLeft }) => marginLeft};
+  font-family: "MaplestoryOTFLight";
+  font-size: 1.4rem;
+  line-height: 18px;
 
   text-align: center;
-  font-family: ${({ fontFamily }) => fontFamily || "MaplestoryOTFLight"};
-  font-weight: ${({ fontWeight }) => fontWeight || "300"};
-  font-size: ${({ fontSize }) => fontSize || "1.4rem"};
+
   color: #595550;
 `;
 
-const MenuIcon = styled.div``;
+const StRightSlot = styled.div`
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+`;
