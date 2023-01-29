@@ -24,7 +24,6 @@ const PlannerModal = ({
   date,
   isDisabled,
 }) => {
-  console.log(isDisabled);
   return (
     <>
       <StModalHeader>
@@ -82,6 +81,7 @@ const PlannerModal = ({
           fontSize="1.4rem"
           padding="0px"
           textAlign="center"
+          backgroundColor="white"
           disabled={
             isDisabled && plan?.hasOwnProperty("timerId") ? true : false
           }
@@ -101,6 +101,7 @@ const PlannerModal = ({
           fontSize="1.4rem"
           padding="0px"
           textAlign="center"
+          backgroundColor="white"
           disabled={
             isDisabled && plan?.hasOwnProperty("timerId") ? true : false
           }
@@ -120,6 +121,7 @@ const PlannerModal = ({
           fontSize="1.4rem"
           padding="0px"
           textAlign="center"
+          backgroundColor="white"
           disabled={
             isDisabled && plan?.hasOwnProperty("timerId") ? true : false
           }
@@ -138,6 +140,7 @@ const PlannerModal = ({
           fontSize="1.4rem"
           padding="0px"
           textAlign="center"
+          backgroundColor="white"
           disabled={
             isDisabled && plan?.hasOwnProperty("timerId") ? true : false
           }
@@ -166,9 +169,6 @@ const StModalHeader = styled.div`
   align-items: center;
   width: 319px;
   height: 19px;
-  /* div {
-    margin-left: 87px;
-  } */
 `;
 
 const StInputBox = styled.div`
@@ -176,7 +176,6 @@ const StInputBox = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  /* align-items: flex-start; */
 `;
 
 const StInput = styled.input`
@@ -205,7 +204,7 @@ const StInput = styled.input`
 const StLabel = styled.label`
   height: 16px;
   width: 310px;
-  font-family: "Pretendard";
+  font-family: "Pretendard-Regular";
   font-size: 1.2rem;
   line-height: 130%;
 
@@ -220,8 +219,6 @@ const StTimeBox = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 0px;
-  /* gap: 31px; */
-
   width: 319px;
   height: 41px;
   margin-top: 24px;
@@ -239,18 +236,13 @@ const StSpan = styled.span`
   width: 28px;
   height: 19px;
 
-  font-family: "Pretendard";
-  font-style: normal;
-  font-weight: 450;
+  font-family: "Pretendard-Regular";
   font-size: 1.4rem;
   line-height: 19px;
-  /* identical to box height */
 
   display: flex;
   align-items: center;
   text-decoration-line: underline;
-
-  /* word */
 
   color: #595545;
   margin-right: 12px;

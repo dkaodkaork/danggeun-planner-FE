@@ -37,9 +37,7 @@ const Intro = () => {
           backgroundColor="#FFE600"
           fontSize="1.4rem"
           color="#595550"
-          fontFamily="Pretendard"
-          fontStyle="normal"
-          fontWeight="700"
+          fontFamily="Pretendard-Regular"
           filter="none"
         >
           <StBtnImg src={IMAGES.kakao} alt="카카오 로그인" />
