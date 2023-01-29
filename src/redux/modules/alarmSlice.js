@@ -5,6 +5,7 @@ const initialState = {
   alarmList: [],
   alarmRead: false,
   isLoading: false,
+  isRead: true,
   error: null,
 };
 
@@ -14,8 +15,8 @@ export const __getAlarm = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await api.getAlarmApi();
-      console.log(data.data);
-      return thunkAPI.fulfillWithValue(data.data);
+      //console.log(data.data.data);
+      return thunkAPI.fulfillWithValue(data.data.data);
     } catch (error) {
       // console.log(error.response.status);
       return thunkAPI.rejectWithValue();
@@ -46,7 +47,7 @@ export const __postAlarmAccept = createAsyncThunk(
     const { groupId, notificationId } = payload;
     try {
       const data = await api.postAlarmAcceptApi(groupId, notificationId);
-      console.log(data);
+      //console.log(data);
       return thunkAPI.fulfillWithValue(data.data.data);
     } catch (error) {
       // console.log(error.response.status);
@@ -63,7 +64,7 @@ export const __deleteAlarmReject = createAsyncThunk(
     const { groupId, notificationId } = payload;
     try {
       const data = await api.deleteAlarmRejectApi(groupId, notificationId);
-      console.log(data);
+      //console.log(data);
       return thunkAPI.fulfillWithValue(data.data.data);
     } catch (error) {
       // console.log(error.response.status);
@@ -98,6 +99,19 @@ export const alarmSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+
+      // 알림 수신 확인
+      .addCase(__getAlarm.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(__getAlarm.fulfilled, (state, action) => {
+        state.isLoading = false;
+        //console.log("슬라이스에서", action.payload.isRead);
+        state.isRead = action.payload.isRead;
+      })
+      .addCase(__getAlarm.rejected, (state, action) => {
+        state.isLoading = false;
+      })
 
       // 알림 리스트 조회
       .addCase(__getAlarmList.pending, (state) => {

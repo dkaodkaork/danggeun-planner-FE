@@ -18,7 +18,6 @@ import { IMAGES, PATH } from "../../constants/index";
 import moment from "moment";
 
 //컴포넌트
-import Header from "../header/Header";
 import SubHeader from "../header/SubHeader";
 import GroupMember from "./GroupMember.jsx";
 import ProfileImg from "../element/ProfileImg.jsx";

@@ -1,10 +1,21 @@
 import React, { Component } from "react";
+import styled from "styled-components";
+
+//라이브러리
 import Slider from "react-slick";
+
+//컴포넌트
+
+import Tutorial1 from "./Tutorial1";
+import Tutorial2 from "./Tutorial2";
+import Tutorial3 from "./Tutorial3";
+
+//css
+//slick라이브러리 기본 css
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import styled from "styled-components";
-import CalendarGet from "../calendar/CalendarGet";
-import Intro1 from "./Intro1";
+//dot 커스텀 css
+import "./style/test-css.css";
 
 export default class SimpleSlider extends Component {
   render() {
@@ -17,33 +28,32 @@ export default class SimpleSlider extends Component {
     };
     return (
       <div>
-        <Slider {...settings}>
+        <StyledSlider {...settings} dotsClass="test-css">
           <div>
-            <Intro1 />
+            <Tutorial1 />
           </div>
           <div>
-            <h3>2</h3>
+            <Tutorial2 />
           </div>
           <div>
-            <h3>3</h3>
+            <Tutorial3 />
           </div>
           <div>
             <h3>4</h3>
           </div>
-          <div>
-            <h3>5</h3>
-          </div>
-          <div>
-            <h3>6</h3>
-          </div>
-        </Slider>
+        </StyledSlider>
       </div>
     );
   }
 }
 
-const StSlider1 = styled.div`
-  width: 100%;
+const StyledSlider = styled(Slider)`
   height: 100%;
-  background-color: #ffffff;
+  width: 100%;
+  position: relative;
+  .slick-prev::before,
+  .slick-next::before {
+    opacity: 0;
+    display: none;
+  }
 `;

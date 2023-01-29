@@ -7,7 +7,7 @@ import { NativeEventSource, EventSourcePolyfill } from "event-source-polyfill";
 
 //리덕스
 import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
-import { alarmReadStatus } from "../../redux/modules/alarmSlice";
+import { alarmReadStatus, __getAlarm } from "../../redux/modules/alarmSlice";
 
 //상수, api
 import { IMAGES } from "../../constants/index";
@@ -31,45 +31,75 @@ const MainHeader = ({ leftLink, leftSlot, title }) => {
   //읽음 설정 관련
   const alarmRead = useSelector((state) => state.alarm.alarmRead);
 
-  //console.log("헤더", alarmRead);
+  //그룹 읽음 데이터 확인
+  const alarmIsRead = useSelector((state) => state.alarm.isRead);
+  //console.log("헤더에서", alarmIsRead);
+
+  //그룹 읽음 수신
+  useEffect(() => {
+    dispatch(__getAlarm());
+  }, []);
+
+  //sse 설정 new
+  useEffect(() => {
+    const AccessToken = localStorage.getItem("accessToken");
+    if (AccessToken) {
+      const eventSource = new EventSource(
+        `${process.env.REACT_APP_TEST_SERVER}/api/subscribe`,
+        {
+          headers: {
+            AccessToken,
+          },
+          withCredentials: true, //무조건 넣어야 함
+          heartbeatTimeout: 3600000, //리프레시토큰만큼의 기한
+        }
+      );
+      /* EVENTSOURCE ONMESSAGE ---------------------------------------------------- */
+      eventSource.onmessage = (e) => {
+        if (!e.data.includes("EventStream Created.")) {
+          dispatch(alarmReadStatus(true));
+        } // 헤더 아이콘 상태 변경
+      };
+    }
+  }, []);
 
   //sse 설정
-  useEffect(() => {
-    const fetchSse = async () => {
-      try {
-        const eventSource = new EventSource(
-          `${process.env.REACT_APP_TEST_SERVER}/api/subscribe`,
-          {
-            headers: {
-              AccessToken: localStorage.getItem("accessToken"),
-            },
-            withCredentials: true, //무조건 넣어야 함
-            heartbeatTimeout: 3600000, //리프레시토큰만큼의 기한
-          }
-        );
-        console.log("hihi");
-        /* EVENTSOURCE ONMESSAGE ---------------------------------------------------- */
-        eventSource.onmessage = async (e) => {
-          console.log("byebye");
-          console.log(e);
-          const res = await e.data;
-          if (!res.includes("EventStream Created.")) {
-            dispatch(alarmReadStatus(true));
-          } // 헤더 아이콘 상태 변경
-        };
+  // useEffect(() => {
+  //   const fetchSse = async () => {
+  //     try {
+  //       const eventSource = new EventSource(
+  //         `${process.env.REACT_APP_TEST_SERVER}/api/subscribe`,
+  //         {
+  //           headers: {
+  //             AccessToken: localStorage.getItem("accessToken"),
+  //           },
+  //           withCredentials: true, //무조건 넣어야 함
+  //           heartbeatTimeout: 3600000, //리프레시토큰만큼의 기한 //이기간동안 클라이언트가 응답하지 않으면 서버가 연결을 닫음
+  //         }
+  //       );
+  //       //console.log("hihi");
+  //       /* EVENTSOURCE ONMESSAGE ---------------------------------------------------- */
+  //       eventSource.onmessage = async (e) => {
+  //         //console.log("byebye");
+  //         console.log(e);
+  //         const res = await e.data;
+  //         if (!res.includes("EventStream Created.")) {
+  //           dispatch(alarmReadStatus(true));
+  //         } // 헤더 아이콘 상태 변경
+  //       };
 
-        /* EVENTSOURCE ONERROR ------------------------------------------------------ */
-        eventSource.onerror = async (event) => {
-          console.log(event);
-          //eventSource.close();
-          // if (!event.error.message.includes("No activity"))
-          //   eventSource.close();
-        };
-      } catch (error) {}
-    };
-    fetchSse();
-    // return () => eventSource.close();
-  }, []);
+  //       /* EVENTSOURCE ONERROR ------------------------------------------------------ */
+  //       eventSource.onerror = async (event) => {
+  //         console.log(event);
+  //         //eventSource.close();
+  //         // if (!event.error.message.includes("No activity"))
+  //         //   eventSource.close();
+  //       };
+  //     } catch (error) {}
+  //   };
+  //   fetchSse();
+  //   // return () => eventSource.close();
+  // }, []);
 
   return (
     <>
@@ -80,7 +110,7 @@ const MainHeader = ({ leftLink, leftSlot, title }) => {
           </StLeftSlot>
           <StCenterSlot>{title}</StCenterSlot>
           <StRightSlot onClick={clickGroupMenuHandler}>
-            {alarmRead && <div />}
+            {(alarmRead || !alarmIsRead) && <div />}
             <button>{IMAGES.menu}</button>
           </StRightSlot>
         </StBox>

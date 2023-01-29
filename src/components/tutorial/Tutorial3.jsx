@@ -3,24 +3,17 @@ import styled from "styled-components";
 import { IMAGES, PATH } from "../../constants/index";
 import TimerButton from "../timer/TimerButton";
 
-//import Slider from "./Slider2";
-
-const Intro1 = () => {
+const Tutorial3 = () => {
   return (
     <StLayout>
-      <ImgBackground url={IMAGES.introBack1}>
+      <ImgBackground url={IMAGES.introBack2}>
         <StContentLayout>
-          <h1>가장 쉽게 집중하는 비결은?</h1>
+          <h1>알아서 기록하는 똑똑한 플래너</h1>
           <p>
-            세계적인 기업 구*에서도 사용하는
-            <br /> 효과적인 시간 관리법 ‘뽀모도로 타이머’!
+            집중한 기록은 저절로 플래너에 채워져요.
+            <br /> 다른 일정들과 함께 관리해요!
           </p>
         </StContentLayout>
-        <StBubbleImg src={IMAGES.introContent1} />
-        <StDescription>
-          4회 반복 후 긴 휴식 <br />
-          <strong>= 뽀모도로</strong>
-        </StDescription>
         <StButtonLayout>
           <TimerButton width="319px">당근플래너 시작하기</TimerButton>
         </StButtonLayout>
@@ -29,7 +22,7 @@ const Intro1 = () => {
   );
 };
 
-export default Intro1;
+export default Tutorial3;
 
 const StLayout = styled.div`
   position: relative;
@@ -44,7 +37,7 @@ const ImgBackground = styled.div`
   width: 100%;
   height: 100vh;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -65,25 +58,6 @@ const StContentLayout = styled.div`
     color: #595550;
     line-height: 160%;
     text-align: center;
-  }
-`;
-
-const StBubbleImg = styled.img`
-  margin-top: 12.4384vh;
-  width: 272px;
-`;
-
-const StDescription = styled.p`
-  margin-top: 4.5567vh;
-  font-family: "MaplestoryOTFBold";
-  font-weight: 700;
-  font-size: 1.6rem;
-  color: #595550;
-  text-align: center;
-  line-height: 220%;
-  strong {
-    color: #f27808;
-    font-size: 2.4rem;
   }
 `;
 

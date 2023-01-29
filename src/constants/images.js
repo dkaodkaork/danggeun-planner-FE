@@ -105,8 +105,11 @@ export const IMAGES = {
   bell: <Bell />,
 
   //인트로
-  introBack1: require("../assets/images/intro/introBack1.png"),
-  introContent1: require("../assets/images/intro/introContent1.png"),
+  introBack1: require("../assets/images/tutorial/introBack1.png"),
+  introBack2: require("../assets/images/tutorial/introBack2.png"),
+  introBack3: require("../assets/images/tutorial/introBack3.png"),
+  introBack4: require("../assets/images/tutorial/introBack4.png"),
+  introContent1: require("../assets/images/tutorial/introContent1.png"),
 
   // 경고창
   alertImg: require("../assets/images/element/alert.png"),

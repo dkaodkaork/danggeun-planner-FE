@@ -14,7 +14,6 @@ import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
 
 //컴포넌트
 import Input from "../element/Input";
-import Header from "../header/Header";
 import SubHeader from "../header/SubHeader";
 import TimerButton from "../timer/TimerButton";
 import ProfileImg from "../element/ProfileImg";
