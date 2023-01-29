@@ -39,6 +39,7 @@ export default PlanCard;
 const StContainer = styled.div`
   display: flex;
   flex-direction: row;
+  cursor: pointer;
 `;
 
 const StCardLabel = styled.div`
@@ -72,9 +73,7 @@ const StTitle = styled.div`
   display: flex;
   flex-direction: row;
   gap: 5px;
-  font-family: "Pretendard";
-  font-style: normal;
-  font-weight: 500;
+  font-family: "Pretendard-Regular";
   font-size: 1.4rem;
   line-height: 17px;
 
@@ -88,9 +87,7 @@ const StText = styled.span`
 const StTime = styled.div`
   height: 14px;
 
-  font-family: "Pretendard";
-  font-style: normal;
-  font-weight: 500;
+  font-family: "Pretendard-Regular";
   font-size: 1.2rem;
   line-height: 14px;
 

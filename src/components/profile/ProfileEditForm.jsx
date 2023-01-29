@@ -1,7 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
 import {
   __getUserInfo,
   __putUsername,
@@ -10,10 +9,11 @@ import {
 import styled from "styled-components";
 
 import { PATH, IMAGES } from "../../constants/index";
+import { carrotAlert } from "../element/alert";
 
 import Button from "../timer/TimerButton";
-import Header from "../header/Header";
 import SubHeader from "../header/SubHeader";
+import MainHeader from "../header/MainHeader";
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -44,10 +44,6 @@ const Profile = () => {
 
   // 메뉴 오픈 관련 추후에 반드시 빼야함
   const groupMenuOpen = useSelector((state) => state.modalSlice.groupMenuOpen);
-
-  const OpenMenuHanlder = () => {
-    dispatch(groupMenuOpenStatus(!groupMenuOpen));
-  };
   //
 
   const changeUsernameHandler = (e) => {
@@ -57,16 +53,16 @@ const Profile = () => {
     setCountUsername(e.target.value.length);
   };
 
-  const submitHandler = async () => {
-    if (editUsername.username === "") {
+  const submitHandler = () => {
+    if (!editUsername.username) {
       navigate(PATH.mypage);
     } else {
-      const res = await dispatch(__putUsername(editUsername));
-      if (res.payload === "이미 사용 중인 닉네임입니다.") {
-        alert(res.payload);
-      } else {
-        navigate(PATH.mypage);
-      }
+      dispatch(__putUsername(editUsername)).then((res) => {
+        console.log(res);
+        res?.error?.message === "Rejected"
+          ? carrotAlert(res.payload)
+          : navigate(PATH.mypage);
+      });
     }
   };
 
@@ -87,13 +83,7 @@ const Profile = () => {
 
   return (
     <>
-      <Header
-        leftLink={PATH.timer}
-        leftSlot={IMAGES.home}
-        title="MY"
-        onClick={OpenMenuHanlder}
-        rightSlot={IMAGES.menu}
-      />
+      <MainHeader leftLink={PATH.timer} leftSlot={IMAGES.home} title="MY" />
       <SubHeader
         title="프로필 수정하기"
         onClick={() => navigate(-1)}
@@ -162,7 +152,7 @@ const StEditProfileBody = styled.div`
 `;
 
 const StProfileImage = styled.div`
-  width: 75px;
+  width: 90px;
   height: 76px;
 
   display: flex;
@@ -171,9 +161,7 @@ const StProfileImage = styled.div`
   align-items: center;
 
   label {
-    font-family: "Pretendard";
-    font-style: normal;
-    font-weight: 700;
+    font-family: "Pretendard-Bold";
     font-size: 1.2rem;
     line-height: 130%;
 
@@ -184,13 +172,11 @@ const StTitle = styled.label`
   width: 319px;
   height: 16px;
 
-  font-family: "Pretendard";
-  font-style: normal;
-  font-weight: 700;
+  font-family: "Pretendard-Bold";
   font-size: 1.2rem;
   line-height: 130%;
   text-align: left;
-  margin-left: 13px;
+  margin-left: 23px;
 
   color: #595550;
 `;
@@ -225,9 +211,7 @@ const StInput = styled.input`
   border-radius: 12px;
 
   ::placeholder {
-    font-family: "Pretendard";
-    font-style: normal;
-    font-weight: 500;
+    font-family: "Pretendard-Regular";
     font-size: 1.4rem;
     line-height: 17px;
     color: #a4a4a4;
@@ -238,9 +222,7 @@ const StLabel = styled.label`
   height: 16px;
   width: 310px;
   margin-right: 5px;
-  font-family: "Pretendard";
-  font-style: normal;
-  font-weight: 500;
+  font-family: "Pretendard-Regular";
   font-size: 1.2rem;
   line-height: 130%;
 
@@ -255,9 +237,7 @@ const StBottomText = styled.div`
 
   text-align: center;
 
-  font-family: "Pretendard";
-  font-style: normal;
-  font-weight: 700;
+  font-family: "Pretendard-Bold";
   font-size: 1.4rem;
   line-height: 130%;
   text-align: center;

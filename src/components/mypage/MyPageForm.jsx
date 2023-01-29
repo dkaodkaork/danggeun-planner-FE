@@ -4,23 +4,23 @@ import {
   __getUserInfo,
   __putPlannerOpen,
 } from "../../redux/modules/mypageSlice";
-import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import { PATH, IMAGES } from "../../constants/index";
 import { api } from "../../core/api";
+import { carrotConfirm } from "../element/alert";
 
 import Button from "../timer/TimerButton";
-import Header from "../header/Header";
 import SubHeader from "../header/SubHeader";
+import MainHeader from "../header/MainHeader";
 
 const MypageForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userInfo = useSelector((state) => state.mypage.data);
 
-  console.log("디비에서 가져온 값", userInfo.isPlannerOpened);
+  // console.log("디비에서 가져온 값", userInfo.isPlannerOpened);
 
   useEffect(() => {
     dispatch(__getUserInfo());
@@ -30,36 +30,24 @@ const MypageForm = () => {
     dispatch(__putPlannerOpen(!userInfo.isPlannerOpened));
   };
 
+  // const msg = "로그아웃 하시겠습니까?";
   const logoutHandler = async () => {
-    if (window.confirm("로그아웃 하시겠습니까?")) {
-      try {
-        const response = await api.postLogoutApi();
-        console.log(response);
-      } catch (error) {
-        console.log(error);
-      }
-      localStorage.clear();
-      navigate(PATH.intro);
+    // carrotConfirm(msg);
+    // if (window.confirm("로그아웃 하시겠습니까?")) {
+    try {
+      const response = await api.postLogoutApi();
+      console.log(response);
+    } catch (error) {
+      console.log(error);
     }
+    localStorage.clear();
+    navigate(PATH.intro);
+    // }
   };
-
-  // 메뉴 오픈 관련 추후에 반드시 빼야함
-  const groupMenuOpen = useSelector((state) => state.modalSlice.groupMenuOpen);
-
-  const OpenMenuHanlder = () => {
-    dispatch(groupMenuOpenStatus(!groupMenuOpen));
-  };
-  //
 
   return (
     <>
-      <Header
-        leftLink={PATH.timer}
-        leftSlot={IMAGES.home}
-        title="MY"
-        onClick={OpenMenuHanlder}
-        rightSlot={IMAGES.menu}
-      />
+      <MainHeader leftLink={PATH.timer} leftSlot={IMAGES.home} title="MY" />
       <SubHeader
         title="마이페이지"
         rightLink={PATH.profile}
@@ -87,7 +75,8 @@ const MypageForm = () => {
                 type="checkbox"
                 onChange={checkHandler}
                 checked={
-                  userInfo?.isPlannerOpened === ""
+                  userInfo?.isPlannerOpened === "" ||
+                  userInfo?.isPlannerOpened === undefined
                     ? true
                     : userInfo?.isPlannerOpened
                 }
@@ -190,20 +179,17 @@ const StTotalCarrot = styled.div`
   text-align: center;
   gap: 6.4px;
 
-  font-family: "Pretendard";
-  font-style: normal;
-  font-weight: 500;
+  font-family: "Pretendard-Regular";
   font-size: 1.6rem;
 
   color: #f27808;
 
   p {
     margin-left: 24px;
-    width: 25px;
+    width: 30px;
     height: 22px;
-    font-family: "Pretendard";
-    font-style: normal;
-    font-weight: 500;
+    line-height: 15px;
+    font-family: "Pretendard-Regular";
     font-size: 1.4rem;
     padding-top: 2px;
 
@@ -222,9 +208,7 @@ const StEmailBox = styled.div`
   width: 319px;
   height: 22px;
 
-  font-family: "Pretendard";
-  font-style: normal;
-  font-weight: 500;
+  font-family: "Pretendard-Regular";
   font-size: 1.4rem;
   line-height: 160%;
   display: flex;

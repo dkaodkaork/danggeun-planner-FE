@@ -60,13 +60,11 @@ export const __getFocusPlan = createAsyncThunk(
 export const __postPlan = createAsyncThunk(
   "plan/post",
   async (payload, thunkAPI) => {
-    console.log(payload);
     try {
       const { data } = await api.postPlanApi(payload);
-      console.log(data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       return thunkAPI.rejectWithValue(error.response.data.message);
     }
   }
@@ -184,9 +182,6 @@ export const plannerSlice = createSlice({
       })
       .addCase(__postPlan.rejected, (state, action) => {
         state.isLoading = false;
-        alert(action.payload);
-        console.log(action.payload);
-        alert();
       })
 
       // 계획 수정
@@ -208,8 +203,6 @@ export const plannerSlice = createSlice({
       })
       .addCase(__putPlan.rejected, (state, action) => {
         state.isLoading = false;
-        console.log(action);
-        alert(action.payload);
         state.error = action.payload;
       })
 

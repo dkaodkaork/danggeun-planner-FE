@@ -110,4 +110,7 @@ export const IMAGES = {
   introBack3: require("../assets/images/tutorial/introBack3.png"),
   introBack4: require("../assets/images/tutorial/introBack4.png"),
   introContent1: require("../assets/images/tutorial/introContent1.png"),
+
+  // 경고창
+  alertImg: require("../assets/images/element/alert.png"),
 };
