@@ -50,4 +50,13 @@ const StInput = styled.input`
   height: ${({ height }) => height || "59px"};
   border: ${({ border }) => border || "1px solid #F1E5D2"};
   color: ${({ color }) => color || "#595550"};
+
+  ::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  :disabled {
+    background: #f9f3ea;
+  }
 `;
