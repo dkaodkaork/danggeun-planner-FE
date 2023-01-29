@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { planModalOpenStatus } from "../../redux/modules/modalSlice";
-import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
 import {
   __getAllPlan,
   __getTimerPlan,
@@ -12,22 +11,22 @@ import {
   __putTimerContent,
   __getFocusPlan,
 } from "../../redux/modules/plannerSlice";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
-import { PATH, IMAGES } from "../../constants/index";
+import { PATH, IMAGES, MSG } from "../../constants/index";
+import { carrotAlert } from "../element/alert";
 
 import { v4 as uuidv4 } from "uuid";
 
-import Header from "../header/Header";
 import { planStartTime, getDayOfWeek } from "./time";
-import UsernameCard from "./UsernameCard";
 import BottomBtn from "./BottomBtn";
 import PlanCard from "./PlanCard";
 import PlannerModal from "./PlannerModal";
 import SlideModal from "../element/SlideModal";
 import SortingBtnGroup from "./SortingBtnGroup";
 import PlannerSubHeader from "./PlannerSubHeader";
+import MainHeader from "../header/MainHeader";
 import PrivatePlanner from "./PrivatePlanner";
 
 const Planner = () => {
@@ -36,7 +35,6 @@ const Planner = () => {
   const { date, username } = useParams();
 
   const plans = useSelector((state) => state?.planner?.data);
-  console.log(plans.contents);
 
   // 상태 선언
   const [selectedId, setSelectedId] = useState(null);
@@ -54,20 +52,15 @@ const Planner = () => {
   const [plan, setPlan] = useState();
   const [isDisabled, setIsDisabled] = useState(false);
 
-  // 메뉴 오픈 관련 추후에 반드시 빼야함
-  const groupMenuOpen = useSelector((state) => state.modalSlice.groupMenuOpen);
-
-  const OpenMenuHanlder = () => {
-    dispatch(groupMenuOpenStatus(!groupMenuOpen));
-  };
-  //
-
   // onchange로 받은 값 시작시간 끝나는 시간 파싱해서 보낼것
   const planInfo = {
     startTime: planStartTime(startTime),
     endTime: planStartTime(endTime),
     content: planTitle,
   };
+
+  // 메뉴
+  const groupMenuOpen = useSelector((state) => state.modalSlice.groupMenuOpen);
 
   // 플래너 조회 요청
   useEffect(() => {
@@ -105,7 +98,6 @@ const Planner = () => {
 
   // 모달창 열기
   const openModalHanlder = () => {
-    console.log("추가하자");
     setIsDisabled(false);
     // 모달 열때 안에 내용 초기화
     setPlanTitle("");
@@ -167,7 +159,7 @@ const Planner = () => {
   // 타이머 제목 수정
   const editTimerContentHandler = (id) => {
     if (!planTitle) {
-      alert("제목을 입력해주세요!");
+      carrotAlert(MSG.titleEmptyMsg);
     } else {
       const title = { content: planTitle };
       dispatch(__putTimerContent({ title, id }));
@@ -175,9 +167,9 @@ const Planner = () => {
     }
   };
 
-  // 계획 추가, 계획 수정 // 나중에 변수명 수정 , 로직 간단하게 해야함 급하게 짬
+  // 계획 추가, 계획 수정
+  // 나중에 변수명 수정 , 로직 간단하게 해야함 급하게 짬 if문 중첩 수정 필요
   const doneAddModalHandler = (id) => {
-    console.log("계획 수정및 추가 ");
     if (
       !planTitle ||
       !startTime.hour ||
@@ -185,10 +177,10 @@ const Planner = () => {
       !endTime.hour ||
       !endTime.min
     ) {
-      alert("제목과 시간을 모두 입력해주세요!");
+      carrotAlert(MSG.planEmptyMsg);
     } else {
       if (
-        startTime.hour > 24 ||
+        startTime.hour > 23 ||
         startTime.hour < 0 ||
         startTime.min > 60 ||
         startTime.min < 0 ||
@@ -197,16 +189,21 @@ const Planner = () => {
         endTime.min > 60 ||
         endTime.min < 0
       ) {
-        alert("올바른 시간을 입력해주세요!");
+        carrotAlert(MSG.timeErrMsg);
       } else {
-        dispatch(planModalOpenStatus(!planModalOpen));
         if (isEdit) {
-          console.log(startTime);
-          console.log(endTime);
-          console.log(planTitle);
-          dispatch(__putPlan({ planInfo, id }));
+          dispatch(__putPlan({ planInfo, id })).then((res) => {
+            res?.error?.message === "Rejected"
+              ? carrotAlert(res.payload)
+              : dispatch(planModalOpenStatus(!planModalOpen));
+          });
         } else {
-          dispatch(__postPlan(planInfo));
+          dispatch(__postPlan(planInfo)).then((res) => {
+            console.log(res);
+            res?.error?.message === "Rejected"
+              ? carrotAlert(res.payload)
+              : dispatch(planModalOpenStatus(!planModalOpen));
+          });
         }
       }
     }
@@ -221,9 +218,29 @@ const Planner = () => {
 
   // 플랜 시작시간 종료시간
   const changeStartTimeHandler = (e) => {
-    let time = e.target.value;
-    setStartTime({ ...startTime, [e.target.name]: time });
+    // let time = e.target.value;
+    const { name, value } = e.target;
+    switch (name) {
+      case "hour":
+        if (value < 24) {
+          return setStartTime({ ...startTime, [name]: value });
+        } else {
+          carrotAlert(MSG.hourErrMsg);
+        }
+        return;
+      case "min":
+        if (value < 60) {
+          return setStartTime({ ...startTime, [name]: value });
+        } else {
+          carrotAlert(MSG.minErrMsg);
+        }
+        return;
+      default:
+        return;
+    }
+    // setStartTime({ ...startTime, [name]: value });
   };
+  // console.log(startTime);
 
   const changeEndTimeHandler = (e) => {
     let time = e.target.value;
@@ -241,12 +258,10 @@ const Planner = () => {
 
   return (
     <>
-      <Header
+      <MainHeader
         title="PLANNER"
         leftLink={PATH.timer}
         leftSlot={IMAGES.home}
-        rightSlot={IMAGES.menu}
-        onClick={OpenMenuHanlder}
       />
       <PlannerSubHeader
         username={plans.username}

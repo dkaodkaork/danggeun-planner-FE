@@ -4,11 +4,12 @@ import { useNavigate, Link } from "react-router-dom";
 
 import { PATH, MSG } from "../../../constants/index";
 import { api } from "../../../core/api";
+import { carrotAlert } from "../../element/alert";
 
-import Header from "../../header/Header";
 import SubHeader from "../../header/SubHeader";
 import Button from "../../timer/TimerButton";
 import InputBox from "../signUp/InputBox";
+import AuthHeader from "../AtuhHeader";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -49,30 +50,27 @@ const Login = () => {
   };
 
   const submitHandler = async () => {
-    if (loginInfo.email === "" || loginInfo.password === "") {
-      alert(MSG.formInvalidMsg);
-    } else {
-      try {
-        const { headers, data, status } = await api.postLoginApi(loginInfo);
+    try {
+      const { headers, data, status } = await api.postLoginApi(loginInfo);
 
-        if (status === 200) {
-          localStorage.setItem("accessToken", headers.accesstoken);
-          localStorage.setItem("refreshToken", headers.refreshtoken);
-          if (data.data.isExistUsername) {
-            navigate(PATH.timer);
-          } else {
-            navigate(PATH.username);
-          }
+      if (status === 200) {
+        localStorage.setItem("accessToken", headers.accesstoken);
+        localStorage.setItem("refreshToken", headers.refreshtoken);
+        if (data.data.isExistUsername) {
+          navigate(PATH.timer);
+        } else {
+          navigate(PATH.username);
         }
-      } catch (error) {
-        alert(error.response.data.message);
       }
+    } catch (error) {
+      console.log(error);
+      carrotAlert(error.response.data.message);
     }
   };
 
   return (
     <StContainer>
-      <Header title="LOGIN" />
+      <AuthHeader title="LOGIN" />
       <SubHeader title="이메일로 로그인" />
 
       <InputBox
@@ -122,9 +120,7 @@ const StBottomText = styled.div`
 
   text-align: center;
 
-  font-family: "Pretendard";
-  font-style: normal;
-  font-weight: 700;
+  font-family: "Pretendard-Bold";
   font-size: 1.4rem;
   line-height: 130%;
 

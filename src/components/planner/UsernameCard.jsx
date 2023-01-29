@@ -31,8 +31,6 @@ const StImg = styled.img`
 
 const StUsernameBox = styled.div`
   font-size: 1.4rem;
-  font-family: "Pretendard";
-  font-style: normal;
-  font-weight: 400;
+  font-family: "Pretendard-Regular";
   line-height: 17px;
 `;

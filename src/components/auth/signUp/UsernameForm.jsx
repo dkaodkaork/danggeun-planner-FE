@@ -5,11 +5,12 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import { PATH } from "../../../constants/index";
+import { carrotAlert } from "../../element/alert";
 
-import Header from "../../header/Header";
 import Button from "../../timer/TimerButton";
 import SubHeader from "../../header/SubHeader";
 import InputBox from "./InputBox";
+import AuthHeader from "../AtuhHeader";
 
 const UsernameForm = () => {
   const dispatch = useDispatch();
@@ -39,20 +40,18 @@ const UsernameForm = () => {
   }, [countUsername]);
 
   const submitUsernameHandler = () => {
-    if (userInfo.username === "") {
-      alert("닉네임을 입력해주세요!");
-    } else {
-      return dispatch(__putUsername(userInfo)).then((res) => {
-        if (res?.payload?.message === "닉네임 변경 성공") {
-          navigate(PATH.timer);
-        }
-      });
-    }
+    dispatch(__putUsername(userInfo)).then((res) => {
+      if (res?.payload?.message === "닉네임 변경 성공") {
+        navigate(PATH.timer);
+      } else {
+        carrotAlert(res.payload);
+      }
+    });
   };
 
   return (
     <StContainer>
-      <Header title="SIGN UP" />
+      <AuthHeader title="SIGN UP" />
       <SubHeader title="프로필 만들기" />
       <InputBox
         title="닉네임"
@@ -96,9 +95,7 @@ const StBottomText = styled.div`
   width: 319px;
   height: 18px;
   text-align: center;
-  font-family: "Pretendard";
-  font-style: normal;
-  font-weight: 700;
+  font-family: "Pretendard-Bold";
   font-size: 1.4rem;
   line-height: 130%;
   color: #f27808;
