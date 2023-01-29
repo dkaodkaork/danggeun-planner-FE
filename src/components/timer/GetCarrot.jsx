@@ -7,7 +7,15 @@ import Button from "./TimerButton";
 const GetCarrot = ({ onClick }) => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const alarm = new Audio(require("../../assets/audio/getCarrotAudio.mp3"));
+
   const openModalHandler = () => {
+    setIsOpen(!isOpen);
+    alarm.play();
+    alarm.volume = 0.3;
+  };
+
+  const closeModalHandler = () => {
     setIsOpen(!isOpen);
   };
 
@@ -24,7 +32,7 @@ const GetCarrot = ({ onClick }) => {
       <Button onClick={openModalHandler}>당근 수확하기</Button>
       {isOpen ? (
         <ModalBackdrop ref={modalRef} onClick={modalOutSideClick}>
-          <GetCarrotModal onOpenModal={openModalHandler} onClick={onClick} />
+          <GetCarrotModal onOpenModal={closeModalHandler} onClick={onClick} />
         </ModalBackdrop>
       ) : null}
     </>

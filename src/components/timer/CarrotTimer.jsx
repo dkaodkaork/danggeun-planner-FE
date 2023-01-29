@@ -25,6 +25,8 @@ const CarrotTimer = () => {
   const restTime = 1000 * 2;
   const longRestTime = 1000 * 3;
 
+  const alarm = new Audio(require("../../assets/audio/alarm.mp3"));
+
   const { isClear, parsedTime, currentTime, timer, toggleTimer, setTimerTime } =
     useTimer(() => {
       callback();
@@ -56,6 +58,8 @@ const CarrotTimer = () => {
     if (!currentTime && mode === "focusMode") {
       setCount(count + 1);
       focusModeDoneHandler();
+      alarm.play();
+      alarm.volume = 0.5;
     } else if (!currentTime && mode === "restMode") {
       restModeDoneHandler();
     }

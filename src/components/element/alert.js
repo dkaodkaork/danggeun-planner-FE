@@ -1,4 +1,8 @@
 import Swal from "sweetalert2";
+// import "https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.1/sweetalert2.css";
+// import "//cdn.jsdelivr.net/npm/sweetalert2@11";
+// import "./style/alert.css";
+
 import { IMAGES } from "../../constants/index";
 
 export const carrotAlert = (errMsg) => {
@@ -8,9 +12,9 @@ export const carrotAlert = (errMsg) => {
     padding: 24,
     confirmButtonText: "확인",
     confirmButtonColor: "#F27808",
-    customClass: {
-      title: "carrotAlert",
-    },
+    // customClass: {
+    //   text: "carrotAlert",
+    // },
   });
 };
 
