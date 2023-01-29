@@ -12,7 +12,6 @@ import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
 import { IMAGES, PATH } from "../../constants/index";
 
 //컴포넌트
-import Header from "../header/Header";
 import SubHeader from "../header/SubHeader";
 import Input from "../element/Input";
 import Textarea from "../element/Textarea";
