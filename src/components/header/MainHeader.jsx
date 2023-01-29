@@ -11,6 +11,7 @@ import { alarmReadStatus, __getAlarm } from "../../redux/modules/alarmSlice";
 
 //상수, api
 import { IMAGES } from "../../constants/index";
+import { serverUrl } from "../../core";
 
 //컴포넌트
 import Menu from "../menu/Menu";
@@ -45,7 +46,8 @@ const MainHeader = ({ leftLink, leftSlot, title }) => {
     const AccessToken = localStorage.getItem("accessToken");
     if (AccessToken) {
       const eventSource = new EventSource(
-        `${process.env.REACT_APP_TEST_SERVER}/api/subscribe`,
+        // `${process.env.REACT_APP_TEST_SERVER}/api/subscribe`,
+        `${serverUrl}/subscribe`,
         {
           headers: {
             AccessToken,

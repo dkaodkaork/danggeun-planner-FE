@@ -1,5 +1,5 @@
-import { ReactComponent as Menu } from "../assets/images/menuicon.svg";
-import { ReactComponent as Home } from "../assets/images/home.svg";
+import { ReactComponent as Menu } from "../assets/images/element/menuicon.svg";
+import { ReactComponent as Home } from "../assets/images/element/home.svg";
 import { ReactComponent as CompleteCarrot } from "../assets/images/timer/completeCarrot.svg";
 import { ReactComponent as BlingCarrot } from "../assets/images/timer/blingCarrot.svg";
 import { ReactComponent as GroupAdd } from "../assets/images/group/groupAdd.svg";
@@ -23,16 +23,16 @@ import { ReactComponent as Trash } from "../assets/images/planner/trash_icon.svg
 import { ReactComponent as Lock } from "../assets/images/planner/lock.svg";
 import { ReactComponent as Fold } from "../assets/images/mypage/fold_icon.svg";
 import { ReactComponent as Edit } from "../assets/images/mypage/NotePencil.svg";
-import { ReactComponent as DownArrowS } from "../assets/images/downArrowS.svg";
-import { ReactComponent as UpArrowS } from "../assets/images/upArrowS.svg";
-import { ReactComponent as SearchIcon } from "../assets/images/searchIcon.svg";
+import { ReactComponent as DownArrowS } from "../assets/images/element/downArrowS.svg";
+import { ReactComponent as UpArrowS } from "../assets/images/element/upArrowS.svg";
+import { ReactComponent as SearchIcon } from "../assets/images/menu/searchIcon.svg";
 import { ReactComponent as XIcon } from "../assets/images/group/xIcon.svg";
 import { ReactComponent as Gold } from "../assets/images/group/gold.svg";
 import { ReactComponent as Silver } from "../assets/images/group/silver.svg";
 import { ReactComponent as Bronze } from "../assets/images/group/bronze.svg";
-import { ReactComponent as MenuCarrot } from "../assets/images/menuCarrot.svg";
+import { ReactComponent as MenuCarrot } from "../assets/images/menu/menuCarrot.svg";
 import { ReactComponent as TodayBtnIcon } from "../assets/images/calendar/todayBtnIcon.svg";
-import { ReactComponent as Bell } from "../assets/images/bell.svg";
+import { ReactComponent as Bell } from "../assets/images/menu/bell.svg";
 
 export const IMAGES = {
   // 로그인
@@ -59,8 +59,6 @@ export const IMAGES = {
   step5: require("../assets/images/timer/step5.png"),
   step6: require("../assets/images/timer/step6.png"),
   rest: require("../assets/images/timer/rest.png"),
-  // 테스트용 이미지 추후 삭제
-  test: require("../assets/images/rabbit_icon.png"),
 
   // 플래너
   calendarIcon: <CalendarIcon />,
