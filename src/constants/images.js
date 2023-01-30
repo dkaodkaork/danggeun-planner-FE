@@ -35,6 +35,7 @@ import { ReactComponent as TodayBtnIcon } from "../assets/images/calendar/todayB
 import { ReactComponent as Bell } from "../assets/images/menu/bell.svg";
 import { ReactComponent as LeftArrow } from "../assets/images/tutorial/leftArrow.svg";
 import { ReactComponent as RightArrow } from "../assets/images/tutorial/rightArrow.svg";
+import { ReactComponent as Logo } from "../assets/images/web/logo.svg";
 
 export const IMAGES = {
   // 로그인
@@ -115,4 +116,10 @@ export const IMAGES = {
 
   // 경고창
   alertImg: require("../assets/images/element/alert.png"),
+
+  //웹 배경화면 요소
+  webLogo: require("../assets/images/web/logo.png"),
+  rabbit: require("../assets/images/web/rabbit.png"),
+  backEarth: require("../assets/images/web/back_earth.png"),
+  members: require("../assets/images/web/members.png"),
 };
