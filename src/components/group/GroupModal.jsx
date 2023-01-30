@@ -41,10 +41,10 @@ const GroupModal = (props) => {
           <GroupName>{props.groupName}</GroupName>
           <GetMsg>위 그룹을 정말 {props.subject}하시겠습니까?</GetMsg>
           <BtnLayout>
-            <ButtonS onClick={props.onClickConfirm}>네</ButtonS>
             <ButtonS className="reverse" onClick={clickGroupMenuHandler}>
               아니요
             </ButtonS>
+            <ButtonS onClick={props.onClickConfirm}>네</ButtonS>
           </BtnLayout>
         </Modal>
       ) : null}

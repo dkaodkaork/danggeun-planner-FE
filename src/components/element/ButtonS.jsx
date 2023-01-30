@@ -68,7 +68,7 @@ const StButton = styled.button`
     color: ${({ color }) => color || "#fff"};
   } */
   &.reverse {
-    background-color: ${({ backgroundColor }) => backgroundColor || "#FFFDFA"};
+    background-color: ${({ backgroundColor }) => backgroundColor || "#F9F3EA"};
     color: ${({ color }) => color || "#F27808"};
     border: ${({ border }) => border || "1px solid #F27808"};
   }
