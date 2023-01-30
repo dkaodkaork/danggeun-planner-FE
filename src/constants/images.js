@@ -33,6 +33,9 @@ import { ReactComponent as Bronze } from "../assets/images/group/bronze.svg";
 import { ReactComponent as MenuCarrot } from "../assets/images/menu/menuCarrot.svg";
 import { ReactComponent as TodayBtnIcon } from "../assets/images/calendar/todayBtnIcon.svg";
 import { ReactComponent as Bell } from "../assets/images/menu/bell.svg";
+import { ReactComponent as LeftArrow } from "../assets/images/tutorial/leftArrow.svg";
+import { ReactComponent as RightArrow } from "../assets/images/tutorial/rightArrow.svg";
+import { ReactComponent as Logo } from "../assets/images/web/logo.svg";
 
 export const IMAGES = {
   // 로그인
@@ -108,7 +111,15 @@ export const IMAGES = {
   introBack3: require("../assets/images/tutorial/introBack3.png"),
   introBack4: require("../assets/images/tutorial/introBack4.png"),
   introContent1: require("../assets/images/tutorial/introContent1.png"),
+  leftArrow: <LeftArrow />,
+  rightArrow: <RightArrow />,
 
   // 경고창
   alertImg: require("../assets/images/element/alert.png"),
+
+  //웹 배경화면 요소
+  webLogo: require("../assets/images/web/logo.png"),
+  rabbit: require("../assets/images/web/rabbit.png"),
+  backEarth: require("../assets/images/web/back_earth.png"),
+  members: require("../assets/images/web/members.png"),
 };

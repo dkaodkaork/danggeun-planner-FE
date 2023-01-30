@@ -64,7 +64,7 @@ export const __postGroupAdd = createAsyncThunk(
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       console.log("그룹 등록 에러", error);
-      return thunkAPI.rejectWithValue();
+      return thunkAPI.rejectWithValue(error.response.data.message);
     }
   }
 );
@@ -123,8 +123,8 @@ export const __getGroupMemberInvite = createAsyncThunk(
       const { data } = await api.getGroupMemberInviteApi(groupId, username);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
-      console.log("그룹 초대 회원 검색 에러", error);
-      return thunkAPI.rejectWithValue();
+      //console.log("그룹 초대 회원 검색 에러", error.response.data.message);
+      return thunkAPI.rejectWithValue(error.response.data.message);
     }
   }
 );
@@ -216,7 +216,7 @@ export const groupSlice = createSlice({
     });
     builder.addCase(__getGroupMemberInvite.rejected, (state, action) => {
       state.isLoading = false;
-      state.error = action.payload;
+      //state.error = action.payload;
     });
     //그룹원 초대
     builder.addCase(__postGroupMemberInvite.fulfilled, (state, action) => {

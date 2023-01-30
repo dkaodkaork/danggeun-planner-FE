@@ -13,11 +13,11 @@ import {
 } from "../../redux/modules/modalSlice";
 
 //컴포넌트
-import Modal from "../element/Modal.jsx";
 import Input from "../element/Input.jsx";
 import ProfileImg from "../element/ProfileImg.jsx";
+import { carrotAlert } from "../element/alert";
 
-const SearchModal = ({ propsState }) => {
+const SearchModal = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -55,12 +55,12 @@ const SearchModal = ({ propsState }) => {
   //검색 핸들러
   const clickSearch = () => {
     if (username === "") {
-      alert("닉네임을 입력해주세요");
+      carrotAlert("닉네임을 입력해주세요");
     } else {
       dispatch(__getSearchUser(username)).then((res) => {
         console.log(res);
         if (res.payload.members.length === 0) {
-          alert("검색된 유저가 없습니다");
+          carrotAlert("검색된 유저가 없습니다");
         } else {
           setSearchList(res.payload.members);
         }
@@ -93,7 +93,6 @@ const SearchModal = ({ propsState }) => {
       {searchModalOpen && (
         <ModalBackdrop ref={modalRef} onClick={(e) => modalOutSideClick(e)}>
           <ModalBox height={!toggle ? "371px" : "597px"} width="308px">
-            {/* </ModalBox><Modal height={!toggle ? "371px" : "597px"} width="308px"> */}
             <Layout>
               <TopLayout>
                 <p>검색할 유저 닉네임</p>
@@ -149,7 +148,6 @@ const SearchModal = ({ propsState }) => {
             </Layout>
           </ModalBox>
         </ModalBackdrop>
-        // {/* </Modal> */}
       )}
     </>
   );
