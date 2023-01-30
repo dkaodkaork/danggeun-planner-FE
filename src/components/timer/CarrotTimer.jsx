@@ -102,7 +102,7 @@ const CarrotTimer = () => {
 
   const focusMode = {
     start: currentTime ? (
-      <Button onClick={startTimerHandler}>집중시작하기</Button>
+      <Button onClick={startTimerHandler}>집중 시작하기</Button>
     ) : (
       <GetCarrot onClick={getCarrotHandler}>당근 수확하기</GetCarrot>
     ),

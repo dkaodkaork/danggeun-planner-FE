@@ -47,7 +47,7 @@ const TimerBackground = ({
         <StButtonBox>
           {isClear ? perBtnByMode[mode].start : perBtnByMode[mode].rest}
         </StButtonBox>
-        <TimerMsg stack={stack}></TimerMsg>
+        {/* <TimerMsg stack={stack}></TimerMsg> */}
       </StBackground>
     </>
   );

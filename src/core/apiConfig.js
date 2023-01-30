@@ -70,6 +70,7 @@ baseURL.interceptors.response.use(
 
           localStorage.setItem("accessToken", newAccessToken);
           localStorage.setItem("refreshToken", newRefreshToken);
+          window.dispatchEvent(new Event("storage"));
 
           subscribers = [];
         });
