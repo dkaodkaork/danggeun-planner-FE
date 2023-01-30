@@ -127,7 +127,7 @@ const CarrotTimer = () => {
       currentTime === restTime ? (
         <Button onClick={startTimerHandler}>휴식하기</Button>
       ) : (
-        <Button onClick={startTimerHandler}>긴휴식하기</Button>
+        <Button onClick={startTimerHandler}>긴 휴식하기</Button>
       ),
     rest: (
       <Button
