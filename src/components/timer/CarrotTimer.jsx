@@ -1,17 +1,15 @@
 import React, { useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { __startTimer, __finsihTimer } from "../../redux/modules/timerSlice";
-import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
 import styled from "styled-components";
 
-import { IMAGES } from "../../constants/index";
 import useTimer from "../../hooks/useTimer";
 import { timeStamp } from "../planner/time";
 
-import Head from "../header/Header";
 import Button from "./TimerButton";
 import GetCarrot from "./GetCarrot";
 import TimerBackground from "./TimerBackground";
+import MainHeader from "../header/MainHeader";
 //
 
 const CarrotTimer = () => {
@@ -23,17 +21,11 @@ const CarrotTimer = () => {
 
   const data = useSelector((state) => state.timer.data);
 
-  // 메뉴 오픈 관련 추후에 반드시 빼야함
-  const groupMenuOpen = useSelector((state) => state.modalSlice.groupMenuOpen);
-
-  const OpenMenuHanlder = () => {
-    dispatch(groupMenuOpenStatus(!groupMenuOpen));
-  };
-  //
-
   const startTime = 1000 * 4;
   const restTime = 1000 * 2;
   const longRestTime = 1000 * 3;
+
+  const alarm = new Audio(require("../../assets/audio/alarm.mp3"));
 
   const { isClear, parsedTime, currentTime, timer, toggleTimer, setTimerTime } =
     useTimer(() => {
@@ -66,6 +58,8 @@ const CarrotTimer = () => {
     if (!currentTime && mode === "focusMode") {
       setCount(count + 1);
       focusModeDoneHandler();
+      alarm.play();
+      alarm.volume = 0.5;
     } else if (!currentTime && mode === "restMode") {
       restModeDoneHandler();
     }
@@ -108,7 +102,7 @@ const CarrotTimer = () => {
 
   const focusMode = {
     start: currentTime ? (
-      <Button onClick={startTimerHandler}>집중시작하기</Button>
+      <Button onClick={startTimerHandler}>집중 시작하기</Button>
     ) : (
       <GetCarrot onClick={getCarrotHandler}>당근 수확하기</GetCarrot>
     ),
@@ -169,7 +163,7 @@ const CarrotTimer = () => {
 
   return (
     <>
-      <Head title="TIMER" rightSlot={IMAGES.menu} onClick={OpenMenuHanlder} />
+      <MainHeader title="TIMER" />
       <StContainer>
         <TimerBackground
           parsedTime={parsedTime}

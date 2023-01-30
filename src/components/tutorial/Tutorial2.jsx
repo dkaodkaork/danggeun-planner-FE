@@ -1,35 +1,34 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+
+//상수
 import { IMAGES, PATH } from "../../constants/index";
+
+//컴포넌트
 import TimerButton from "../timer/TimerButton";
 
-//import Slider from "./Slider2";
-
-const Intro1 = () => {
+const Tutorial2 = () => {
   return (
     <StLayout>
-      <ImgBackground url={IMAGES.introBack1}>
+      <ImgBackground url={IMAGES.introBack2}>
         <StContentLayout>
-          <h1>가장 쉽게 집중하는 비결은?</h1>
+          <h1>수고한 나에게 채찍 대신 당근을</h1>
           <p>
-            세계적인 기업 구*에서도 사용하는
-            <br /> 효과적인 시간 관리법 ‘뽀모도로 타이머’!
+            집중 시작과 함께 당근 씨앗을 심으면
+            <br /> 25분 뒤에 귀여운 당근을 수확할 수 있어요.
           </p>
         </StContentLayout>
-        <StBubbleImg src={IMAGES.introContent1} />
-        <StDescription>
-          4회 반복 후 긴 휴식 <br />
-          <strong>= 뽀모도로</strong>
-        </StDescription>
         <StButtonLayout>
-          <TimerButton width="319px">당근플래너 시작하기</TimerButton>
+          <Link to={PATH.intro}>
+            <TimerButton width="319px">당근플래너 시작하기</TimerButton>
+          </Link>
         </StButtonLayout>
       </ImgBackground>
     </StLayout>
   );
 };
 
-export default Intro1;
+export default Tutorial2;
 
 const StLayout = styled.div`
   position: relative;
@@ -65,25 +64,6 @@ const StContentLayout = styled.div`
     color: #595550;
     line-height: 160%;
     text-align: center;
-  }
-`;
-
-const StBubbleImg = styled.img`
-  margin-top: 12.4384vh;
-  width: 272px;
-`;
-
-const StDescription = styled.p`
-  margin-top: 4.5567vh;
-  font-family: "MaplestoryOTFBold";
-  font-weight: 700;
-  font-size: 1.6rem;
-  color: #595550;
-  text-align: center;
-  line-height: 220%;
-  strong {
-    color: #f27808;
-    font-size: 2.4rem;
   }
 `;
 

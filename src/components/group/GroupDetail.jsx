@@ -9,7 +9,6 @@ import {
   __getGroupDetail,
   __getGroupMember,
 } from "../../redux/modules/groupSlice";
-import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
 
 //상수, api
 import { IMAGES, PATH } from "../../constants/index";
@@ -18,7 +17,6 @@ import { IMAGES, PATH } from "../../constants/index";
 import moment from "moment";
 
 //컴포넌트
-import Header from "../header/Header";
 import SubHeader from "../header/SubHeader";
 import GroupMember from "./GroupMember.jsx";
 import ProfileImg from "../element/ProfileImg.jsx";
@@ -27,15 +25,10 @@ import MainHeader from "../header/MainHeader";
 const GroupDetail = () => {
   const dispatch = useDispatch();
 
-  const groupMenuOpen = useSelector((state) => state.modalSlice.groupMenuOpen);
   const groupDetailData = useSelector((state) => state.group.groupDetail);
 
   const param = useParams();
   const groupId = param.groupId;
-
-  const clickGroupMenuHandler = () => {
-    dispatch(groupMenuOpenStatus(!groupMenuOpen));
-  };
 
   useEffect(() => {
     dispatch(__getGroupDetail(groupId)).then(() => {

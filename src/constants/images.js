@@ -1,5 +1,5 @@
-import { ReactComponent as Menu } from "../assets/images/menuicon.svg";
-import { ReactComponent as Home } from "../assets/images/home.svg";
+import { ReactComponent as Menu } from "../assets/images/element/menuicon.svg";
+import { ReactComponent as Home } from "../assets/images/element/home.svg";
 import { ReactComponent as CompleteCarrot } from "../assets/images/timer/completeCarrot.svg";
 import { ReactComponent as BlingCarrot } from "../assets/images/timer/blingCarrot.svg";
 import { ReactComponent as GroupAdd } from "../assets/images/group/groupAdd.svg";
@@ -23,16 +23,21 @@ import { ReactComponent as Trash } from "../assets/images/planner/trash_icon.svg
 import { ReactComponent as Lock } from "../assets/images/planner/lock.svg";
 import { ReactComponent as Fold } from "../assets/images/mypage/fold_icon.svg";
 import { ReactComponent as Edit } from "../assets/images/mypage/NotePencil.svg";
-import { ReactComponent as DownArrowS } from "../assets/images/downArrowS.svg";
-import { ReactComponent as UpArrowS } from "../assets/images/upArrowS.svg";
-import { ReactComponent as SearchIcon } from "../assets/images/searchIcon.svg";
+import { ReactComponent as DownArrowS } from "../assets/images/element/downArrowS.svg";
+import { ReactComponent as UpArrowS } from "../assets/images/element/upArrowS.svg";
+import { ReactComponent as SearchIcon } from "../assets/images/menu/searchIcon.svg";
 import { ReactComponent as XIcon } from "../assets/images/group/xIcon.svg";
 import { ReactComponent as Gold } from "../assets/images/group/gold.svg";
 import { ReactComponent as Silver } from "../assets/images/group/silver.svg";
 import { ReactComponent as Bronze } from "../assets/images/group/bronze.svg";
-import { ReactComponent as MenuCarrot } from "../assets/images/menuCarrot.svg";
+import { ReactComponent as MenuCarrot } from "../assets/images/menu/menuCarrot.svg";
 import { ReactComponent as TodayBtnIcon } from "../assets/images/calendar/todayBtnIcon.svg";
-import { ReactComponent as Bell } from "../assets/images/bell.svg";
+import { ReactComponent as Bell } from "../assets/images/menu/bell.svg";
+import { ReactComponent as ErrImg } from "../assets/images/error/error2.svg";
+import { ReactComponent as LeftArrow } from "../assets/images/tutorial/leftArrow.svg";
+import { ReactComponent as RightArrow } from "../assets/images/tutorial/rightArrow.svg";
+import { ReactComponent as Logo } from "../assets/images/web/logo.svg";
+
 
 export const IMAGES = {
   // 로그인
@@ -59,8 +64,6 @@ export const IMAGES = {
   step5: require("../assets/images/timer/step5.png"),
   step6: require("../assets/images/timer/step6.png"),
   rest: require("../assets/images/timer/rest.png"),
-  // 테스트용 이미지 추후 삭제
-  test: require("../assets/images/rabbit_icon.png"),
 
   // 플래너
   calendarIcon: <CalendarIcon />,
@@ -105,6 +108,26 @@ export const IMAGES = {
   bell: <Bell />,
 
   //인트로
-  introBack1: require("../assets/images/intro/introBack1.png"),
-  introContent1: require("../assets/images/intro/introContent1.png"),
+  introBack1: require("../assets/images/tutorial/introBack1.png"),
+  introBack2: require("../assets/images/tutorial/introBack2.png"),
+  introBack3: require("../assets/images/tutorial/introBack3.png"),
+  introBack4: require("../assets/images/tutorial/introBack4.png"),
+  introContent1: require("../assets/images/tutorial/introContent1.png"),
+  leftArrow: <LeftArrow />,
+  rightArrow: <RightArrow />,
+
+  // 경고창
+  alertImg: require("../assets/images/element/alert.png"),
+
+
+  //에러 페이지
+  errImg: require("../assets/images/error/error.webp"),
+  errImg2: <ErrImg />,
+
+  //웹 배경화면 요소
+  webLogo: require("../assets/images/web/logo.png"),
+  rabbit: require("../assets/images/web/rabbit.png"),
+  backEarth: require("../assets/images/web/back_earth.png"),
+  members: require("../assets/images/web/members.png"),
+
 };

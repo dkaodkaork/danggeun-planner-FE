@@ -6,18 +6,17 @@ import styled from "styled-components";
 
 //리덕스
 import { __putGroupUpdate } from "../../redux/modules/groupSlice";
-import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
 
 //상수, api
 import { IMAGES, PATH } from "../../constants/index";
 
 //컴포넌트
-import Header from "../header/Header";
 import SubHeader from "../header/SubHeader";
 import Input from "../element/Input";
 import Textarea from "../element/Textarea";
 import TimerButton from "../timer/TimerButton";
 import MainHeader from "../header/MainHeader";
+import { carrotAlert } from "../element/alert";
 
 const GroupUpdate = () => {
   const dispatch = useDispatch();
@@ -37,8 +36,8 @@ const GroupUpdate = () => {
 
   //첫 화면에 글자수 넣어주기
   useEffect(() => {
-    setInputCount(groupDetailData?.groupName.length);
-    setTextareaCount(groupDetailData?.description.length);
+    setInputCount(groupDetailData?.groupName?.length);
+    setTextareaCount(groupDetailData?.description?.length);
   }, []);
 
   const onInputHandler = (e) => {
@@ -54,24 +53,28 @@ const GroupUpdate = () => {
   const onClickGroupUpdate = () => {
     //하나의 객체로 묶어서 보내야 함!
     const groupInfo = { groupName, description };
+    //버튼 비활성으로 처리
+    // if (inputCount === 0) {
+    //   alert("그룹 제목을 입력해주세요");
+    // } else if (textareaCount === 0) {
+    //   alert("그룹 내용을 입력해주세요");
+    // } else {
+    //   return dispatch(__putGroupUpdate({ groupInfo, groupId })).then((res) => {
+    //     const groupId = res.payload.groupId;
+    //     navigate(PATH.groupdetail(groupId));
+    //   });
+    // }
 
-    if (inputCount === 0) {
-      alert("그룹 제목을 입력해주세요");
-    } else if (textareaCount === 0) {
-      alert("그룹 내용을 입력해주세요");
-    } else {
-      return dispatch(__putGroupUpdate({ groupInfo, groupId })).then((res) => {
-        const groupId = res.payload.groupId;
+    dispatch(__putGroupUpdate({ groupInfo, groupId })).then((res) => {
+      console.log(res);
+      if (res?.error?.message === "Rejected") {
+        carrotAlert("접근 권한이 없습니다");
+        navigate(PATH.grouplist);
+      } else {
+        const groupId = res?.payload?.groupId;
         navigate(PATH.groupdetail(groupId));
-      });
-    }
-  };
-
-  //그룹 오픈 관련
-  const groupMenuOpen = useSelector((state) => state.modalSlice.groupMenuOpen);
-
-  const clickGroupMenuHandler = () => {
-    dispatch(groupMenuOpenStatus(!groupMenuOpen));
+      }
+    });
   };
 
   return (
@@ -111,7 +114,7 @@ const GroupUpdate = () => {
           <TimerButton
             width="319px"
             onClick={onClickGroupUpdate}
-            disabled={groupName.length === 0 || description.length === 0}
+            disabled={groupName?.length === 0 || description?.length === 0}
           >
             완 료
           </TimerButton>

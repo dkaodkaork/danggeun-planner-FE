@@ -14,11 +14,11 @@ import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
 
 //컴포넌트
 import Input from "../element/Input";
-import Header from "../header/Header";
 import SubHeader from "../header/SubHeader";
 import TimerButton from "../timer/TimerButton";
 import ProfileImg from "../element/ProfileImg";
 import MainHeader from "../header/MainHeader";
+import { carrotAlert } from "../element/alert";
 
 const GroupInvite = () => {
   const dispatch = useDispatch();
@@ -59,11 +59,15 @@ const GroupInvite = () => {
   //검색 시 데이터 불러옴
   const clickSearch = () => {
     if (username === "") {
-      alert("닉네임을 입력해주세요");
+      carrotAlert("닉네임을 입력해주세요");
     } else {
       dispatch(__getGroupMemberInvite({ groupId, username })).then((res) => {
-        if (res.payload.members.length === 0) {
-          alert("검색된 유저가 없습니다");
+        //console.log(res?.error?.message === "Rejected");
+        if (res?.payload?.members?.length === 0) {
+          carrotAlert("검색된 유저가 없습니다");
+        } else if (res?.error?.message === "Rejected") {
+          carrotAlert("접근 권한이 없습니다");
+          navigate(PATH.timer);
         } else {
           setSearchList(res.payload.members);
         }

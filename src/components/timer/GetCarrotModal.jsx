@@ -5,7 +5,6 @@ import { IMAGES } from "../../constants/index";
 
 //Gsap라이브러리 Import
 import { gsap } from "gsap";
-import { Howl } from "howler";
 
 import TimerButton from "./TimerButton";
 
@@ -46,21 +45,7 @@ const GetCarrotModal = (props) => {
     });
   }, []);
 
-  //효과음 도전해봤으나 작동안됨
-  const sound = new Howl({
-    src: ["../../assets/audio/getCarrotAudio.mp3"],
-    autoplay: true,
-    volume: 1.0,
-    onend: () => {
-      console.log("Finished!");
-    },
-  });
-
   useEffect(() => {
-    setTimeout(() => {
-      sound.play();
-    }, 500);
-
     setTimeout(() => {
       setDisabled(false);
     }, 1500);

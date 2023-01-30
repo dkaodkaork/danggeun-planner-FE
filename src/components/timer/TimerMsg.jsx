@@ -30,6 +30,6 @@ const StMsg = styled.p`
 
   width: 375px;
   font-size: 1.4rem;
-  font-family: "Pretendard";
+  font-family: "Pretendard-Regular";
   color: #403b36;
 `;

@@ -45,9 +45,7 @@ const StInputBox = styled.div`
 const StTitle = styled.label`
   width: 319px;
   height: 16px;
-  font-family: "Pretendard";
-  font-style: normal;
-  font-weight: 700;
+  font-family: "Pretendard-Bold";
   font-size: 1.2rem;
   line-height: 130%;
   text-align: left;
@@ -62,9 +60,7 @@ const StInput = styled.input`
   border: 1px solid #f1e5d2;
   border-radius: 12px;
   ::placeholder {
-    font-family: "Pretendard";
-    font-style: normal;
-    font-weight: 500;
+    font-family: "Pretendard-Regular";
     font-size: 1.4rem;
     line-height: 17px;
     color: #a4a4a4;
@@ -74,9 +70,7 @@ const StInput = styled.input`
 const StLabel = styled.label`
   height: 16px;
   width: 310px;
-  font-family: "Pretendard";
-  font-style: normal;
-  font-weight: 500;
+  font-family: "Pretendard-Regular";
   font-size: 1.2rem;
   line-height: 130%;
   text-align: ${({ textAlign }) => textAlign};

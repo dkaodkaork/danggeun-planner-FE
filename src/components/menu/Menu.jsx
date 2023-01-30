@@ -99,6 +99,9 @@ const Menu = () => {
   //읽음 설정 관련
   const alarmRead = useSelector((state) => state.alarm.alarmRead);
 
+  //그룹 읽음 데이터 확인
+  const alarmIsRead = useSelector((state) => state.alarm.isRead);
+
   return (
     <>
       <ModalBackdrop
@@ -112,7 +115,7 @@ const Menu = () => {
               <button>{IMAGES.nextArrow}</button>
             </div>
             <StBellLayout onClick={clickBellNav}>
-              {alarmRead && <div />}
+              {(alarmRead || !alarmIsRead) && <div />}
               <button>{IMAGES.bell}</button>
             </StBellLayout>
           </MenuIcon>
@@ -173,9 +176,9 @@ export default Menu;
 
 const ModalBackdrop = styled.div`
   visibility: ${(props) => (props.toggle ? "visible" : "hidden")};
-  width: 375px;
+  width: 100%;
   height: 100vh;
-  position: fixed;
+  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;

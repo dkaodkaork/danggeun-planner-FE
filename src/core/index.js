@@ -1,5 +1,8 @@
 export const serverUrl = process.env.REACT_APP_TEST_SERVER + "/api";
 
+// 구글 애널리스틱
+export const TRACKING_ID = process.env.REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID;
+
 // 카카오
 const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
 const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;

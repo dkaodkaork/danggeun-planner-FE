@@ -5,11 +5,12 @@ import styled from "styled-components";
 import { MSG, PATH } from "../../../constants/index";
 import { api } from "../../../core/api";
 import { isValidEmail, isValidPassword } from "../func";
+import { carrotAlert } from "../../element/alert";
 
-import Header from "../../header/Header";
 import SubHeader from "../../header/SubHeader";
 import Button from "../../timer/TimerButton";
 import InputBox from "./InputBox";
+import AuthHeader from "../AtuhHeader";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -54,30 +55,21 @@ const SignUp = () => {
   };
 
   const submitHandler = async (e) => {
-    if (signUpInfo.email && signUpInfo.password && signUpInfo.checkPassword) {
-      try {
-        const { data, status } = await api.postSignUpApi({
-          email: signUpInfo.email,
-          password: signUpInfo.password,
-        });
-
-        if (status === 201) {
-          navigate(PATH.login);
-        } else {
-          alert(data.message);
-        }
-      } catch (error) {
-        alert(error.response.data.message);
-      }
-    } else {
-      alert(MSG.formInvalidMsg);
+    try {
+      await api.postSignUpApi({
+        email: signUpInfo.email,
+        password: signUpInfo.password,
+      });
+      navigate(PATH.login);
+    } catch (error) {
+      carrotAlert(error.response.data.message);
     }
   };
 
   return (
     <>
       <StContainer>
-        <Header title="SIGNUP" />
+        <AuthHeader title="SIGNUP" />
         <SubHeader title="회원가입" />
         <InputBox
           margin="12px 0px 12px 0px"
@@ -157,9 +149,7 @@ const StBottomText = styled.div`
 
   text-align: center;
 
-  font-family: "Pretendard";
-  font-style: normal;
-  font-weight: 700;
+  font-family: "Pretendard-Bold";
   font-size: 1.4rem;
   line-height: 130%;
 
