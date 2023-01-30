@@ -23,11 +23,6 @@ const AlarmList = () => {
   const dispatch = useDispatch();
   const alarmList = useSelector((state) => state.alarm.alarmList);
 
-  console.log(alarmList);
-
-  //읽음 설정 관련
-  const alarmRead = useSelector((state) => state.alarm.alarmRead);
-
   //알림 리스트 불러오기
   useEffect(() => {
     dispatch(__getAlarmList());
@@ -46,7 +41,6 @@ const AlarmList = () => {
 
   //그룹 초대 결과 확인
   const clickConfirmHandler = (notificationId) => {
-    //console.log(notificationId);
     dispatch(__deleteConfirm(notificationId));
   };
 
@@ -73,16 +67,7 @@ const AlarmList = () => {
                   {alarm?.notificationType === "INVITATION" ? (
                     <StButtonSet>
                       <ButtonS
-                        onClick={() =>
-                          clickAcceptHandler(
-                            alarm?.notificationId,
-                            alarm?.groupId
-                          )
-                        }
-                      >
-                        수락
-                      </ButtonS>
-                      <ButtonS
+                        className="reverse"
                         onClick={() =>
                           clickRejectHandler(
                             alarm?.notificationId,
@@ -91,6 +76,16 @@ const AlarmList = () => {
                         }
                       >
                         거절
+                      </ButtonS>
+                      <ButtonS
+                        onClick={() =>
+                          clickAcceptHandler(
+                            alarm?.notificationId,
+                            alarm?.groupId
+                          )
+                        }
+                      >
+                        수락
                       </ButtonS>
                     </StButtonSet>
                   ) : (
@@ -119,6 +114,7 @@ export default AlarmList;
 const StLayout = styled.div`
   padding: 12px 28px;
   height: 100%;
+  background: #f9f3ea;
 `;
 
 const StListBoxs = styled.div`

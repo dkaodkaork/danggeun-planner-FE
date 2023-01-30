@@ -6,7 +6,6 @@ import styled from "styled-components";
 
 //리덕스
 import { __postGroupAdd } from "../../redux/modules/groupSlice";
-import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
 
 //상수, api
 import { IMAGES, PATH } from "../../constants/index";
@@ -52,25 +51,23 @@ const GroupAdd = () => {
   // console.log(contents);
 
   const onClickGroupAdd = () => {
-    if (inputCount === 0) {
-      alert("그룹 제목을 입력해주세요");
-    } else if (textareaCount === 0) {
-      alert("그룹 내용을 입력해주세요");
-    } else {
-      return dispatch(__postGroupAdd({ groupName, description })).then(
-        (res) => {
-          const groupId = res.payload.groupId;
-          navigate(PATH.groupdetail(groupId));
-        }
-      );
-    }
-  };
-
-  //메뉴 오픈 관련
-  const groupMenuOpen = useSelector((state) => state.modalSlice.groupMenuOpen);
-
-  const clickGroupMenuHandler = () => {
-    dispatch(groupMenuOpenStatus(!groupMenuOpen));
+    //버튼 비활성으로 처리
+    // if (inputCount === 0) {
+    //   alert("그룹 제목을 입력해주세요");
+    // } else if (textareaCount === 0) {
+    //   alert("그룹 내용을 입력해주세요");
+    // } else {
+    //   return dispatch(__postGroupAdd({ groupName, description })).then(
+    //     (res) => {
+    //       const groupId = res.payload.groupId;
+    //       navigate(PATH.groupdetail(groupId));
+    //     }
+    //   );
+    // }
+    dispatch(__postGroupAdd({ groupName, description })).then((res) => {
+      const groupId = res.payload.groupId;
+      navigate(PATH.groupdetail(groupId));
+    });
   };
 
   return (
