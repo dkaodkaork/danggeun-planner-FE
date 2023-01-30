@@ -7,15 +7,15 @@ import { IMAGES, PATH } from "../../constants/index";
 //컴포넌트
 import TimerButton from "../timer/TimerButton";
 
-const Tutorial2 = () => {
+const Tutorial4 = () => {
   return (
     <StLayout>
-      <ImgBackground url={IMAGES.introBack2}>
+      <ImgBackground url={IMAGES.introBack4}>
         <StContentLayout>
-          <h1>수고한 나에게 채찍 대신 당근을</h1>
+          <h1>다양한 동기부여 컨텐츠</h1>
           <p>
-            집중 시작과 함께 당근 씨앗을 심으면
-            <br /> 25분 뒤에 귀여운 당근을 수확할 수 있어요.
+            한달 집중량이 한 눈에 보이는 캘린더,
+            <br /> 친구와 함께 즐기는 그룹, 다양한 랭킹 시스템까지
           </p>
         </StContentLayout>
         <StButtonLayout>
@@ -28,7 +28,7 @@ const Tutorial2 = () => {
   );
 };
 
-export default Tutorial2;
+export default Tutorial4;
 
 const StLayout = styled.div`
   position: relative;
@@ -55,6 +55,7 @@ const StContentLayout = styled.div`
     font-weight: 700;
     font-size: 2.4rem;
     color: #595550;
+    text-align: center;
   }
   p {
     margin-top: 24px;

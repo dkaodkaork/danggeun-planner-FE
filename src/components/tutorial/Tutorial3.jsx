@@ -1,12 +1,16 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+
+//상수
 import { IMAGES, PATH } from "../../constants/index";
+
+//컴포넌트
 import TimerButton from "../timer/TimerButton";
 
 const Tutorial3 = () => {
   return (
     <StLayout>
-      <ImgBackground url={IMAGES.introBack2}>
+      <ImgBackground url={IMAGES.introBack3}>
         <StContentLayout>
           <h1>알아서 기록하는 똑똑한 플래너</h1>
           <p>
@@ -15,7 +19,9 @@ const Tutorial3 = () => {
           </p>
         </StContentLayout>
         <StButtonLayout>
-          <TimerButton width="319px">당근플래너 시작하기</TimerButton>
+          <Link to={PATH.intro}>
+            <TimerButton width="319px">당근플래너 시작하기</TimerButton>
+          </Link>
         </StButtonLayout>
       </ImgBackground>
     </StLayout>
@@ -37,7 +43,7 @@ const ImgBackground = styled.div`
   width: 100%;
   height: 100vh;
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
   display: flex;
   flex-direction: column;
   align-items: center;

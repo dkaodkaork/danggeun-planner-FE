@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { IMAGES, PATH } from "../../constants/index";
-import TimerButton from "../timer/TimerButton";
 
-//import Slider from "./Slider2";
+//상수
+import { IMAGES, PATH } from "../../constants/index";
+
+//컴포넌트
+import TimerButton from "../timer/TimerButton";
 
 const Tutorial1 = () => {
   return (
@@ -22,7 +24,9 @@ const Tutorial1 = () => {
           <strong>= 뽀모도로</strong>
         </StDescription>
         <StButtonLayout>
-          <TimerButton width="319px">당근플래너 시작하기</TimerButton>
+          <Link to={PATH.intro}>
+            <TimerButton width="319px">당근플래너 시작하기</TimerButton>
+          </Link>
         </StButtonLayout>
       </ImgBackground>
     </StLayout>

@@ -1,8 +1,6 @@
-import { Link } from "react-router-dom";
 import styled from "styled-components";
-import Menu from "../menu/Menu";
+
 import Slider from "./Slider";
-//import Slider from "./Slider2";
 
 const Intro = () => {
   return (
