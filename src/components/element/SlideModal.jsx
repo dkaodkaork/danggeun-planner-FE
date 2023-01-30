@@ -18,7 +18,7 @@ const ModalBackdrop = styled.div`
   visibility: ${(props) => (props.toggle ? "visible" : "hidden")};
   width: 100%;
   height: 100%;
-  position: fixed;
+  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -27,9 +27,9 @@ const ModalBackdrop = styled.div`
 `;
 
 const MenuLayout = styled.div`
-  width: 375px;
+  width: 100%;
   background-color: #fffdfa;
-  position: fixed;
+  position: absolute;
   bottom: ${(props) => (props.toggle ? "0" : props.bottom)};
   height: ${(props) => props.height || "662px"};
   transition: all 0.5s ease-in;

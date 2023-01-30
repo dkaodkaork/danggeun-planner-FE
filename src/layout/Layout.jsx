@@ -19,8 +19,20 @@ const Layout = ({ children }) => {
   return (
     <LayoutBox>
       {windowWidth < 1200 ? (
-        <DivLayout2>{children}</DivLayout2>
+        <>
+          <StLogoImg>
+            <img src={IMAGES.webLogo} />
+          </StLogoImg>
+          <StMadeby2>
+            <img src={IMAGES.members} />
+          </StMadeby2>
+          <StRabbit>
+            <img src={IMAGES.rabbit} />
+          </StRabbit>
+          <DivLayout2>{children}</DivLayout2>
+        </>
       ) : (
+        // <DivLayout2>{children}</DivLayout2>
         <>
           <StLogoImg>
             <img src={IMAGES.webLogo} />
@@ -60,6 +72,14 @@ const StMadeby = styled.div`
     width: 8.4896vw;
   }
 `;
+const StMadeby2 = styled.div`
+  position: fixed;
+  top: 7.8125vw;
+  right: 5%;
+  img {
+    width: 15vw;
+  }
+`;
 
 const StRabbit = styled.div`
   position: fixed;
@@ -78,9 +98,13 @@ const LayoutBox = styled.div`
 `;
 
 const StSum = styled.div`
-  width: 500px;
+  width: 1158px;
+  height: 240px;
   position: absolute;
+  margin-left: 40%;
+  bottom: 0;
   background-image: url(${(props) => props.url});
+  /* background-color: aqua; */
 `;
 
 // export const LayoutBox2 = styled.div`
@@ -100,28 +124,36 @@ const Box = styled.div`
   margin-left: 40%;
   justify-content: center;
   box-shadow: 0 5px 18px -7px rgba(0, 0, 0, 0.4);
+  z-index: 1;
 `;
 
 const DeskTopLayout = styled.div`
   width: 375px;
   height: 100vh;
 
-  position: static;
+  position: relative;
   background-color: #f9f3ea;
 
   display: flex;
   flex-direction: column;
 `;
 const DivLayout2 = styled.div`
+  //핸드폰 화면에 맞춤 처리
+  @media screen and (max-width: 420px) {
+    width: 100%;
+    margin: auto;
+    background-color: #000000;
+  }
   width: 375px;
   /* min-height: 812px; */
   height: 100vh;
   /* height: auto; */
-  position: static;
+  position: relative;
   margin-left: 0 auto;
   background-color: #f9f3ea;
   display: flex;
   flex-direction: column;
+  z-index: 1;
   /* margin: auto; */
   box-shadow: 0 5px 18px -7px rgba(0, 0, 0, 0.4);
 `;

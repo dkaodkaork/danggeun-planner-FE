@@ -156,9 +156,9 @@ const SearchModal = () => {
 export default SearchModal;
 
 const ModalBackdrop = styled.div`
-  width: 375px;
+  width: 100%;
   height: 100%;
-  position: fixed;
+  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -125,7 +125,6 @@ const MainHeader = ({ leftLink, leftSlot, title }) => {
 export default MainHeader;
 
 const StContainer = styled.div`
-  width: 375px;
   height: 72px;
 
   padding: 28px 28px 12px 28px;
@@ -134,7 +133,6 @@ const StContainer = styled.div`
 `;
 
 const StBox = styled.div`
-  width: 319px;
   height: 32px;
   display: flex;
   flex-direction: row;
