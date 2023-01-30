@@ -14,6 +14,8 @@ const KakaoLogin = () => {
       if (status === 202) {
         localStorage.setItem("accessToken", headers.accesstoken);
         localStorage.setItem("refreshToken", headers.refreshtoken);
+        window.dispatchEvent(new Event("storage"));
+
         if (data.data.isExistUsername) {
           navigate(PATH.timer);
         } else {

@@ -56,6 +56,8 @@ const Login = () => {
       if (status === 200) {
         localStorage.setItem("accessToken", headers.accesstoken);
         localStorage.setItem("refreshToken", headers.refreshtoken);
+        window.dispatchEvent(new Event("storage"));
+
         if (data.data.isExistUsername) {
           navigate(PATH.timer);
         } else {

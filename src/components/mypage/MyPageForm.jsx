@@ -40,7 +40,8 @@ const MypageForm = () => {
     } catch (error) {
       console.log(error);
     }
-    localStorage.clear();
+    await localStorage.clear();
+    window.dispatchEvent(new Event("storage"));
     navigate(PATH.intro);
     // }
   };
