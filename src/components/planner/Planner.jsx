@@ -28,6 +28,7 @@ import SortingBtnGroup from "./SortingBtnGroup";
 import PlannerSubHeader from "./PlannerSubHeader";
 import MainHeader from "../header/MainHeader";
 import PrivatePlanner from "./PrivatePlanner";
+import ConfirmModal from "./ConfirmModal";
 
 const Planner = () => {
   // hook
@@ -35,6 +36,9 @@ const Planner = () => {
   const { date, username } = useParams();
 
   const plans = useSelector((state) => state?.planner?.data);
+  console.log(plans);
+  // console.log(plans?.isPlannerOpened);
+  // console.log(plans?.isOwner);
 
   const naviagte = useNavigate();
 
@@ -54,6 +58,9 @@ const Planner = () => {
   const [plan, setPlan] = useState();
   const [isDisabled, setIsDisabled] = useState(false);
 
+  const [confirmModalOpen, setConfirmModalOpen] = useState(false);
+  const [isDelete, setIsDelete] = useState(false);
+
   // onchange로 받은 값 시작시간 끝나는 시간 파싱해서 보낼것
   const planInfo = {
     startTime: planStartTime(startTime),
@@ -67,6 +74,7 @@ const Planner = () => {
   // 플래너 조회 요청
   useEffect(() => {
     dispatch(__getAllPlan({ username: username, date: date })).then((res) => {
+      // console.log(res);
       if (res?.error?.message === "Rejected") {
         naviagte(PATH.error);
       }
@@ -152,10 +160,9 @@ const Planner = () => {
       dispatch(planModalOpenStatus(!planModalOpen));
     } else {
       if (isEdit) {
-        if (window.confirm("삭제하시겠습니까?")) {
-          dispatch(__deletePlan({ id }));
-          dispatch(planModalOpenStatus(!planModalOpen));
-        }
+        carrotAlert("계획이 삭제 되었습니다!");
+        dispatch(__deletePlan({ id }));
+        dispatch(planModalOpenStatus(!planModalOpen));
       } else {
         dispatch(planModalOpenStatus(!planModalOpen));
       }
@@ -260,8 +267,6 @@ const Planner = () => {
       e.target.value = e.target.value.slice(0, e.target.maxLength);
   };
 
-  const a = true;
-
   return (
     <>
       <MainHeader
@@ -274,63 +279,63 @@ const Planner = () => {
         profileImage={plans.profileImage}
         param={username}
       ></PlannerSubHeader>
-      {/* {a ? (
+      {!plans?.isPlannerOpened && !plans.isOwner ? (
         <PrivatePlanner />
-      ) : ( */}
-      <StContainer>
-        <StDiv>
-          <StDateBox>{getDayOfWeek(date)}</StDateBox>
-          <StTodayCarrot>
-            오늘 수확량 <span>{plans.carrot}</span>
-          </StTodayCarrot>
-        </StDiv>
-        <StBtnGroup>
-          <SortingBtnGroup
-            onClickGetAllPlan={onClickGetAllPlan}
-            onClickgetPlan={onClickgetPlan}
-            onClickgetFocusPlan={onClickgetFocusPlan}
-          />
-        </StBtnGroup>
-        <StBodyDiv>
-          {plans?.contents.length !== 0 ? (
-            <>
-              {sortedPlans.map((val) => {
-                let color = "";
-                const id = val.timerId ?? val.planId;
-                if (Object.keys(val)[0] === "timerId") {
-                  color = "#F27808";
-                } else {
-                  color = "#67986C";
-                }
-                return (
-                  <div key={uuidv4()}>
-                    <PlanCard
-                      onClick={
-                        plans.isOwner
-                          ? () => {
-                              openEditModalHanlder(id, val);
-                            }
-                          : () => {}
-                      }
-                      color={color}
-                      content={val.content}
-                      startTime={val.startTime}
-                      endTime={val.endTime}
-                      count={val?.count}
-                    />
-                  </div>
-                );
-              })}
-            </>
-          ) : (
-            <StEmptyBodyDiv>
-              <StEmptyPlanDiv>일정이 비었습니다.</StEmptyPlanDiv>
-            </StEmptyBodyDiv>
-          )}
-        </StBodyDiv>
-        {plans.isOwner && <BottomBtn onClick={openModalHanlder} />}
-      </StContainer>
-      {/* )} */}
+      ) : (
+        <StContainer>
+          <StDiv>
+            <StDateBox>{getDayOfWeek(date)}</StDateBox>
+            <StTodayCarrot>
+              오늘 수확량 <span>{plans.carrot}</span>
+            </StTodayCarrot>
+          </StDiv>
+          <StBtnGroup>
+            <SortingBtnGroup
+              onClickGetAllPlan={onClickGetAllPlan}
+              onClickgetPlan={onClickgetPlan}
+              onClickgetFocusPlan={onClickgetFocusPlan}
+            />
+          </StBtnGroup>
+          <StBodyDiv>
+            {plans?.contents.length !== 0 ? (
+              <>
+                {sortedPlans.map((val) => {
+                  let color = "";
+                  const id = val.timerId ?? val.planId;
+                  if (Object.keys(val)[0] === "timerId") {
+                    color = "#F27808";
+                  } else {
+                    color = "#67986C";
+                  }
+                  return (
+                    <div key={uuidv4()}>
+                      <PlanCard
+                        onClick={
+                          plans.isOwner
+                            ? () => {
+                                openEditModalHanlder(id, val);
+                              }
+                            : () => {}
+                        }
+                        color={color}
+                        content={val.content}
+                        startTime={val.startTime}
+                        endTime={val.endTime}
+                        count={val?.count}
+                      />
+                    </div>
+                  );
+                })}
+              </>
+            ) : (
+              <StEmptyBodyDiv>
+                <StEmptyPlanDiv>일정이 비었습니다.</StEmptyPlanDiv>
+              </StEmptyBodyDiv>
+            )}
+          </StBodyDiv>
+          {plans.isOwner && <BottomBtn onClick={openModalHanlder} />}
+        </StContainer>
+      )}
       <SlideModal
         height="258px"
         bottom="-260px"
@@ -338,7 +343,6 @@ const Planner = () => {
         cancleHandler={modalOutSideClick}
       >
         <PlannerModal
-          openModalHanlder={openModalHanlder}
           doneAddModalHandler={doneAddModalHandler}
           changeTitleHandler={changeTitleHandler}
           changeStartTimeHandler={changeStartTimeHandler}
@@ -357,6 +361,15 @@ const Planner = () => {
           isDisabled={isDisabled}
         />
       </SlideModal>
+      {confirmModalOpen ? (
+        <ConfirmModal
+          img={plans?.profileImage}
+          content={plans?.content}
+          onClick={() => {
+            setIsDelete(!isDelete);
+          }}
+        />
+      ) : null}
     </>
   );
 };

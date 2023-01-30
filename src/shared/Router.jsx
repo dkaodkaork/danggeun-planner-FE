@@ -38,11 +38,8 @@ const Router = () => {
 
   async function checkAuth() {
     const item = await localStorage.getItem("accessToken");
-    console.log(item);
     setAccessToken(item);
   }
-
-  console.log(accessToken);
 
   return (
     <BrowserRouter>
@@ -50,11 +47,7 @@ const Router = () => {
       <Routes>
         {accessToken ? (
           <Route>
-            <Route path="/" element={<IntroPage />} />
-            <Route path="/timer" element={<TimerPage />} />
-            {/* <Route path="/login" element={<LoginPage />} />
-            <Route path="/kakao/login" element={<KakaoLoginPage />} />
-            <Route path="/signup" element={<SignUpPage />} /> */}
+            <Route path="/" element={<TimerPage />} />
             <Route path="/username" element={<UsernameFormPage />} />
             <Route path="/alarm" element={<AlarmPage />} />
             <Route path="/tutorial" element={<TutorialPage />} />
@@ -75,15 +68,16 @@ const Router = () => {
               path="/group/:groupId/invite"
               element={<GroupInvitePage />}
             />
+            <Route path="*" element={<ErrorPage />} />
           </Route>
         ) : (
           <Route>
-            <Route path="/" element={<IntroPage />} />
+            <Route path="/" element={<TutorialPage />} />
+            <Route path="/intro" element={<IntroPage />} />
             <Route path="/error" element={<ErrorPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/kakao/login" element={<KakaoLoginPage />} />
             <Route path="/signup" element={<SignUpPage />} />
-            <Route path="/username" element={<UsernameFormPage />} />
             <Route path="*" element={<ErrorPage />} />
           </Route>
         )}

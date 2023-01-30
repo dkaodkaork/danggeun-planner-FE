@@ -7,6 +7,7 @@ const initialState = {
     username: "",
     profileImage: "",
     carrot: "",
+    isPlannerOpened: "",
     contents: [],
   },
   isLoading: false,
@@ -19,6 +20,7 @@ export const __getAllPlan = createAsyncThunk(
     const { username, date } = payload;
     try {
       const { data } = await api.getAllPlanApi(username, date);
+      // console.log(data.data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       console.log(error.response.status);
