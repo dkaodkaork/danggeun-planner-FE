@@ -6,7 +6,6 @@ import styled from "styled-components";
 
 //리덕스
 import { __getCalendar } from "../../redux/modules/calendarSlice.js";
-import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
 
 //상수
 import { IMAGES, PATH } from "../../constants/index";
@@ -37,9 +36,6 @@ const CalendarGet = () => {
 
   //메뉴 오픈 관련
   const groupMenuOpen = useSelector((state) => state.modalSlice.groupMenuOpen);
-  const clickGroupMenuHandler = () => {
-    dispatch(groupMenuOpenStatus(!groupMenuOpen));
-  };
 
   //이번달로 이동하기 위한 useRef 사용
   const calendarRef = useRef();
@@ -50,7 +46,11 @@ const CalendarGet = () => {
 
   //현재 날짜에 맞는 월 데이터 불러오기
   useEffect(() => {
-    dispatch(__getCalendar({ todayYear, todayMonth, username }));
+    dispatch(__getCalendar({ todayYear, todayMonth, username })).then((res) => {
+      if (res?.error?.message === "Rejected") {
+        navigate(PATH.error);
+      }
+    });
   }, [groupMenuOpen]);
 
   //data에서 단계별로 분류하기

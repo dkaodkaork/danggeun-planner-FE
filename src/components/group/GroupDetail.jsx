@@ -1,7 +1,7 @@
 //리액트 관련
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 //리덕스
@@ -24,6 +24,7 @@ import MainHeader from "../header/MainHeader";
 
 const GroupDetail = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const groupDetailData = useSelector((state) => state.group.groupDetail);
 
@@ -31,7 +32,10 @@ const GroupDetail = () => {
   const groupId = param.groupId;
 
   useEffect(() => {
-    dispatch(__getGroupDetail(groupId)).then(() => {
+    dispatch(__getGroupDetail(groupId)).then((res) => {
+      if (res?.error?.message === "Rejected") {
+        navigate(PATH.error);
+      }
       dispatch(__getGroupMember(groupId));
     });
   }, []);
