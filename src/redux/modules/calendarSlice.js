@@ -31,7 +31,8 @@ export const __getCalendar = createAsyncThunk(
       );
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+      //console.log(error.response.status);
+      return thunkAPI.rejectWithValue();
     }
   }
 );
@@ -52,7 +53,6 @@ export const calendarSlice = createSlice({
     });
     builder.addCase(__getCalendar.rejected, (state, action) => {
       state.isLoading = false;
-      state.error = action.payload;
     });
   },
 });

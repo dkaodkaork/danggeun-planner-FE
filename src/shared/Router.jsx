@@ -54,8 +54,8 @@ const Router = () => {
             <Route path="/timer" element={<TimerPage />} />
             {/* <Route path="/login" element={<LoginPage />} />
             <Route path="/kakao/login" element={<KakaoLoginPage />} />
-            <Route path="/signup" element={<SignUpPage />} />
-            <Route path="/username" element={<UsernameFormPage />} /> */}
+            <Route path="/signup" element={<SignUpPage />} /> */}
+            <Route path="/username" element={<UsernameFormPage />} />
             <Route path="/alarm" element={<AlarmPage />} />
             <Route path="/tutorial" element={<TutorialPage />} />
             <Route path="/calendar/:username" element={<CalendarPage />} />
