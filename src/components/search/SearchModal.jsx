@@ -47,10 +47,10 @@ const SearchModal = () => {
 
   //검색 리스트를 저장할 배열
   const [searchList, setSearchList] = useState([]);
-  //검색 리스트 초기화
+  //검색 리스트 초기화 //메뉴 열 때마다 초기화하기 위해 의존성배열 추가
   useEffect(() => {
     setSearchList([]);
-  }, []);
+  }, [groupMenuOpen]);
 
   //검색 핸들러
   const clickSearch = () => {
@@ -72,6 +72,8 @@ const SearchModal = () => {
   const clickUser = (username) => {
     setOpenPopup(!openPopup);
     dispatch(groupMenuOpenStatus(!groupMenuOpen));
+    //검색 모달 닫기
+    dispatch(searchModalOpenStatus(!searchModalOpen));
     navigate(PATH.calendar(username));
   };
 
@@ -125,7 +127,6 @@ const SearchModal = () => {
                         }}
                       >
                         <ProfileImg src={item.profileImage} />
-                        {/* <img src={item.profileImage} /> */}
                         <span>{item.username}</span>
                       </User>
                     </UserLayout>
@@ -239,6 +240,7 @@ const User = styled.div`
   align-items: center;
   gap: 5px;
   padding-left: 12px;
+  cursor: pointer;
   span {
     margin-left: 7px;
     font-family: "Pretendard-Regular";
