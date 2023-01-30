@@ -33,6 +33,7 @@ import { ReactComponent as Bronze } from "../assets/images/group/bronze.svg";
 import { ReactComponent as MenuCarrot } from "../assets/images/menu/menuCarrot.svg";
 import { ReactComponent as TodayBtnIcon } from "../assets/images/calendar/todayBtnIcon.svg";
 import { ReactComponent as Bell } from "../assets/images/menu/bell.svg";
+import { ReactComponent as ErrImg } from "../assets/images/error/error2.svg";
 
 export const IMAGES = {
   // 로그인
@@ -111,4 +112,8 @@ export const IMAGES = {
 
   // 경고창
   alertImg: require("../assets/images/element/alert.png"),
+
+  //에러 페이지
+  errImg: require("../assets/images/error/error.webp"),
+  errImg2: <ErrImg />,
 };
