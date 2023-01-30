@@ -10,7 +10,6 @@ import {
   __getGroupMemberInvite,
   __postGroupMemberInvite,
 } from "../../redux/modules/groupSlice";
-import { groupMenuOpenStatus } from "../../redux/modules/modalSlice";
 
 //컴포넌트
 import Input from "../element/Input";
@@ -23,13 +22,6 @@ import { carrotAlert } from "../element/alert";
 const GroupInvite = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  //그룹 오픈 관련
-  const groupMenuOpen = useSelector((state) => state.modalSlice.groupMenuOpen);
-
-  const clickGroupMenuHandler = () => {
-    dispatch(groupMenuOpenStatus(!groupMenuOpen));
-  };
 
   //이름 Input
   const [username, setUsername] = useState("");
@@ -62,7 +54,6 @@ const GroupInvite = () => {
       carrotAlert("닉네임을 입력해주세요");
     } else {
       dispatch(__getGroupMemberInvite({ groupId, username })).then((res) => {
-        //console.log(res?.error?.message === "Rejected");
         if (res?.payload?.members?.length === 0) {
           carrotAlert("검색된 유저가 없습니다");
         } else if (res?.error?.message === "Rejected") {
