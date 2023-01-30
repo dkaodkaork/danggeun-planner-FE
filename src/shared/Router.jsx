@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { useEffect } from "react";
 
 import LoginPage from "../pages/auth/LoginPage";
 import SignUpPage from "../pages/auth/SignUpPage";
@@ -20,32 +21,72 @@ import TutorialPage from "../pages/tutorial/TutorialPage";
 import IntroPage from "../pages/auth/IntroPage";
 import KakaoLoginPage from "../pages/auth/KakaoLoginPage";
 import RouteChangeTracker from "./RouterChangeTracker";
+import ErrorPage from "../pages/error/ErrorPage";
+import { useState } from "react";
 
 const Router = () => {
+  const item = localStorage.getItem("accessToken");
+  const [accessToken, setAccessToken] = useState(item);
+
+  useEffect(() => {
+    window.addEventListener("storage", checkAuth);
+
+    return () => {
+      window.removeEventListener("storage", checkAuth);
+    };
+  }, []);
+
+  async function checkAuth() {
+    const item = await localStorage.getItem("accessToken");
+    console.log(item);
+    setAccessToken(item);
+  }
+
+  console.log(accessToken);
+
   return (
     <BrowserRouter>
       <RouteChangeTracker />
       <Routes>
-        <Route>
-          <Route path="/" element={<IntroPage />} />
-          <Route path="/timer" element={<TimerPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/kakao/login" element={<KakaoLoginPage />} />
-          <Route path="/signup" element={<SignUpPage />} />
-          <Route path="/alarm" element={<AlarmPage />} />
-          <Route path="/tutorial" element={<TutorialPage />} />
-          <Route path="/calendar/:username" element={<CalendarPage />} />
-          <Route path="/username" element={<UsernameFormPage />} />
-          <Route path="/mypage" element={<MyPage />} />
-          <Route path="/profile" element={<ProfileEditPage />} />
-          <Route path="/planner/:username/:date" element={<PlannerPage />} />
-          <Route path="/carrot" element={<GetCarrotPage />} />
-          <Route path="/group" element={<GroupListPage />} />
-          <Route path="/group/add" element={<GroupAddPage />} />
-          <Route path="/group/:groupId" element={<GroupDetailPage />} />
-          <Route path="/group/:groupId/update" element={<GroupUpdatePage />} />
-          <Route path="/group/:groupId/invite" element={<GroupInvitePage />} />
-        </Route>
+        {accessToken ? (
+          <Route>
+            <Route path="/" element={<IntroPage />} />
+            <Route path="/timer" element={<TimerPage />} />
+            {/* <Route path="/login" element={<LoginPage />} />
+            <Route path="/kakao/login" element={<KakaoLoginPage />} />
+            <Route path="/signup" element={<SignUpPage />} />
+            <Route path="/username" element={<UsernameFormPage />} /> */}
+            <Route path="/alarm" element={<AlarmPage />} />
+            <Route path="/tutorial" element={<TutorialPage />} />
+            <Route path="/calendar/:username" element={<CalendarPage />} />
+            <Route path="/mypage" element={<MyPage />} />
+            <Route path="/profile" element={<ProfileEditPage />} />
+            <Route path="/planner/:username/:date" element={<PlannerPage />} />
+            <Route path="/carrot" element={<GetCarrotPage />} />
+            <Route path="/group" element={<GroupListPage />} />
+            <Route path="/group/add" element={<GroupAddPage />} />
+            <Route path="/group/:groupId" element={<GroupDetailPage />} />
+            <Route path="/error" element={<ErrorPage />} />
+            <Route
+              path="/group/:groupId/update"
+              element={<GroupUpdatePage />}
+            />
+            <Route
+              path="/group/:groupId/invite"
+              element={<GroupInvitePage />}
+            />
+          </Route>
+        ) : (
+          <Route>
+            <Route path="/" element={<IntroPage />} />
+            <Route path="/error" element={<ErrorPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/kakao/login" element={<KakaoLoginPage />} />
+            <Route path="/signup" element={<SignUpPage />} />
+            <Route path="/username" element={<UsernameFormPage />} />
+            <Route path="*" element={<ErrorPage />} />
+          </Route>
+        )}
       </Routes>
     </BrowserRouter>
   );
