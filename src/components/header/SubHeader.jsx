@@ -27,14 +27,12 @@ const SubHeader = ({
 export default SubHeader;
 
 const StContainer = styled.div`
-  width: 375px;
   height: 56px;
   background-color: #f9f3ea;
   padding: 12px 28px 12px 28px;
 `;
 
 const StBox = styled.div`
-  width: 319px;
   height: 32px;
   /* border: 1px solid black; */
 

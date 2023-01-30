@@ -176,9 +176,9 @@ export default Menu;
 
 const ModalBackdrop = styled.div`
   visibility: ${(props) => (props.toggle ? "visible" : "hidden")};
-  width: 375px;
+  width: 100%;
   height: 100vh;
-  position: fixed;
+  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;

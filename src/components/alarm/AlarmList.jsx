@@ -114,6 +114,7 @@ export default AlarmList;
 const StLayout = styled.div`
   padding: 12px 28px;
   height: 100%;
+  background: #f9f3ea;
 `;
 
 const StListBoxs = styled.div`
