@@ -11,7 +11,7 @@ import {
   __putTimerContent,
   __getFocusPlan,
 } from "../../redux/modules/plannerSlice";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 import { PATH, IMAGES, MSG } from "../../constants/index";
@@ -35,6 +35,8 @@ const Planner = () => {
   const { date, username } = useParams();
 
   const plans = useSelector((state) => state?.planner?.data);
+
+  const naviagte = useNavigate();
 
   // 상태 선언
   const [selectedId, setSelectedId] = useState(null);
@@ -64,7 +66,11 @@ const Planner = () => {
 
   // 플래너 조회 요청
   useEffect(() => {
-    dispatch(__getAllPlan({ username: username, date: date }));
+    dispatch(__getAllPlan({ username: username, date: date })).then((res) => {
+      if (res?.error?.message === "Rejected") {
+        naviagte(PATH.error);
+      }
+    });
   }, [groupMenuOpen]);
 
   // 전체 조회 버튼
