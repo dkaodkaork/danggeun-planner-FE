@@ -44,7 +44,7 @@ const GroupModal = (props) => {
             <ButtonS className="reverse" onClick={clickGroupMenuHandler}>
               아니요
             </ButtonS>
-            <ButtonS onClick={props.onClickConfirm}>네</ButtonS>
+            <ButtonS onClick={props.onClickConfirm}>예</ButtonS>
           </BtnLayout>
         </Modal>
       ) : null}
