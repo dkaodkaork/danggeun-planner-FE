@@ -46,7 +46,8 @@ const MainHeader = ({ leftLink, leftSlot, title }) => {
 
   //그룹 읽음 데이터 확인
   const alarmIsRead = useSelector((state) => state.alarm.isRead);
-  console.log("헤더에서 읽었는가", alarmIsRead);
+  console.log("서버의 읽음 설정", alarmIsRead);
+  console.log("프론트의 읽음 설정", alarmRead);
 
   //그룹 읽음 수신
   useEffect(() => {
@@ -92,7 +93,7 @@ const MainHeader = ({ leftLink, leftSlot, title }) => {
             const json = JSON.parse(str);
             console.log("str", str);
             if (!str.includes("EventStream Created.")) {
-              dispatch(alarmReadStatus(true));
+              dispatch(alarmReadStatus(false));
             }
             return json && typeof json === "object";
           } catch (e) {
@@ -110,7 +111,7 @@ const MainHeader = ({ leftLink, leftSlot, title }) => {
       //sse 에러
       eventSource.onerror = (e) => {
         console.log("onerror", e);
-        eventSource.close();
+        // eventSource.close();
         localStorage.setItem("sse", null);
       };
 
@@ -166,7 +167,7 @@ const MainHeader = ({ leftLink, leftSlot, title }) => {
           </StLeftSlot>
           <StCenterSlot>{title}</StCenterSlot>
           <StRightSlot onClick={clickGroupMenuHandler}>
-            {(alarmRead || !alarmIsRead) && <div />}
+            {(!alarmRead || !alarmIsRead) && <div />}
             <button>{IMAGES.menu}</button>
           </StRightSlot>
         </StBox>

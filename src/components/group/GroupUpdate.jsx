@@ -131,6 +131,9 @@ const GroupLayout = styled.div`
   background-color: #f9f3ea;
   height: 100%;
   padding: 13px 32px 42px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const AddName = styled.div`
