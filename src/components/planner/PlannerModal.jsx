@@ -23,129 +23,133 @@ const PlannerModal = ({
   editTimerContentHandler,
   date,
   isDisabled,
+  planModalOpen,
 }) => {
+  console.log(planModalOpen);
   return (
     <>
-      <StModalHeader>
-        <button
-          onClick={() => {
-            closeModalHanlder(id, plan);
-          }}
-        >
-          {isEdit && plan?.hasOwnProperty("planId")
-            ? IMAGES.trashBtn
-            : IMAGES.fold}
-        </button>
+      {planModalOpen ? (
+        <div>
+          <StModalHeader>
+            <StBtn
+              onClick={() => {
+                closeModalHanlder(id, plan);
+              }}
+            >
+              {isEdit && plan?.hasOwnProperty("planId") ? "삭제" : IMAGES.fold}
+            </StBtn>
 
-        <StDateBox>{getDayOfWeek(date)}</StDateBox>
+            <StDateBox>{getDayOfWeek(date)}</StDateBox>
 
-        <button
-          onClick={
-            isDisabled
-              ? plan?.hasOwnProperty("timerId")
-                ? () => {
-                    editTimerContentHandler(id);
-                  }
-                : () => {
-                    doneAddModalHandler(id);
-                  }
-              : () => {
-                  doneAddModalHandler(id);
-                }
-          }
-        >
-          {IMAGES.checkBtn}
-        </button>
-      </StModalHeader>
-      <StInputBox>
-        <StInput
-          placeholder="제목 입력"
-          onChange={changeTitleHandler}
-          maxLength="24"
-          value={planTitle}
-        />
-        <StLabel>{countInput}/24</StLabel>
-      </StInputBox>
-      <StTimeBox>
-        <StSpan>시작</StSpan>
-        <Input
-          onChange={changeStartTimeHandler}
-          onInput={isNumber}
-          value={startTime.hour}
-          type="number"
-          name="hour"
-          placeholder="00"
-          maxLength="2"
-          width="45px"
-          height="45px"
-          fontSize="1.4rem"
-          padding="0px"
-          textAlign="center"
-          backgroundColor="white"
-          disabled={
-            isDisabled && plan?.hasOwnProperty("timerId") ? true : false
-          }
-        />
-        <div>:</div>
+            <button
+              onClick={
+                isDisabled
+                  ? plan?.hasOwnProperty("timerId")
+                    ? () => {
+                        editTimerContentHandler(id);
+                      }
+                    : () => {
+                        doneAddModalHandler(id);
+                      }
+                  : () => {
+                      doneAddModalHandler(id);
+                    }
+              }
+            >
+              {IMAGES.checkBtn}
+            </button>
+          </StModalHeader>
+          <StInputBox>
+            <StInput
+              placeholder="제목 입력"
+              onChange={changeTitleHandler}
+              maxLength="24"
+              value={planTitle}
+            />
+            <StLabel>{countInput}/24</StLabel>
+          </StInputBox>
+          <StTimeBox>
+            <StSpan>시작</StSpan>
+            <Input
+              onChange={changeStartTimeHandler}
+              onInput={isNumber}
+              value={startTime.hour}
+              type="number"
+              name="hour"
+              placeholder="00"
+              maxLength="2"
+              width="45px"
+              height="45px"
+              fontSize="1.4rem"
+              padding="0px"
+              textAlign="center"
+              backgroundColor="white"
+              disabled={
+                isDisabled && plan?.hasOwnProperty("timerId") ? true : false
+              }
+            />
+            <div>:</div>
 
-        <Input
-          onChange={changeStartTimeHandler}
-          onInput={isNumber}
-          value={startTime.min}
-          type="number"
-          name="min"
-          placeholder="00"
-          maxLength="2"
-          width="45px"
-          height="45px"
-          fontSize="1.4rem"
-          padding="0px"
-          textAlign="center"
-          backgroundColor="white"
-          disabled={
-            isDisabled && plan?.hasOwnProperty("timerId") ? true : false
-          }
-        />
-        <p>-</p>
-        <StSpan>종료</StSpan>
-        <Input
-          onChange={changeEndTimeHandler}
-          onInput={isNumber}
-          value={endTime.hour}
-          type="number"
-          name="hour"
-          placeholder="00"
-          maxLength="2"
-          width="45px"
-          height="45px"
-          fontSize="1.4rem"
-          padding="0px"
-          textAlign="center"
-          backgroundColor="white"
-          disabled={
-            isDisabled && plan?.hasOwnProperty("timerId") ? true : false
-          }
-        ></Input>
-        <div>:</div>
-        <Input
-          onChange={changeEndTimeHandler}
-          onInput={isNumber}
-          value={endTime.min}
-          type="number"
-          name="min"
-          placeholder="00"
-          maxLength="2"
-          width="45px"
-          height="45px"
-          fontSize="1.4rem"
-          padding="0px"
-          textAlign="center"
-          backgroundColor="white"
-          disabled={
-            isDisabled && plan?.hasOwnProperty("timerId") ? true : false
-          }
-        />
-      </StTimeBox>
+            <Input
+              onChange={changeStartTimeHandler}
+              onInput={isNumber}
+              value={startTime.min}
+              type="number"
+              name="min"
+              placeholder="00"
+              maxLength="2"
+              width="45px"
+              height="45px"
+              fontSize="1.4rem"
+              padding="0px"
+              textAlign="center"
+              backgroundColor="white"
+              disabled={
+                isDisabled && plan?.hasOwnProperty("timerId") ? true : false
+              }
+            />
+            <p>-</p>
+            <StSpan>종료</StSpan>
+            <Input
+              onChange={changeEndTimeHandler}
+              onInput={isNumber}
+              value={endTime.hour}
+              type="number"
+              name="hour"
+              placeholder="00"
+              maxLength="2"
+              width="45px"
+              height="45px"
+              fontSize="1.4rem"
+              padding="0px"
+              textAlign="center"
+              backgroundColor="white"
+              disabled={
+                isDisabled && plan?.hasOwnProperty("timerId") ? true : false
+              }
+            ></Input>
+            <div>:</div>
+            <Input
+              onChange={changeEndTimeHandler}
+              onInput={isNumber}
+              value={endTime.min}
+              type="number"
+              name="min"
+              placeholder="00"
+              maxLength="2"
+              width="45px"
+              height="45px"
+              fontSize="1.4rem"
+              padding="0px"
+              textAlign="center"
+              backgroundColor="white"
+              disabled={
+                isDisabled && plan?.hasOwnProperty("timerId") ? true : false
+              }
+            />
+          </StTimeBox>
+        </div>
+      ) : null}
     </>
   );
 };
@@ -242,8 +246,18 @@ const StSpan = styled.span`
 
   display: flex;
   align-items: center;
-  text-decoration-line: underline;
 
   color: #595545;
   margin-right: 12px;
+`;
+
+const StBtn = styled.button`
+  color: #4a8a51;
+  font-family: "Pretendard-Regular";
+
+  font-size: 1.4rem;
+  line-height: 160%;
+
+  text-align: center;
+  text-decoration-line: underline;
 `;

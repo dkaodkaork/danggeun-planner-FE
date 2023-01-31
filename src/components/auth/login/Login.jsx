@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate, Link } from "react-router-dom";
 
-import { PATH, MSG } from "../../../constants/index";
+import { PATH, MSG, IMAGES } from "../../../constants/index";
 import { api } from "../../../core/api";
 import { carrotAlert } from "../../element/alert";
 
@@ -10,6 +10,7 @@ import SubHeader from "../../header/SubHeader";
 import Button from "../../timer/TimerButton";
 import InputBox from "../signUp/InputBox";
 import AuthHeader from "../AtuhHeader";
+import { KAKAO_AUTH_URL } from "../../../core/index";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -70,6 +71,10 @@ const Login = () => {
     }
   };
 
+  const kakaoLoginHandler = () => {
+    window.location.href = KAKAO_AUTH_URL;
+  };
+
   return (
     <StContainer>
       <AuthHeader title="LOGIN" />
@@ -98,8 +103,21 @@ const Login = () => {
         <Button onClick={submitHandler} disabled={disabled} width="319px">
           로그인
         </Button>
+        <Button
+          onClick={kakaoLoginHandler}
+          height="54px"
+          width="319px"
+          backgroundColor="#FFE600"
+          fontSize="1.4rem"
+          color="#595550"
+          fontFamily="Pretendard-Regular"
+        >
+          <StBtnImg src={IMAGES.kakao} alt="카카오 로그인" />
+          <StText>카카오 아이디</StText>
+          <StP>로 로그인하기</StP>
+        </Button>
         <Link to={PATH.signup}>
-          <StBottomText>회원가입하러 가기</StBottomText>
+          <StBottomText>회원가입</StBottomText>
         </Link>
       </StBotBox>
     </StContainer>
@@ -122,20 +140,37 @@ const StBottomText = styled.div`
 
   text-align: center;
 
-  font-family: "Pretendard-Bold";
-  font-size: 1.4rem;
-  line-height: 130%;
+  font-family: "MaplestoryOTFLIGHT";
+  font-size: 1.6rem;
+  line-height: 18px;
 
   text-align: center;
   text-decoration-line: underline;
 
   color: #4a8a51;
-  margin-top: 24px;
+  margin-top: 18px;
 `;
 
 const StBotBox = styled.div`
-  position: fixed;
+  display: flex;
+  flex-direction: column;
   width: 319px;
-  height: 117px;
-  bottom: 28px;
+  /* height: 150px; */
+  gap: 24px;
+`;
+
+const StBtnImg = styled.img`
+  width: 30px;
+  height: 30px;
+`;
+
+const StText = styled.div`
+  font-family: "Pretendard-Bold";
+  font-size: 1.5rem;
+  margin-left: 24px;
+`;
+
+const StP = styled.p`
+  font-family: "Pretendard-Regular";
+  font-size: 1.5rem;
 `;

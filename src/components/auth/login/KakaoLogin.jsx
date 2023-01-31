@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { api } from "../../../core/api";
 import Landing from "./Landing";
 import { PATH } from "../../../constants/index";
+import { carrotAlert } from "../../element/alert";
 
 const KakaoLogin = () => {
   const navigate = useNavigate();
@@ -24,6 +25,7 @@ const KakaoLogin = () => {
       }
       // 여기서 로컬 스토리지에 acc, refresh 저장  저장하고 이제 navigate 로 이동
     } catch (error) {
+      carrotAlert("카카오로그인에 실패했습니다!");
       navigate(PATH.intro);
     }
   };

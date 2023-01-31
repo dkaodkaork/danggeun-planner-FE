@@ -23,6 +23,10 @@ const StDiv = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin: 0px 32px 0px 29px;
+  padding: 12px 28px 12px 28px;
+
   height: 56px;
+
+  background-color: #f9f3ea;
+  border: none;
 `;
