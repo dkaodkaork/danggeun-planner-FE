@@ -3,7 +3,7 @@ import { api } from "../../core/api";
 
 const initialState = {
   alarmList: [],
-  alarmRead: false,
+  alarmRead: true,
   isLoading: false,
   isRead: true,
   error: null,

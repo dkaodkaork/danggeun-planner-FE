@@ -10,6 +10,7 @@ import {
   searchModalOpenStatus,
 } from "../../redux/modules/modalSlice";
 import { __getUserInfo } from "../../redux/modules/mypageSlice";
+import { __getAlarm } from "../../redux/modules/alarmSlice";
 
 //상수, api
 import { IMAGES, PATH } from "../../constants/index";
@@ -32,15 +33,21 @@ const Menu = () => {
   //오늘 날짜 가져오기
   const today = moment().format("YYYY-MM-DD");
 
+  //메뉴 오픈 관련
+  const groupMenuOpen = useSelector((state) => state.modalSlice.groupMenuOpen);
+
+  //알림 읽음 조회
+  useEffect(() => {
+    console.log("알림 읽음 조회");
+    dispatch(__getAlarm());
+  }, [groupMenuOpen]);
+
   //닉네임,프로필 조회
   useEffect(() => {
     dispatch(__getUserInfo());
   }, [dispatch]);
 
   const userInfo = useSelector((state) => state.mypage.data);
-
-  //메뉴 오픈 관련
-  const groupMenuOpen = useSelector((state) => state.modalSlice.groupMenuOpen);
 
   const clickGroupMenuHandler = () => {
     dispatch(groupMenuOpenStatus(!groupMenuOpen));
@@ -115,7 +122,7 @@ const Menu = () => {
               <button>{IMAGES.nextArrow}</button>
             </div>
             <StBellLayout onClick={clickBellNav}>
-              {(alarmRead || !alarmIsRead) && <div />}
+              {(!alarmRead || !alarmIsRead) && <div />}
               <button>{IMAGES.bell}</button>
             </StBellLayout>
           </MenuIcon>

@@ -86,8 +86,8 @@ const GroupInvite = () => {
 
   //그룹원 초대 완료하기
   const InviteSubmit = () => {
+    carrotAlert("그룹원을 초대했습니다");
     const inviteList = { username: checkedList };
-    console.log("그룹원 초대 완료");
     dispatch(__postGroupMemberInvite({ groupId, inviteList })).then(() => {
       navigate(PATH.groupdetail(groupId));
     });

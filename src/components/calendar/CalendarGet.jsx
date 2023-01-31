@@ -164,6 +164,7 @@ const StCalendarStyle = styled.div`
   flex-direction: column;
   align-items: center;
   height: 100%;
+  padding: 0 24px 28px 24px;
 `;
 
 const StCalendarLayout = styled.div`
@@ -175,6 +176,5 @@ const StCalendarLayout = styled.div`
 `;
 
 const StTodayBtnLayout = styled.div`
-  position: fixed;
-  bottom: 3.4vh;
+  margin-top: 2.8325vh;
 `;

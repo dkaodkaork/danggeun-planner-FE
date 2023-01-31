@@ -71,6 +71,7 @@ const GlobalStyles = createGlobalStyle`
     border: 0;
     font-weight: normal;
     font-family: 'AppleSDGothicNeo', 'Noto Sans KR', sans-serif;
+    -webkit-tap-highlight-color : rgba(0,0,0,0);
 
   }
 

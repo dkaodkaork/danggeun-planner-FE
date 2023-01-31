@@ -18,24 +18,35 @@ import { IMAGES, PATH } from "../../constants/index";
 import SubHeader from "../header/SubHeader";
 import MainHeader from "../header/MainHeader";
 import ButtonS from "../element/ButtonS";
+import { carrotAlert } from "../element/alert";
 
 const AlarmList = () => {
   const dispatch = useDispatch();
   const alarmList = useSelector((state) => state.alarm.alarmList);
 
+  //읽음 설정 관련
+  const alarmRead = useSelector((state) => state.alarm.alarmRead);
+
+  //그룹 읽음 데이터 확인
+  const alarmIsRead = useSelector((state) => state.alarm.isRead);
+  console.log("서버의 읽음 설정", alarmIsRead);
+  console.log("프론트의 읽음 설정", alarmRead);
+
   //알림 리스트 불러오기
   useEffect(() => {
     dispatch(__getAlarmList());
-    dispatch(alarmReadStatus(false));
+    dispatch(alarmReadStatus(true));
   }, []);
 
   //그룹 초대 승락
   const clickAcceptHandler = (notificationId, groupId) => {
+    carrotAlert("그룹 초대를 수락했습니다");
     dispatch(__postAlarmAccept({ notificationId, groupId }));
   };
 
   //그룹 초대 거절
   const clickRejectHandler = (notificationId, groupId) => {
+    carrotAlert("그룹 초대를 거절했습니다");
     dispatch(__deleteAlarmReject({ notificationId, groupId }));
   };
 
