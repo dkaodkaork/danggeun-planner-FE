@@ -149,21 +149,22 @@ const StBottomText = styled.div`
 
   text-align: center;
 
-  font-family: "Pretendard-Bold";
-  font-size: 1.4rem;
-  line-height: 130%;
+  font-family: "MaplestoryOTFLIGHT";
+  font-size: 1.6rem;
+  line-height: 18%;
 
   text-align: center;
   text-decoration-line: underline;
 
   color: #4a8a51;
 
-  margin-top: 24px;
+  margin-top: 42px;
 `;
 
 const StBotBox = styled.div`
-  position: fixed;
+  /* position: fixed; */
   width: 319px;
-  height: 117px;
-  bottom: 28px;
+  margin-top: 20px;
+  /* height: 117px; */
+  /* bottom: 28px; */
 `;

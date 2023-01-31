@@ -114,7 +114,7 @@ const GroupInvite = () => {
             onChange={onInputHandler}
             maxLength="6"
             margin="0"
-            width="254px"
+            width="245px"
             height="55px"
           />
           <button onClick={clickSearch}>{IMAGES.search}</button>
@@ -235,8 +235,8 @@ const Search = styled.div`
 
 const SearchList = styled.div`
   width: 292px;
-  height: ${(props) => (props.toggle ? "376px" : "190px")};
-  overflow: scroll;
+  height: ${(props) => (props.toggle ? "46.3054vh" : "23.3990vh")};
+  overflow-y: scroll;
 `;
 
 const UserLayout = styled.div`
@@ -262,9 +262,9 @@ const User = styled.div`
 `;
 
 const UserBox = styled.div`
-  margin-top: 25px;
+  margin-top: 3.0788vh;
   width: 319px;
-  height: 160px;
+  height: 19.7044vh;
   background: #f1e5d2;
   border-radius: 12px;
   padding: 26px 46px 26px 46px;

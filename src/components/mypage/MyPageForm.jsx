@@ -93,7 +93,7 @@ const MypageForm = () => {
               fontSize="1.6rem"
               onClick={() =>
                 window.open(
-                  "https://www.notion.so/4de1bdd12eda48e79ac2dde2c45d6c8f"
+                  "https://docs.google.com/forms/d/e/1FAIpQLScLsM2BlULlPVuedfEZshRzFts1nBluWWiltFux5T4bYnCv3g/viewform"
                 )
               }
             >
@@ -107,9 +107,7 @@ const MypageForm = () => {
               backgroundColor="#F9F3EA"
               color="#F27808"
               onClick={() =>
-                window.open(
-                  "https://www.notion.so/4de1bdd12eda48e79ac2dde2c45d6c8f"
-                )
+                window.open("https://danggeunplanner.tistory.com/")
               }
             >
               공지 사항

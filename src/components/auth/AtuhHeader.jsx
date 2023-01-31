@@ -13,13 +13,14 @@ const AuthHeader = ({ title }) => {
 export default AuthHeader;
 
 const StContainer = styled.div`
-  width: 375px;
+  /* width: 375px; */
   height: 72px;
   padding: 28px 28px 12px 28px;
   background-color: #f9f3ea;
   display: flex;
   justify-content: center;
   align-items: center;
+  border: none;
 `;
 
 const StCenterSlot = styled.div`

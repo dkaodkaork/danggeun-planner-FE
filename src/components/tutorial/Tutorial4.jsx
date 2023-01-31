@@ -41,9 +41,9 @@ const ImgBackground = styled.div`
   background-image: url(${(props) => props.url});
   padding: 80px 28px 28px 28px;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;

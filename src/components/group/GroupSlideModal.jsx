@@ -1,7 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 
-const SlideModal = ({ children, bottom, height, toggle, cancleHandler }) => {
+const GroupSlideModal = ({
+  children,
+  bottom,
+  height,
+  toggle,
+  cancleHandler,
+}) => {
   return (
     <>
       <ModalBackdrop toggle={toggle} onClick={cancleHandler} />
@@ -12,7 +18,7 @@ const SlideModal = ({ children, bottom, height, toggle, cancleHandler }) => {
   );
 };
 
-export default SlideModal;
+export default GroupSlideModal;
 
 const ModalBackdrop = styled.div`
   visibility: ${(props) => (props.toggle ? "visible" : "hidden")};
@@ -30,8 +36,9 @@ const MenuLayout = styled.div`
   width: 100%;
   background-color: #fffdfa;
   position: absolute;
-  bottom: ${(props) => (props.toggle ? "0" : props.bottom)};
-  height: ${(props) => (props.toggle ? "258px" : "0px")};
+  bottom: 0;
+  /* ${(props) => (props.toggle ? "500px" : props.bottom)}; */
+  height: ${(props) => (props.toggle ? props.height : "10.8374vh")};
   transition: all 0.5s ease-in;
   padding: 28px;
   border-radius: 12px 12px 0px 0px;

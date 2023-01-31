@@ -21,9 +21,9 @@ const CarrotTimer = () => {
 
   const data = useSelector((state) => state.timer.data);
 
-  const startTime = 1000 * 4;
-  const restTime = 1000 * 2;
-  const longRestTime = 1000 * 3;
+  const startTime = 1000 * 60 * 25;
+  const restTime = 1000 * 60 * 5;
+  const longRestTime = 1000 * 60 * 15;
 
   const alarm = new Audio(require("../../assets/audio/alarm.mp3"));
 
@@ -32,19 +32,21 @@ const CarrotTimer = () => {
       callback();
     }, startTime);
 
+  console.log(currentTime);
+
   useLayoutEffect(() => {
     if (mode === "focusMode") {
-      if (currentTime <= 80000 && currentTime > 70000) {
+      if (currentTime === 1500000) {
         setStack("default");
-      } else if (currentTime <= 70000 && currentTime > 60000) {
+      } else if (currentTime < 1500000 && currentTime > 1200000) {
         setStack("step1");
-      } else if (currentTime <= 60000 && currentTime > 50000) {
+      } else if (currentTime <= 1200000 && currentTime > 900000) {
         setStack("step2");
-      } else if (currentTime <= 50000 && currentTime > 40000) {
+      } else if (currentTime <= 900000 && currentTime > 600000) {
         setStack("step3");
-      } else if (currentTime <= 40000 && currentTime > 30000) {
+      } else if (currentTime <= 600000 && currentTime > 300000) {
         setStack("step4");
-      } else if (currentTime <= 30000 && currentTime > 20000) {
+      } else if (currentTime <= 300000 && currentTime > 0) {
         setStack("step5");
       } else {
         setStack("step6");
@@ -74,7 +76,7 @@ const CarrotTimer = () => {
   };
 
   const restModeDoneHandler = () => {
-    if (count === 2) {
+    if (count === 4) {
       toggleTimer(longRestTime);
       setCount(0);
     } else {
