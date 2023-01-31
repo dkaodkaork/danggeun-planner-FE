@@ -30,8 +30,9 @@ export default Error;
 const StContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  background-color: #f9f3ea;
+  height: 100%;
 `;
 
 const StCarrotMsg = styled.div`
@@ -58,7 +59,7 @@ const StBody = styled.div`
   background-image: url(${(props) => props.url});
   background-position: center;
   background-repeat: no-repeat;
-  margin: 140px 0px 24px 0px;
+  margin: 200px 0px 24px 0px;
   width: 172px;
   height: 172px;
   /* 

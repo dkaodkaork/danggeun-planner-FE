@@ -1,6 +1,7 @@
 export const PATH = {
   //route 경로
-  intro: "/",
+
+  intro: "/intro",
   login: "/login",
   signup: "/signup",
   loginoption: "/loginoption",
@@ -8,7 +9,7 @@ export const PATH = {
   username: "/username",
   mypage: "/mypage",
   profile: "/profile",
-  timer: "/timer",
+  timer: "/",
   getcarrot: "/getcarrot",
   carrot: "/carrot",
   alarm: "/alarm",
