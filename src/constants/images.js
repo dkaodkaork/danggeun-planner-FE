@@ -26,6 +26,8 @@ import { ReactComponent as Edit } from "../assets/images/mypage/NotePencil.svg";
 import { ReactComponent as DownArrowS } from "../assets/images/element/downArrowS.svg";
 import { ReactComponent as UpArrowS } from "../assets/images/element/upArrowS.svg";
 import { ReactComponent as SearchIcon } from "../assets/images/menu/searchIcon.svg";
+import { ReactComponent as Intro } from "../assets/images/login/intro.svg";
+import { ReactComponent as IntroLogo } from "../assets/images/login/intrologo.svg";
 import { ReactComponent as XIcon } from "../assets/images/group/xIcon.svg";
 import { ReactComponent as Gold } from "../assets/images/group/gold.svg";
 import { ReactComponent as Silver } from "../assets/images/group/silver.svg";
@@ -38,13 +40,11 @@ import { ReactComponent as LeftArrow } from "../assets/images/tutorial/leftArrow
 import { ReactComponent as RightArrow } from "../assets/images/tutorial/rightArrow.svg";
 import { ReactComponent as Logo } from "../assets/images/web/logo.svg";
 
-
 export const IMAGES = {
   // 로그인
   kakao: require("../assets/images/login/kakao.png"),
-  naver: require("../assets/images/login/naver.png"),
-  google: require("../assets/images/login/google.png"),
-  logo: require("../assets/images/login/logo.png"),
+  intro: <Intro />,
+  logo: <IntroLogo />,
 
   // 마이페이지
   fold: <Fold />,
@@ -119,7 +119,6 @@ export const IMAGES = {
   // 경고창
   alertImg: require("../assets/images/element/alert.png"),
 
-
   //에러 페이지
   errImg: require("../assets/images/error/error.webp"),
   errImg2: <ErrImg />,
@@ -129,5 +128,4 @@ export const IMAGES = {
   rabbit: require("../assets/images/web/rabbit.png"),
   backEarth: require("../assets/images/web/back_earth.png"),
   members: require("../assets/images/web/members.png"),
-
 };

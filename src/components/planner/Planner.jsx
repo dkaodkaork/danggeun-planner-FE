@@ -109,6 +109,7 @@ const Planner = () => {
   const planModalOpen = useSelector(
     (state) => state.modalSlice.addPlanModalOpen
   );
+  console.log(planModalOpen);
 
   // 모달창 열기
   const openModalHanlder = () => {
@@ -338,11 +339,12 @@ const Planner = () => {
       )}
       <SlideModal
         height="258px"
-        bottom="-260px"
+        bottom="-60px"
         toggle={planModalOpen}
         cancleHandler={modalOutSideClick}
       >
         <PlannerModal
+          planModalOpen={planModalOpen}
           doneAddModalHandler={doneAddModalHandler}
           changeTitleHandler={changeTitleHandler}
           changeStartTimeHandler={changeStartTimeHandler}
@@ -361,23 +363,28 @@ const Planner = () => {
           isDisabled={isDisabled}
         />
       </SlideModal>
-      {confirmModalOpen ? (
-        <ConfirmModal
-          img={plans?.profileImage}
-          content={plans?.content}
-          onClick={() => {
-            setIsDelete(!isDelete);
-          }}
-        />
-      ) : null}
     </>
   );
 };
 
+// {confirmModalOpen ? (
+//   <ConfirmModal
+//     img={plans?.profileImage}
+//     content={plans?.content}
+//     onClick={() => {
+//       setIsDelete(!isDelete);
+//     }}
+//   />
+// ) : null}
 export default Planner;
+
+const StDiv1 = styled.div`
+  height: 100%;
+`;
 
 const StContainer = styled.div`
   background-color: #f9f3ea;
+  /* height: 80vh; */
   /* height: 100vh; */
 `;
 
@@ -425,7 +432,7 @@ const StBodyDiv = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  height: 507px;
+  height: 600px;
   overflow: scroll;
   margin-top: 6px;
 `;

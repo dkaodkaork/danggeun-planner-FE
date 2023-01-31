@@ -30,6 +30,7 @@ const StContainer = styled.div`
   height: 56px;
   background-color: #f9f3ea;
   padding: 12px 28px 12px 28px;
+  border: none;
 `;
 
 const StBox = styled.div`

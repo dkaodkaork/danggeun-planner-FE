@@ -31,7 +31,7 @@ const MenuLayout = styled.div`
   background-color: #fffdfa;
   position: absolute;
   bottom: ${(props) => (props.toggle ? "0" : props.bottom)};
-  height: ${(props) => props.height || "662px"};
+  height: ${(props) => (props.toggle ? "258px" : "0px")};
   transition: all 0.5s ease-in;
   padding: 28px;
   border-radius: 12px 12px 0px 0px;

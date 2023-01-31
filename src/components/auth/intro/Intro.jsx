@@ -4,21 +4,17 @@ import styled from "styled-components";
 import { IMAGES, PATH } from "../../../constants/index";
 
 import Button from "../../timer/TimerButton";
-import { KAKAO_AUTH_URL } from "../../../core/index";
 
 const Intro = () => {
-  console.log(KAKAO_AUTH_URL);
-
-  const kakaoLoginHandler = () => {
-    window.location.href = KAKAO_AUTH_URL;
-  };
-
   return (
     <StContainer>
-      <StImg src={IMAGES.logo}></StImg>
+      <StBody>
+        <StImg>{IMAGES.intro}</StImg>
+        <StMsg>{IMAGES.logo}</StMsg>
+      </StBody>
       <StBtnBox>
-        <Link to={PATH.signup}>
-          <Button width="319px">회원가입</Button>
+        <Link to={PATH.timer}>
+          <Button width="319px">튜토리얼</Button>
         </Link>
         <Link to={PATH.login}>
           <Button
@@ -27,10 +23,10 @@ const Intro = () => {
             color="#F27808"
             border="1px solid #F27808"
           >
-            로그인
+            당근플래너시작하기
           </Button>
         </Link>
-        <Button
+        {/* <Button
           onClick={kakaoLoginHandler}
           height="54px"
           width="319px"
@@ -43,7 +39,7 @@ const Intro = () => {
           <StBtnImg src={IMAGES.kakao} alt="카카오 로그인" />
           <StText>카카오 아이디</StText>
           <StP>로 로그인하기</StP>
-        </Button>
+        </Button> */}
       </StBtnBox>
     </StContainer>
   );
@@ -59,25 +55,19 @@ const StContainer = styled.div`
   align-items: center;
 `;
 
-const StImg = styled.img`
-  margin: 209px 107px 156px 107px;
+const StBody = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  position: fixed;
+  top: 26vh;
+  z-index: 5;
 `;
 
-const StBtnImg = styled.img`
-  width: 30px;
-  height: 30px;
-`;
+const StMsg = styled.div``;
 
-const StText = styled.div`
-  font-family: "Pretendard-Bold";
-  font-size: 1.5rem;
-  margin-left: 24px;
-`;
-
-const StP = styled.p`
-  font-family: "Pretendard-Regular";
-  font-size: 1.5rem;
-`;
+const StImg = styled.div``;
 
 const StBtnBox = styled.div`
   display: flex;
