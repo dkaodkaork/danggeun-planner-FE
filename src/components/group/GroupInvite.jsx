@@ -58,7 +58,7 @@ const GroupInvite = () => {
           carrotAlert("검색된 유저가 없습니다");
         } else if (res?.error?.message === "Rejected") {
           carrotAlert("접근 권한이 없습니다");
-          navigate(PATH.timer);
+          navigate(PATH.grouplist);
         } else {
           setSearchList(res.payload.members);
         }

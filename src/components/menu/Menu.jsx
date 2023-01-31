@@ -125,10 +125,10 @@ const Menu = () => {
           </StUser>
           <MenuNav>
             <StMenuBtnLayout>
-              {nowMenu === "t" && <Carrot>{IMAGES.menuCarrot}</Carrot>}
+              {nowMenu === "" && <Carrot>{IMAGES.menuCarrot}</Carrot>}
               <MenuButton
                 onClick={clickTimverNav}
-                className={nowMenu === "t" && "active"}
+                className={nowMenu === "" && "active"}
               >
                 타이머
               </MenuButton>
@@ -189,7 +189,7 @@ const ModalBackdrop = styled.div`
 
 const MenuLayout = styled.div`
   width: 196px;
-  background-color: #fffdfa;
+  background-color: #f9f3ea;
   position: absolute;
   right: ${(props) => (props.toggle ? "0" : "-196px")};
   height: 100vh;
@@ -213,7 +213,7 @@ const MenuNav = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 8.6207vh;
+  margin-top: 24px;
   gap: 24px;
 `;
 
@@ -265,6 +265,10 @@ const Carrot = styled.div`
 
 const StUser = styled.div`
   margin-top: 8.6207vh;
+  height: 14.4089vh;
+  background-color: #fffdfa;
+  border: 1px solid #f1e5d2;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
