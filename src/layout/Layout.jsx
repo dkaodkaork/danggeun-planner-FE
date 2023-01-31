@@ -142,7 +142,7 @@ const DivLayout2 = styled.div`
   @media screen and (max-width: 420px) {
     width: 100%;
     margin: auto;
-    background-color: #000000;
+    background-color: #f9f3ea;
   }
   width: 375px;
   /* min-height: 812px; */
