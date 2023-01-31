@@ -119,8 +119,13 @@ const Menu = () => {
               <button>{IMAGES.bell}</button>
             </StBellLayout>
           </MenuIcon>
+          <MenuIcon2>
+            <div></div>
+            <button onClick={clickSearchNav}>{IMAGES.searchIcon}</button>
+          </MenuIcon2>
+
           <StUser onClick={clickProfileNav}>
-            <ProfileImg src={userInfo?.profileImage} />
+            <ProfileImg src={userInfo?.profileImage} width="50px" />
             <Nickname>{userInfo?.username}</Nickname>
           </StUser>
           <MenuNav>
@@ -161,10 +166,13 @@ const Menu = () => {
               </MenuButton>
             </StMenuBtnLayout>
           </MenuNav>
-          <Search onClick={clickSearchNav}>
+          {/* <Search onClick={clickSearchNav}>
             <button>{IMAGES.searchIcon}</button>
             <span>검색</span>
-          </Search>
+          </Search> */}
+          <StMadyby>
+            Carrot <strong>Planner</strong>
+          </StMadyby>
         </MenuLayout>
       </ModalBackdrop>
       <SearchModal />
@@ -177,7 +185,7 @@ export default Menu;
 const ModalBackdrop = styled.div`
   visibility: ${(props) => (props.toggle ? "visible" : "hidden")};
   width: 100%;
-  height: 100vh;
+  height: 100%;
   position: absolute;
   display: flex;
   justify-content: center;
@@ -188,11 +196,12 @@ const ModalBackdrop = styled.div`
 `;
 
 const MenuLayout = styled.div`
+  /* width: ${(props) => (props.toggle ? "196px" : "0")}; */
   width: 196px;
   background-color: #f9f3ea;
   position: absolute;
   right: ${(props) => (props.toggle ? "0" : "-196px")};
-  height: 100vh;
+  height: 100%;
   transition: ${(props) => (props.toggle ? "all 0.4s" : "0s")};
   /* transition: all 0.4s; */
   padding: 28px;
@@ -209,17 +218,24 @@ const MenuIcon = styled.div`
   }
 `;
 
+const MenuIcon2 = styled(MenuIcon)`
+  margin-top: 2vh;
+  button {
+    width: 25px;
+  }
+`;
+
 const MenuNav = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 24px;
+  margin-top: 4.803vh;
   gap: 24px;
 `;
 
 const MenuButton = styled.button`
   width: 140px;
-  height: 75px;
+  height: 9.2365vh;
   background: #f9f3ea;
   border: 1px solid #4a8a51;
   box-shadow: 0px 4px 0px rgba(0, 0, 0, 0.25);
@@ -264,12 +280,9 @@ const Carrot = styled.div`
 `;
 
 const StUser = styled.div`
-  margin-top: 8.6207vh;
-  height: 14.4089vh;
-  background-color: #fffdfa;
-  border: 1px solid #f1e5d2;
-  border-radius: 12px;
+  margin-top: 5.5419vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 11px;
@@ -279,9 +292,22 @@ const StUser = styled.div`
 const Nickname = styled.div`
   font-family: "Pretendard-Bold";
   font-weight: 700;
-  font-size: 1.6rem;
+  font-size: 1.9rem;
   text-align: right;
   color: #595550;
+`;
+
+const StMadyby = styled.p`
+  margin-top: 16.0099vh;
+  font-family: "MaplestoryOTFLight";
+  font-weight: 300;
+  font-size: 1.6rem;
+  text-align: center;
+  color: #f27808;
+
+  strong {
+    color: #4a8a51;
+  }
 `;
 
 const Search = styled.div`

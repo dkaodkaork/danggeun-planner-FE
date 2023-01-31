@@ -167,8 +167,7 @@ const Addcontents = styled.div`
 `;
 
 const StBottom = styled.div`
-  position: fixed;
-  bottom: 70px;
+  margin-top: 6.1576vh;
 `;
 
 const PageMsg = styled.p`

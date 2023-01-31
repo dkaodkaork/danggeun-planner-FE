@@ -26,6 +26,18 @@ const MainHeader = ({ leftLink, leftSlot, title }) => {
     dispatch(groupMenuOpenStatus(!groupMenuOpen));
   };
 
+  //화면크기 인식
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const resizeWidth = () => {
+    setWindowWidth(window.innerWidth);
+  };
+  useEffect(() => {
+    window.addEventListener("resize", resizeWidth);
+    return () => {
+      window.removeEventListener("resize", resizeWidth);
+    };
+  }, []);
+
   //SSE 설정
   const EventSource = EventSourcePolyfill || NativeEventSource;
 
@@ -34,35 +46,77 @@ const MainHeader = ({ leftLink, leftSlot, title }) => {
 
   //그룹 읽음 데이터 확인
   const alarmIsRead = useSelector((state) => state.alarm.isRead);
-  //console.log("헤더에서", alarmIsRead);
+  console.log("헤더에서 읽었는가", alarmIsRead);
 
   //그룹 읽음 수신
   useEffect(() => {
     dispatch(__getAlarm());
   }, []);
 
+  //sse연결 여부
+  const isSSE = localStorage.getItem("sse") === "connect" ? true : false;
+  console.log("isSSE", isSSE);
+
   //sse 설정 new
   useEffect(() => {
     const AccessToken = localStorage.getItem("accessToken");
-    if (AccessToken) {
-      const eventSource = new EventSource(
+    //sse연결에 끊어졌을 때만 받도록 함
+    if (!isSSE) {
+      const eventSource = new EventSourcePolyfill(
         // `${process.env.REACT_APP_TEST_SERVER}/api/subscribe`,
         `${serverUrl}/subscribe`,
         {
           headers: {
-            AccessToken,
+            AccessToken: AccessToken,
+            "Content-Type": "text/event-stream",
           },
           withCredentials: true, //무조건 넣어야 함
           heartbeatTimeout: 3600000, //리프레시토큰만큼의 기한
         }
       );
-      /* EVENTSOURCE ONMESSAGE ---------------------------------------------------- */
-      eventSource.onmessage = (e) => {
-        if (!e.data.includes("EventStream Created.")) {
-          dispatch(alarmReadStatus(true));
-        } // 헤더 아이콘 상태 변경
+
+      //sse 연결 처리
+      eventSource.onopen = (e) => {
+        console.log(e);
+        if (e.status === 200) {
+          localStorage.setItem("sse", "connect");
+        }
       };
-    }
+
+      //sse 받는 처리
+      eventSource.onmessage = (e) => {
+        //받은 데이터 Json타입으로 형변환 가능여부fn
+        console.log("onmessage", e);
+        const isJson = (str) => {
+          try {
+            const json = JSON.parse(str);
+            console.log("str", str);
+            if (!str.includes("EventStream Created.")) {
+              dispatch(alarmReadStatus(true));
+            }
+            return json && typeof json === "object";
+          } catch (e) {
+            return false;
+          }
+        };
+        if (isJson(e.data)) {
+          //알림 리스트 refetch
+          //실시간 알림 데이터
+          const obj = JSON.parse(e.data);
+          console.log("obj", obj);
+        }
+      };
+
+      //sse 에러
+      eventSource.onerror = (e) => {
+        console.log("onerror", e);
+        eventSource.close();
+        localStorage.setItem("sse", null);
+      };
+
+      // if (!e.data.includes("EventStream Created.")) {
+      //   dispatch(alarmReadStatus(true));
+    } // 헤더 아이콘 상태 변경
   }, []);
 
   //sse 설정
@@ -117,7 +171,7 @@ const MainHeader = ({ leftLink, leftSlot, title }) => {
           </StRightSlot>
         </StBox>
       </StContainer>
-      <Menu />
+      {windowWidth < 500 && !groupMenuOpen ? null : <Menu />}
     </>
   );
 };

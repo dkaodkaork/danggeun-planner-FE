@@ -19,7 +19,7 @@ import {
 import { IMAGES, PATH } from "../../constants/index";
 
 //컴포넌트
-import SlideModal from "../element/SlideModal";
+import GroupSlideModal from "./GroupSlideModal";
 import GroupModal from "./GroupModal";
 import GroupDetailBtn from "../element/GroupDetailBtn";
 import ProfileImg from "../element/ProfileImg";
@@ -115,9 +115,9 @@ const GroupMember = () => {
   return (
     <>
       {!groupMenuOpen ? (
-        <SlideModal
-          bottom="-574px"
-          height="662px"
+        <GroupSlideModal
+          bottom="-69.7044vh"
+          height="80.5419vh"
           toggle={groupMemberOpen}
           cancleHandler={ClickToggle}
         >
@@ -131,76 +131,82 @@ const GroupMember = () => {
               <h1 onClick={ClickToggle}>그룹원 목록</h1>
               <div>{groupMemberGet.onlineParticipant} 접속중</div>
             </Top>
-            <ScrollBox>
-              <Member>
-                <State>
-                  <div />
-                  <span>나</span>
-                </State>
-                {groupMemberGet?.myInfo !== undefined ? (
-                  <>
-                    <User>
-                      <ProfileImg
-                        src={groupMemberGet?.myInfo[0]?.profileImage}
-                      />
-                      <span>{groupMemberGet?.myInfo[0]?.username}</span>
-                    </User>
-                    <Carrot>
-                      {IMAGES.memberCarrot}{" "}
-                      {groupMemberGet?.myInfo[0]?.dailyCarrot}
-                    </Carrot>
-                  </>
-                ) : null}
-              </Member>
-              {groupMemberGet?.participantList?.map((user) => (
-                <Member key={user?.username}>
-                  {user?.online ? (
-                    <OnlineState>
+            {groupMemberOpen ? (
+              <>
+                <ScrollBox>
+                  <Member>
+                    <State>
                       <div />
-                      <span>접속중</span>
-                    </OnlineState>
+                      <span>나</span>
+                    </State>
+                    {groupMemberGet?.myInfo !== undefined ? (
+                      <>
+                        <User>
+                          <ProfileImg
+                            src={groupMemberGet?.myInfo[0]?.profileImage}
+                          />
+                          <span>{groupMemberGet?.myInfo[0]?.username}</span>
+                        </User>
+                        <Carrot>
+                          {IMAGES.memberCarrot}{" "}
+                          {groupMemberGet?.myInfo[0]?.dailyCarrot}
+                        </Carrot>
+                      </>
+                    ) : null}
+                  </Member>
+                  {groupMemberGet?.participantList?.map((user) => (
+                    <Member key={user?.username}>
+                      {user?.online ? (
+                        <OnlineState>
+                          <div />
+                          <span>접속중</span>
+                        </OnlineState>
+                      ) : (
+                        <OfflineState>
+                          <div />
+                          <span>부재중</span>
+                        </OfflineState>
+                      )}
+                      <Link to={PATH.calendar(user?.username)}>
+                        <User onClick={clickMemberHandler}>
+                          <ProfileImg src={user?.profileImage} />
+                          <span>{user?.username}</span>
+                        </User>
+                      </Link>
+                      <Carrot>
+                        {IMAGES.memberCarrot} {user?.dailyCarrot}
+                      </Carrot>
+                    </Member>
+                  ))}
+                </ScrollBox>
+                <GroupButton>
+                  {groupMemberGet?.isAdmin ? (
+                    <>
+                      <StGroupBtnLeft>
+                        <GroupDetailBtn onClick={clickUpdateHandler}>
+                          그룹수정
+                        </GroupDetailBtn>
+                        <GroupDetailBtn onClick={clickDeleteHandler}>
+                          그룹삭제
+                        </GroupDetailBtn>
+                      </StGroupBtnLeft>
+                      <GroupDetailBtn
+                        className="reverse"
+                        onClick={clickInviteHandler}
+                      >
+                        그룹원 추가
+                      </GroupDetailBtn>
+                    </>
                   ) : (
-                    <OfflineState>
-                      <div />
-                      <span>부재중</span>
-                    </OfflineState>
+                    <GroupDetailBtn onClick={clickQuitHandler}>
+                      그룹탈퇴
+                    </GroupDetailBtn>
                   )}
-                  <Link to={PATH.calendar(user?.username)}>
-                    <User onClick={clickMemberHandler}>
-                      <ProfileImg src={user?.profileImage} />
-                      <span>{user?.username}</span>
-                    </User>
-                  </Link>
-                  <Carrot>
-                    {IMAGES.memberCarrot} {user?.dailyCarrot}
-                  </Carrot>
-                </Member>
-              ))}
-            </ScrollBox>
-            <GroupButton>
-              {groupMemberGet?.isAdmin ? (
-                <>
-                  <GroupDetailBtn onClick={clickUpdateHandler}>
-                    그룹수정
-                  </GroupDetailBtn>
-                  <GroupDetailBtn onClick={clickDeleteHandler}>
-                    그룹삭제
-                  </GroupDetailBtn>
-                  <GroupDetailBtn
-                    className="reverse"
-                    onClick={clickInviteHandler}
-                  >
-                    그룹원 추가
-                  </GroupDetailBtn>
-                </>
-              ) : (
-                <GroupDetailBtn onClick={clickQuitHandler}>
-                  그룹탈퇴
-                </GroupDetailBtn>
-              )}
-            </GroupButton>
+                </GroupButton>
+              </>
+            ) : null}
           </GroupMemberLayout>
-        </SlideModal>
+        </GroupSlideModal>
       ) : null}
       {updateModal ? (
         <GroupModal
@@ -235,6 +241,7 @@ const GroupMemberLayout = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 100%;
 `;
 
 const Top = styled.div`
@@ -337,6 +344,12 @@ const Carrot = styled(State)`
 const GroupButton = styled.div`
   margin-top: 24px;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
+  width: 100%;
   gap: 15px;
+`;
+
+const StGroupBtnLeft = styled.div`
+  display: flex;
+  gap: 24px;
 `;

@@ -38,36 +38,38 @@ const GroupList = () => {
       <StGroupLayout>
         {groupData?.length !== 0 && groupData?.length !== undefined ? (
           <>
-            <StCardLayout>
-              <Link to={PATH.groupadd}>
-                <StCardBoxAdd>{IMAGES.groupAdd}</StCardBoxAdd>
-              </Link>
-              {[...groupData].reverse()?.map((group) => (
-                <div key={group.groupId}>
-                  <Link to={PATH.groupdetail(group.groupId)}>
-                    <StCardBox>
-                      <StTopInfo>
-                        <StGroupName>
-                          {group.groupName.length < 7
-                            ? group.groupName
-                            : group.groupName.slice(0, 6) + "..."}
-                        </StGroupName>
-                        <StPeople>
-                          {IMAGES.groupListPeople}
-                          <span>{group.participants}</span>
-                        </StPeople>
-                      </StTopInfo>
-                      <StGroupImg src={group.groupImage} />
-                      <p>
-                        {group.description.length < 9
-                          ? group.description
-                          : group.description.slice(0, 8) + "..."}
-                      </p>
-                    </StCardBox>
-                  </Link>
-                </div>
-              ))}
-            </StCardLayout>
+            <StCardDragLayout>
+              <StCardLayout>
+                <Link to={PATH.groupadd}>
+                  <StCardBoxAdd>{IMAGES.groupAdd}</StCardBoxAdd>
+                </Link>
+                {[...groupData].reverse()?.map((group) => (
+                  <div key={group.groupId}>
+                    <Link to={PATH.groupdetail(group.groupId)}>
+                      <StCardBox>
+                        <StTopInfo>
+                          <StGroupName>
+                            {group.groupName.length < 7
+                              ? group.groupName
+                              : group.groupName.slice(0, 6) + "..."}
+                          </StGroupName>
+                          <StPeople>
+                            {IMAGES.groupListPeople}
+                            <span>{group.participants}</span>
+                          </StPeople>
+                        </StTopInfo>
+                        <StGroupImg src={group.groupImage} />
+                        <p>
+                          {group.description.length < 9
+                            ? group.description
+                            : group.description.slice(0, 8) + "..."}
+                        </p>
+                      </StCardBox>
+                    </Link>
+                  </div>
+                ))}
+              </StCardLayout>
+            </StCardDragLayout>
           </>
         ) : (
           <div>
@@ -88,8 +90,16 @@ export default GroupList;
 
 const StGroupLayout = styled.div`
   background-color: #f9f3ea;
-  min-height: 722px; //812px에서 헤더 90px을 뺀 값을 줘야 스크롤이 안생김
+  height: 100%;
   padding: 12px 22px;
+  width: 100%;
+`;
+
+const StCardDragLayout = styled.div`
+  height: 79.3103vh;
+  overflow-y: scroll;
+  width: 100%;
+  margin: 0 auto;
 `;
 
 const StCardLayout = styled.div`
@@ -97,13 +107,13 @@ const StCardLayout = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: flex-start;
-  gap: 10px;
+  justify-content: center;
+  gap: 8px;
 `;
 
 const StCardBoxAdd = styled.div`
-  width: 159px;
-  height: 159px;
+  width: 153px;
+  height: 153px;
   padding: 16px 14px 16px 14px;
   background: #fffdfa;
   border: 1px solid #f1e5d2;
@@ -115,8 +125,8 @@ const StCardBoxAdd = styled.div`
 `;
 
 const StCardBox = styled.div`
-  width: 159px;
-  height: 159px;
+  width: 153px;
+  height: 153px;
   padding: 16px 14px 16px 14px;
   background: #fffdfa;
   border: 1px solid #f1e5d2;
