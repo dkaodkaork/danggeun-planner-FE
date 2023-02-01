@@ -15,8 +15,9 @@ export default BottomBtn;
 
 const StContainer = styled.div`
   width: 375px;
-  position: fixed;
-  bottom: 10px;
+  margin-top: 10px;
+  /* position: fixed; */
+  /* bottom: 10px; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -24,8 +25,4 @@ const StContainer = styled.div`
 
 const StButton = styled.button`
   border-radius: 100%;
-  :active {
-    position: relative;
-    bottom: 0.2rem;
-  }
 `;
