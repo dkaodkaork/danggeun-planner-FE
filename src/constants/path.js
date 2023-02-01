@@ -14,6 +14,7 @@ export const PATH = {
   carrot: "/carrot",
   alarm: "/alarm",
   error: "/error",
+  tutorial: "/tutorial",
 
   //캘린더
   calendar: (username) => `/calendar/${username}`,

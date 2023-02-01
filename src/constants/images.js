@@ -39,6 +39,7 @@ import { ReactComponent as ErrImg } from "../assets/images/error/error2.svg";
 import { ReactComponent as LeftArrow } from "../assets/images/tutorial/leftArrow.svg";
 import { ReactComponent as RightArrow } from "../assets/images/tutorial/rightArrow.svg";
 import { ReactComponent as Logo } from "../assets/images/web/logo.svg";
+import { ReactComponent as Camera } from "../assets/images/mypage/camera.svg";
 
 export const IMAGES = {
   // 로그인
@@ -49,7 +50,7 @@ export const IMAGES = {
   // 마이페이지
   fold: <Fold />,
   edit: <Edit />,
-  camera: require("../assets/images/mypage/camera.svg"),
+  camera: <Camera />,
   gift: require("../assets/images/mypage/gift.png"),
 
   //캘린더

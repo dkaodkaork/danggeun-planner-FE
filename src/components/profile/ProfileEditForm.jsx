@@ -93,10 +93,13 @@ const Profile = () => {
         <StEditProfileBody>
           <StProfileImage>
             <label>프로필 이미지</label>
+
             <StImg
               onClick={profileImgClickHandler}
               src={userInfo.profileImage}
             />
+            <StIcon>{IMAGES.camera}</StIcon>
+
             <input
               style={{ display: "none" }}
               ref={profileImgInput}
@@ -128,9 +131,6 @@ const Profile = () => {
             <Button onClick={submitHandler} width="319px" disabled={disabled}>
               완 료
             </Button>
-            <StBottomText>
-              {/* 불쾌감을 주는 프로필은 사용하지 말아주세요. */}
-            </StBottomText>
           </StBotBox>
         </StEditProfileBody>
       </StContainer>
@@ -188,6 +188,12 @@ const StImg = styled.img`
   height: 50px;
 `;
 
+const StIcon = styled.div`
+  position: relative;
+  bottom: 40%;
+  left: 18%;
+`;
+
 const StInputBox = styled.div`
   width: 319px;
   display: flex;
@@ -229,21 +235,6 @@ const StLabel = styled.label`
   text-align: right;
 
   color: #4a8a51;
-`;
-
-const StBottomText = styled.div`
-  width: 319px;
-  height: 18px;
-
-  text-align: center;
-
-  font-family: "Pretendard-Bold";
-  font-size: 1.4rem;
-  line-height: 130%;
-  text-align: center;
-  color: #f27808;
-
-  margin-top: 20px;
 `;
 
 const StBotBox = styled.div`

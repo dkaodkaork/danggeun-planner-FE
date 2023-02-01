@@ -33,7 +33,7 @@ const StTimerContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 72px 58px 33px 57px;
+  margin: 80px 58px 33px 57px;
 `;
 
 const StTimer = styled.div`
@@ -49,7 +49,7 @@ const StTimer = styled.div`
 const StTime = styled.p`
   color: #595550;
   font-size: 7rem;
-  margin-top: 10px;
+  margin-top: 9px;
 `;
 
 const StSvg = styled.svg`

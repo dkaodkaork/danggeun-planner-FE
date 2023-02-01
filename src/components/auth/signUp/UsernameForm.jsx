@@ -73,9 +73,6 @@ const UsernameForm = () => {
         >
           완료
         </Button>
-        <StBottomText>
-          {/* 닉네임은 추후 마이페이지에서 수정할 수 있습니다. */}
-        </StBottomText>
       </StBotBox>
     </StContainer>
   );
@@ -89,17 +86,6 @@ const StContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
-
-const StBottomText = styled.div`
-  width: 319px;
-  height: 18px;
-  text-align: center;
-  font-family: "Pretendard-Bold";
-  font-size: 1.4rem;
-  line-height: 130%;
-  color: #f27808;
-  margin-top: 20px;
 `;
 
 const StBotBox = styled.div`

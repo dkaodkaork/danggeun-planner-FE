@@ -6,11 +6,7 @@ import { PATH, IMAGES } from "../../constants/index";
 const PlannerSubHeader = ({ username, profileImage, param }) => {
   return (
     <StDiv>
-      <UsernameCard
-        link={PATH.mypage}
-        username={username}
-        profileImage={profileImage}
-      />
+      <UsernameCard username={username} profileImage={profileImage} />
       <Link to={PATH.calendar(param)}>{IMAGES.calendarIcon}</Link>
     </StDiv>
   );
