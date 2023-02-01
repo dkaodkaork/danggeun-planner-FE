@@ -18,7 +18,7 @@ export const carrotAlert = (errMsg) => {
   });
 };
 
-export const carrotConfirm = (msg) => {
+export const carrotConfirm = (msg, callback1, callback2) => {
   Swal.fire({
     imageUrl: `${IMAGES.alertImg}`,
     text: msg,
@@ -26,8 +26,14 @@ export const carrotConfirm = (msg) => {
     showCancelButton: true,
     confirmButtonText: "예",
     confirmButtonColor: "#F27808",
-    cancelButtonColor: "#F9F3EA",
+    cancelButtonColor: "#4A8A51",
     cancelButtonText: "아니요",
     // cancelButtonTextColor: "#F27808",
+  }).then((result) => {
+    // console.log(result);
+    if (result.isConfirmed) {
+      callback1();
+      callback2();
+    }
   });
 };
