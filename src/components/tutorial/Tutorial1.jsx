@@ -24,7 +24,7 @@ const Tutorial1 = () => {
           <strong>= 뽀모도로</strong>
         </StDescription>
         <StButtonLayout>
-          <Link to={PATH.intro}>
+          <Link to={PATH.login}>
             <TimerButton width="319px">당근플래너 시작하기</TimerButton>
           </Link>
         </StButtonLayout>

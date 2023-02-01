@@ -21,7 +21,7 @@ const CarrotTimer = () => {
 
   const data = useSelector((state) => state.timer.data);
 
-  const startTime = 1000 * 60 * 25;
+  const startTime = 1000 * 4;
   const restTime = 1000 * 60 * 5;
   const longRestTime = 1000 * 60 * 15;
 
@@ -61,7 +61,7 @@ const CarrotTimer = () => {
       setCount(count + 1);
       focusModeDoneHandler();
       alarm.play();
-      alarm.volume = 0.5;
+      alarm.volume = 1;
     } else if (!currentTime && mode === "restMode") {
       restModeDoneHandler();
     }
