@@ -36,10 +36,7 @@ const MypageForm = () => {
     // if (window.confirm("로그아웃 하시겠습니까?")) {
     try {
       const response = await api.postLogoutApi();
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
     await localStorage.clear();
     window.dispatchEvent(new Event("storage"));
     navigate("/");
