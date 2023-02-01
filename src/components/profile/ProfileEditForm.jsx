@@ -58,7 +58,6 @@ const Profile = () => {
       navigate(PATH.mypage);
     } else {
       dispatch(__putUsername(editUsername)).then((res) => {
-        console.log(res);
         res?.error?.message === "Rejected"
           ? carrotAlert(res.payload)
           : navigate(PATH.mypage);
@@ -93,12 +92,13 @@ const Profile = () => {
         <StEditProfileBody>
           <StProfileImage>
             <label>프로필 이미지</label>
-
-            <StImg
-              onClick={profileImgClickHandler}
-              src={userInfo.profileImage}
-            />
-            <StIcon>{IMAGES.camera}</StIcon>
+            <StImgBox>
+              <StImg
+                onClick={profileImgClickHandler}
+                src={userInfo.profileImage}
+              />
+              <StIcon>{IMAGES.camera}</StIcon>
+            </StImgBox>
 
             <input
               style={{ display: "none" }}
@@ -189,9 +189,9 @@ const StImg = styled.img`
 `;
 
 const StIcon = styled.div`
-  position: relative;
-  bottom: 40%;
-  left: 18%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
 `;
 
 const StInputBox = styled.div`
@@ -240,4 +240,8 @@ const StLabel = styled.label`
 const StBotBox = styled.div`
   margin-top: 50px;
   width: 319px;
+`;
+
+const StImgBox = styled.div`
+  position: relative;
 `;

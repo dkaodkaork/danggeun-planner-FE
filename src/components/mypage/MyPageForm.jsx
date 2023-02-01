@@ -36,13 +36,10 @@ const MypageForm = () => {
     // if (window.confirm("로그아웃 하시겠습니까?")) {
     try {
       const response = await api.postLogoutApi();
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
     await localStorage.clear();
     window.dispatchEvent(new Event("storage"));
-    navigate(PATH.intro);
+    navigate("/");
     // }
   };
 
@@ -69,7 +66,7 @@ const MypageForm = () => {
           <StHr></StHr>
           <StEmailBox>{userInfo.email}</StEmailBox>
           <StCheckBoxContainer>
-            <StDiv>플래너 공개</StDiv>
+            <StDiv>다른 사람들에게 플래너 공개</StDiv>
             <StCheckBoxWrapper className="switch">
               <StCheckBox
                 id="checkbox"
@@ -229,7 +226,6 @@ const StCheckBoxContainer = styled.div`
 `;
 
 const StDiv = styled.div`
-  width: 100px;
   height: 22px;
   color: #595550;
   font-size: 1.5rem;
@@ -241,18 +237,17 @@ const StBtns = styled.div`
   display: flex;
   flex-direction: column;
   gap: 24px;
-  position: fixed;
-  bottom: 28px;
+  margin-top: 50px;
   width: 319px;
   height: 174px;
-  /* margin-top: 87px; */
+  position: relative;
 `;
 
 const StGift = styled.div`
   position: absolute;
-  top: -17px;
-  right: 8px;
-  z-index: 10;
+  top: -10%;
+  right: 7%;
+  z-index: 5;
   width: 40px;
   height: 40px;
   background-image: url(${(props) => props.url});

@@ -38,7 +38,7 @@ const Menu = () => {
 
   //알림 읽음 조회
   useEffect(() => {
-    console.log("알림 읽음 조회");
+    //console.log("알림 읽음 조회");
     dispatch(__getAlarm());
   }, [groupMenuOpen]);
 
@@ -305,7 +305,7 @@ const Nickname = styled.div`
 `;
 
 const StMadyby = styled.p`
-  margin-top: 16.0099vh;
+  margin-top: 4vh;
   font-family: "MaplestoryOTFLight";
   font-weight: 300;
   font-size: 1.6rem;

@@ -23,9 +23,7 @@ const PlannerModal = ({
   editTimerContentHandler,
   date,
   isDisabled,
-  planModalOpen,
 }) => {
-  console.log(planModalOpen);
   return (
     <>
       <StModalHeader>

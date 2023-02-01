@@ -46,8 +46,8 @@ const MainHeader = ({ leftLink, leftSlot, title }) => {
 
   //그룹 읽음 데이터 확인
   const alarmIsRead = useSelector((state) => state.alarm.isRead);
-  console.log("서버의 읽음 설정", alarmIsRead);
-  console.log("프론트의 읽음 설정", alarmRead);
+  //console.log("서버의 읽음 설정", alarmIsRead);
+  //console.log("프론트의 읽음 설정", alarmRead);
 
   //그룹 읽음 수신
   useEffect(() => {
@@ -56,7 +56,7 @@ const MainHeader = ({ leftLink, leftSlot, title }) => {
 
   //sse연결 여부
   const isSSE = localStorage.getItem("sse") === "connect" ? true : false;
-  console.log("isSSE", isSSE);
+  //console.log("isSSE", isSSE);
 
   //sse 설정 new
   useEffect(() => {
@@ -78,7 +78,7 @@ const MainHeader = ({ leftLink, leftSlot, title }) => {
 
       //sse 연결 처리
       eventSource.onopen = (e) => {
-        console.log(e);
+        //console.log(e);
         if (e.status === 200) {
           localStorage.setItem("sse", "connect");
         }
@@ -87,11 +87,11 @@ const MainHeader = ({ leftLink, leftSlot, title }) => {
       //sse 받는 처리
       eventSource.onmessage = (e) => {
         //받은 데이터 Json타입으로 형변환 가능여부fn
-        console.log("onmessage", e);
+        //console.log("onmessage", e);
         const isJson = (str) => {
           try {
             const json = JSON.parse(str);
-            console.log("str", str);
+            //console.log("str", str);
             if (!str.includes("EventStream Created.")) {
               dispatch(alarmReadStatus(false));
             }
@@ -104,13 +104,13 @@ const MainHeader = ({ leftLink, leftSlot, title }) => {
           //알림 리스트 refetch
           //실시간 알림 데이터
           const obj = JSON.parse(e.data);
-          console.log("obj", obj);
+          //console.log("obj", obj);
         }
       };
 
       //sse 에러
       eventSource.onerror = (e) => {
-        console.log("onerror", e);
+        //console.log("onerror", e);
         // eventSource.close();
         localStorage.setItem("sse", null);
       };

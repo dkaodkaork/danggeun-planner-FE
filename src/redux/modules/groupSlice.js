@@ -35,7 +35,7 @@ export const __getGroupMember = createAsyncThunk(
       const { data } = await api.getGroupMemberApi(payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
-      console.log("그룹원 조회 에러", error);
+      //console.log("그룹원 조회 에러", error);
       return thunkAPI.rejectWithValue();
     }
   }
@@ -49,7 +49,7 @@ export const __getGroupDetail = createAsyncThunk(
       const { data } = await api.getGroupDetailApi(payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
-      console.log("그룹 상세 조회 에러", error);
+      //console.log("그룹 상세 조회 에러", error);
       return thunkAPI.rejectWithValue();
     }
   }
@@ -63,7 +63,7 @@ export const __postGroupAdd = createAsyncThunk(
       const { data } = await api.postGroupAddApi(payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
-      console.log("그룹 등록 에러", error);
+      //console.log("그룹 등록 에러", error);
       return thunkAPI.rejectWithValue(error.response.data.message);
     }
   }
@@ -77,7 +77,7 @@ export const __deleteGroup = createAsyncThunk(
       const { data } = await api.deleteGroupApi(payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
-      console.log("그룹 삭제 에러", error);
+      //console.log("그룹 삭제 에러", error);
       return thunkAPI.rejectWithValue();
     }
   }
@@ -91,7 +91,7 @@ export const __outGroup = createAsyncThunk(
       const { data } = await api.deleteOutGroupApi(payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
-      console.log("그룹 탈퇴 에러", error);
+      //console.log("그룹 탈퇴 에러", error);
       return thunkAPI.rejectWithValue();
     }
   }
@@ -107,7 +107,7 @@ export const __putGroupUpdate = createAsyncThunk(
       const { data } = await api.putGroupUpdateApi(groupInfo, groupId);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
-      console.log("그룹 수정 에러", error);
+      //console.log("그룹 수정 에러", error);
       return thunkAPI.rejectWithValue();
     }
   }
@@ -139,7 +139,7 @@ export const __postGroupMemberInvite = createAsyncThunk(
       const { data } = await api.postGroupMemberInvite(groupId, inviteList);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
-      console.log("그룹원 초대 에러", error);
+      //console.log("그룹원 초대 에러", error);
       return thunkAPI.rejectWithValue();
     }
   }
