@@ -14,8 +14,9 @@ const Tutorial4 = () => {
         <StContentLayout>
           <h1>다양한 동기부여 컨텐츠</h1>
           <p>
-            한달 집중량이 한 눈에 보이는 캘린더,
-            <br /> 친구와 함께 즐기는 그룹, 다양한 랭킹 시스템까지
+            한달 집중량이 한 눈에 보이는 <strong>캘린더</strong>,
+            <br /> 친구, 지인들과 함께하는 <strong>그룹 랭킹</strong>
+            시스템까지!
           </p>
         </StContentLayout>
         <StButtonLayout>
@@ -58,6 +59,15 @@ const StContentLayout = styled.div`
     text-align: center;
   }
   p {
+    margin-top: 24px;
+    font-family: "Pretendard-Regular";
+    font-weight: 500;
+    font-size: 1.6rem;
+    color: #595550;
+    line-height: 160%;
+    text-align: center;
+  }
+  strong {
     margin-top: 24px;
     font-family: "Pretendard-Bold";
     font-weight: 700;

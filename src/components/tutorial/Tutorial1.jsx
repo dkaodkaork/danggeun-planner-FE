@@ -14,8 +14,8 @@ const Tutorial1 = () => {
         <StContentLayout>
           <h1>가장 쉽게 집중하는 비결은?</h1>
           <p>
-            세계적인 기업 구*에서도 사용하는
-            <br /> 효과적인 시간 관리법 ‘뽀모도로 타이머’!
+            세계적인 기업에서도 사용하는
+            <br /> 효과적인 시간 관리법 <strong>‘뽀모도로 기법’</strong>
           </p>
         </StContentLayout>
         <StBubbleImg src={IMAGES.introContent1} />
@@ -62,6 +62,15 @@ const StContentLayout = styled.div`
     color: #595550;
   }
   p {
+    margin-top: 24px;
+    font-family: "Pretendard-Regular";
+    font-weight: 500;
+    font-size: 1.6rem;
+    color: #595550;
+    line-height: 160%;
+    text-align: center;
+  }
+  strong {
     margin-top: 24px;
     font-family: "Pretendard-Bold";
     font-weight: 700;
