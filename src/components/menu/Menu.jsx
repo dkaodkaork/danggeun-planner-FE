@@ -90,7 +90,7 @@ const Menu = () => {
   };
   //알림
   const clickBellNav = () => {
-    dispatch(__putAlarm());
+    //dispatch(__putAlarm());
     navigate(PATH.alarm);
     dispatch(groupMenuOpenStatus(!groupMenuOpen));
   };
