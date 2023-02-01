@@ -12,7 +12,6 @@ const KakaoLogin = () => {
     try {
       const res = await api.postKakaoLoginApi(code);
       const { data, status, headers } = res;
-      // console.log(res);
 
       if (status === 202) {
         localStorage.setItem("accessToken", headers.accesstoken);

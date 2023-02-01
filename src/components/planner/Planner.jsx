@@ -35,9 +35,6 @@ const Planner = () => {
   const { date, username } = useParams();
 
   const plans = useSelector((state) => state?.planner?.data);
-  console.log(plans);
-  // console.log(plans?.isPlannerOpened);
-  // console.log(plans?.isOwner);
 
   const naviagte = useNavigate();
 
@@ -70,7 +67,6 @@ const Planner = () => {
   // 플래너 조회 요청
   useEffect(() => {
     dispatch(__getAllPlan({ username: username, date: date })).then((res) => {
-      // console.log(res);
       if (res?.error?.message === "Rejected") {
         naviagte(PATH.error);
       }
@@ -105,7 +101,6 @@ const Planner = () => {
   const planModalOpen = useSelector(
     (state) => state.modalSlice.addPlanModalOpen
   );
-  console.log(planModalOpen);
 
   // 모달창 열기
   const openModalHanlder = () => {
@@ -151,8 +146,6 @@ const Planner = () => {
 
   // 계획 삭제
   const closeModalHanlder = (id, plan) => {
-    // console.log(id, plan);
-    // console.log(isEdit);
     if (plan?.hasOwnProperty("timerId")) {
       dispatch(planModalOpenStatus(!planModalOpen));
     } else {
@@ -208,7 +201,6 @@ const Planner = () => {
           });
         } else {
           dispatch(__postPlan(planInfo)).then((res) => {
-            console.log(res);
             res?.error?.message === "Rejected"
               ? carrotAlert(res.payload)
               : dispatch(planModalOpenStatus(!planModalOpen));
