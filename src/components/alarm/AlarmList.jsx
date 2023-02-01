@@ -29,8 +29,8 @@ const AlarmList = () => {
 
   //그룹 읽음 데이터 확인
   const alarmIsRead = useSelector((state) => state.alarm.isRead);
-  console.log("서버의 읽음 설정", alarmIsRead);
-  console.log("프론트의 읽음 설정", alarmRead);
+  //console.log("서버의 읽음 설정", alarmIsRead);
+  //console.log("프론트의 읽음 설정", alarmRead);
 
   //알림 리스트 불러오기
   useEffect(() => {
