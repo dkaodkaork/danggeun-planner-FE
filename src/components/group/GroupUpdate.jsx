@@ -66,7 +66,7 @@ const GroupUpdate = () => {
     // }
 
     dispatch(__putGroupUpdate({ groupInfo, groupId })).then((res) => {
-      console.log(res);
+      //console.log(res);
       if (res?.error?.message === "Rejected") {
         carrotAlert("접근 권한이 없습니다");
         navigate(PATH.grouplist);

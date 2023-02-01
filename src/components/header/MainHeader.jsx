@@ -91,7 +91,7 @@ const MainHeader = ({ leftLink, leftSlot, title }) => {
         const isJson = (str) => {
           try {
             const json = JSON.parse(str);
-            console.log("str", str);
+            //console.log("str", str);
             if (!str.includes("EventStream Created.")) {
               dispatch(alarmReadStatus(false));
             }
