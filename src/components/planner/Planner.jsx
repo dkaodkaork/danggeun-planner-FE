@@ -28,7 +28,6 @@ import SortingBtnGroup from "./SortingBtnGroup";
 import PlannerSubHeader from "./PlannerSubHeader";
 import MainHeader from "../header/MainHeader";
 import PrivatePlanner from "./PrivatePlanner";
-import ConfirmModal from "./ConfirmModal";
 
 const Planner = () => {
   // hook
@@ -57,9 +56,6 @@ const Planner = () => {
   });
   const [plan, setPlan] = useState();
   const [isDisabled, setIsDisabled] = useState(false);
-
-  const [confirmModalOpen, setConfirmModalOpen] = useState(false);
-  const [isDelete, setIsDelete] = useState(false);
 
   // onchange로 받은 값 시작시간 끝나는 시간 파싱해서 보낼것
   const planInfo = {
@@ -161,7 +157,6 @@ const Planner = () => {
       dispatch(planModalOpenStatus(!planModalOpen));
     } else {
       if (isEdit) {
-        carrotAlert("계획이 삭제 되었습니다!");
         dispatch(__deletePlan({ id }));
         dispatch(planModalOpenStatus(!planModalOpen));
       } else {
@@ -252,13 +247,30 @@ const Planner = () => {
       default:
         return;
     }
-    // setStartTime({ ...startTime, [name]: value });
   };
-  // console.log(startTime);
 
   const changeEndTimeHandler = (e) => {
-    let time = e.target.value;
-    setEndTime({ ...endTime, [e.target.name]: time });
+    // let time = e.target.value;
+    // setEndTime({ ...endTime, [e.target.name]: time });
+    const { name, value } = e.target;
+    switch (name) {
+      case "hour":
+        if (value < 24) {
+          return setEndTime({ ...endTime, [name]: value });
+        } else {
+          carrotAlert(MSG.hourErrMsg);
+        }
+        return;
+      case "min":
+        if (value < 60) {
+          return setEndTime({ ...endTime, [name]: value });
+        } else {
+          carrotAlert(MSG.minErrMsg);
+        }
+        return;
+      default:
+        return;
+    }
   };
 
   // 플랜 등록
@@ -337,55 +349,42 @@ const Planner = () => {
           {plans.isOwner && <BottomBtn onClick={openModalHanlder} />}
         </StContainer>
       )}
-      <SlideModal
-        height="258px"
-        bottom="-60px"
-        toggle={planModalOpen}
-        cancleHandler={modalOutSideClick}
-      >
-        <PlannerModal
-          planModalOpen={planModalOpen}
-          doneAddModalHandler={doneAddModalHandler}
-          changeTitleHandler={changeTitleHandler}
-          changeStartTimeHandler={changeStartTimeHandler}
-          changeEndTimeHandler={changeEndTimeHandler}
-          closeModalHanlder={closeModalHanlder}
-          editTimerContentHandler={editTimerContentHandler}
-          planTitle={planTitle}
-          countInput={countInput}
-          startTime={startTime}
-          endTime={endTime}
-          isNumber={isNumber}
-          isEdit={isEdit}
-          id={selectedId}
-          plan={plan}
-          date={date}
-          isDisabled={isDisabled}
-        />
-      </SlideModal>
+      {planModalOpen ? (
+        <SlideModal
+          height="258px"
+          bottom="-60px"
+          toggle={planModalOpen}
+          cancleHandler={modalOutSideClick}
+        >
+          <PlannerModal
+            planModalOpen={planModalOpen}
+            doneAddModalHandler={doneAddModalHandler}
+            changeTitleHandler={changeTitleHandler}
+            changeStartTimeHandler={changeStartTimeHandler}
+            changeEndTimeHandler={changeEndTimeHandler}
+            closeModalHanlder={closeModalHanlder}
+            editTimerContentHandler={editTimerContentHandler}
+            planTitle={planTitle}
+            countInput={countInput}
+            startTime={startTime}
+            endTime={endTime}
+            isNumber={isNumber}
+            isEdit={isEdit}
+            id={selectedId}
+            plan={plan}
+            date={date}
+            isDisabled={isDisabled}
+          />
+        </SlideModal>
+      ) : null}
     </>
   );
 };
 
-// {confirmModalOpen ? (
-//   <ConfirmModal
-//     img={plans?.profileImage}
-//     content={plans?.content}
-//     onClick={() => {
-//       setIsDelete(!isDelete);
-//     }}
-//   />
-// ) : null}
 export default Planner;
-
-const StDiv1 = styled.div`
-  height: 100%;
-`;
 
 const StContainer = styled.div`
   background-color: #f9f3ea;
-  /* height: 80vh; */
-  /* height: 100vh; */
 `;
 
 const StDateBox = styled.div`

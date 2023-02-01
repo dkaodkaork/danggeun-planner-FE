@@ -50,12 +50,10 @@ const Router = () => {
             <Route path="/" element={<TimerPage />} />
             <Route path="/username" element={<UsernameFormPage />} />
             <Route path="/alarm" element={<AlarmPage />} />
-            <Route path="/tutorial" element={<TutorialPage />} />
             <Route path="/calendar/:username" element={<CalendarPage />} />
             <Route path="/mypage" element={<MyPage />} />
             <Route path="/profile" element={<ProfileEditPage />} />
             <Route path="/planner/:username/:date" element={<PlannerPage />} />
-            <Route path="/carrot" element={<GetCarrotPage />} />
             <Route path="/group" element={<GroupListPage />} />
             <Route path="/group/add" element={<GroupAddPage />} />
             <Route path="/group/:groupId" element={<GroupDetailPage />} />
@@ -72,7 +70,7 @@ const Router = () => {
           </Route>
         ) : (
           <Route>
-            <Route path="/" element={<TutorialPage />} />
+            <Route path="/tutorial" element={<TutorialPage />} />
             <Route path="/intro" element={<IntroPage />} />
             <Route path="/error" element={<ErrorPage />} />
             <Route path="/login" element={<LoginPage />} />

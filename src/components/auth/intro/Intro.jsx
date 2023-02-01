@@ -13,7 +13,7 @@ const Intro = () => {
         <StMsg>{IMAGES.logo}</StMsg>
       </StBody>
       <StBtnBox>
-        <Link to={PATH.timer}>
+        <Link to={PATH.tutorial}>
           <Button width="319px">튜토리얼</Button>
         </Link>
         <Link to={PATH.login}>
@@ -23,23 +23,9 @@ const Intro = () => {
             color="#F27808"
             border="1px solid #F27808"
           >
-            당근플래너시작하기
+            당근플래너 시작하기
           </Button>
         </Link>
-        {/* <Button
-          onClick={kakaoLoginHandler}
-          height="54px"
-          width="319px"
-          backgroundColor="#FFE600"
-          fontSize="1.4rem"
-          color="#595550"
-          fontFamily="Pretendard-Regular"
-          filter="none"
-        >
-          <StBtnImg src={IMAGES.kakao} alt="카카오 로그인" />
-          <StText>카카오 아이디</StText>
-          <StP>로 로그인하기</StP>
-        </Button> */}
       </StBtnBox>
     </StContainer>
   );
