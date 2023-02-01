@@ -56,9 +56,9 @@ const GroupMember = () => {
   }, []);
 
   //멤버 토글을 열 때마다 데이터 업데이트 //이걸 하면 처음에 멤버를 받음
-  useEffect(() => {
-    dispatch(__getGroupMember(groupId));
-  }, [groupMemberOpen]);
+  // useEffect(() => {
+  //   dispatch(__getGroupMember(groupId));
+  // }, [groupMemberOpen]);
 
   //그룹 탈퇴, 수정, 삭제 토글 관리
   const detailMenuOpen = useSelector(
