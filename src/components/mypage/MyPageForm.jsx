@@ -229,7 +229,6 @@ const StCheckBoxContainer = styled.div`
 `;
 
 const StDiv = styled.div`
-  width: 100px;
   height: 22px;
   color: #595550;
   font-size: 1.5rem;
