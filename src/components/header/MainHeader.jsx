@@ -126,8 +126,8 @@ const MainHeader = ({ leftLink, leftSlot, title }) => {
 
       //sse 에러
       eventSource.onerror = (e) => {
-        console.log("onerror", e);
-        // eventSource.close();
+        //console.log("onerror", e);
+        //eventSource.close();
         localStorage.setItem("sse", null);
       };
 

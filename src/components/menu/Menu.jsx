@@ -10,7 +10,7 @@ import {
   searchModalOpenStatus,
 } from "../../redux/modules/modalSlice";
 import { __getUserInfo } from "../../redux/modules/mypageSlice";
-import { __getAlarm } from "../../redux/modules/alarmSlice";
+import { __getAlarm, __putAlarm } from "../../redux/modules/alarmSlice";
 
 //상수, api
 import { IMAGES, PATH } from "../../constants/index";
@@ -90,6 +90,7 @@ const Menu = () => {
   };
   //알림
   const clickBellNav = () => {
+    dispatch(__putAlarm());
     navigate(PATH.alarm);
     dispatch(groupMenuOpenStatus(!groupMenuOpen));
   };

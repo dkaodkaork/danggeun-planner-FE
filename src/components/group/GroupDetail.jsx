@@ -112,7 +112,7 @@ const GroupDetail = () => {
               )}
             </>
           ) : (
-            <NoGetMsg>아직 당근을 수확한 사람이 없어요🥲</NoGetMsg>
+            <NoGetMsg>아직 당근을 수확한 사람이 없어요&#128531;</NoGetMsg>
           )}
         </RankBox>
         <MonthlyCarrot>

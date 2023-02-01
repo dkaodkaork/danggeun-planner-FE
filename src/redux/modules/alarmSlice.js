@@ -24,6 +24,21 @@ export const __getAlarm = createAsyncThunk(
   }
 );
 
+//알람 수신 확인
+export const __putAlarm = createAsyncThunk(
+  "/__putAlarm",
+  async (payload, thunkAPI) => {
+    try {
+      const data = await api.putAlarmApi();
+      //console.log(data.data.data);
+      return thunkAPI.fulfillWithValue(data.data.data);
+    } catch (error) {
+      // console.log(error.response.status);
+      return thunkAPI.rejectWithValue();
+    }
+  }
+);
+
 //알람 리스트 조회
 export const __getAlarmList = createAsyncThunk(
   "/__getAlarmList",
@@ -110,6 +125,17 @@ export const alarmSlice = createSlice({
         state.isRead = action.payload.isRead;
       })
       .addCase(__getAlarm.rejected, (state, action) => {
+        state.isLoading = false;
+      })
+
+      // 종모양 누르면 알림 수신했다 전송
+      .addCase(__putAlarm.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(__putAlarm.fulfilled, (state, action) => {
+        state.isLoading = false;
+      })
+      .addCase(__putAlarm.rejected, (state, action) => {
         state.isLoading = false;
       })
 
