@@ -32,7 +32,7 @@ const CarrotTimer = () => {
       callback();
     }, startTime);
 
-  console.log(currentTime);
+  // console.log(currentTime);
 
   useLayoutEffect(() => {
     if (mode === "focusMode") {

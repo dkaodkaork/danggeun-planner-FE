@@ -23,7 +23,7 @@ export const __getAllPlan = createAsyncThunk(
       // console.log(data.data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
-      console.log(error.response.status);
+      // console.log(error.response.status);
       return thunkAPI.rejectWithValue();
     }
   }
@@ -38,7 +38,7 @@ export const __getPlan = createAsyncThunk(
       // console.log(data.data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
-      console.log(error.response.status);
+      // console.log(error.response.status);
       return thunkAPI.rejectWithValue();
     }
   }
@@ -53,7 +53,7 @@ export const __getFocusPlan = createAsyncThunk(
       // console.log(data.data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
-      console.log(error.response.status);
+      // console.log(error.response.status);
       return thunkAPI.rejectWithValue();
     }
   }
@@ -75,14 +75,14 @@ export const __postPlan = createAsyncThunk(
 export const __putPlan = createAsyncThunk(
   "plan/put",
   async (payload, thunkAPI) => {
-    console.log("수정통신 시작", payload);
+    // console.log("수정통신 시작", payload);
     const { id, planInfo } = payload;
     try {
       const { data } = await api.putPlanApi(id, planInfo);
 
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
-      console.log(error.response.data);
+      // console.log(error.response.data);
       return thunkAPI.rejectWithValue(error.response.data.message);
     }
   }
@@ -91,14 +91,14 @@ export const __putPlan = createAsyncThunk(
 export const __putTimerContent = createAsyncThunk(
   "timer/put",
   async (payload, thunkAPI) => {
-    console.log(payload);
+    // console.log(payload);
 
     try {
       const { data } = await api.putTimerContentApi(payload.id, payload.title);
-      console.log(data);
+      // console.log(data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       return thunkAPI.rejectWithValue();
     }
   }
@@ -107,13 +107,13 @@ export const __putTimerContent = createAsyncThunk(
 export const __deletePlan = createAsyncThunk(
   "plan/delete",
   async (payload, thunkAPI) => {
-    console.log("삭제 통신 시작 ", payload);
+    // console.log("삭제 통신 시작 ", payload);
     try {
       const response = await api.deletePlanApi(payload.id);
-      console.log(response);
+      // console.log(response);
       return thunkAPI.fulfillWithValue(payload.id);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       return thunkAPI.rejectWithValue();
     }
   }
@@ -179,7 +179,7 @@ export const plannerSlice = createSlice({
       })
       .addCase(__postPlan.fulfilled, (state, action) => {
         state.isLoading = false;
-        console.log(action.payload);
+        // console.log(action.payload);
         state.data.contents = [...state.data.contents, action.payload];
       })
       .addCase(__postPlan.rejected, (state, action) => {
@@ -192,7 +192,7 @@ export const plannerSlice = createSlice({
       })
       .addCase(__putPlan.fulfilled, (state, action) => {
         state.isLoading = false;
-        console.log(action.payload);
+        // console.log(action.payload);
         state.data.contents = state.data.contents.map((plan) => {
           if (plan?.planId === action.payload.planId) {
             return {
@@ -214,7 +214,7 @@ export const plannerSlice = createSlice({
       })
       .addCase(__putTimerContent.fulfilled, (state, action) => {
         state.isLoading = false;
-        console.log(action.payload);
+        // console.log(action.payload);
         state.data.contents = state.data.contents.map((plan) => {
           if (plan?.timerId === action.payload.timerId) {
             return {
@@ -236,7 +236,7 @@ export const plannerSlice = createSlice({
       })
       .addCase(__deletePlan.fulfilled, (state, action) => {
         state.isLoading = false;
-        console.log(action);
+        // console.log(action);
         state.data.contents = state.data.contents.filter(
           (plan) => plan?.planId !== action.payload
         );

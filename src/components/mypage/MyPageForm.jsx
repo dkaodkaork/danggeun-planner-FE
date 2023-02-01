@@ -42,7 +42,7 @@ const MypageForm = () => {
     }
     await localStorage.clear();
     window.dispatchEvent(new Event("storage"));
-    navigate(PATH.intro);
+    navigate("/");
     // }
   };
 
@@ -69,7 +69,7 @@ const MypageForm = () => {
           <StHr></StHr>
           <StEmailBox>{userInfo.email}</StEmailBox>
           <StCheckBoxContainer>
-            <StDiv>플래너 공개</StDiv>
+            <StDiv>다른 사람들에게 플래너 공개</StDiv>
             <StCheckBoxWrapper className="switch">
               <StCheckBox
                 id="checkbox"

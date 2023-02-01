@@ -66,7 +66,7 @@ const Login = () => {
         }
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       carrotAlert(error.response.data.message);
     }
   };

@@ -13,7 +13,7 @@ export const __startTimer = createAsyncThunk(
   "timer/start",
   async (payload, thunkAPI) => {
     try {
-      console.log("시작 페이로드", payload);
+      // console.log("시작 페이로드", payload);
       // console.log("타이머 시작 통신 ");
       const { data } = await api.postTimerApi(payload);
       console.log(data.data);
@@ -28,13 +28,13 @@ export const __startTimer = createAsyncThunk(
 export const __finsihTimer = createAsyncThunk(
   "timer/finish",
   async (payload, thunkAPI) => {
-    console.log("종료 페이로드", payload);
+    // console.log("종료 페이로드", payload);
     try {
       const response = await api.putTimerApi(
         payload.timerId,
         payload.timerInfo
       );
-      console.log(response);
+      // console.log(response);
       return thunkAPI.fulfillWithValue();
     } catch (error) {
       // console.log(error);
@@ -69,7 +69,7 @@ export const timerSlice = createSlice({
       })
       .addCase(__finsihTimer.fulfilled, (state, action) => {
         state.isLoading = false;
-        console.log(action);
+        // console.log(action);
       })
       .addCase(__finsihTimer.rejected, (state, action) => {
         state.isLoading = false;
