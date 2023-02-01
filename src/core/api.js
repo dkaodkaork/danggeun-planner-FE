@@ -66,6 +66,8 @@ export const api = {
   //알람
   //알람 수신
   getAlarmApi: () => baseURL.get(`/member/notification/read`),
+  //종 누르면 알람 수신 true로 바꾸기
+  putAlarmApi: () => baseURL.put(`/member/notification/read`),
   //알람 리스트 조회
   getAlarmListApi: () => baseURL.get(`/member/notification`),
   //그룹 초대 승락

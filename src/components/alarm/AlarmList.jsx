@@ -40,14 +40,26 @@ const AlarmList = () => {
 
   //그룹 초대 승락
   const clickAcceptHandler = (notificationId, groupId) => {
-    carrotAlert("그룹 초대를 수락했습니다");
-    dispatch(__postAlarmAccept({ notificationId, groupId }));
+    dispatch(__postAlarmAccept({ notificationId, groupId })).then((res) => {
+      if (res?.error?.message === "Rejected") {
+        carrotAlert("존재하지 않는 그룹입니다");
+        //dispatch(__deleteConfirm(notificationId));
+      } else {
+        carrotAlert("그룹 초대를 승락했습니다");
+      }
+    });
   };
 
   //그룹 초대 거절
   const clickRejectHandler = (notificationId, groupId) => {
-    carrotAlert("그룹 초대를 거절했습니다");
-    dispatch(__deleteAlarmReject({ notificationId, groupId }));
+    dispatch(__deleteAlarmReject({ notificationId, groupId })).then((res) => {
+      if (res?.error?.message === "Rejected") {
+        carrotAlert("존재하지 않는 그룹입니다");
+        //dispatch(__deleteConfirm(notificationId));
+      } else {
+        carrotAlert("그룹 초대를 거절했습니다");
+      }
+    });
   };
 
   //그룹 초대 결과 확인
