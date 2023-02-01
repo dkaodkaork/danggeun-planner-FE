@@ -58,7 +58,7 @@ const Profile = () => {
       navigate(PATH.mypage);
     } else {
       dispatch(__putUsername(editUsername)).then((res) => {
-        console.log(res);
+        // console.log(res);
         res?.error?.message === "Rejected"
           ? carrotAlert(res.payload)
           : navigate(PATH.mypage);

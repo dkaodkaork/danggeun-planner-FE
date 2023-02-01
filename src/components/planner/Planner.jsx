@@ -442,7 +442,7 @@ const StBodyDiv = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  height: 600px;
+  height: 507px;
   overflow: scroll;
   margin-top: 6px;
 `;
