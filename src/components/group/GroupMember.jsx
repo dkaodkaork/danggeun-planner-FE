@@ -43,10 +43,22 @@ const GroupMember = () => {
     dispatch(groupMemberOpenStatus(!groupMemberOpen));
   };
 
+  //화면크기 인식
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const resizeWidth = () => {
+    setWindowWidth(window.innerWidth);
+  };
+  useEffect(() => {
+    window.addEventListener("resize", resizeWidth);
+    return () => {
+      window.removeEventListener("resize", resizeWidth);
+    };
+  }, []);
+
   //멤버 토글을 열 때마다 데이터 업데이트 //이걸 하면 처음에 멤버를 받음
-  // useEffect(() => {
-  //   dispatch(__getGroupMember(groupId));
-  // }, [groupMemberOpen]);
+  useEffect(() => {
+    dispatch(__getGroupMember(groupId));
+  }, [groupMemberOpen]);
 
   //그룹 탈퇴, 수정, 삭제 토글 관리
   const detailMenuOpen = useSelector(
@@ -179,7 +191,7 @@ const GroupMember = () => {
                     </Member>
                   ))}
                 </ScrollBox>
-                <GroupButton>
+                <GroupButton size={windowWidth}>
                   {groupMemberGet?.isAdmin ? (
                     <>
                       <StGroupBtnLeft>
@@ -342,7 +354,8 @@ const Carrot = styled(State)`
 `;
 
 const GroupButton = styled.div`
-  margin-top: 24px;
+  margin-top: ${(props) => (500 < props.size ? "38px" : "24px")};
+  /* margin-top: 24px; */
   display: flex;
   justify-content: space-between;
   width: 100%;
