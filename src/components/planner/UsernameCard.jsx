@@ -5,7 +5,7 @@ import styled from "styled-components";
 const UsernameCard = ({ username, profileImage, link }) => {
   return (
     <>
-      <StContainer to={link}>
+      <StContainer>
         <StImg src={profileImage}></StImg>
         <StUsernameBox>{username}</StUsernameBox>
       </StContainer>
@@ -15,7 +15,7 @@ const UsernameCard = ({ username, profileImage, link }) => {
 
 export default UsernameCard;
 
-const StContainer = styled(Link)`
+const StContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
