@@ -21,7 +21,7 @@ const CarrotTimer = () => {
 
   const data = useSelector((state) => state.timer.data);
 
-  const startTime = 1000 * 4;
+  const startTime = 1000 * 60 * 25;
   const restTime = 1000 * 60 * 5;
   const longRestTime = 1000 * 60 * 15;
 

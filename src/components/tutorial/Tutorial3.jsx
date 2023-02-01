@@ -14,7 +14,7 @@ const Tutorial3 = () => {
         <StContentLayout>
           <h1>알아서 기록하는 똑똑한 플래너</h1>
           <p>
-            집중한 기록은 저절로 플래너에 채워져요.
+            집중한 기록은 저절로 <strong>플래너</strong>에 채워져요.
             <br /> 다른 일정들과 함께 관리해요!
           </p>
         </StContentLayout>
@@ -57,6 +57,15 @@ const StContentLayout = styled.div`
     color: #595550;
   }
   p {
+    margin-top: 24px;
+    font-family: "Pretendard-Regular";
+    font-weight: 500;
+    font-size: 1.6rem;
+    color: #595550;
+    line-height: 160%;
+    text-align: center;
+  }
+  strong {
     margin-top: 24px;
     font-family: "Pretendard-Bold";
     font-weight: 700;
