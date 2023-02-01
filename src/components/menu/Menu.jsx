@@ -1,8 +1,8 @@
 //리액트 관련
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 //리덕스
 import {
@@ -10,7 +10,7 @@ import {
   searchModalOpenStatus,
 } from "../../redux/modules/modalSlice";
 import { __getUserInfo } from "../../redux/modules/mypageSlice";
-import { __getAlarm } from "../../redux/modules/alarmSlice";
+import { __getAlarm, __putAlarm } from "../../redux/modules/alarmSlice";
 
 //상수, api
 import { IMAGES, PATH } from "../../constants/index";
@@ -38,7 +38,7 @@ const Menu = () => {
 
   //알림 읽음 조회
   useEffect(() => {
-    //console.log("알림 읽음 조회");
+    // console.log("알림 읽음 조회");
     dispatch(__getAlarm());
   }, [groupMenuOpen]);
 
@@ -90,6 +90,7 @@ const Menu = () => {
   };
   //알림
   const clickBellNav = () => {
+    dispatch(__putAlarm());
     navigate(PATH.alarm);
     dispatch(groupMenuOpenStatus(!groupMenuOpen));
   };
@@ -108,6 +109,24 @@ const Menu = () => {
 
   //그룹 읽음 데이터 확인
   const alarmIsRead = useSelector((state) => state.alarm.isRead);
+
+  //console.log(groupMenuOpen);
+
+  //모바일인지 아닌지 확인
+  // const [mobile, setMobile] = useState(false);
+
+  // useEffect(() => {
+  //   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  //   if (isMobile) {
+  //     // mobile
+  //     setMobile(true);
+  //   } else {
+  //     // desktop
+  //     setMobile(false);
+  //   }
+  // }, []);
+
+  // console.log(mobile);
 
   return (
     <>
@@ -202,17 +221,32 @@ const ModalBackdrop = styled.div`
   z-index: 10;
 `;
 
+const menuAni = keyframes`
+  0% {
+    right: -196px;
+  }
+  100% {
+    right: 0;
+  }
+`;
+
 const MenuLayout = styled.div`
   /* width: ${(props) => (props.toggle ? "196px" : "0")}; */
+  display: ${(props) => !props.toggle && "none"};
   width: 196px;
+  height: 100%;
+  /* width: ${(props) => (props.toggle ? "196px" : "0px")};
+  height: ${(props) => (props.toggle ? "100%" : "0px")}; */
   background-color: #f9f3ea;
   position: absolute;
-  right: ${(props) => (props.toggle ? "0" : "-196px")};
-  height: 100%;
-  transition: ${(props) => (props.toggle ? "all 0.4s" : "0s")};
+  /* right: ${(props) => (props.toggle ? "0" : "-196px")};
+  transition: ${(props) => (props.toggle ? "all 0.4s" : "0s")}; */
   /* transition: all 0.4s; */
   padding: 28px;
   border-radius: 12px 0px 0px 12px;
+  /* animation: ${menuAni} 0.4s linear; */
+  animation: ${menuAni} 0.3s ease-out;
+  right: ${(props) => props.toggle && "0"};
 `;
 
 const MenuIcon = styled.div`

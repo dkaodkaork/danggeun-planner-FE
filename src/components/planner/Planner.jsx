@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { planModalOpenStatus } from "../../redux/modules/modalSlice";
 import {
   __getAllPlan,
-  __getTimerPlan,
   __getPlan,
   __postPlan,
   __deletePlan,
@@ -28,9 +27,11 @@ import SortingBtnGroup from "./SortingBtnGroup";
 import PlannerSubHeader from "./PlannerSubHeader";
 import MainHeader from "../header/MainHeader";
 import PrivatePlanner from "./PrivatePlanner";
+import { useModal } from "../../hooks/useModal";
 
 const Planner = () => {
   // hook
+  const { isModal, modalHandler } = useModal();
   const dispatch = useDispatch();
   const { date, username } = useParams();
 
@@ -71,6 +72,7 @@ const Planner = () => {
         naviagte(PATH.error);
       }
     });
+    // return () => dispatch(planModalOpenStatus(false));
   }, [groupMenuOpen]);
 
   // 전체 조회 버튼
@@ -116,13 +118,15 @@ const Planner = () => {
       min: "",
     });
     // 모달 열기
-    dispatch(planModalOpenStatus(!planModalOpen));
+    // dispatch(planModalOpenStatus(!planModalOpen));
+    modalHandler();
     setIsEdit(false);
   };
 
   // 모달창 수정할때 열기
   const openEditModalHanlder = (id, val) => {
-    dispatch(planModalOpenStatus(!planModalOpen));
+    // dispatch(planModalOpenStatus(!planModalOpen));
+    modalHandler();
     setIsDisabled(true);
     setIsEdit(true);
     setSelectedId(id);
@@ -141,19 +145,23 @@ const Planner = () => {
   };
 
   const modalOutSideClick = (e) => {
-    dispatch(planModalOpenStatus(!planModalOpen));
+    // dispatch(planModalOpenStatus(!planModalOpen));
+    modalHandler();
   };
 
   // 계획 삭제
   const closeModalHanlder = (id, plan) => {
     if (plan?.hasOwnProperty("timerId")) {
-      dispatch(planModalOpenStatus(!planModalOpen));
+      // dispatch(planModalOpenStatus(!planModalOpen));
+      modalHandler();
     } else {
       if (isEdit) {
         dispatch(__deletePlan({ id }));
-        dispatch(planModalOpenStatus(!planModalOpen));
+        // dispatch(planModalOpenStatus(!planModalOpen));
+        modalHandler();
       } else {
-        dispatch(planModalOpenStatus(!planModalOpen));
+        // dispatch(planModalOpenStatus(!planModalOpen));
+        modalHandler();
       }
     }
   };
@@ -165,7 +173,8 @@ const Planner = () => {
     } else {
       const title = { content: planTitle };
       dispatch(__putTimerContent({ title, id }));
-      dispatch(planModalOpenStatus(!planModalOpen));
+      // dispatch(planModalOpenStatus(!planModalOpen));
+      modalHandler();
     }
   };
 
@@ -197,13 +206,15 @@ const Planner = () => {
           dispatch(__putPlan({ planInfo, id })).then((res) => {
             res?.error?.message === "Rejected"
               ? carrotAlert(res.payload)
-              : dispatch(planModalOpenStatus(!planModalOpen));
+              : modalHandler();
+            // dispatch(planModalOpenStatus(!planModalOpen));
           });
         } else {
           dispatch(__postPlan(planInfo)).then((res) => {
             res?.error?.message === "Rejected"
               ? carrotAlert(res.payload)
-              : dispatch(planModalOpenStatus(!planModalOpen));
+              : modalHandler();
+            //  dispatch(planModalOpenStatus(!planModalOpen));
           });
         }
       }
@@ -339,21 +350,20 @@ const Planner = () => {
             )}
           </StBodyDiv>
           <StBox>
-            {plans.isOwner && !planModalOpen && (
+            {plans.isOwner && !isModal && (
               <BottomBtn onClick={openModalHanlder} />
             )}
           </StBox>
         </StContainer>
       )}
-      {planModalOpen ? (
+      {isModal ? (
         <SlideModal
           height="258px"
           bottom="-60px"
-          toggle={planModalOpen}
+          toggle={isModal}
           cancleHandler={modalOutSideClick}
         >
           <PlannerModal
-            planModalOpen={planModalOpen}
             doneAddModalHandler={doneAddModalHandler}
             changeTitleHandler={changeTitleHandler}
             changeStartTimeHandler={changeStartTimeHandler}

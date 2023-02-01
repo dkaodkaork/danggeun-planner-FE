@@ -4,51 +4,72 @@ import { IMAGES, PATH } from "../constants/index";
 
 const Layout = ({ children }) => {
   //화면크기 인식
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const [state, setState] = useState(false);
-  const resizeWidth = () => {
-    setWindowWidth(window.innerWidth);
-  };
-  useEffect(() => {
-    window.addEventListener("resize", resizeWidth);
-    return () => {
-      window.removeEventListener("resize", resizeWidth);
-    };
-  }, []);
+  // const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  // const [state, setState] = useState(false);
+  // const resizeWidth = () => {
+  //   setWindowWidth(window.innerWidth);
+  // };
+  // useEffect(() => {
+  //   window.addEventListener("resize", resizeWidth);
+  //   return () => {
+  //     window.removeEventListener("resize", resizeWidth);
+  //   };
+  // }, []);
+
+  // useEffect(() => {
+  //   console.log("렌더링 확인");
+  // }, []);
 
   return (
+    //이전 코드
+    // <LayoutBox>
+    //   {windowWidth < 1200 ? (
+    //     <>
+    //       <StLogoImg>
+    //         <img src={IMAGES.webLogo} />
+    //       </StLogoImg>
+    //       <StMadeby2>
+    //         <img src={IMAGES.members} />
+    //       </StMadeby2>
+    //       <StRabbit>
+    //         <img src={IMAGES.rabbit} />
+    //       </StRabbit>
+    //       <DivLayout2>{children}</DivLayout2>
+    //     </>
+    //   ) : (
+    //     // <DivLayout2>{children}</DivLayout2>
+    //     <>
+    //       <StLogoImg>
+    //         <img src={IMAGES.webLogo} />
+    //       </StLogoImg>
+    //       <StMadeby>
+    //         <img src={IMAGES.members} />
+    //       </StMadeby>
+    //       <StRabbit>
+    //         <img src={IMAGES.rabbit} />
+    //       </StRabbit>
+    //       <StSum url={IMAGES.backEarth} />
+    //       <Box>
+    //         <DeskTopLayout>{children}</DeskTopLayout>
+    //       </Box>
+    //     </>
+    //   )}
+    // </LayoutBox>
+
     <LayoutBox>
-      {windowWidth < 1200 ? (
-        <>
-          <StLogoImg>
-            <img src={IMAGES.webLogo} />
-          </StLogoImg>
-          <StMadeby2>
-            <img src={IMAGES.members} />
-          </StMadeby2>
-          <StRabbit>
-            <img src={IMAGES.rabbit} />
-          </StRabbit>
-          <DivLayout2>{children}</DivLayout2>
-        </>
-      ) : (
-        // <DivLayout2>{children}</DivLayout2>
-        <>
-          <StLogoImg>
-            <img src={IMAGES.webLogo} />
-          </StLogoImg>
-          <StMadeby>
-            <img src={IMAGES.members} />
-          </StMadeby>
-          <StRabbit>
-            <img src={IMAGES.rabbit} />
-          </StRabbit>
-          <StSum url={IMAGES.backEarth} />
-          <Box>
-            <DeskTopLayout>{children}</DeskTopLayout>
-          </Box>
-        </>
-      )}
+      <StLogoImg>
+        <img src={IMAGES.webLogo} />
+      </StLogoImg>
+      <StMadeby>
+        <img src={IMAGES.members} />
+      </StMadeby>
+      <StRabbit>
+        <img src={IMAGES.rabbit} />
+      </StRabbit>
+      <StSum url={IMAGES.backEarth} />
+      <Box>
+        <DivLayout2>{children}</DivLayout2>
+      </Box>
     </LayoutBox>
   );
 };
@@ -62,6 +83,9 @@ const StLogoImg = styled.div`
   img {
     width: 17.1354vw;
   }
+  @media screen and (max-width: 625px) {
+    display: none;
+  }
 `;
 
 const StMadeby = styled.div`
@@ -70,6 +94,14 @@ const StMadeby = styled.div`
   right: 5%;
   img {
     width: 8.4896vw;
+  }
+  @media screen and (max-width: 1000px) {
+    img {
+      width: 15vw;
+    }
+  }
+  @media screen and (max-width: 625px) {
+    display: none;
   }
 `;
 const StMadeby2 = styled.div`
@@ -88,9 +120,13 @@ const StRabbit = styled.div`
   img {
     width: 35.4375vw;
   }
+  @media screen and (max-width: 625px) {
+    display: none;
+  }
 `;
 
 const LayoutBox = styled.div`
+  width: 100%;
   display: flex;
   margin: 0 auto;
   justify-content: center;
@@ -104,6 +140,15 @@ const StSum = styled.div`
   margin-left: 40%;
   bottom: 0;
   background-image: url(${(props) => props.url});
+  background-repeat: no-repeat;
+
+  @media screen and (max-width: 1000px) {
+    display: none;
+  }
+
+  /* @media screen and (max-width: 625px) {
+    display: none;
+  } */
   /* background-color: aqua; */
 `;
 
@@ -120,11 +165,21 @@ const StSum = styled.div`
 // `;
 
 const Box = styled.div`
+  //핸드폰 화면에 맞춤 처리
   display: flex;
   margin-left: 40%;
   justify-content: center;
   box-shadow: 0 5px 18px -7px rgba(0, 0, 0, 0.4);
   z-index: 1;
+
+  @media screen and (max-width: 1000px) {
+    margin: 0 auto;
+  }
+
+  @media screen and (max-width: 625px) {
+    margin: 0 auto;
+    width: 100%;
+  }
 `;
 
 const DeskTopLayout = styled.div`
@@ -145,9 +200,7 @@ const DivLayout2 = styled.div`
     background-color: #f9f3ea;
   }
   width: 375px;
-  /* min-height: 812px; */
   height: 100vh;
-  /* height: auto; */
   position: relative;
   margin-left: 0 auto;
   background-color: #f9f3ea;

@@ -27,16 +27,32 @@ const MainHeader = ({ leftLink, leftSlot, title }) => {
   };
 
   //화면크기 인식
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const resizeWidth = () => {
-    setWindowWidth(window.innerWidth);
-  };
-  useEffect(() => {
-    window.addEventListener("resize", resizeWidth);
-    return () => {
-      window.removeEventListener("resize", resizeWidth);
-    };
-  }, []);
+  // const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  // const resizeWidth = () => {
+  //   setWindowWidth(window.innerWidth);
+  // };
+  // useEffect(() => {
+  //   window.addEventListener("resize", resizeWidth);
+  //   return () => {
+  //     window.removeEventListener("resize", resizeWidth);
+  //   };
+  // }, []);
+
+  //모바일인지 아닌지 확인
+  //const [mobile, setMobile] = useState(false);
+
+  // useEffect(() => {
+  //   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  //   if (isMobile) {
+  //     // mobile
+  //     setMobile(true);
+  //   } else {
+  //     // desktop
+  //     setMobile(false);
+  //   }
+  // }, []);
+
+  // console.log(mobile);
 
   //SSE 설정
   const EventSource = EventSourcePolyfill || NativeEventSource;
@@ -111,7 +127,7 @@ const MainHeader = ({ leftLink, leftSlot, title }) => {
       //sse 에러
       eventSource.onerror = (e) => {
         //console.log("onerror", e);
-        // eventSource.close();
+        //eventSource.close();
         localStorage.setItem("sse", null);
       };
 
@@ -172,7 +188,9 @@ const MainHeader = ({ leftLink, leftSlot, title }) => {
           </StRightSlot>
         </StBox>
       </StContainer>
-      {windowWidth < 500 && !groupMenuOpen ? null : <Menu />}
+      <Menu />
+      {/* {windowWidth < 500 && !groupMenuOpen ? null : <Menu />} */}
+      {/* {mobile && !groupMenuOpen ? null : <Menu />} */}
     </>
   );
 };

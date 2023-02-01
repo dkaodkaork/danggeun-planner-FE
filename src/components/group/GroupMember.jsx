@@ -44,16 +44,16 @@ const GroupMember = () => {
   };
 
   //화면크기 인식
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const resizeWidth = () => {
-    setWindowWidth(window.innerWidth);
-  };
-  useEffect(() => {
-    window.addEventListener("resize", resizeWidth);
-    return () => {
-      window.removeEventListener("resize", resizeWidth);
-    };
-  }, []);
+  // const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  // const resizeWidth = () => {
+  //   setWindowWidth(window.innerWidth);
+  // };
+  // useEffect(() => {
+  //   window.addEventListener("resize", resizeWidth);
+  //   return () => {
+  //     window.removeEventListener("resize", resizeWidth);
+  //   };
+  // }, []);
 
   //멤버 토글을 열 때마다 데이터 업데이트 //이걸 하면 처음에 멤버를 받음
   // useEffect(() => {
@@ -191,7 +191,7 @@ const GroupMember = () => {
                     </Member>
                   ))}
                 </ScrollBox>
-                <GroupButton size={windowWidth}>
+                <GroupButton>
                   {groupMemberGet?.isAdmin ? (
                     <>
                       <StGroupBtnLeft>
@@ -354,12 +354,15 @@ const Carrot = styled(State)`
 `;
 
 const GroupButton = styled.div`
-  margin-top: ${(props) => (500 < props.size ? "38px" : "24px")};
+  margin-top: 38px;
   /* margin-top: 24px; */
   display: flex;
   justify-content: space-between;
   width: 100%;
   gap: 15px;
+  @media screen and (max-width: 420px) {
+    margin-top: 24px;
+  }
 `;
 
 const StGroupBtnLeft = styled.div`

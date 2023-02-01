@@ -6,8 +6,8 @@ export const useRouteByToken = () => {
 
   const routeByToken = () => {
     const AccessToken = localStorage.getItem("accessToken");
-    console.log(AccessToken);
-    AccessToken ? navigate(PATH.timer) : navigate(PATH.intro);
+    // console.log(AccessToken);
+    AccessToken ? navigate(PATH.timer) : navigate(PATH.login);
   };
 
   return { routeByToken };

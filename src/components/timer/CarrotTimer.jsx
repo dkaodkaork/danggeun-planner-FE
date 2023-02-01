@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { useLayoutEffect, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { __startTimer, __finsihTimer } from "../../redux/modules/timerSlice";
 import styled from "styled-components";
@@ -10,6 +10,9 @@ import Button from "./TimerButton";
 import GetCarrot from "./GetCarrot";
 import TimerBackground from "./TimerBackground";
 import MainHeader from "../header/MainHeader";
+import { __getUserInfo } from "../../redux/modules/mypageSlice";
+import { useNavigate } from "react-router-dom";
+import { carrotAlert, carrotConfirm } from "../element/alert";
 //
 
 const CarrotTimer = () => {
@@ -18,6 +21,8 @@ const CarrotTimer = () => {
   const [count, setCount] = useState(0);
 
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
 
   const data = useSelector((state) => state.timer.data);
 
@@ -31,6 +36,15 @@ const CarrotTimer = () => {
     useTimer(() => {
       callback();
     }, startTime);
+
+  useEffect(() => {
+    dispatch(__getUserInfo()).then((res) => {
+      if (res?.payload?.username === null) {
+        carrotAlert("닉네임은 반드시 생성해야합니다!");
+        navigate("username");
+      }
+    });
+  }, []);
 
   useLayoutEffect(() => {
     if (mode === "focusMode") {
@@ -91,8 +105,11 @@ const CarrotTimer = () => {
   };
 
   const focusGiveUpHandler = () => {
-    toggleTimer(startTime);
-    setCount(0);
+    carrotConfirm(
+      "집중을 포기하시겠습니까?",
+      () => toggleTimer(startTime),
+      () => setCount(0)
+    );
   };
 
   const getCarrotHandler = () => {
