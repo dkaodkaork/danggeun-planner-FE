@@ -15,7 +15,7 @@ const Tutorial2 = () => {
           <h1>수고한 나에게 채찍 대신 당근을</h1>
           <p>
             집중 시작과 함께 당근 씨앗을 심으면
-            <br /> 25분 뒤에 귀여운 당근을 수확할 수 있어요.
+            <br /> 25분 뒤에 귀여운 당근을 <strong>수확</strong>할 수 있어요.
           </p>
         </StContentLayout>
         <StButtonLayout>
@@ -57,6 +57,15 @@ const StContentLayout = styled.div`
     color: #595550;
   }
   p {
+    margin-top: 24px;
+    font-family: "Pretendard-Regular";
+    font-weight: 500;
+    font-size: 1.6rem;
+    color: #595550;
+    line-height: 160%;
+    text-align: center;
+  }
+  strong {
     margin-top: 24px;
     font-family: "Pretendard-Bold";
     font-weight: 700;
