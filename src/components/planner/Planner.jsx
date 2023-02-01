@@ -346,7 +346,11 @@ const Planner = () => {
               </StEmptyBodyDiv>
             )}
           </StBodyDiv>
-          {plans.isOwner && <BottomBtn onClick={openModalHanlder} />}
+          <StBox>
+            {plans.isOwner && !planModalOpen && (
+              <BottomBtn onClick={openModalHanlder} />
+            )}
+          </StBox>
         </StContainer>
       )}
       {planModalOpen ? (
@@ -383,8 +387,15 @@ const Planner = () => {
 
 export default Planner;
 
+const StBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 const StContainer = styled.div`
   background-color: #f9f3ea;
+  /* position: relative; */
 `;
 
 const StDateBox = styled.div`

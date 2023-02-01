@@ -241,18 +241,17 @@ const StBtns = styled.div`
   display: flex;
   flex-direction: column;
   gap: 24px;
-  position: fixed;
-  bottom: 28px;
+  margin-top: 50px;
   width: 319px;
   height: 174px;
-  /* margin-top: 87px; */
+  position: relative;
 `;
 
 const StGift = styled.div`
   position: absolute;
-  top: -17px;
-  right: 8px;
-  z-index: 10;
+  top: -10%;
+  right: 7%;
+  z-index: 5;
   width: 40px;
   height: 40px;
   background-image: url(${(props) => props.url});
