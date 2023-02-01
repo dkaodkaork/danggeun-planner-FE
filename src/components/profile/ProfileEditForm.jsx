@@ -31,7 +31,7 @@ const Profile = () => {
   const [editUsername, setEditUsername] = useState({ username: "" });
 
   useEffect(() => {
-    setCountUsername(userInfo.username.length);
+    setCountUsername(userInfo?.username?.length);
   }, []);
 
   useEffect(() => {
@@ -244,4 +244,5 @@ const StBotBox = styled.div`
 
 const StImgBox = styled.div`
   position: relative;
+  cursor: pointer;
 `;
