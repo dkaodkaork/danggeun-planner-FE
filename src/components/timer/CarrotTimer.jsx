@@ -40,7 +40,7 @@ const CarrotTimer = () => {
   useEffect(() => {
     dispatch(__getUserInfo()).then((res) => {
       if (res?.payload?.username === null) {
-        carrotAlert("닉네임은 반드시 생성해야합니다!");
+        carrotAlert("닉네임은 반드시 생성해야 합니다!");
         navigate("username");
       }
     });
@@ -106,7 +106,7 @@ const CarrotTimer = () => {
 
   const focusGiveUpHandler = () => {
     carrotConfirm(
-      "집중을 포기하시겠습니까?",
+      "정말로 그만두시겠습니까?",
       () => toggleTimer(startTime),
       () => setCount(0)
     );
@@ -134,7 +134,7 @@ const CarrotTimer = () => {
         textDecoration="underline"
         underlinePosition="under"
       >
-        포기하기?
+        그만두기?
       </Button>
     ),
   };
