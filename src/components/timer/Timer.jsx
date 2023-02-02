@@ -43,13 +43,12 @@ const StTimer = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
-  /* margin: auto; */
 `;
 
 const StTime = styled.p`
   color: #595550;
   font-size: 7rem;
-  margin-top: 9px;
+  font-family: "Pretendard-Regular";
 `;
 
 const StSvg = styled.svg`

@@ -20,8 +20,6 @@ const MypageForm = () => {
   const navigate = useNavigate();
   const userInfo = useSelector((state) => state.mypage.data);
 
-  // console.log("디비에서 가져온 값", userInfo.isPlannerOpened);
-
   useEffect(() => {
     dispatch(__getUserInfo());
   }, []);
@@ -30,17 +28,13 @@ const MypageForm = () => {
     dispatch(__putPlannerOpen(!userInfo.isPlannerOpened));
   };
 
-  // const msg = "로그아웃 하시겠습니까?";
   const logoutHandler = async () => {
-    // carrotConfirm(msg);
-    // if (window.confirm("로그아웃 하시겠습니까?")) {
     try {
       const response = await api.postLogoutApi();
     } catch (error) {}
     await localStorage.clear();
     window.dispatchEvent(new Event("storage"));
     navigate("/");
-    // }
   };
 
   return (
@@ -125,7 +119,6 @@ const StContainer = styled.div`
 `;
 
 const StProfileBody = styled.div`
-  width: 375px;
   display: flex;
   flex-direction: column;
   justify-content: center;
