@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { IMAGES } from "../../constants/index";
 
 import Timer from "./Timer";
-import TimerMsg from "./TimerMsg";
 
 const TimerBackground = ({
   stack,
@@ -47,7 +46,6 @@ const TimerBackground = ({
         <StButtonBox>
           {isClear ? perBtnByMode[mode].start : perBtnByMode[mode].rest}
         </StButtonBox>
-        {/* <TimerMsg stack={stack}></TimerMsg> */}
       </StBackground>
     </>
   );
