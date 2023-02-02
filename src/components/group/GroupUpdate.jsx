@@ -17,6 +17,7 @@ import Textarea from "../element/Textarea";
 import TimerButton from "../timer/TimerButton";
 import MainHeader from "../header/MainHeader";
 import { carrotAlert } from "../element/alert";
+import GroupModal from "./GroupModal";
 
 const GroupUpdate = () => {
   const dispatch = useDispatch();
@@ -50,23 +51,9 @@ const GroupUpdate = () => {
     setTextareaCount(e.target.value.length);
   };
 
-  const onClickGroupUpdate = () => {
-    //하나의 객체로 묶어서 보내야 함!
+  const clickUpdateConfirm = () => {
     const groupInfo = { groupName, description };
-    //버튼 비활성으로 처리
-    // if (inputCount === 0) {
-    //   alert("그룹 제목을 입력해주세요");
-    // } else if (textareaCount === 0) {
-    //   alert("그룹 내용을 입력해주세요");
-    // } else {
-    //   return dispatch(__putGroupUpdate({ groupInfo, groupId })).then((res) => {
-    //     const groupId = res.payload.groupId;
-    //     navigate(PATH.groupdetail(groupId));
-    //   });
-    // }
-
     dispatch(__putGroupUpdate({ groupInfo, groupId })).then((res) => {
-      //console.log(res);
       if (res?.error?.message === "Rejected") {
         carrotAlert("접근 권한이 없습니다");
         navigate(PATH.grouplist);
@@ -113,7 +100,7 @@ const GroupUpdate = () => {
         <StBottom>
           <TimerButton
             width="319px"
-            onClick={onClickGroupUpdate}
+            onClick={clickUpdateConfirm}
             disabled={groupName?.length === 0 || description?.length === 0}
           >
             완 료

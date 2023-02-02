@@ -1,7 +1,7 @@
 //리액트 관련
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 //리덕스
@@ -30,7 +30,7 @@ const GroupMember = () => {
 
   const groupMemberGet = useSelector((state) => state.group.groupMemberGet);
 
-  const groupId = groupMemberGet?.groupId;
+  //const groupId = groupMemberGet?.groupId;
   const groupName = groupMemberGet?.groupName;
 
   const groupMenuOpen = useSelector((state) => state.modalSlice.groupMenuOpen);
@@ -39,51 +39,48 @@ const GroupMember = () => {
     (state) => state.modalSlice.groupMemberOpen
   );
 
+  const param = useParams();
+  const groupId = param.groupId;
+
   const ClickToggle = () => {
     dispatch(groupMemberOpenStatus(!groupMemberOpen));
   };
 
-  //화면크기 인식
-  // const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  // const resizeWidth = () => {
-  //   setWindowWidth(window.innerWidth);
-  // };
-  // useEffect(() => {
-  //   window.addEventListener("resize", resizeWidth);
-  //   return () => {
-  //     window.removeEventListener("resize", resizeWidth);
-  //   };
-  // }, []);
-
-  //멤버 토글을 열 때마다 데이터 업데이트 //이걸 하면 처음에 멤버를 받음
-  // useEffect(() => {
-  //   dispatch(__getGroupMember(groupId));
-  // }, [groupMemberOpen]);
+  //멤버 토글을 열 때마다 데이터 업데이트 //이걸 하면 처음에 멤버를 받음 //렉이 좀 생기는듯함
+  useEffect(() => {
+    dispatch(__getGroupMember(groupId));
+    return () => {
+      dispatch(detailMenuOpenStatus(false));
+    };
+  }, [groupMemberOpen]);
 
   //그룹 탈퇴, 수정, 삭제 토글 관리
   const detailMenuOpen = useSelector(
     (state) => state.modalSlice.detailMenuOpen
   );
   const [quitModal, setQuitModal] = useState(false);
-  const [updateModal, setUpdateModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
 
-  //클릭 핸들러
+  //그룹 탈퇴, 수정, 삭제 버튼 클릭 핸들러
+  //그룹 탈퇴
   const clickQuitHandler = () => {
     setQuitModal(true);
     dispatch(detailMenuOpenStatus(!detailMenuOpen));
   };
 
+  //그룹 삭제
   const clickDeleteHandler = () => {
     setDeleteModal(true);
     dispatch(detailMenuOpenStatus(!detailMenuOpen));
   };
 
+  //그룹 수정
   const clickUpdateHandler = () => {
-    setUpdateModal(true);
     dispatch(detailMenuOpenStatus(!detailMenuOpen));
+    navigate(PATH.groupupdate(groupId));
   };
 
+  //그룹원 초대
   const clickInviteHandler = () => {
     navigate(PATH.groupinvite(groupId));
   };
@@ -93,35 +90,19 @@ const GroupMember = () => {
   const clickDeleteConfirm = () => {
     dispatch(__deleteGroup(groupId)).then(() => {
       navigate(PATH.grouplist);
-      //dispatch(groupMenuOpenStatus(!groupMenuOpen));
-      dispatch(groupMemberOpenStatus(!groupMemberOpen));
     });
-  };
-
-  //그룹 수정
-  const clickUpdateConfirm = () => {
-    navigate(PATH.groupupdate(groupId));
-    dispatch(groupMemberOpenStatus(!groupMemberOpen));
   };
 
   //그룹 탈퇴
   const clickOutConfirm = () => {
     dispatch(__outGroup(groupId)).then(() => {
       navigate(PATH.grouplist);
-      dispatch(groupMemberOpenStatus(!groupMemberOpen));
     });
   };
 
   //모달에 전달해주는 취소 기능
   const clickDeleteCancle = () => {
     setDeleteModal(false);
-  };
-  const clickUpdateCancle = () => {
-    setUpdateModal(false);
-  };
-
-  const clickMemberHandler = () => {
-    dispatch(groupMemberOpenStatus(!groupMemberOpen));
   };
 
   return (
@@ -180,7 +161,7 @@ const GroupMember = () => {
                         </OfflineState>
                       )}
                       <Link to={PATH.calendar(user?.username)}>
-                        <User onClick={clickMemberHandler}>
+                        <User>
                           <ProfileImg src={user?.profileImage} />
                           <span>{user?.username}</span>
                         </User>
@@ -219,14 +200,6 @@ const GroupMember = () => {
             ) : null}
           </GroupMemberLayout>
         </GroupSlideModal>
-      ) : null}
-      {updateModal ? (
-        <GroupModal
-          groupName={groupName}
-          subject="수정"
-          onClickConfirm={clickUpdateConfirm}
-          onClickCancle={clickUpdateCancle}
-        />
       ) : null}
       {deleteModal ? (
         <GroupModal

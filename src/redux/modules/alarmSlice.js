@@ -25,11 +25,11 @@ export const __getAlarm = createAsyncThunk(
 );
 
 //알람 수신 확인
-export const __putAlarm = createAsyncThunk(
-  "/__putAlarm",
+export const __patchAlarm = createAsyncThunk(
+  "/__patchAlarm",
   async (payload, thunkAPI) => {
     try {
-      const data = await api.putAlarmApi();
+      const data = await api.patchAlarmApi();
       //console.log(data.data.data);
       return thunkAPI.fulfillWithValue(data.data.data);
     } catch (error) {
@@ -129,13 +129,13 @@ export const alarmSlice = createSlice({
       })
 
       // 종모양 누르면 알림 수신했다 전송
-      .addCase(__putAlarm.pending, (state) => {
+      .addCase(__patchAlarm.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(__putAlarm.fulfilled, (state, action) => {
+      .addCase(__patchAlarm.fulfilled, (state, action) => {
         state.isLoading = false;
       })
-      .addCase(__putAlarm.rejected, (state, action) => {
+      .addCase(__patchAlarm.rejected, (state, action) => {
         state.isLoading = false;
       })
 
