@@ -31,9 +31,10 @@ export const timeStamp = () => {
   return today.toISOString().substring(0, 19);
 };
 
-export const planStartTime = (time) => {
+export const planStartTime = (time, startTime) => {
   return (
-    timeStamp().slice(0, 11) +
+    startTime +
+    "T" +
     (time.hour.length < 2 ? "0" + time.hour + ":" : time.hour + ":") +
     (time.min.length < 2 ? "0" + time.min : time.min)
   );
