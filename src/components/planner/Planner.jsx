@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { planModalOpenStatus } from "../../redux/modules/modalSlice";
 import {
   __getAllPlan,
   __getPlan,
@@ -19,7 +18,6 @@ import { carrotAlert } from "../element/alert";
 import { v4 as uuidv4 } from "uuid";
 
 import { planStartTime, getDayOfWeek } from "./time";
-import BottomBtn from "./BottomBtn";
 import PlanCard from "./PlanCard";
 import PlannerModal from "./PlannerModal";
 import SlideModal from "../element/SlideModal";
@@ -28,6 +26,7 @@ import PlannerSubHeader from "./PlannerSubHeader";
 import MainHeader from "../header/MainHeader";
 import PrivatePlanner from "./PrivatePlanner";
 import { useModal } from "../../hooks/useModal";
+import Button from "../timer/TimerButton";
 
 const Planner = () => {
   // hook
@@ -57,8 +56,8 @@ const Planner = () => {
 
   // onchange로 받은 값 시작시간 끝나는 시간 파싱해서 보낼것
   const planInfo = {
-    startTime: planStartTime(startTime),
-    endTime: planStartTime(endTime),
+    startTime: planStartTime(startTime, date),
+    endTime: planStartTime(endTime, date),
     content: planTitle,
   };
 
@@ -72,7 +71,6 @@ const Planner = () => {
         naviagte(PATH.error);
       }
     });
-    // return () => dispatch(planModalOpenStatus(false));
   }, [groupMenuOpen]);
 
   // 전체 조회 버튼
@@ -99,11 +97,6 @@ const Planner = () => {
     );
   });
 
-  // 모달은 나주에 slice에서 빼고 하면 코드 많이 줄일 수 있을 것 같음. 상태로 관리
-  const planModalOpen = useSelector(
-    (state) => state.modalSlice.addPlanModalOpen
-  );
-
   // 모달창 열기
   const openModalHanlder = () => {
     setIsDisabled(false);
@@ -118,15 +111,13 @@ const Planner = () => {
       min: "",
     });
     // 모달 열기
-    // dispatch(planModalOpenStatus(!planModalOpen));
     modalHandler();
     setIsEdit(false);
   };
 
   // 모달창 수정할때 열기
   const openEditModalHanlder = (id, val) => {
-    // dispatch(planModalOpenStatus(!planModalOpen));
-    modalHandler();
+    modalHandler(); // 삭제 예정
     setIsDisabled(true);
     setIsEdit(true);
     setSelectedId(id);
@@ -145,22 +136,18 @@ const Planner = () => {
   };
 
   const modalOutSideClick = (e) => {
-    // dispatch(planModalOpenStatus(!planModalOpen));
     modalHandler();
   };
 
   // 계획 삭제
   const closeModalHanlder = (id, plan) => {
     if (plan?.hasOwnProperty("timerId")) {
-      // dispatch(planModalOpenStatus(!planModalOpen));
       modalHandler();
     } else {
       if (isEdit) {
         dispatch(__deletePlan({ id }));
-        // dispatch(planModalOpenStatus(!planModalOpen));
         modalHandler();
       } else {
-        // dispatch(planModalOpenStatus(!planModalOpen));
         modalHandler();
       }
     }
@@ -173,7 +160,6 @@ const Planner = () => {
     } else {
       const title = { content: planTitle };
       dispatch(__putTimerContent({ title, id }));
-      // dispatch(planModalOpenStatus(!planModalOpen));
       modalHandler();
     }
   };
@@ -207,14 +193,12 @@ const Planner = () => {
             res?.error?.message === "Rejected"
               ? carrotAlert(res.payload)
               : modalHandler();
-            // dispatch(planModalOpenStatus(!planModalOpen));
           });
         } else {
           dispatch(__postPlan(planInfo)).then((res) => {
             res?.error?.message === "Rejected"
               ? carrotAlert(res.payload)
               : modalHandler();
-            //  dispatch(planModalOpenStatus(!planModalOpen));
           });
         }
       }
@@ -230,7 +214,6 @@ const Planner = () => {
 
   // 플랜 시작시간 종료시간
   const changeStartTimeHandler = (e) => {
-    // let time = e.target.value;
     const { name, value } = e.target;
     switch (name) {
       case "hour":
@@ -253,8 +236,6 @@ const Planner = () => {
   };
 
   const changeEndTimeHandler = (e) => {
-    // let time = e.target.value;
-    // setEndTime({ ...endTime, [e.target.name]: time });
     const { name, value } = e.target;
     switch (name) {
       case "hour":
@@ -338,6 +319,7 @@ const Planner = () => {
                         startTime={val.startTime}
                         endTime={val.endTime}
                         count={val?.count}
+                        modalHandler={modalHandler}
                       />
                     </div>
                   );
@@ -351,7 +333,14 @@ const Planner = () => {
           </StBodyDiv>
           <StBox>
             {plans.isOwner && !isModal && (
-              <BottomBtn onClick={openModalHanlder} />
+              <Button
+                onClick={openModalHanlder}
+                backgroundColor="#4A8A51"
+                height="75px"
+                width="319px"
+              >
+                계획 추가
+              </Button>
             )}
           </StBox>
         </StContainer>
@@ -390,14 +379,17 @@ const Planner = () => {
 export default Planner;
 
 const StBox = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position: fixed;
+  bottom: 28px;
 `;
 
 const StContainer = styled.div`
   background-color: #f9f3ea;
-  /* position: relative; */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
 `;
 
 const StDateBox = styled.div`
@@ -417,7 +409,6 @@ const StTodayCarrot = styled.div`
   line-height: 17px;
   color: #595550;
   text-align: right;
-  margin-right: 4px;
 
   span {
     color: #f27808;
@@ -427,10 +418,12 @@ const StTodayCarrot = styled.div`
 const StDiv = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   align-items: center;
-  margin: 0px 32px 0px 29px;
   height: 56px;
+  width: 100%;
+  justify-content: space-between;
+
+  padding: 0px 32px 0px 29px;
 `;
 
 const StBtnGroup = styled.div`
@@ -444,8 +437,8 @@ const StBodyDiv = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  height: 507px;
-  overflow: scroll;
+  height: 60.3103vh;
+  overflow-y: scroll;
   margin-top: 6px;
 `;
 
@@ -454,7 +447,6 @@ const StEmptyBodyDiv = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  height: 507px;
   margin-top: 6px;
 `;
 
