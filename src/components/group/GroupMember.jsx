@@ -1,7 +1,7 @@
 //리액트 관련
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 //리덕스
@@ -30,7 +30,7 @@ const GroupMember = () => {
 
   const groupMemberGet = useSelector((state) => state.group.groupMemberGet);
 
-  const groupId = groupMemberGet?.groupId;
+  //const groupId = groupMemberGet?.groupId;
   const groupName = groupMemberGet?.groupName;
 
   const groupMenuOpen = useSelector((state) => state.modalSlice.groupMenuOpen);
@@ -38,6 +38,9 @@ const GroupMember = () => {
   const groupMemberOpen = useSelector(
     (state) => state.modalSlice.groupMemberOpen
   );
+
+  const param = useParams();
+  const groupId = param.groupId;
 
   const ClickToggle = () => {
     dispatch(groupMemberOpenStatus(!groupMemberOpen));
