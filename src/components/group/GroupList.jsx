@@ -146,6 +146,7 @@ const StCardLayout = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
+  height: 153px;
   gap: 8px;
 `;
 
