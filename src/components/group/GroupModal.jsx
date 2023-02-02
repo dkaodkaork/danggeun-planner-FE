@@ -52,6 +52,10 @@ const GroupModal = (props) => {
   );
 };
 
+GroupModal.defaultProps = {
+  onClickCancle: () => {},
+};
+
 export default GroupModal;
 
 const GroupName = styled.p`
