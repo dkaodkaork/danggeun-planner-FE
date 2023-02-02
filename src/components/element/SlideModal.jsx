@@ -36,4 +36,6 @@ const MenuLayout = styled.div`
   padding: 28px;
   border-radius: 12px 12px 0px 0px;
   box-shadow: 0px -4px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
 `;
