@@ -29,7 +29,7 @@ const ModalBackdrop = styled.div`
   justify-content: center;
   align-items: center;
   background: rgba(0, 0, 0, 0.5);
-  transition: all 0.5s ease-in;
+  transition: all 0.3s;
 `;
 
 const MenuLayout = styled.div`
@@ -39,7 +39,7 @@ const MenuLayout = styled.div`
   bottom: 0;
   /* ${(props) => (props.toggle ? "500px" : props.bottom)}; */
   height: ${(props) => (props.toggle ? props.height : "10.8374vh")};
-  transition: all 0.5s ease-in;
+  transition: all 0.3s;
   padding: 28px;
   border-radius: 12px 12px 0px 0px;
   box-shadow: 0px -4px 4px rgba(0, 0, 0, 0.1);

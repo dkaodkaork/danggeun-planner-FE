@@ -9,6 +9,7 @@ import {
   __getGroupDetail,
   __getGroupMember,
 } from "../../redux/modules/groupSlice";
+import { groupMemberOpenStatus } from "../../redux/modules/modalSlice";
 
 //상수, api
 import { IMAGES, PATH } from "../../constants/index";
@@ -38,6 +39,9 @@ const GroupDetail = () => {
       }
       dispatch(__getGroupMember(groupId));
     });
+    return () => {
+      dispatch(groupMemberOpenStatus(false));
+    };
   }, []);
 
   //현재 년일 불러오기
@@ -154,6 +158,9 @@ const GroupInfo = styled.p`
   font-size: 1.6rem;
   line-height: 2.56rem;
   color: #595550;
+  text-align: center;
+  word-wrap: break-word;
+  word-break: break-all;
 `;
 
 const RankBox = styled.div`

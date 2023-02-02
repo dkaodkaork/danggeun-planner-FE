@@ -26,34 +26,6 @@ const MainHeader = ({ leftLink, leftSlot, title }) => {
     dispatch(groupMenuOpenStatus(!groupMenuOpen));
   };
 
-  //화면크기 인식
-  // const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  // const resizeWidth = () => {
-  //   setWindowWidth(window.innerWidth);
-  // };
-  // useEffect(() => {
-  //   window.addEventListener("resize", resizeWidth);
-  //   return () => {
-  //     window.removeEventListener("resize", resizeWidth);
-  //   };
-  // }, []);
-
-  //모바일인지 아닌지 확인
-  //const [mobile, setMobile] = useState(false);
-
-  // useEffect(() => {
-  //   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-  //   if (isMobile) {
-  //     // mobile
-  //     setMobile(true);
-  //   } else {
-  //     // desktop
-  //     setMobile(false);
-  //   }
-  // }, []);
-
-  // console.log(mobile);
-
   //SSE 설정
   const EventSource = EventSourcePolyfill || NativeEventSource;
 
@@ -72,7 +44,6 @@ const MainHeader = ({ leftLink, leftSlot, title }) => {
 
   //sse연결 여부
   const isSSE = localStorage.getItem("sse") === "connect" ? true : false;
-  //console.log("isSSE", isSSE);
 
   //sse 설정 new
   useEffect(() => {
@@ -130,10 +101,7 @@ const MainHeader = ({ leftLink, leftSlot, title }) => {
         //eventSource.close();
         localStorage.setItem("sse", null);
       };
-
-      // if (!e.data.includes("EventStream Created.")) {
-      //   dispatch(alarmReadStatus(true));
-    } // 헤더 아이콘 상태 변경
+    }
   }, []);
 
   //sse 설정
@@ -189,8 +157,6 @@ const MainHeader = ({ leftLink, leftSlot, title }) => {
         </StBox>
       </StContainer>
       <Menu />
-      {/* {windowWidth < 500 && !groupMenuOpen ? null : <Menu />} */}
-      {/* {mobile && !groupMenuOpen ? null : <Menu />} */}
     </>
   );
 };
@@ -199,9 +165,7 @@ export default MainHeader;
 
 const StContainer = styled.div`
   height: 72px;
-
   padding: 28px 28px 12px 28px;
-
   background-color: #f9f3ea;
 `;
 
@@ -222,20 +186,16 @@ const StLeftSlot = styled.div`
 const StCenterSlot = styled.div`
   width: 219px;
   height: 18px;
-
   font-family: "MaplestoryOTFLight";
   font-size: 1.4rem;
   line-height: 18px;
-
   text-align: center;
-
   color: #595550;
 `;
 
 const StRightSlot = styled.div`
   position: relative;
   cursor: pointer;
-
   div {
     position: absolute;
     width: 10px;
