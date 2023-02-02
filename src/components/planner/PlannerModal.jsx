@@ -25,7 +25,7 @@ const PlannerModal = ({
   isDisabled,
 }) => {
   return (
-    <>
+    <StContainer>
       <StModalHeader>
         <StBtn
           onClick={() => {
@@ -144,20 +144,18 @@ const PlannerModal = ({
           }
         />
       </StTimeBox>
-    </>
+      {/* <StLabel className="time">시간은 24시간 형식으로 입력해주세요. </StLabel> */}
+    </StContainer>
   );
 };
 
 export default PlannerModal;
 
-const StDateBox = styled.div`
-  height: 19px;
-  font-family: "Pretendard-Bold";
-  font-size: 1.7rem;
-  line-height: 19px;
-  color: #595545;
-  word-spacing: 2px;
-  letter-spacing: -0.8px;
+const StContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const StModalHeader = styled.div`
@@ -167,6 +165,16 @@ const StModalHeader = styled.div`
   align-items: center;
   width: 319px;
   height: 19px;
+`;
+
+const StDateBox = styled.div`
+  height: 19px;
+  font-family: "Pretendard-Bold";
+  font-size: 1.7rem;
+  line-height: 19px;
+  color: #595545;
+  word-spacing: 2px;
+  letter-spacing: -0.8px;
 `;
 
 const StInputBox = styled.div`
@@ -199,16 +207,24 @@ const StInput = styled.input`
   }
 `;
 
+const StLabelBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
 const StLabel = styled.label`
   height: 16px;
-  width: 310px;
   font-family: "Pretendard-Regular";
   font-size: 1.2rem;
   line-height: 130%;
 
   text-align: right;
-
   color: #4a8a51;
+
+  &.time {
+    font-size: 1.4rem;
+  }
 `;
 
 const StTimeBox = styled.div`
@@ -219,7 +235,8 @@ const StTimeBox = styled.div`
   padding: 0px;
   width: 319px;
   height: 41px;
-  margin-top: 24px;
+  /* margin: 12px 0px 15px 0px; */
+  margin-top: 24px; // 수정 하자
 
   p {
     margin: 0px 19px 0px 19px;
