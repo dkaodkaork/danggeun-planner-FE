@@ -25,7 +25,7 @@ const GetProfile = ({ GetCalendarData }) => {
 export default GetProfile;
 
 const StProfileLayout = styled.div`
-  margin-top: 8.3744vh;
+  margin-top: 1.4778vh;
 `;
 
 const StNickName = styled.h2`

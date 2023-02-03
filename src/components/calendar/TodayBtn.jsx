@@ -21,10 +21,11 @@ const BtnLayout = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #fffdfa;
+  background: #f9f3ea;
   gap: 2px;
   box-shadow: 0px 4px 0px rgba(0, 0, 0, 0.15);
   cursor: pointer;
+  border: 1px solid #4a8a51;
 `;
 
 const BtnText = styled.div`
