@@ -29,17 +29,16 @@ baseURL.interceptors.request.use((config) => {
 
 // 다중 요청에 대응할 코드
 
-let loop = 0;
 let isRefreshing = false;
 let subscribers = [];
 
-function subscribeTokenRefresh(cb) {
-  subscribers.push(cb);
-}
-
-function onRrefreshed(token) {
+const onRrefreshed = (token) => {
   subscribers.map((cb) => cb(token));
-}
+};
+
+const subscribeTokenRefresh = (cb) => {
+  subscribers.push(cb);
+};
 
 baseURL.interceptors.response.use(
   (res) => res,
@@ -51,8 +50,7 @@ baseURL.interceptors.response.use(
     const originalRequest = config;
     // console.log(config, status);
 
-    if (status === 401 && loop < 1) {
-      loop++;
+    if (status === 401) {
       // console.log(originalRequest.headers);
       if (!isRefreshing) {
         isRefreshing = true;
@@ -64,26 +62,26 @@ baseURL.interceptors.response.use(
           const { accesstoken: newAccessToken, refreshtoken: newRefreshToken } =
             headers;
 
-          isRefreshing = false;
-
-          onRrefreshed(headers.accesstoken);
-
           localStorage.setItem("accessToken", newAccessToken);
           localStorage.setItem("refreshToken", newRefreshToken);
           window.dispatchEvent(new Event("storage"));
 
-          subscribers = [];
+          isRefreshing = false;
+
+          onRrefreshed(headers.accesstoken);
         });
       }
 
-      return new Promise((resolve) => {
+      const retryOiginalRequest = new Promise((resolve) => {
         subscribeTokenRefresh((token) => {
           // console.log(token);
           originalRequest.headers.accessToken = `${token}`;
           // console.log(originalRequest.headers.accessToken);
-          resolve(axios(originalRequest));
+          // resolve(axios(originalRequest));
+          resolve(baseURL.request(config));
         });
       });
+      return retryOiginalRequest;
     }
 
     return Promise.reject(err);
