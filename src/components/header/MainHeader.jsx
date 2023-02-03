@@ -59,7 +59,7 @@ const MainHeader = ({ leftLink, leftSlot, title }) => {
             "Content-Type": "text/event-stream",
           },
           withCredentials: true, //무조건 넣어야 함
-          heartbeatTimeout: 3600000, //리프레시토큰만큼의 기한
+          heartbeatTimeout: 1209600000, //리프레시토큰만큼의 기한 //2주
         }
       );
 
