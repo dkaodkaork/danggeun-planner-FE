@@ -38,6 +38,7 @@ import { ReactComponent as Bell } from "../assets/images/menu/bell.svg";
 import { ReactComponent as LeftArrow } from "../assets/images/tutorial/leftArrow.svg";
 import { ReactComponent as RightArrow } from "../assets/images/tutorial/rightArrow.svg";
 import { ReactComponent as Camera } from "../assets/images/mypage/camera.svg";
+import { ReactComponent as Mypage } from "../assets/images/menu/mypage.svg";
 
 export const IMAGES = {
   // 로그인
@@ -105,6 +106,7 @@ export const IMAGES = {
   searchIcon: <SearchIcon />,
   menuCarrot: <MenuCarrot />,
   bell: <Bell />,
+  mypage: <Mypage />,
 
   //인트로
   introBack1: require("../assets/images/tutorial/introBack1.png"),
@@ -126,4 +128,5 @@ export const IMAGES = {
   rabbit: require("../assets/images/web/rabbit.png"),
   backEarth: require("../assets/images/web/back_earth.png"),
   members: require("../assets/images/web/members.png"),
+  background: require("../assets/images/web/background.png"),
 };

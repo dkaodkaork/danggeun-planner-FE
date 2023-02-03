@@ -19,6 +19,7 @@ import "../calendar/style/Calendar.css"; // css import
 import TodayBtn from "./TodayBtn";
 import GetProfile from "./GetProfile.jsx";
 import MainHeader from "../header/MainHeader.jsx";
+import SubHeader from "../header/SubHeader.jsx";
 
 const CalendarGet = () => {
   const dispatch = useDispatch();
@@ -91,6 +92,7 @@ const CalendarGet = () => {
         leftSlot={IMAGES.home}
         leftLink={PATH.timer}
       ></MainHeader>
+      <SubHeader leftSlot={IMAGES.fold} onClick={() => navigate(-1)} />
       <StCalendarStyle>
         <GetProfile GetCalendarData={GetCalendarData} />
         <StCalendarLayout>
