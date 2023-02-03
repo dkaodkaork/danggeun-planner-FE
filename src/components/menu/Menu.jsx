@@ -36,18 +36,24 @@ const Menu = () => {
   //메뉴 오픈 관련
   const groupMenuOpen = useSelector((state) => state.modalSlice.groupMenuOpen);
 
+  //읽음 설정 관련
+  const alarmRead = useSelector((state) => state.alarm.alarmRead);
+
+  //그룹 읽음 데이터 확인
+  const alarmIsRead = useSelector((state) => state.alarm.isRead);
+
   //알림 읽음 조회
   useEffect(() => {
     dispatch(__getAlarm());
     return () => {
       dispatch(groupMenuOpenStatus(false));
     };
-  }, []);
+  }, [alarmRead]);
 
   //닉네임,프로필 조회
   useEffect(() => {
     dispatch(__getUserInfo());
-  }, [dispatch]);
+  }, []);
 
   const userInfo = useSelector((state) => state.mypage.data);
 
@@ -106,12 +112,6 @@ const Menu = () => {
     }
   };
 
-  //읽음 설정 관련
-  const alarmRead = useSelector((state) => state.alarm.alarmRead);
-
-  //그룹 읽음 데이터 확인
-  const alarmIsRead = useSelector((state) => state.alarm.isRead);
-
   return (
     <>
       <ModalBackdrop
@@ -135,6 +135,7 @@ const Menu = () => {
           </MenuIcon2>
 
           <StUser onClick={clickProfileNav}>
+            <StMyPage>{IMAGES.mypage}</StMyPage>
             <ProfileImg src={userInfo?.profileImage} width="50px" />
             <Nickname>{userInfo?.username}</Nickname>
           </StUser>
@@ -298,6 +299,7 @@ const Carrot = styled.div`
 `;
 
 const StUser = styled.div`
+  position: relative;
   margin-top: 5.5419vh;
   display: flex;
   flex-direction: column;
@@ -328,19 +330,8 @@ const StMadyby = styled.p`
   }
 `;
 
-const Search = styled.div`
-  margin-top: 8.6207vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
-  cursor: pointer;
-  span {
-    font-family: "MaplestoryOTFLight";
-    font-weight: 300;
-    font-size: 2rem;
-    line-height: 22px;
-    text-decoration-line: underline;
-    color: #4a8a51;
-  }
+const StMyPage = styled.div`
+  position: absolute;
+  left: 93px;
+  top: 0;
 `;

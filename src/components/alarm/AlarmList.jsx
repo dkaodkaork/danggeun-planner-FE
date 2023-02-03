@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 //리덕스
@@ -22,6 +23,7 @@ import { carrotAlert } from "../element/alert";
 
 const AlarmList = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const alarmList = useSelector((state) => state.alarm.alarmList);
 
   //읽음 설정 관련
@@ -34,9 +36,10 @@ const AlarmList = () => {
 
   //알림 리스트 불러오기
   useEffect(() => {
+    //console.log("hi");
     dispatch(__getAlarmList());
     dispatch(alarmReadStatus(true));
-  }, []);
+  }, [alarmRead]);
 
   //그룹 초대 승락
   const clickAcceptHandler = (notificationId, groupId) => {
@@ -70,7 +73,11 @@ const AlarmList = () => {
   return (
     <>
       <MainHeader title="Notice" leftSlot={IMAGES.home} leftLink={PATH.timer} />
-      <SubHeader title="알림" />
+      <SubHeader
+        title="알림"
+        leftSlot={IMAGES.fold}
+        onClick={() => navigate(-1)}
+      />
       <StLayout>
         <StListBoxs>
           {alarmList?.length !== 0 && alarmList?.length !== undefined && (

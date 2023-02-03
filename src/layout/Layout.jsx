@@ -56,7 +56,7 @@ const Layout = ({ children }) => {
     //   )}
     // </LayoutBox>
 
-    <LayoutBox>
+    <LayoutBox url={IMAGES.background}>
       <StLogoImg>
         <img src={IMAGES.webLogo} />
       </StLogoImg>
@@ -75,6 +75,17 @@ const Layout = ({ children }) => {
 };
 
 export default Layout;
+
+const LayoutBox = styled.div`
+  width: 100%;
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+  /* background: #f9f3ea; */
+  background-image: url(${(props) => props.url});
+  background-repeat: no-repeat;
+  background-size: cover;
+`;
 
 const StLogoImg = styled.div`
   position: fixed;
@@ -104,40 +115,24 @@ const StMadeby = styled.div`
     display: none;
   }
 `;
-const StMadeby2 = styled.div`
-  position: fixed;
-  top: 7.8125vw;
-  right: 5%;
-  img {
-    width: 15vw;
-  }
-`;
 
 const StRabbit = styled.div`
   position: fixed;
   bottom: 0;
   left: 0;
   img {
-    width: 35.4375vw;
+    width: 30.4375vw;
   }
   @media screen and (max-width: 625px) {
     display: none;
   }
 `;
 
-const LayoutBox = styled.div`
-  width: 100%;
-  display: flex;
-  margin: 0 auto;
-  justify-content: center;
-  background: #f9f3ea;
-`;
-
 const StSum = styled.div`
   width: 1158px;
   height: 240px;
   position: absolute;
-  margin-left: 40%;
+  margin-left: 20%;
   bottom: 0;
   background-image: url(${(props) => props.url});
   background-repeat: no-repeat;
@@ -167,7 +162,7 @@ const StSum = styled.div`
 const Box = styled.div`
   //핸드폰 화면에 맞춤 처리
   display: flex;
-  margin-left: 40%;
+  margin-left: 20%;
   justify-content: center;
   box-shadow: 0 5px 18px -7px rgba(0, 0, 0, 0.4);
   z-index: 1;

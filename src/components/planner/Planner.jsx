@@ -117,7 +117,7 @@ const Planner = () => {
 
   // 모달창 수정할때 열기
   const openEditModalHanlder = (id, val) => {
-    modalHandler(); // 삭제 예정
+    modalHandler();
     setIsDisabled(true);
     setIsEdit(true);
     setSelectedId(id);
@@ -327,7 +327,9 @@ const Planner = () => {
               </>
             ) : (
               <StEmptyBodyDiv>
-                <StEmptyPlanDiv>일정이 비었습니다.</StEmptyPlanDiv>
+                <StEmptyPlanDiv>
+                  아직 아무것도 기록되지 않았습니다.
+                </StEmptyPlanDiv>
               </StEmptyBodyDiv>
             )}
           </StBodyDiv>

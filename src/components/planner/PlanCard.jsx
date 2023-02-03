@@ -2,17 +2,8 @@ import React from "react";
 import styled from "styled-components";
 
 import { IMAGES } from "../../constants/index";
-// import CheckBox from "../element/CheckBox";
 
-const PlanCard = ({
-  color,
-  content,
-  startTime,
-  endTime,
-  count,
-  onClick,
-  modalHandler,
-}) => {
+const PlanCard = ({ color, content, startTime, endTime, count, onClick }) => {
   const carrotSticker = () => {
     if (count) {
       const carrots = [];
@@ -29,11 +20,8 @@ const PlanCard = ({
       <StCardLabel color={color}></StCardLabel>
       <StCard>
         <StTitle>
-          {/* <div> */}
           {content}
           {count ? <StText> (연속{count}) </StText> : null}
-          {/* </div>
-          <StBtn onClick={modalHandler}>수정</StBtn> */}
         </StTitle>
         <StDiv>
           <StTime>
@@ -88,7 +76,6 @@ const StTitle = styled.div`
   font-family: "Pretendard-Regular";
   font-size: 1.4rem;
   line-height: 17px;
-  /* justify-content: space-between; */
 
   color: #595550;
 `;
@@ -119,10 +106,3 @@ const StCarrotSticker = styled.div`
   display: flex;
   flex-direction: row;
 `;
-
-// const StBtn = styled.button`
-//   color: #4a8a51;
-//   font-family: "MaplestoryOTFLight";
-// `;
-
-// const StCheckbox = styled.input``;

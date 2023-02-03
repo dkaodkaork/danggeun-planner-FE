@@ -144,7 +144,7 @@ const PlannerModal = ({
           }
         />
       </StTimeBox>
-      {/* <StLabel className="time">시간은 24시간 형식으로 입력해주세요. </StLabel> */}
+      <StLabel className="time">시간은 24시간 형식으로 입력해주세요. </StLabel>
     </StContainer>
   );
 };
@@ -235,8 +235,7 @@ const StTimeBox = styled.div`
   padding: 0px;
   width: 319px;
   height: 41px;
-  /* margin: 12px 0px 15px 0px; */
-  margin-top: 24px; // 수정 하자
+  margin: 12px 0px 15px 0px;
 
   p {
     margin: 0px 19px 0px 19px;
