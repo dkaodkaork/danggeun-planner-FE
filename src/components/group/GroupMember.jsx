@@ -117,12 +117,16 @@ const GroupMember = () => {
           <GroupMemberLayout>
             <Top>
               {groupMemberOpen ? (
-                <button onClick={ClickToggle}>{IMAGES.downArrow}</button>
+                <button aria-label="downArrow" onClick={ClickToggle}>
+                  {IMAGES.downArrow}
+                </button>
               ) : (
-                <button onClick={ClickToggle}>{IMAGES.upArrow}</button>
+                <button aria-label="upArrow" onClick={ClickToggle}>
+                  {IMAGES.upArrow}
+                </button>
               )}
               <h1 onClick={ClickToggle}>그룹원 목록</h1>
-              <div>{groupMemberGet.onlineParticipant} 접속중</div>
+              <span>{groupMemberGet.onlineParticipant} 접속중</span>
             </Top>
             {groupMemberOpen ? (
               <>
@@ -141,7 +145,7 @@ const GroupMember = () => {
                           <span>{groupMemberGet?.myInfo[0]?.username}</span>
                         </User>
                         <Carrot>
-                          {IMAGES.memberCarrot}{" "}
+                          {IMAGES.memberCarrot}
                           {groupMemberGet?.myInfo[0]?.dailyCarrot}
                         </Carrot>
                       </>

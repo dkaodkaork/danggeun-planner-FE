@@ -63,19 +63,22 @@ const GroupDetail = () => {
         leftLink={PATH.grouplist}
       />
       <GroupLayout>
-        <GroupImg src={groupDetailData?.groupImage} />
+        <GroupImg src={groupDetailData?.groupImage} alt="그룹 이미지" />
         <GroupInfo>{groupDetailData?.description}</GroupInfo>
         <RankBox>
           <RankName>
-            {todayYear}년 <strong> {todayMonth}월</strong> 랭킹
+            {todayYear}년 <> {todayMonth}월</> 랭킹
           </RankName>
           {groupDetailData?.ranking?.length !== 0 &&
           groupDetailData?.ranking?.length !== undefined ? (
             <>
               <Gold>
-                <img src={IMAGES.goldPng} />
+                <img src={IMAGES.goldPng} alt="랭킹 1등" />
                 <User>
-                  <ProfileImg src={groupDetailData?.ranking[0]?.profileImage} />
+                  <ProfileImg
+                    src={groupDetailData?.ranking[0]?.profileImage}
+                    alt="프로필 사진"
+                  />
                   <span>{groupDetailData?.ranking[0]?.username}</span>
                 </User>
                 <CarrotNumber>
@@ -85,29 +88,31 @@ const GroupDetail = () => {
               {groupDetailData?.ranking?.length === 1 ? null : (
                 <>
                   <Gold>
-                    <img src={IMAGES.silverPng} />
+                    <img src={IMAGES.silverPng} alt="랭킹 2등" />
                     <User>
                       <ProfileImg
                         src={groupDetailData?.ranking[1]?.profileImage}
+                        alt="프로필 사진"
                       />
                       <span>{groupDetailData?.ranking[1]?.username}</span>
                     </User>
                     <CarrotNumber>
-                      {IMAGES.memberCarrot}{" "}
+                      {IMAGES.memberCarrot}
                       {groupDetailData?.ranking[1]?.carrot}
                     </CarrotNumber>
                   </Gold>
                   {groupDetailData?.ranking?.length === 2 ? null : (
                     <Gold>
-                      <img src={IMAGES.bronzePng} />
+                      <img src={IMAGES.bronzePng} alt="랭킹 3등" />
                       <User>
                         <ProfileImg
                           src={groupDetailData?.ranking[2]?.profileImage}
+                          alt="프로필 사진"
                         />
                         <span>{groupDetailData?.ranking[2]?.username}</span>
                       </User>
                       <CarrotNumber>
-                        {IMAGES.memberCarrot}{" "}
+                        {IMAGES.memberCarrot}
                         {groupDetailData?.ranking[2]?.carrot}
                       </CarrotNumber>
                     </Gold>
@@ -120,14 +125,11 @@ const GroupDetail = () => {
           )}
         </RankBox>
         <MonthlyCarrot>
-          우리 그룹은 오늘{" "}
-          <strong>{groupDetailData?.groupDailyCarrot}개</strong> 당근을
+          우리 그룹은 오늘 <>{groupDetailData?.groupDailyCarrot}개</> 당근을
           수확했어요!
           <br />
-          우리 그룹은 이번달 <strong>
-            {groupDetailData?.groupCarrot}개
-          </strong>{" "}
-          당근을 수확했어요!
+          우리 그룹은 이번달 <>{groupDetailData?.groupCarrot}개</> 당근을
+          수확했어요!
         </MonthlyCarrot>
       </GroupLayout>
       <GroupMember />
@@ -214,7 +216,7 @@ const Gold = styled.div`
   img {
     width: 30px;
   }
-  span {
+  div {
     font-family: "Pretendard-Regular";
     font-weight: 500;
     font-size: 1.4rem;

@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 
-const ProfileImg = ({ src, width, height }) => {
+const ProfileImg = ({ src, width, height, alt }) => {
   return (
     <>
       <ImgCircle width={width} height={height}>
-        <Profile src={src} />
+        <Profile src={src} alt={alt} />
       </ImgCircle>
     </>
   );
