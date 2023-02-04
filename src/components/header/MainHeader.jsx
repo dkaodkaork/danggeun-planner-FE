@@ -147,12 +147,14 @@ const MainHeader = ({ leftLink, leftSlot, title }) => {
       <StContainer>
         <StBox>
           <StLeftSlot>
-            <Link to={leftLink}>{leftSlot}</Link>
+            <Link to={leftLink} aria-label="leftLink">
+              {leftSlot}
+            </Link>
           </StLeftSlot>
           <StCenterSlot>{title}</StCenterSlot>
           <StRightSlot onClick={clickGroupMenuHandler}>
             {(!alarmRead || !alarmIsRead) && <div />}
-            <button>{IMAGES.menu}</button>
+            <button aria-label="menu">{IMAGES.menu}</button>
           </StRightSlot>
         </StBox>
       </StContainer>
