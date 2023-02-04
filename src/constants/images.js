@@ -124,9 +124,9 @@ export const IMAGES = {
   errImg: require("../assets/images/error/error.webp"),
 
   //웹 배경화면 요소
-  webLogo: require("../assets/images/web/logo.png"),
-  rabbit: require("../assets/images/web/rabbit.png"),
-  backEarth: require("../assets/images/web/back_earth.png"),
-  members: require("../assets/images/web/members.png"),
-  background: require("../assets/images/web/background.png"),
+  webLogo: require("../assets/images/web/logo.webp"),
+  rabbit: require("../assets/images/web/rabbit.webp"),
+  backEarth: require("../assets/images/web/back_earth.webp"),
+  members: require("../assets/images/web/members.webp"),
+  background: require("../assets/images/web/background.webp"),
 };
