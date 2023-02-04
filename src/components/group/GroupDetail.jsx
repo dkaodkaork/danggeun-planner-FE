@@ -151,6 +151,7 @@ const GroupLayout = styled.div`
 const GroupImg = styled.img`
   margin-top: 12px;
   width: 67px;
+  height: 67px;
 `;
 
 const GroupInfo = styled.p`
@@ -215,6 +216,7 @@ const Gold = styled.div`
   gap: 14px;
   img {
     width: 30px;
+    height: 38px;
   }
   div {
     font-family: "Pretendard-Regular";
