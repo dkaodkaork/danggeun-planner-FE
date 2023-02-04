@@ -29,9 +29,6 @@ import { ReactComponent as SearchIcon } from "../assets/images/menu/searchIcon.s
 import { ReactComponent as Intro } from "../assets/images/login/intro.svg";
 import { ReactComponent as IntroLogo } from "../assets/images/login/intrologo.svg";
 import { ReactComponent as XIcon } from "../assets/images/group/xIcon.svg";
-import { ReactComponent as Gold } from "../assets/images/group/gold.svg";
-import { ReactComponent as Silver } from "../assets/images/group/silver.svg";
-import { ReactComponent as Bronze } from "../assets/images/group/bronze.svg";
 import { ReactComponent as MenuCarrot } from "../assets/images/menu/menuCarrot.svg";
 import { ReactComponent as TodayBtnIcon } from "../assets/images/calendar/todayBtnIcon.svg";
 import { ReactComponent as Bell } from "../assets/images/menu/bell.svg";
@@ -91,12 +88,9 @@ export const IMAGES = {
   blockCircle: <BlockCircle />,
   emptyCircle: <EmptyCircle />,
   xIcon: <XIcon />,
-  goldSvg: <Gold />,
-  silverSvg: <Silver />,
-  bronzeSvg: <Bronze />,
-  goldPng: require("../assets/images/group/gold.png"),
-  silverPng: require("../assets/images/group/silver.png"),
-  bronzePng: require("../assets/images/group/bronze.png"),
+  goldPng: require("../assets/images/group/gold.webp"),
+  silverPng: require("../assets/images/group/silver.webp"),
+  bronzePng: require("../assets/images/group/bronze.webp"),
 
   //작은화살표
   downArrowS: <DownArrowS />,
