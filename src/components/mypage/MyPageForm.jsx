@@ -9,7 +9,6 @@ import styled from "styled-components";
 
 import { PATH, IMAGES } from "../../constants/index";
 import { api } from "../../core/api";
-import { carrotConfirm } from "../element/alert";
 
 import Button from "../timer/TimerButton";
 import SubHeader from "../header/SubHeader";
@@ -32,7 +31,7 @@ const MypageForm = () => {
     try {
       const response = await api.postLogoutApi();
     } catch (error) {}
-    await localStorage.clear();
+    localStorage.clear();
     window.dispatchEvent(new Event("storage"));
     navigate("/");
   };
