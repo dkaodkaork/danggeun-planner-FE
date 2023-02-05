@@ -13,24 +13,28 @@ const GlobalStyles = createGlobalStyle`
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFBold.woff') format('woff');
     font-weight: normal;
     font-style: normal;
+    font-display: swap;
     }
     @font-face {
     font-family: 'MaplestoryOTFLight';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFLight.woff') format('woff');
     font-weight: normal;
     font-style: normal;
+    font-display: swap;
     }
     @font-face {
     font-family: 'Pretendard-Regular';
     src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
     font-weight: normal;
     font-style: normal;
+    font-display: swap;
     }
     @font-face {
     font-family: 'Pretendard-Bold';
     src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff') format('woff');
     font-weight: normal;
     font-style: normal;
+    font-display: swap;
     }
 
     //로컬폰트 임포트(에러메세지 떠서 주석처리함)

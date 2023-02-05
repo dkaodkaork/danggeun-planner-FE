@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 import useTimer from "../../hooks/useTimer";
 import { timeStamp } from "../planner/time";
+import { IMAGES } from "../../constants";
 
 import Button from "./TimerButton";
 import GetCarrot from "./GetCarrot";
@@ -89,11 +90,19 @@ const CarrotTimer = () => {
 
   const restModeDoneHandler = () => {
     if (count === 4) {
-      toggleTimer(longRestTime);
-      setCount(0);
+      carrotConfirm(
+        IMAGES.crying,
+        "휴식을 그만두시겠습니까?",
+        () => toggleTimer(longRestTime),
+        () => setCount(0)
+      );
     } else {
-      toggleTimer(startTime);
-      setMode("focusMode");
+      carrotConfirm(
+        IMAGES.crying,
+        "휴식을 그만두시겠습니까?",
+        () => toggleTimer(startTime),
+        () => setMode("focusMode")
+      );
     }
   };
 
@@ -106,7 +115,8 @@ const CarrotTimer = () => {
 
   const focusGiveUpHandler = () => {
     carrotConfirm(
-      "정말로 그만두시겠습니까?",
+      IMAGES.crying,
+      "집중을 그만두시겠습니까?",
       () => toggleTimer(startTime),
       () => setCount(0)
     );

@@ -63,7 +63,7 @@ const GroupDetail = () => {
         leftLink={PATH.grouplist}
       />
       <GroupLayout>
-        <GroupImg src={groupDetailData?.groupImage} />
+        <GroupImg src={groupDetailData?.groupImage} alt="그룹 이미지" />
         <GroupInfo>{groupDetailData?.description}</GroupInfo>
         <RankBox>
           <RankName>
@@ -73,9 +73,12 @@ const GroupDetail = () => {
           groupDetailData?.ranking?.length !== undefined ? (
             <>
               <Gold>
-                <img src={IMAGES.goldPng} />
+                <img src={IMAGES.goldPng} alt="금상" />
                 <User>
-                  <ProfileImg src={groupDetailData?.ranking[0]?.profileImage} />
+                  <ProfileImg
+                    src={groupDetailData?.ranking[0]?.profileImage}
+                    alt="프로필 이미지"
+                  />
                   <span>{groupDetailData?.ranking[0]?.username}</span>
                 </User>
                 <CarrotNumber>
@@ -85,10 +88,11 @@ const GroupDetail = () => {
               {groupDetailData?.ranking?.length === 1 ? null : (
                 <>
                   <Gold>
-                    <img src={IMAGES.silverPng} />
+                    <img src={IMAGES.silverPng} alt="은상" />
                     <User>
                       <ProfileImg
                         src={groupDetailData?.ranking[1]?.profileImage}
+                        alt="프로필 이미지"
                       />
                       <span>{groupDetailData?.ranking[1]?.username}</span>
                     </User>
@@ -99,10 +103,11 @@ const GroupDetail = () => {
                   </Gold>
                   {groupDetailData?.ranking?.length === 2 ? null : (
                     <Gold>
-                      <img src={IMAGES.bronzePng} />
+                      <img src={IMAGES.bronzePng} alt="동상" />
                       <User>
                         <ProfileImg
                           src={groupDetailData?.ranking[2]?.profileImage}
+                          alt="프로필 이미지"
                         />
                         <span>{groupDetailData?.ranking[2]?.username}</span>
                       </User>
@@ -149,6 +154,7 @@ const GroupLayout = styled.div`
 const GroupImg = styled.img`
   margin-top: 12px;
   width: 67px;
+  height: 67px;
 `;
 
 const GroupInfo = styled.p`
@@ -213,6 +219,7 @@ const Gold = styled.div`
   gap: 14px;
   img {
     width: 30px;
+    height: 38px;
   }
   span {
     font-family: "Pretendard-Regular";

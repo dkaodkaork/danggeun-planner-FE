@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 
 import { NativeEventSource, EventSourcePolyfill } from "event-source-polyfill";
@@ -142,17 +142,23 @@ const MainHeader = ({ leftLink, leftSlot, title }) => {
   //   // return () => eventSource.close();
   // }, []);
 
+  //알림페이지 체크
+  // const location = useLocation();
+  // const pageCheck = location.pathname === "/alarm";
+
   return (
     <>
       <StContainer>
         <StBox>
           <StLeftSlot>
-            <Link to={leftLink}>{leftSlot}</Link>
+            <Link to={leftLink} aria-label="leftLink">
+              {leftSlot}
+            </Link>
           </StLeftSlot>
           <StCenterSlot>{title}</StCenterSlot>
           <StRightSlot onClick={clickGroupMenuHandler}>
             {(!alarmRead || !alarmIsRead) && <div />}
-            <button>{IMAGES.menu}</button>
+            <button aria-label="menu">{IMAGES.menu}</button>
           </StRightSlot>
         </StBox>
       </StContainer>

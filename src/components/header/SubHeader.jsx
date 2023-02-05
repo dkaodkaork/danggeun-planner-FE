@@ -13,11 +13,15 @@ const SubHeader = ({
     <StContainer>
       <StBox>
         <StLeftSlot onClick={onClick}>
-          <Link to={leftLink}>{leftSlot}</Link>
+          <Link to={leftLink} aria-label="leftLink">
+            {leftSlot}
+          </Link>
         </StLeftSlot>
         <StCenterSlot>{title}</StCenterSlot>
         <StRightSlot>
-          <Link to={rightLink}>{rightSlot}</Link>
+          <Link to={rightLink} aria-label="rightLink">
+            {rightSlot}
+          </Link>
         </StRightSlot>
       </StBox>
     </StContainer>
