@@ -58,13 +58,13 @@ const Layout = ({ children }) => {
 
     <LayoutBox url={IMAGES.background}>
       <StLogoImg>
-        <img src={IMAGES.webLogo} />
+        <img src={IMAGES.webLogo} alt="logo" />
       </StLogoImg>
       <StMadeby>
-        <img src={IMAGES.members} />
+        <img src={IMAGES.members} alt="members" />
       </StMadeby>
       <StRabbit>
-        <img src={IMAGES.rabbit} />
+        <img src={IMAGES.rabbit} alt="rabbit" />
       </StRabbit>
       <StSum url={IMAGES.backEarth} />
       <Box>
