@@ -126,7 +126,7 @@ const GroupMember = () => {
                 </button>
               )}
               <h1 onClick={ClickToggle}>그룹원 목록</h1>
-              <span>{groupMemberGet.onlineParticipant} 접속중</span>
+              <div>{groupMemberGet.onlineParticipant} 접속중</div>
             </Top>
             {groupMemberOpen ? (
               <>
