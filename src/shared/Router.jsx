@@ -58,7 +58,6 @@ import KakaoLoginPage from "../pages/auth/KakaoLoginPage";
 
 import ErrorPage from "../pages/error/ErrorPage";
 //const ErrorPage = lazy(() => import("../pages/error/ErrorPage"));
-
 const Router = () => {
   const item = localStorage.getItem("accessToken");
   const [accessToken, setAccessToken] = useState(item);

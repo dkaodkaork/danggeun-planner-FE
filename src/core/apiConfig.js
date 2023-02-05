@@ -43,15 +43,10 @@ const subscribeTokenRefresh = (cb) => {
 baseURL.interceptors.response.use(
   (res) => res,
   (err) => {
-    const {
-      config,
-      response: { status },
-    } = err;
+    const { config, response } = err;
     const originalRequest = config;
-    // console.log(config, status);
 
-    if (status === 401) {
-      // console.log(originalRequest.headers);
+    if (response?.data?.message === "Access Token이 만료되었습니다") {
       if (!isRefreshing) {
         isRefreshing = true;
 
@@ -82,6 +77,10 @@ baseURL.interceptors.response.use(
         });
       });
       return retryOiginalRequest;
+    } else if (response?.data?.message === "Refresh Token이 만료되었습니다") {
+      localStorage.clear();
+      window.dispatchEvent(new Event("storage"));
+      window.location.href = "/";
     }
 
     return Promise.reject(err);

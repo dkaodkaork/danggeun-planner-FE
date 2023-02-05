@@ -113,6 +113,7 @@ export const IMAGES = {
 
   // 경고창
   alertImg: require("../assets/images/element/alert.png"),
+  crying: require("../assets/images/element/crying_seed.png"),
 
   //에러 페이지
   errImg: require("../assets/images/error/error.webp"),
