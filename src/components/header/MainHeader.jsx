@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 
 import { NativeEventSource, EventSourcePolyfill } from "event-source-polyfill";
@@ -141,6 +141,10 @@ const MainHeader = ({ leftLink, leftSlot, title }) => {
   //   fetchSse();
   //   // return () => eventSource.close();
   // }, []);
+
+  //알림페이지 체크
+  // const location = useLocation();
+  // const pageCheck = location.pathname === "/alarm";
 
   return (
     <>
