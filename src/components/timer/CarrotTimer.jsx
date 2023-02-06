@@ -90,19 +90,11 @@ const CarrotTimer = () => {
 
   const restModeDoneHandler = () => {
     if (count === 4) {
-      carrotConfirm(
-        IMAGES.crying,
-        "휴식을 그만두시겠습니까?",
-        () => toggleTimer(longRestTime),
-        () => setCount(0)
-      );
+      toggleTimer(longRestTime);
+      setCount(0);
     } else {
-      carrotConfirm(
-        IMAGES.crying,
-        "휴식을 그만두시겠습니까?",
-        () => toggleTimer(startTime),
-        () => setMode("focusMode")
-      );
+      toggleTimer(startTime);
+      setMode("focusMode");
     }
   };
 
