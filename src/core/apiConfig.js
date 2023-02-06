@@ -64,6 +64,9 @@ baseURL.interceptors.response.use(
           isRefreshing = false;
 
           onRrefreshed(headers.accesstoken);
+          console.log(subscribers);
+
+          subscribers = [];
         });
       }
 
@@ -79,7 +82,7 @@ baseURL.interceptors.response.use(
       return retryOiginalRequest;
     } else if (response?.data?.message === "Refresh Token이 만료되었습니다") {
       localStorage.clear();
-      window.dispatchEvent(new Event("storage"));
+      // window.dispatchEvent(new Event("storage"));
       window.location.href = "/";
     }
 
