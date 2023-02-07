@@ -42,6 +42,8 @@ const MainHeader = ({ leftLink, leftSlot, title }) => {
     dispatch(__getAlarm());
   }, []);
 
+  console.log("테스트서버확인");
+
   //sse연결 여부
   const isSSE = localStorage.getItem("sse") === "connect" ? true : false;
 
