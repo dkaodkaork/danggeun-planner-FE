@@ -46,6 +46,7 @@ baseURL.interceptors.response.use(
     const { config, response } = err;
     const originalRequest = config;
     console.log(response);
+    console.log(response?.data?.message);
 
     // 401 토큰만료 응답이오면 실행한다
     if (response?.data?.message === "Access Token이 만료되었습니다") {
@@ -80,12 +81,14 @@ baseURL.interceptors.response.use(
         });
       });
       return retryOiginalRequest;
-    } else if (response?.data?.message === "Refresh Token이 만료되었습니다") {
+    } else if (
+      response?.data?.message === "Refresh Token이 만료되었습니다" ||
+      response?.data?.message === "Refresh Token이 일치하지 않습니다."
+    ) {
       localStorage.clear();
       window.dispatchEvent(new Event("storage"));
       window.location.href = "/";
       console.log("로그아웃");
-      console.log(response?.data?.message);
     }
 
     return Promise.reject(err);
