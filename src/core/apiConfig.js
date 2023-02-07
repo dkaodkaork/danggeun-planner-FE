@@ -45,11 +45,14 @@ baseURL.interceptors.response.use(
   (err) => {
     const { config, response } = err;
     const originalRequest = config;
+    console.log(response);
 
+    // 401 토큰만료 응답이오면 실행한다
     if (response?.data?.message === "Access Token이 만료되었습니다") {
       if (!isRefreshing) {
         isRefreshing = true;
 
+        // 리프레쉬 토큰을 가져온다
         const refreshToken = localStorage.getItem("refreshToken");
 
         // token refresh 요청
@@ -63,8 +66,8 @@ baseURL.interceptors.response.use(
 
           isRefreshing = false;
 
+          // 콜백함수에 토큰을 넣어서
           onRrefreshed(headers.accesstoken);
-          console.log(subscribers);
 
           subscribers = [];
         });
@@ -72,18 +75,17 @@ baseURL.interceptors.response.use(
 
       const retryOiginalRequest = new Promise((resolve) => {
         subscribeTokenRefresh((token) => {
-          // console.log(token);
           originalRequest.headers.accessToken = `${token}`;
-          // console.log(originalRequest.headers.accessToken);
-          // resolve(axios(originalRequest));
           resolve(baseURL.request(config));
         });
       });
       return retryOiginalRequest;
     } else if (response?.data?.message === "Refresh Token이 만료되었습니다") {
       localStorage.clear();
-      // window.dispatchEvent(new Event("storage"));
+      window.dispatchEvent(new Event("storage"));
       window.location.href = "/";
+      console.log("로그아웃");
+      console.log(response?.data?.message);
     }
 
     return Promise.reject(err);
