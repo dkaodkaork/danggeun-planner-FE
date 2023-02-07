@@ -223,7 +223,7 @@ const MenuLayout = styled.div`
   position: absolute;
   padding: 28px;
   border-radius: 12px 0px 0px 12px;
-  animation: ${menuAni} 0.3s ease-out;
+  animation: ${menuAni} 0.1s ease-out;
   right: ${(props) => props.toggle && "0"};
 `;
 
