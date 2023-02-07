@@ -59,6 +59,7 @@
 ## 🏗️아키텍쳐
 
 ![당근플래너아키텍처-페이지-1 drawio](https://user-images.githubusercontent.com/110980231/213653472-ffceb83e-4cbc-4e29-b091-448587ca1eec.png)
+![당근플래너아키텍처](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/1c8e18ad-ad18-419e-a913-e5156fd850af/Untitled.png)
 
 <br />
 <br />
