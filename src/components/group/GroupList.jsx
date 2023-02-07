@@ -134,7 +134,9 @@ export default GroupList;
 
 const StGroupLayout = styled.div`
   background-color: #f9f3ea;
-  height: 100%;
+  /* height: 100%; */
+  //모바일 100
+  height: calc(var(--vh, 1vh) * 100);
   padding: 12px 22px;
   width: 100%;
 `;
