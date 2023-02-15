@@ -4,12 +4,14 @@
 ![600x340](https://user-images.githubusercontent.com/110963294/217157702-6b17cf6f-40f2-4611-9da9-d5e11eadca2d.png)
 
 ## 🗂️ 목차
+
 ### 1. [프로젝트 소개](#-프로젝트-소개)
-### 2. [기술스택 및 툴](#-기술스택-및-툴)
+### 2. [기술스택](#-기술스택)
 ### 3. [프로젝트 아키택처](#-프로젝트-아키택처)
-### 4. [핵심 기능](#-핵심-기능)
+### 4. [주요 기능](#-주요-기능)
 ### 5. [트러블 슈팅](#-트러블-슈팅)
 ### 6. [유저 피드백](#-유저-피드백)
+### 7. [팀원 소개](#-팀원-소개)
 
 <hr>
 
@@ -31,7 +33,7 @@
 
 <hr>
 
-## 🛠️ 기술스택 및 툴
+## 🛠️ 기술스택
 
 - FE 
 
@@ -48,7 +50,8 @@
 
 <hr>
 
-## 🏗️ 프로젝트 아키텍쳐
+
+## 🏗️ 프로젝트 아키택쳐
 
 ![당근플래너 아키텍쳐](https://user-images.githubusercontent.com/110963294/217158066-0b1365bb-7f69-4982-9b13-084128f81d54.png)
 
@@ -102,41 +105,160 @@
 <hr>
 
 
-## 🎯주요 기능
+## 🎯 주요 기능
 
-- 회원가입, 로그인
-- 뽀모도로 타이머
-- Daily 플래너 - 집중 시간과 계획 관리
-- Monthly 캘린더 - 집중 현황 파악
-- 그룹 - 그룹 멤버들 실시간 상태 확인 가능
-- 회원 검색
+### 👥 로그인/회원가입
 
-<br />
-<br />
+<details>
+<summary> JWT 토큰과 RefreshToken을 이용한 로그인/회원가입/로그인 유지를 구현하였습니다. </summary>
+<div markdown="1">
 
-![소개화면6장](https://user-images.githubusercontent.com/110980231/213668486-7151d1d6-8817-4414-83ca-1673a881d195.png)
+</br>
+<img width="375" alt="image" src="https://user-images.githubusercontent.com/87013822/218977404-c149623a-d05c-4f63-800a-94e8d5a2719c.png">
 
-<br />
-<br />
+</div>
+</details>
 
-## 🪄서비스 구조
+### 👀 튜토리얼
 
-<img width="937" alt="서비스구조" src="https://user-images.githubusercontent.com/110980231/213668704-4067988c-81e1-49f8-a38b-8cb9297d5343.png">
+<details>
+<summary> 메인화면 접속시 당근 플래너에 대한 컨텐츠 소개를 미리 볼 수 있는 페이지를 제공합니다.</summary>
+<div markdown="1">
+
+</br>
+<img width="368" alt="image" src="https://user-images.githubusercontent.com/87013822/218977799-d3a4da6f-68df-4fa6-bc4b-d8007d1de4a3.png">
+
+</div>
+</details>
 
 
-<br />
-<br />
+### 👤 마이페이지 
+
+<details>
+<summary> 닉네임, 프로필 사진, 플래너 공개/비공개를 설정, 공지사항을 볼 수 있는 당근 플래너 블로그 링크와 로그아웃 기능을 제공합니다.</summary>
+<div markdown="1">
+
+</br>
+<img width="375" height="667" alt="image" src="https://user-images.githubusercontent.com/87013822/218974886-54d32fac-85f5-4b25-b15d-405ae7ad0ab0.png">
+
+</div>
+</details>
 
 
-## 🏗️아키텍쳐
+### ⏰ 타이머
 
-![당근플래너아키텍처-페이지-1 drawio](https://user-images.githubusercontent.com/110980231/213653472-ffceb83e-4cbc-4e29-b091-448587ca1eec.png)
-![당근플래너아키텍처](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/1c8e18ad-ad18-419e-a913-e5156fd850af/Untitled.png)
+<details>
+<summary> 뽀모도로 기법에 맞춰 25분 타이머 5분 휴식 사이클을 4번 "연속으로" 반복하면 15분의 긴휴식이 나오도록 설계되었습니다. 
+25분의 집중을 완료한 유저는 보상으로 당근을 획득합니다!</summary>
+<div markdown="1">
 
-<br />
-<br />
+</br>
+📌 집중타이머는 시작하고 멈출 수 있습니다.
 
-## 👥멤버
+![타이머는 시작하고 멈출 수 있다](https://user-images.githubusercontent.com/110963294/217167518-0a2a7fee-54b0-46ee-8a25-1ee3eb9e45fc.gif)
+
+📌 집중을 시작하고 25분이 지나면 당근을 수확합니다.
+
+
+![타이머는 시작하고 멈출 수 있다](https://user-images.githubusercontent.com/110963294/217167643-8ccf12e4-f034-4a3d-afc4-f8d84f378bdd.gif)
+
+</div>
+</details>
+
+
+
+### 📅 캘린더
+
+<details>
+<summary> 유저가 뿌듯함을 느껴 계속해서 집중할 수 있도록
+당근을 얻을 수록 개별 날짜의 색깔을 단계별로  나누었습니다.</summary>
+<div markdown="1">
+
+</br>
+![217168588-959e6d89-594e-4e91-8e52-492de03f84ed](https://user-images.githubusercontent.com/110963294/217225666-09da2fc2-e1d4-4db7-9128-1b9dbdcbf76f.png)
+
+</div>
+</details>
+
+
+### 📕 플래너
+
+<details>
+<summary> 플래너는 계획을 기록할 수 있고 오늘 집중을 언제했는지 확인 할 수 있습니다.</summary>
+<div markdown="1">
+
+</br>
+
+📌 당근을 수확한 경우 집중한 기록으로 플래너에 자동으로 추가됩니다.
+
+![217169210-9d98fc3a-de8c-400b-a1e](https://user-images.githubusercontent.com/110963294/217224216-5b9436e0-c772-4cc7-9e4b-9c93f9408c9c.gif)
+
+📌 사생활 보호를 위해 플래너 비공개 설정 시 다른 유저는 볼 수 없습니다.
+
+![217169340-009f6744-b3e2-4ae8-a24](https://user-images.githubusercontent.com/110963294/217224511-40a3cbbb-b7dc-4e1a-a0c2-06f1193ffe08.png)
+
+</div>
+</details>
+
+
+
+### 👩‍👩‍👦 그룹
+
+<details>
+<summary> 그룹을 통해 같이 집중하여 동기부여를 느낄 수 있습니다.</summary>
+<div markdown="1">
+
+</br>
+
+📌 그룹원의 랭킹을 확인 할 수 있습니다. 이번 달에 당근을 많이 얻을 수록 랭킹이 높아집니다.
+
+![217169766-a9d30296-1878-4848-b5f](https://user-images.githubusercontent.com/110963294/217224721-889de740-b782-4620-81a0-2e305bd427b5.png)
+
+📌 초대하고 싶은 유저를 리스트에 담아 초대합니다.
+
+![그룹원을 초대할 수 있다](https://user-images.githubusercontent.com/110963294/217170045-8438f362-1326-4e29-93a7-de8bd1c1ed88.gif)
+
+ 📌 유저의 편의성을 위해 그룹원 초대 시 실시간 알림을 구현했습니다.
+
+![그룹 초대 승락](https://user-images.githubusercontent.com/110963294/217169902-62012f33-c600-46bf-b6d3-8822a55cb308.gif)
+
+</div>
+</details>
+
+### 🔎 회원 검색
+
+<details>
+<summary> 회원을 검색 할 수 있으며, 검색된 회원의 캘린더와 플래너를 볼 수 있습니다. </summary>
+<div markdown="1">
+
+</br>
+<img width="361" alt="image" src="https://user-images.githubusercontent.com/87013822/218978188-8518cdb6-e09b-4ab7-9391-bba0684508d4.png">
+
+</div>
+</details>
+
+
+<hr>
+
+## 🕹️ 트러블 슈팅
+
+ㅇㅇ
+
+<hr>
+
+## 🔧 유저 피드백
+
+
+
+<hr>
+
+
+## 👥 팀원 소개
+
+![팀원소개이미지](https://user-images.githubusercontent.com/110963294/217158202-5df9b5ce-10c4-4297-adf2-4886f12692b0.jpg)
+
+UI/UX
+- 이예랑
 
 FE
 - 장다혜 [DahyeJang](https://github.com/DahyeJang)
