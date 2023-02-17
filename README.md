@@ -6,7 +6,7 @@
 ## 🗂️ 목차
 
 ### 1. [프로젝트 소개](#-프로젝트-소개)
-### 2. [기술스택](#-기술스택)
+### 2. [Stack](#-stack)
 ### 3. [프로젝트 아키택처](#-프로젝트-아키택처)
 ### 4. [주요 기능](#-주요-기능)
 ### 5. [트러블 슈팅](#-트러블-슈팅)
@@ -33,7 +33,7 @@
 
 <hr>
 
-## 🛠️ 기술스택
+##  🛠️ Stack
 
 - FE 
 
@@ -242,12 +242,310 @@
 
 ## 🕹️ 트러블 슈팅
 
-ㅇㅇ
+<details>
+<summary> 🪲 SSE 구독중 연결이 끊기는 문제 </summary>
+<div markdown="1">
+
+### 🔴 에러 발생
+
+**SSE 구독중 연결이 끊겨 실시간 알림 기능이 작동되지 않는 문제가 발생함.**  
+
+`INCOMPLETE_CHUNKED_ENCODING` **에러를 확인**. **로컬환경에선 잘 작동하다 서버에 배포 시 에러가 터짐.**
+
+![image](https://user-images.githubusercontent.com/87013822/218991439-646b606e-5150-420d-b3de-cf8349a4e089.png)
+
+### 🟡원인
+
+**Nginx**는 기본적으로 Upstream 요청시에 HTTP/1.0버전을 사용함. 
+
+HTTP/1.1은 지속연결이 기본이기 때문에 헤더를 따로 설정해줄 필요가 없지만, 
+
+Nginx에서 백엔드 WAS로 요청을 보낼때에는 HTTP/1.0을 사용하고 `Connection: close` 헤더를 사용하게 됨.
+
+`Connection: close`형태로 요청을 하더라도 HTTP 1.1에서는 본문내용을 chunked encoding형식으로 표시함으로 인해 생기는 오류임을 확인.
+
+### 🟢해결
+
+**Nginx를 다음과 같이 설정.** 
+
+- `proxy_http_version 1.1;`
+- `proxy_set_header Upgrade $http_upgrade;`
+- `proxy_set_header Connection '';`
+- `proxy_buffering off;`
+- `proxy_cache off;`
+- `chunked_transfer_encoding off;`
+ ![image (1)](https://user-images.githubusercontent.com/87013822/218991833-e931fb68-664a-4252-8c61-395a97f85ec5.png)
+
+
+**Controller에서 HTTP 헤더 값 조작**
+
+nginx 서버 설정을 해도 연결유지가 안된다면, SSE를 사용하여 구독하는 Controller에 아래 코드를 추가하여 HTTP 헤더의 값을 조작.
+
+**여기서 `response`는 `HttpServletResponse`를 매개변수로 받음,**
+
+- `response.setHeader("Connection", "keep-alive");`
+- `response.setHeader("Cache-Control", "no-cache");`
+- `response.setHeader("X-Accel-Buffering", "no");`
+ ![image (2)](https://user-images.githubusercontent.com/87013822/218992122-47210944-a099-4f7d-b1fd-b8ce60038ce4.png)
+
+
+
+</div>
+</details>
+
+<details>
+<summary> 🪲 SSE 구독이 되었는데도 계속해서 구독을 시도하는 현상 </summary>
+<div markdown="1">
+
+### 🔴 에러 발생
+
+       SSE 구독이 되었는데도 페이지가 이동할 때 **계속해서 구독을 시도하는 문제**가 발생함.
+
+### 🟡원인
+
+      페이지가 이동할 때마다 메인메뉴가 렌더링되어, **메인메뉴에 담긴 SSE 코드가 계속해서 반복적으로 실행**되기 때문임.
+
+### 🟢해결
+
+      기존엔 **sse 연결 여부를 확인하지 않고** 메뉴가 렌더링 될 때마다 구독을 시도했지만,
+
+      sse 연결 여부를 로컬스토리지로 관리하고, **sse 연결이 끊어졌을 때만 구독을 시도하도록** 코드를 변경하여
+
+      **불필요한 리소스를 줄이고 SSE 연결의 안정성을 높임.**
+      
+sse를 구독 할 때, ‘sse’의 값이 ‘connect’가 아닐 경우 구독을 시도함.
+
+ <img width="447" alt="Untitled (6)" src="https://user-images.githubusercontent.com/87013822/218993794-709c6d49-3979-445d-9679-d0843ff53e08.png">
+
+sse가 연결될 때, 메세지를 받으면 로컬스토리지의 ‘sse’ 값을 ‘connect’로 변경함.
+
+ <img width="334" alt="Untitled (7)" src="https://user-images.githubusercontent.com/87013822/218993842-295d13b5-0c6e-42c8-b199-3cfe49a1fdc6.png">
+
+sse 메세지에 “EventStream Created”(더미데이터) 가 포함되어 있지 않으면 읽음 상태를 false로 변경함.
+
+ <img width="388" alt="Untitled (8)" src="https://user-images.githubusercontent.com/87013822/218993859-cc650db4-fa08-45c0-9bab-eab389961f1c.png">
+
+sse 에러가 생기면 ‘sse’ 값을 null로 변경함.
+
+ <img width="379" alt="Untitled (9)" src="https://user-images.githubusercontent.com/87013822/218993880-c73c6b02-e58b-4fb5-800f-4879f064df9d.png">
+
+
+</div>
+</details>
+
+<details>
+<summary> 🪲 웹 페이지 성능 최적화 하기 </summary>
+<div markdown="1">
+
+### 🔴 **에러 발생**
+
+      **lighthouse를 이용한 성능 측정 결과 성능 및 접근성의 점수가 낮아 해당 사항들을 정리하고, 개선하기로 결정** 
+
+- **개선 전** **lighthouse 실행 이미지**
+    
+<img width="1000" alt="image (3)" src="https://user-images.githubusercontent.com/87013822/218992664-8462f553-fc4b-4a1c-a5bf-0dba38ed4f84.png">
+
+    
+
+### 🟡 원인
+
+       **성능**: 사용하지 않는 JS, 압축률이 낮은 이미지 등이 로딩을 지연시킴, 
+
+       **접근성**: 버튼과 링크에 접근가능한 이름이 없음, 용도에 맞지 않는 html 태그 사용, html 태그에 맞는 적절한 속성을 부여하지 않음 등
+
+### 🟢 해결
+
+       **성능 향상**: 초기 렌더링에 사용되지 않는 컴포넌트를 추후에 사용될 때에 동적으로 불러올 수 있는 REACT.lazy 메서드를 이용하여 개선, 
+
+                           애니메이션, 반응형등의 구현시 JS로 DOM에 접근하는 대신 CSS를 최대한 이용.
+
+       **접근성 향상**: 이미지에 캡션을 적용, 확대 축소 허용, 버튼과 링크에 이름을 부여, 의미에 맞는 적절한 태그 사용
+
+       **개선 후 성능 데스크탑 기준 150%, 모바일 300% 향상, 웹접근성 100점으로 향상**
+
+- **개선 후 lighthouse 실행 이미지**
+
+<img width="1000" alt="image (4)" src="https://user-images.githubusercontent.com/87013822/218992759-e3684ff7-64ce-4cc2-a066-f87d096d185d.png">
+
+
+</div>
+</details>
+
+<details>
+<summary> 🪲 router를 이용한 접근 제한 구현  </summary>
+<div markdown="1">
+
+로그인 여부에 따라서 router를 다르게 설정해 주는 과정에서 로컬스토리지안의 토큰의 존재 유무를 감지해서 라우팅을 다르게 해주려고 함  
+
+<img width="468" alt="Untitled (3)" src="https://user-images.githubusercontent.com/87013822/218993005-d45247ac-4387-4bcf-a08e-49061d71887e.png">
+
+
+이 과정에서 로컬 스토리지의 변경 이벤트는 같은 탭에서는리스닝 할수 없다는 것을 알게됨 (리엑트는 SPA 이기 때문에  이에 해당됨)
+
+<img width="756" alt="Untitled (4)" src="https://user-images.githubusercontent.com/87013822/218993041-b72a3333-cb20-48ee-9842-b54eb42d39db.png">
+
+임시 방편으로 로컬 스토리지에 토큰의 존재 변화가 일어나는 곳에서 이벤트를 발생시켜 줌.
+
+<img width="470" alt="Untitled (5)" src="https://user-images.githubusercontent.com/87013822/218993166-def16761-d529-4473-b1e9-19fe81dd7efe.png">
+
+
+로컬 스토리지는 앱의 상태를 관리하기 위한 API가 아니라, 앱 상태를 캐시하고 탭 간의 정보 교환을 위한 API라는 것을 알게됨 ( 로컬스토리지의 변경 이벤트를 같은 탭에서 리스닝 할 수 없는 이유) 
+
+추후에 토큰을 쿠키에 저장하고, 각각의 루트 컴포넌트 안에 로그인을 검증하는 모듈을 삽입하여 접근제한을 구현하고자 함
+
+</div>
+</details>
+
+<details>
+<summary> 🪲 책임분리 </summary>
+<div markdown="1">
+
+타이머 구현 트러블 슈팅 추가 
+
+</div>
+</details>
+
+<details>
+<summary> 🪲 AccessToken 다중요청 </summary>
+<div markdown="1">
+
+다중요청 관련 트러블 슈팅 추가
+
+</div>
+</details>
 
 <hr>
 
 ## 🔧 유저 피드백
+### 당근 플래너 만족도 평점 8.7점 (10점 만점)
+### 66개의 피드백 중 32개 반영 (약 48%, 2.5(일) 기준)
 
+> **당근플래너**는 **2월 1일 배포를 시작**으로 설문조사를 통해 많은 피드백이 들어왔습니다.
+유저피드백을 바탕으로 수정 및 개선 작업을 아래와 같이 진행하였습니다.
+>
+
+### 🧑‍🔧 버그 수정 사항 
+
+<details>
+<summary> 다른 날짜에 계획 추가 시 오늘 날짜에 반영되는 문제 해결 </summary>
+<div markdown="1">
+</br>
+
+![계획 추가](https://user-images.githubusercontent.com/87013822/219585871-d2d727c6-34ca-4f0b-a14a-3c8cb9cb79af.gif)
+
+</div>
+</details>
+
+<details>
+<summary> 이모티콘 깨지는 문제 해결 </summary>
+<div markdown="1">
+</br>
+
+<img width="404" alt="Untitled (10)" src="https://user-images.githubusercontent.com/87013822/219585913-75a0803f-48a4-493e-b778-d9535aeb1825.png">
+
+
+</div>
+</details>
+
+<details>
+<summary> 그룹 상세 페이지에서 숫자를 길게 쓸 경우 숫자가 페이지를 벗어나는 문제 해결 </summary>
+<div markdown="1">
+</br>
+
+![숫자](https://user-images.githubusercontent.com/87013822/219585957-1ee51182-544f-450a-aabc-ac4047069e95.png)
+
+</div>
+</details>
+
+<details>
+<summary> 에러페이지에서 뒤로가기 버튼이 안눌림 해결 </summary>
+<div markdown="1">
+</br>
+
+![에러페이지 뒤로가기](https://user-images.githubusercontent.com/87013822/219586008-30fe3fd6-9e0e-440e-b9be-04d917282af6.gif)
+
+
+</div>
+</details>
+
+### 🙋‍♂️UI/UX 개선사항
+
+<details>
+<summary> 브라우저로 접속 시 화면 위치를 조금 왼쪽으로 변경 </summary>
+<div markdown="1">
+
+화면이 오른쪽으로 치우쳐져 있다는 피드백을 받아 화면 위치를 조정하였습니다.
+</br>
+
+![실행화면을 오른쪽으로 변경](https://user-images.githubusercontent.com/87013822/219586247-5381127f-a419-4358-ba82-d26dff39048e.png)
+
+
+</div>
+</details>
+
+<details>
+<summary> 프로필 사진 변경 부분 마우스 커서 포인터 추가 </summary>
+<div markdown="1">
+
+사진 변경 시 포인터가 없어 오해를 불러일으킨다는 피드백을 받아 포인터를 추가하였습니다.
+</br>
+
+![프로필 이미지 포인터](https://user-images.githubusercontent.com/87013822/219586425-880452bc-45b2-4974-8054-339c7e11fd5c.gif)
+
+
+</div>
+</details>
+
+<details>
+<summary> 집중 타이머를 그만둘 경우 한번 더 확인 </summary>
+<div markdown="1">
+
+그만두기를 누를 경우 바로 타이머가 초기화되어 불편하다는 피드백을 받아 한번 더 확인하는 메세지를 추가하였습니다.
+</br>
+
+![그만두기](https://user-images.githubusercontent.com/87013822/219586586-c5ef6e84-9ae1-4140-9cf7-be8928c3fb4e.gif)
+
+
+
+</div>
+</details>
+
+<details>
+<summary> 메뉴 UI/UX 개선 </summary>
+<div markdown="1">
+
+**저가 아이콘들이 어떤 역할을 하는지 알아보기 힘들다는 피드백을 받아 아이콘을 수정하였습니다.** 
+
+- 프로필 이미지에 설정 아이콘을 추가하여 클릭 시 **마이페이지**로 이동 가능한 걸 알려줌.
+- 유저 검색 아이콘 변경
+</br>
+
+![메뉴](https://user-images.githubusercontent.com/87013822/219586716-a600e6e9-0b46-42af-8a87-bc466a0e7868.png)
+
+
+</div>
+</details>
+
+<details>
+<summary> 계획 추가 시 아이콘 대신 계획 추가 버튼으로 직관성있게 변경 </summary>
+<div markdown="1">
+</br>
+
+![계획 추가 바뀐 이미지](https://user-images.githubusercontent.com/87013822/219586803-5601d69f-960b-475b-9ce8-2ee9d08655bf.jpg)
+
+
+</div>
+</details>
+
+<details>
+<summary> 캘린더 페이지에 뒤로가기 버튼 추가  </summary>
+<div markdown="1">
+</br>
+
+![캘린더 뒤로가기](https://user-images.githubusercontent.com/87013822/219586869-804c24b8-df23-43bb-8a84-63387bd4cdcb.gif)
+
+</div>
+</details>
 
 
 <hr>
